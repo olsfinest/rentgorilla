@@ -1,0 +1,65 @@
+* {
+	margin:0;
+	padding:0;
+	box-sizing:border-box; *behavior: url(/css/box-sizing.htc);
+}
+
+// Variables
+
+// Fonts
+$sans:sans-serif;
+$serif:serif;
+
+// Colors
+$darkbrown:#333333;
+$green:#74B164;
+$brown:#7A694B;
+$darkgray:#4A4A4A; 
+
+// Weights & Measures
+$container:1010px;
+$button_radius:8px;
+
+html, body {
+	position:relative;
+}
+body {
+	font-family:$sans;
+	font-size:100%;
+	color:$darkgray;
+}
+h1, h2, h3, h4, h5, h6 {
+	margin:.5em auto;
+}
+hr {
+	margin:.5em auto;
+	height:1px;
+	background:lighten($darkgray, 10%);
+	border:none;
+}
+p {
+
+}
+ul {
+
+}
+ol {
+
+}
+fieldset {
+	padding:1em;
+}
+pre {
+	white-space:normal;
+}
+header {
+	background:$darkbrown;
+	height:150px;
+}
+.main {
+	margin:0 auto;
+	width:$container;
+}
+footer {
+
+}
