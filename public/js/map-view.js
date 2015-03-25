@@ -158,7 +158,18 @@ function loadRentals() {
 
 $(document).ready(function() {
  // TODO: Talk to Matt about this
-   $("#map-canvas").css({height: "100%"});
+    // if larger than the 772px breakpoint, set map to 100% of viewport, minus the height of the header
+   if ($(window).width() > 772) {
+        resizeMap();
+   }
+    window.onresize = function(event) {
+      resizeMap();
+    }    
+    function resizeMap() {
+      vpw = $(window).width();
+      vph = $(window).height() - 111;
+      $('#map-canvas').css({'height': vph + 'px'});
+    }
 
    $('#spinner').hide();
 
