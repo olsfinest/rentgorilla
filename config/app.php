@@ -137,7 +137,7 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Laravel\Cashier\CashierServiceProvider',
         'Illuminate\Html\HtmlServiceProvider',
-
+        'Torann\Hashids\HashidsServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */

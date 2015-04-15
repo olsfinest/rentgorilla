@@ -29,6 +29,27 @@ class LaravelConfigPlanRepository implements PlanRepository
         return $plans;
     }
 
+    public function fetchPlansForSelect()
+    {
+        $plans = $this->fetchAllPlans();
+
+        $plans = static::numericSort($plans);
+
+        if($plans) {
+
+            $select = [];
+
+            foreach ($plans as $plan) {
+                $select[$plan->id()] = $plan->getNameAndPrice();
+            }
+
+            return $select;
+
+        } else {
+            return null;
+        }
+    }
+
     public function fetchPlanById($planId)
     {
         $planData = Config::get('plans.' . $planId);
@@ -38,17 +59,6 @@ class LaravelConfigPlanRepository implements PlanRepository
         return PlanFactory::build($planId, $planData);
     }
 
-    public function fetchPlansByOwner($owner)
-    {
-        $plans = $this->fetchAllPlans();
-
-        if($plans) {
-            return array_filter($plans, function($obj) use ($owner) {
-                return $obj->owner() == $owner;
-            });
-        }
-    }
-
     public function fetchPlansByInterval($interval)
     {
         $plans = $this->fetchAllPlans();
@@ -56,17 +66,6 @@ class LaravelConfigPlanRepository implements PlanRepository
         if($plans) {
             return array_filter($plans, function($obj) use ($interval) {
                 return $obj->interval() == $interval;
-            });
-        }
-    }
-
-    public function fetchPlansByOwnerAndInterval($owner, $interval)
-    {
-        $plans = $this->fetchAllPlans();
-
-        if($plans) {
-            return array_filter($plans, function($obj) use ($owner, $interval) {
-                return $obj->owner() == $owner && $obj->interval() == $interval;
             });
         }
     }

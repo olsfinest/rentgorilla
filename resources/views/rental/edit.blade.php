@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('header-text')
-    <h2 class="jumbotron__heading">Edit Rental</h2>
+    <h2 class="jumbotron__heading">Edit Property</h2>
 @stop
 @section('content')
     @include('partials.settings-header')
@@ -12,7 +12,7 @@
             <div class="col-md-8">
 
                 @include('errors.error-list')
-                {!! Form::model($rental, ['method' => 'PATCH', 'route' => ['rental.update', $rental->id], 'class' => 'form-horizontal']) !!}
+                {!! Form::model($rental, ['method' => 'PATCH', 'route' => ['rental.update', $rental->uuid], 'class' => 'form-horizontal', 'id' => 'modify_rental_form']) !!}
                     @include('rental.form', ['submitButtonText' => 'Update'])
                 {!! Form::close() !!}
             </div>

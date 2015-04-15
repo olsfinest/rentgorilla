@@ -75,6 +75,9 @@ function showRentals(ids, marker, cluster) {
             }
             ib = new InfoBox(myOptions);
             ib.open(map, marker);
+
+
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
 
@@ -110,7 +113,7 @@ function loadRentals() {
 
             for (var i=0; i < data.length; i++ ) {
                 var latLng = new google.maps.LatLng(data[i].lat, data[i].lng);
-                var marker = new google.maps.Marker({position: latLng, id: data[i].id});
+                var marker = new google.maps.Marker({position: latLng, id: data[i].uuid});
                 google.maps.event.addListener(marker, 'click', function() {
                     showRentals(this.id, this);
                 });

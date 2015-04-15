@@ -1,8 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
         @include('partials.header')
-		<section class="main">
+        <section class="filter">
+            @include('partials.search-form')
+            <div class="cf"></div>
+        </section>
+        <section class="main">
 	        <div id="map-canvas" class="view active"></div>
 		</section>
 @endsection

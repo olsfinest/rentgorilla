@@ -4,6 +4,17 @@ $.ajaxSetup({
     }
 });
 
+
+function getToken() {
+    return $("meta[name='token']").attr('content');
+}
+
+function isLoggedIn()
+{
+    return $("meta[name='loggedin']").attr('content') === '1';
+}
+
+
 //put this handler in global js
 $( document ).ajaxError(function( event, jqxhr, settings, thrownError ) {
     if (jqxhr.status == 403) {

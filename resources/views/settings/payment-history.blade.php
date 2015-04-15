@@ -11,9 +11,12 @@
         </div>
         <div class="col-md-8">
             <div>
-                        <h2 class="heading-top setting-heading">Upcoming Invoice</h2>
 
-                        <table class="table table-bordered table-section">
+                @if(Auth::user()->readyForBilling())
+
+                        <h2 class="heading-top setting-heading">Next Invoice</h2>
+                @if($upcomingInvoice)
+                <table class="table table-bordered table-section">
                             <thead class="accent">
                                 <tr>
                                     <th>Date</th>
@@ -23,17 +26,21 @@
 
                             <tbody>
                                 <tr>
-                                    <td>Dec 22, 2014</td>
-                                    <td>$51.60</td>
+                                    <td>{{ $upcomingInvoice->dateString() }}</td>
+                                    <td>{{ $upcomingInvoice->dollars() }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                @else
+                    <p>No upcoming invoices.</p>
+
+                @endif
 
                 <div>
-                    <h2 class="heading-top setting-heading">Payment History</h2>
-
-                                <table class="table table-bordered table-section">
+                    <h2 class="heading-top setting-heading">Past Invoices</h2>
+                    @if(count($invoices))
+                        <table class="table table-bordered table-section">
                             <thead class="accent">
                                 <tr>
                                     <th>Date</th>
@@ -42,33 +49,50 @@
                                     <th>Invoice</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                                        <tr>
-                                        <td>Dec 22, 2013</td>
-                                        <td>$60.20</td>
-                                        <td>Paid</td>
-                                        <td><a href="https://laracasts.com/admin/subscription/invoices/in_3Ahb99tFQbXIsm">View</a></td>
-                                    </tr>
+
+                            @foreach($invoices as $invoice)
+                                <tr><td>{{ $invoice->dateString() }}</td><td>{{ $invoice->dollars() }}</td><td>{{ $invoice->paid ? 'Paid' : 'Unpaid'  }}</td><td><a href="/admin/subscription/invoices/{{$invoice->id}}">View</a></td></tr>
+                            @endforeach
                                                 </tbody>
                         </table>
+                        @else
+                            <p>No past invoices.</p>
+                        @endif
                         </div>
 
-                <hr>
+                    @if(count($charges))
+                        <h2 class="heading-top setting-heading">Property Promotion Charges</h2>
+                        <table class="table table-bordered table-section">
+                            <thead class="accent">
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                <div>
-                    <p>
-                        Need to associate special billing information (address, instructions, etc.) with your invoices? Add it below,
-                        and we'll make sure that it's included.
-                    </p>
+                            @foreach($charges as $charge)
+                                @if($charge->description)
+                                    <tr><td>{{ \Carbon\Carbon::createFromTimestamp($charge->created)->format('F jS, Y') }}</td><td>{{ $charge->description }}</td><td>${{ ($charge->amount / 100) }}</td><td>{{ $charge->paid ? 'Paid' : 'Unpaid'  }}</td></tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>No property promotion charges.</p>
+                    @endif
 
-                    <!-- Update billing information for invoices -->
-                    <form method="POST" action="https://laracasts.com/admin/subscription/invoices" accept-charset="UTF-8"><input name="_method" type="hidden" value="PATCH"><input name="_token" type="hidden" value="w4yYVcTaSNFmvQBb1KFUjrroVuCVxoFgZUJbjoe0">            <div class="form-group">
-                            <textarea class="form-control" name="billing_details" cols="50" rows="10"></textarea>            </div>
 
-                        <div class="form-group">
-                            <input class="btn btn-primary" type="submit" value="Update Billing Info">            </div>
-                    </form>    </div>
+
+            @else
+                <p>No payment history.</p>
+            @endif
+
+
+
         </div>
     </div>
 </div>

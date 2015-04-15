@@ -12,6 +12,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword, Billable;
 
+    protected $cardUpFront = false;
+
 	/**
 	 * The database table used by the model.
 	 *

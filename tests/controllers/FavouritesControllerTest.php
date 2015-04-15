@@ -14,7 +14,7 @@ class FavouritesControllerTest extends DbTestCase
 
         $rental = Factory::create('RentGorilla\Rental');
 
-        $post = ['user_id' => $user->id, 'rental_id' => $rental->id];
+        $post = ['user_id' => $user->id, 'rental_id' => $rental->uuid];
 
         $response = $this->call('post', '/favourite', $post);
 
@@ -54,7 +54,7 @@ class FavouritesControllerTest extends DbTestCase
 
         $this->assertCount(1, Auth::user()->favourites()->get());
 
-        $this->route('DELETE', 'favourites.delete', [$rental->id]);
+        $this->route('DELETE', 'favourites.delete', [$rental->uuid]);
 
         $this->assertCount(0, Auth::user()->favourites()->get());
 

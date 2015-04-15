@@ -23,7 +23,7 @@
                                         <li class="price">${!! $favourite->price !!}</li>
                                     </ul></td>
                                 <td style="vertical-align:middle">
-                                    {!! Form::open(['method' => 'DELETE', 'route' => ['favourites.delete', $favourite->id]]) !!}
+                                    {!! Form::open(['method' => 'DELETE', 'route' => ['favourites.delete', $favourite->uuid]]) !!}
                                     {!! Form::submit('Remove', ['class' => 'btn btn-primary']) !!}
                                     {!! Form::close() !!}
                                      </td></tr>

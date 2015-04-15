@@ -1,6 +1,6 @@
 <header>
     <section class="main">
-        <a title="RentGorilla... move on up." class="home" href="/testing">RentGorilla<small>Move on up</small></a>
+        <a title="RentGorilla... move on up." class="home" href="/">RentGorilla<small>Move on up</small></a>
         <div class="user_actions">
             @if( ! Auth::check())
                 <button class="login">Login</button>
@@ -41,7 +41,3 @@
     {!! Form::close() !!}
     <p><a href="#">Forgot password</a> or <a class="sign_up" href="#">Sign up</a></p>
 </section>
-<section class="filter">
-    @include('partials.search-form')
-    <div class="cf"></div>
-</section> <!-- close .filter -->

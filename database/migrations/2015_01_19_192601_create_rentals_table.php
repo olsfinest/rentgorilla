@@ -15,23 +15,40 @@ class CreateRentalsTable extends Migration {
 		Schema::create('rentals', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->string('uuid')->index();
 			$table->unsignedInteger('user_id');
             $table->boolean('active')->default(0);
-			$table->enum('type', ['house', 'apartment', 'room']);
+            $table->boolean('promoted')->default(0);
+			$table->enum('type', ['house', 'apartment', 'room', 'commercial']);
 			$table->enum('province', ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']);
 			$table->string('city');
 			$table->string('street_address');
             $table->float('lat', 10, 6);
             $table->float('lng', 10, 6);
 			$table->integer('beds');
-			$table->integer('price');
-			$table->timestamp('available_at');
+            $table->decimal('baths', 2, 1);
+            $table->integer('price');
+            $table->integer('deposit');
+            $table->integer('lease');
+            $table->integer('square_footage');
+            $table->enum('laundry', ['none', 'unit_free', 'unit_coin', 'shared_coin', 'shared_free']);
+            $table->enum('pets', ['none', 'any', 'cats_dogs', 'cats', 'dogs']);
+            $table->enum('parking', ['none', 'driveway', 'underground', 'garage', 'street']);
+            $table->text('description')->nullable();
+            $table->timestamp('available_at');
+            $table->timestamp('promotion_ends_at')->nullable();
+            $table->boolean('disability_access');
+            $table->boolean('smoking');
+            $table->boolean('utilities_included');
+            $table->boolean('heat_included');
+            $table->boolean('furnished');
+            $table->unsignedInteger('views')->default(0);
 			$table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-            ->onDelete('cascade');
+                ->onDelete('cascade');
 
 		});
 	}

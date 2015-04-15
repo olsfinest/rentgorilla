@@ -33,7 +33,7 @@ class EloquentFavouritesRepository implements FavouritesRepository
     {
          $favourite = Favourite::where(['user_id' => $user->id, 'rental_id' => $rental_id])->firstOrFail();
 
-        //alternative $user->favourites()->detach($rental_id);
+        //alternative syntax: $user->favourites()->detach($rental_id);
 
         return $favourite->delete();
     }

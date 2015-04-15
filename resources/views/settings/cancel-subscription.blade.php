@@ -10,13 +10,23 @@
             @include('partials.settings-sidebar')
         </div>
         <div class="col-md-8">
-             <p class="breather">
+            @if(! Auth::user()->cancelled())
+
+            <p class="breather">
                      Are you really sure that you want to cancel your subscription?
                  </p>
 
                  <p>
-                     <a href="#">Yes, I am sure.</a>
+                     {!! Form::open(['route' => 'subscription.cancelSubscription']) !!}
+
+                     {!! Form::submit('Cancel Subscription', ['class' => 'btn btn-primary btn-danger']) !!}
+
+
+                     {!! Form::close() !!}
                  </p>
+           @else
+                <div class="alert alert-success">Your subscription has been cancelled.</div>
+           @endif
         </div>
     </div>
 </div>

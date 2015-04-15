@@ -22,41 +22,24 @@ class PlanServiceTest extends DbTestCase
 
         $plans = $this->service->fetchAllPlans();
 
-        $this->assertCount(14, $plans, 'all plans');
+        $this->assertCount(6, $plans, 'all plans');
 
     }
 
     public function testItFetchesAPlanById()
     {
-        $plan = $this->service->fetchPlanById('Company_ExtraLarge_Monthly');
+        $plan = $this->service->fetchPlanById('Business_Monthly');
 
-        $this->assertInstanceOf('\RentGorilla\Plans\Company\Monthly\Company_ExtraLarge_Monthly', $plan);
+        $this->assertInstanceOf('\RentGorilla\Plans\Plan', $plan);
     }
 
-    public function testItFetchesPlansByOwner()
-    {
-
-        $plans = $this->service->fetchPlansByOwner('company');
-
-        $this->assertCount(8, $plans, 'by owner');
-
-    }
 
     public function testItFetchesPlansByInterval()
     {
 
         $plans = $this->service->fetchPlansByInterval('year');
 
-        $this->assertCount(7, $plans, 'by interval');
-
-    }
-
-    public function testItFetchesPlansByOwnerAndInterval()
-    {
-
-        $plans = $this->service->fetchPlansByOwnerAndInterval('company', 'year');
-
-        $this->assertCount(4, $plans, 'by owner and interval');
+        $this->assertCount(3, $plans, 'by interval');
 
     }
 

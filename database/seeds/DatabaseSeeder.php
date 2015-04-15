@@ -46,7 +46,8 @@ class DatabaseSeeder extends Seeder {
 			$user = $users->random();
 
             $rentalModelOverrides = [
-                'user_id' => $user->id,
+                    'user_id' => $user->id,
+                    'uuid' => Hashids::encode($numRentals),
                     'type' => $this->getRandomType(),
                     'price' => $this->getRandomPrice(),
                     'beds' => $this->getRandomBeds(),
@@ -64,7 +65,10 @@ class DatabaseSeeder extends Seeder {
 			Factory::create('RentGorilla\Photo', ['user_id' => $user->id, 'rental_id' => $rental->id , 'name' => $this->getRandomImage()]);
 			Factory::create('RentGorilla\Photo', ['user_id' => $user->id, 'rental_id' => $rental->id , 'name' => $this->getRandomImage()]);
 		}
-	}
+
+        $this->call('FeaturesSeeder');
+
+   }
 
 	private function getRandomImage()
 	{

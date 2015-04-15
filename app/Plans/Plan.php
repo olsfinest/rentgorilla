@@ -2,20 +2,25 @@
 
 class Plan {
 
+    protected $planId;
     protected $planName;
     protected $maximumListings;
     protected $totalYearlyCost;
     protected $interval;
-    protected $owner;
-
-    public function setOwner($owner)
-    {
-        $this->owner = $owner;
-    }
 
     public function setPlanName($planName)
     {
         $this->planName = $planName;
+    }
+
+    public function setPlanId($planId)
+    {
+        $this->planId = $planId;
+    }
+
+    public function id()
+    {
+        return $this->planId;
     }
 
     public function setMaximumListings($maximumListings)
@@ -63,10 +68,11 @@ class Plan {
         return round($this->totalYearlyCost() / 12);
     }
 
-    public function owner()
+    public function unlimited()
     {
-        return $this->owner;
+        return $this->maximumListings() === 'unlimited';
     }
+
 
     public function interval()
     {
@@ -77,5 +83,10 @@ class Plan {
     {
         $dollars = round($cents / 100, 2);
         return $dollarSign ? '$' . $dollars : $dollars;
+    }
+
+    public function getNameAndPrice()
+    {
+        return $this->planName() . ' ($' . static::toDollars($this->monthlyBilledPrice()) . '/month)';
     }
 }

@@ -1,6 +1,13 @@
 <?php namespace RentGorilla\Composers;
 
+use Carbon\Carbon;
+
 class SearchFormComposer {
+
+    private function addMonths($monthsToAdd)
+    {
+        return Carbon::today()->addMonths($monthsToAdd)->format('M d');
+    }
 
     public function compose($view)
     {
@@ -9,10 +16,10 @@ class SearchFormComposer {
            'availability' =>
 
                ['' => 'Availability',
-                '0-2' => '0-2 Months',
-                '2-4' => '2-4 Months',
-                '4-6' => '4-6 Months',
-                '6plus' => '6+ Months'],
+                '0-2' => 'Now - ' . $this->addMonths(2),
+                '2-4' => $this->addMonths(2) . ' - ' . $this->addMonths(4),
+                '4-6' => $this->addMonths(4) . ' - ' . $this->addMonths(6),
+                '6plus' => $this->addMonths(6) . ' +'],
 
            'type' =>
 

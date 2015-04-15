@@ -8,27 +8,20 @@ class PlanFactoryTest extends DbTestCase {
     public function testPlanFactoryReturnsValidObject() {
 
         $planData =  [
-            'maximumListings' => 50,
-            'totalYearlyCost' => 120000,
-            'planName' => 'Extra Large',
-            'interval' => 'month',
-            'owner' => 'company'
+            'maximumListings' => 'unlimited',
+            'totalYearlyCost' => 28800,
+            'planName' => 'Business - Yearly',
+            'interval' => 'month'
         ];
 
-        $plan = PlanFactory::build('Company_ExtraLarge_Monthly', $planData);
+        $plan = PlanFactory::build('Business_Monthly', $planData);
 
-        $this->assertInstanceOf('\RentGorilla\Plans\Company\Monthly\Company_ExtraLarge_Monthly', $plan);
+        $this->assertInstanceOf('\RentGorilla\Plans\Plan', $plan);
 
     }
 
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testCreateThrowsExceptionIfPlanIdWrong()
-    {
-        $plan = PlanFactory::build('foo', []);
-    }
+
 
 
 

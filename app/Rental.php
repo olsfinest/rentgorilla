@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rental extends Model {
 
+    protected $guarded = ['id'];
     /**
      * The database table used by the model.
      *
@@ -12,12 +13,6 @@ class Rental extends Model {
      */
     protected $table = 'rentals';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['type', 'province', 'city', 'streetAddress', 'beds', 'price', 'available_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -26,13 +21,17 @@ class Rental extends Model {
      */
     protected $hidden = [];
 
-    protected $dates = ['available_at'];
+    protected $dates = ['available_at', 'promotion_ends_at'];
 
     public function user()
     {
         return $this->belongsTo('RentGorilla\User');
     }
 
+    public function pricePerSquareFoot()
+    {
+        return number_format($this->price / $this->square_footage, 2);
+    }
     public function photos()
     {
         return $this->hasMany('RentGorilla\Photo');
@@ -43,22 +42,65 @@ class Rental extends Model {
         return $this->belongsToMany('RentGorilla\User', 'favourites')->withTimestamps();
     }
 
+    public function features()
+    {
+        return $this->belongsToMany('RentGorilla\Feature')->withTimestamps();
+    }
+
+    public function heat()
+    {
+        return $this->belongsToMany('RentGorilla\Heat')->withTimestamps();
+    }
+
+    public function appliances()
+    {
+        return $this->belongsToMany('RentGorilla\Appliance')->withTimestamps();
+    }
+
     public function getAddress()
     {
         return sprintf('%s, %s, %s', $this->street_address, $this->city, $this->province);
+    }
+
+    public function getFeatureListAttribute()
+    {
+        return $this->features()->lists('id');
+    }
+
+    public function getApplianceListAttribute()
+    {
+        return $this->appliances()->lists('id');
+    }
+
+    public function getHeatListAttribute()
+    {
+        return $this->heat()->lists('id');
+    }
+
+    public function setAvailableAttribute($date)
+    {
+        $this->attributes['available_at'] = Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d 00:00:00');
     }
 
     public function isActive()
     {
         return $this->active === 1;
     }
-/*
+
+    public function isPromoted()
+    {
+        return $this->promoted === 1;
+    }
+
+    public function getAvailableAttribute()
+    {
+        return $this->available_at ? $this->available_at->format('m/d/Y') : null;
+    }
+
+    /*
     public function getAvailableAtAttribute($date) {
         return Carbon::parse($date)->format('M jS, Y');
     }
+    */
 
-
-
-
-*/
 }

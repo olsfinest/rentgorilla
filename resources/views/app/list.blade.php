@@ -2,6 +2,10 @@
 
 @section('content')
         @include('partials.header')
+        <section class="filter">
+            @include('partials.search-form')
+            <div class="cf"></div>
+        </section>
 		<section class="main">
 			<!-- List View -->
 			<div id="list-canvas" class="listings view">

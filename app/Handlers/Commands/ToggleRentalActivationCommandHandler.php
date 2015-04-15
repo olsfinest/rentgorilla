@@ -2,12 +2,13 @@
 
 use RentGorilla\Commands\ToggleRentalActivationCommand;
 use Illuminate\Queue\InteractsWithQueue;
+use RentGorilla\Plans\Subscription;
 use RentGorilla\Repositories\RentalRepository;
 
 class ToggleRentalActivationCommandHandler
 {
 
-    const SUBSCRIPTION_NEEDED = 'You need a subscription to activate more than one property.';
+    const SUBSCRIPTION_NEEDED = 'Please upgrade your subscription to activate more properties.';
     /**
      * @var RentalRepository
      */
@@ -26,21 +27,25 @@ class ToggleRentalActivationCommandHandler
      */
     public function handle(ToggleRentalActivationCommand $command)
     {
-        $rental = $this->rentalRepository->find($command->rental_id);
+        $rental = $this->rentalRepository->findByUUID($command->rental_id);
 
         if($rental->isActive()) {
 
-            $this->rentalRepository->deactivate($command->rental_id);
+            $this->rentalRepository->deactivate($rental);
 
             return false;
 
         } else {
 
-            // user can activate a rental if they are subscribed or if they have no active rentals
+            if ($rental->user->onTrial() || $this->rentalRepository->getActiveRentalCountForUser($rental->user) === 0) {
 
-            if ($rental->user->subscribed() || $this->rentalRepository->getActiveRentalCountForUser($rental->user) === 0) {
+                $this->rentalRepository->activate($rental);
 
-                $this->rentalRepository->activate($command->rental_id);
+                return true;
+
+            } else if ($rental->user->subscribed() && ($this->rentalRepository->getActiveRentalCountForUser($rental->user) < Subscription::plan($rental->user->getStripePlan())->maximumListings() || Subscription::plan($rental->user->getStripePlan())->unlimited())) {
+
+                $this->rentalRepository->activate($rental);
 
                 return true;
 

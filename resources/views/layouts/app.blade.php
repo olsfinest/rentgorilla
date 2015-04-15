@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<script src="/js/prefixfree.min.js"></script>
 		<link rel="icon" href="/img/favicon.png">

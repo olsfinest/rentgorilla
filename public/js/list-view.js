@@ -15,14 +15,7 @@ function getParameterByName (url, name)
         return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-function getToken() {
-    return $("meta[name='token']").attr('content');
-}
 
-function isLoggedIn()
-{
-    return $("meta[name='loggedin']").attr('content') === '1';
-}
 
 $(document).ready(function() {
 
@@ -80,7 +73,6 @@ function loadRentals(page) {
         $('.favourite').on('click', function(){
             if(isLoggedIn()) {
                 var icon = $(this);
-                icon.hide();
                 var rental_id = $(this).attr('id');
                 $.ajax({
                     type: 'POST',
@@ -99,7 +91,6 @@ function loadRentals(page) {
                         alert(errorThrown);
                     },
                     complete: function (jqXHR, textStatus) {
-                        icon.show();
                     }
                 });
             } else {

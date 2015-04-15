@@ -1,5 +1,6 @@
 <?php namespace RentGorilla\Repositories;
 
+use Config;
 use DB;
 use Carbon\Carbon;
 use RentGorilla\Rental;
@@ -100,13 +101,13 @@ class EloquentRentalRepository implements RentalRepository
 
         $query->whereBetween('lng', [$west, $east]);
 
-       return $query->get(['rentals.id', 'lat', 'lng']);
+       return $query->get(['rentals.uuid', 'lat', 'lng']);
 
     }
 
     public function getRentalsByIds(array $ids)
     {
-        return Rental::with('photos')->whereIn('id', $ids)->get();
+        return Rental::with('photos')->whereIn('uuid', $ids)->get();
     }
 
     public function locationSearch($city)
@@ -127,31 +128,67 @@ class EloquentRentalRepository implements RentalRepository
         return Rental::findOrFail($id);
     }
 
-    public function findRentalForUser(User $user, $id)
+    public function findByUUID($id)
     {
-        return Rental::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        return Rental::where('uuid', $id)->firstOrFail();
     }
 
-    public function activate($rental_id)
+    public function findRentalForUser(User $user, $id)
     {
-        $rental = $this->find($rental_id);
+        return Rental::where(['user_id' => $user->id, 'uuid' => $id])->firstOrFail();
+    }
+
+    public function activate(Rental $rental)
+    {
 
         $rental->active = 1;
 
         return $rental->save();
     }
 
-    public function deactivate($rental_id)
+    public function deactivate(Rental $rental)
     {
-        $rental = $this->find($rental_id);
 
         $rental->active = 0;
 
         return $rental->save();
     }
 
+
     public function getActiveRentalCountForUser(User $user)
     {
         return $user->rentals()->where('active', 1)->count();
+    }
+
+    public function deactivateAllForUser(User $user)
+    {
+        return $user->rentals()->update(['active' => 0]);
+    }
+
+
+    public function getPromotedRentals(User $user)
+    {
+        return $user->rentals()->where(['active' => 1, 'promoted' => 1])->get();
+    }
+
+    public function getUnpromotedRentals(user $user)
+    {
+        return $user->rentals()->where(['active' => 1, 'promoted' => 0])->get();
+    }
+
+    public function promoteRental(Rental $rental)
+    {
+        $rental->promoted = 1;
+        $rental->promotion_ends_at = Carbon::now()->addDays(Config::get('promotion.days'));
+
+        return $rental->save();
+    }
+
+    public function unpromoteRental(Rental $rental)
+    {
+        $rental->promoted = 0;
+        $rental->promotion_ends_at = null;
+
+        return $rental->save();
     }
 }

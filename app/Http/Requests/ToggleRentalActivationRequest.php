@@ -23,7 +23,7 @@ class ToggleRentalActivationRequest extends Request
     public function rules()
     {
         return [
-            'rental_id' => 'required|integer'
+            'rental_id' => 'required'
         ];
     }
 }

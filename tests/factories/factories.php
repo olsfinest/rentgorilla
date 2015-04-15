@@ -11,7 +11,9 @@ $factory('RentGorilla\User', [
 ]);
 
 $factory('RentGorilla\Rental', [
+    'uuid' => str_random(8),
     'user_id' => 'factory:RentGorilla\User',
+    'promoted' => 0,
     'active' => 1,
     'type' => 'house',
     'price' => 0,
@@ -21,7 +23,20 @@ $factory('RentGorilla\Rental', [
     'province' => 'NS',
     'available_at' => $faker->dateTime,
     'lat' => 45,
-    'lng' => -64
+    'lng' => -64,
+    'square_footage' => 1000,
+    'laundry' => 'unit_free',
+    'description' => $faker->paragraph(),
+    'disability_access' => 1,
+    'smoking' => 0,
+    'utilities_included' => 1,
+    'heat_included' => 1,
+    'furnished' => 1,
+    'pets' => 'cats_dogs',
+    'parking' => 'driveway',
+    'deposit' => 500,
+    'baths' => 3,
+    'lease' => 12
 ]);
 
 $factory('RentGorilla\Photo', [
@@ -33,4 +48,10 @@ $factory('RentGorilla\Photo', [
 $factory('RentGorilla\Favourite', [
     'user_id' => 'factory:RentGorilla\User',
     'rental_id' => 'factory:RentGorilla\Rental',
+]);
+
+$factory('RentGorilla\Promotion', [
+    'rental_id' => 'factory:RentGorilla\Rental',
+    'city' => 'New Minas',
+    'province' => 'NS'
 ]);

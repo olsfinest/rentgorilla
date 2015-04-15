@@ -1,4 +1,4 @@
-$(document).ready(function() {
+ $(document).ready(function() {
 
     $(".rental-active").on('click', function(event) {
 

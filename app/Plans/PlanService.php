@@ -41,4 +41,9 @@ class PlanService {
         return $this->fetchPlanById($planId);
     }
 
+    public function fetchPlansForSelect()
+    {
+        return $this->repository->fetchPlansForSelect();
+    }
+
 }

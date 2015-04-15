@@ -2,12 +2,14 @@
 
 use Input;
 use Auth;
+use RentGorilla\Commands\RemoveFavouriteCommand;
 use RentGorilla\Commands\ToggleFavouriteCommand;
 use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use RentGorilla\Http\Requests\FavouriteRequest;
+use RentGorilla\Http\Requests\RemoveFavouriteRequest;
 use RentGorilla\Repositories\FavouritesRepository;
 use RentGorilla\Repositories\RentalRepository;
 
@@ -25,7 +27,7 @@ class FavouritesController extends Controller {
 	{
         $favourite = $this->dispatch( new ToggleFavouriteCommand(Auth::user()->id, $request->rental_id));
 
-		return response()->json(compact('favourite'));
+		return response()->json($favourite);
 	}
 
     public function showFavourites()
@@ -38,7 +40,7 @@ class FavouritesController extends Controller {
     public function removeFavourite($id)
     {
 
-        $this->favouritesRepository->removeFavouriteForUser(Auth::user(), $id);
+        $this->dispatch(new RemoveFavouriteCommand($id));
 
         return redirect()->back();
     }
