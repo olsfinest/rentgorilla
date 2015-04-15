@@ -49,7 +49,7 @@ function showRentals(ids, marker, cluster) {
                 marker = cluster.getMarkers()[0];
             }
             var boxText = document.createElement("div");
-            boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: white; padding: 5px;";
+            // boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: white; padding: 5px;";
             boxText.innerHTML = data;
 
             var myOptions = {
@@ -67,7 +67,8 @@ function showRentals(ids, marker, cluster) {
                 infoBoxClearance: new google.maps.Size(1, 1),
                 isHidden: false,
                 pane: "floatPane",
-                enableEventPropagation: false
+                enableEventPropagation: true,
+                contextmenu: true
             };
 
             if(ib) {
@@ -204,6 +205,15 @@ $(document).ready(function() {
         codeAddress();
     });
 
-    initialize();
 
+    initialize();
+    map.set('disableDoubleClickZoom', true);
+
+});
+// Disable mousewheel and dragging while mousing over the infowindow
+$(document).on("mouseenter", ".hits", function(){
+  map.setOptions( {draggable:false, scrollwheel:false} );
+});
+$(document).on("mouseleave", ".hits", function(){
+  map.setOptions( {draggable:true, scrollwheel:true} );
 });

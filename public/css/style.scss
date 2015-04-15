@@ -690,6 +690,7 @@ ul.justified {
 	background:$green;
 	form {
 		width:$container;
+		// width:auto;
 		display:block;
 		font-family:$sans;
 		margin:0 auto;
@@ -730,7 +731,7 @@ ul.justified {
 			// padding:.5em!important;
 		}
 		.select2-container .select2-choice .select2-arrow {
-			background:url('http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/images/ui-icons_888888_256x240.png')
+			background:url('http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/images/ui-icons_888888_256x240.png');
 		}
 	}
 	ul.ui-menu, .ui-front {
@@ -1482,21 +1483,35 @@ div.pagination {
 ul.hits {
     list-style:none;
     margin:0;
+    background:white;
+    max-height:300px;
+    overflow-y:auto;
+    width:310px;
     padding:0;
-	li {
+    box-shadow:0 0 20px dimGray;
+    z-index:9999;
+    li {
 	    clear:left;
-	    border-bottom:1px dotted #666;
-	    padding:10px 0;
+	    border-bottom:1px solid $darkgray;
+	    padding:0;
+	    height:100px;
 	    display:block;
+	    position:relative;
 	    width:100%;
+	    &:last-child {
+	    	border-bottom:none;
+	    }
 		&:hover {
 		    background: #f1f1f1;
 		}
 		img {
-		    width:60px;
+		    // width:60px;
+		    margin-right:20px;
+		    height:100%;
+		    width:auto;
 		}
 		p {
-		    margin-left:70px;
+		    
 		}
 		i {
 		    color:#a1a1a1;
@@ -1515,6 +1530,47 @@ ul.hits {
 		}
 		span {
 		    font-size: 12px;
+		}
+	}
+}
+ul.hits::-webkit-scrollbar { 
+	display:none;
+}
+.view_switcher {
+	float:right;
+	position:absolute;
+	top:6px;
+	right:0;
+	height:46px;
+	// line-height:40px;
+	z-index:9999;
+	line-height:32px;
+	ul {
+		height:100%;
+		text-align:center;
+		width:250px;
+		padding:0;
+		list-style:none;
+		li {
+			display:inline-block;
+			width:calc(50% - 10px);
+			margin:0 0 0 5px;
+			height:70%;
+			font-family:$fa;
+			&:before {
+				float:left;
+				position:absolute;
+				margin:5px 0 0 5px;
+			}
+			a {
+				display:block;
+				font-family:$sans;
+				border-radius:$button_radius;
+				height:100%;
+				background:white;
+				color:$green;
+				text-decoration:none;
+			}
 		}
 	}
 }
