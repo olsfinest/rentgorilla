@@ -62,7 +62,7 @@ class UserMailer extends Mailer {
         $view = 'emails.user.promotion-end';
         $data = [
             'first_name' => $user->first_name,
-            'address' => $rental->street_address
+            'address' => $rental->getAddress()
         ];
 
         $subject = 'RentGorilla.ca :: Your promotion has ended';
@@ -75,7 +75,7 @@ class UserMailer extends Mailer {
         $view = 'emails.user.promotion-queued';
         $data = [
             'first_name' => $user->first_name,
-            'address' => $rental->street_address,
+            'address' => $rental->getAddress(),
             'date' => $date->format('F jS, Y')
         ];
 
@@ -84,5 +84,23 @@ class UserMailer extends Mailer {
         $this->sendTo($user, $subject, $view, $data);
     }
 
+    public function sendContactManager(User $user, Rental $rental, $fname, $lname, $message, $email)
+    {
+        $view = 'emails.user.contact-manager';
+
+        $name = $fname . ' ' . $lname;
+
+        $data = [
+            'first_name' => $user->first_name,
+            'address' => $rental->getAddress(),
+            'name' => $name,
+            'email' => $email,
+            'the_message' => $message,
+        ];
+
+        $subject = 'RentGorilla.ca :: Inquiry regarding ' . $rental->getAddress();
+
+        return $this->sendToUserWithReplyTo($user, $subject, $view, $data, $email, $name);
+    }
 }
 

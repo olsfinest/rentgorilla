@@ -6,7 +6,7 @@
 
         $.ajax({
             type: 'POST',
-            url: 'activate',
+            url: '/activate',
             data: {rental_id: button.attr('id')},
             success: function (data, textStatus, jqXHR) {
                 if(data.activated) {

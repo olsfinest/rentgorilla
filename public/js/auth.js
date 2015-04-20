@@ -49,6 +49,7 @@ $(document).ready(function() {
     });
 });
 
+
 function login() {
 
     if ($("#signupmodal").hasClass('ui-dialog-content')) {
@@ -70,7 +71,7 @@ $('#login_form').submit(function( event ) {
     event.preventDefault();
     $.ajax({
         type: 'POST',
-        url: 'login',
+        url: '/login',
         data: $(this).serialize(),
         success: function (data, textStatus, jqXHR) {
             window.location.href = '/rental';
@@ -85,7 +86,7 @@ $('#login_form').submit(function( event ) {
                     event.preventDefault();
                     $.ajax({
                         type: 'POST',
-                        url: 'reconfirm',
+                        url: '/reconfirm',
                         data: $(this).serialize(),
                         success: function (data, textStatus, jqXHR) {
                             $('#login').html(data.message);
@@ -123,7 +124,7 @@ $('#signup_form').submit(function( event ) {
     event.preventDefault();
     $.ajax({
         type: 'POST',
-        url: 'register',
+        url: '/register',
         data: $(this).serialize(),
         success: function (data, textStatus, jqXHR) {
             $('#signupmodal').html(data.message);

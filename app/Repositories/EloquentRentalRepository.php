@@ -191,4 +191,14 @@ class EloquentRentalRepository implements RentalRepository
 
         return $rental->save();
     }
+
+    public function getPhoneByRental(Rental $rental)
+    {
+        return ! is_null($rental->user->profile) ? $rental->user->profile->primary_phone : null;
+    }
+
+    public function getUserByRental(Rental $rental)
+    {
+        return $rental->user;
+    }
 }

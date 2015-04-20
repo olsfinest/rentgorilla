@@ -21,5 +21,7 @@ interface RentalRepository
     public function promoteRental(Rental $rental);
     public function unpromoteRental(Rental $rental);
     public function findByUUID($id);
+    public function getPhoneByRental(Rental $rental);
+    public function getUserByRental(Rental $rental);
 
 }

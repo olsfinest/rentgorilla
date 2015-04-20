@@ -57,10 +57,6 @@ $router->get('location-list', 'AppController@getLocations');
 
 
 $router->get('testing', function() {
-
-    $billing = new \RentGorilla\Billing\StripeBiller();
-
-    return $billing->getPlan('Company_ExtraLarge_Yearly');
 });
 
 $router->resource('rental', 'RentalController');
@@ -69,6 +65,8 @@ $router->post('rental/{rental}/photos', ['as' => 'rental.photos.store', 'uses' =
 $router->post('activate', ['as' => 'rental.activate', 'uses' => 'RentalController@toggleActivate']);
 $router->post('rental/promote/new', ['as' => 'rental.promote.new', 'uses' => 'RentalController@promoteRentalNewCustomer']);
 $router->post('rental/promote/existing', ['as' => 'rental.promote.existing', 'uses' => 'RentalController@promoteRentalExistingCustomer']);
+$router->post('rental/phone', ['as' => 'rental.phone', 'uses' => 'RentalController@showPhone']);
+$router->post('rental/email-manager', ['as' => 'rental.email', 'uses' => 'RentalController@sendManagerMail']);
 
 $router->post('favourite', 'FavouritesController@toggleFavourite');
 $router->get('favourites', ['as' => 'favourites', 'uses' => 'FavouritesController@showFavourites']);

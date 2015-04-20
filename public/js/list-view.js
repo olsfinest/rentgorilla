@@ -76,7 +76,7 @@ function loadRentals(page) {
                 var rental_id = $(this).attr('id');
                 $.ajax({
                     type: 'POST',
-                    url: 'favourite',
+                    url: '/favourite',
                     data: {rental_id: rental_id, _token: getToken()},
                     success: function (data, textStatus, jqXHR) {
                         if (data.favourite) {

@@ -108,7 +108,7 @@ function loadRentals() {
 
     $.ajax({
         type: 'GET',
-        url: 'markers?N=' + N + '&S=' + S + '&W=' + W + '&E=' + E,
+        url: '/markers?N=' + N + '&S=' + S + '&W=' + W + '&E=' + E,
         data: $('#search').serialize(),
         success: function (data, textStatus, jqXHR) {
 

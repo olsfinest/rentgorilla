@@ -1,22 +1,25 @@
 <?php namespace RentGorilla\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Input;
 use Auth;
 use RentGorilla\Commands\CreateRentalCommand;
 use RentGorilla\Commands\EditRentalCommand;
+use RentGorilla\Commands\EmailManagerCommand;
 use RentGorilla\Commands\ToggleRentalActivationCommand;
 use RentGorilla\Handlers\Commands\ToggleRentalActivationCommandHandler;
 use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
+use RentGorilla\Http\Requests\EmailManagerRequest;
 use RentGorilla\Http\Requests\ModifyRentalRequest;
 use RentGorilla\Http\Requests\PromoteRentalExistingCustomerRequest;
 use RentGorilla\Http\Requests\PromoteRentalNewCustomerRequest;
+use RentGorilla\Http\Requests\RentalPhoneRequest;
 use RentGorilla\Http\Requests\ToggleRentalActivationRequest;
 use RentGorilla\Promotions\PromotionManager;
 use RentGorilla\Repositories\UserRepository;
 use Validator;
-use Request;
 use RentGorilla\Photo;
 use RentGorilla\Repositories\RentalRepository;
 use Config;
@@ -30,7 +33,7 @@ class RentalController extends Controller {
 
     function __construct(RentalRepository $rentalRepository, PromotionManager $promotionManager)
     {
-        $this->middleware('auth', ['except' => ['show']]);
+        $this->middleware('auth', ['except' => ['show', 'showPhone', 'sendManagerMail']]);
         $this->rentalRepository = $rentalRepository;
         $this->promotionManager = $promotionManager;
     }
@@ -254,4 +257,25 @@ class RentalController extends Controller {
             return response()->json(compact('activated'));
         }
    }
+
+    public function showPhone(RentalPhoneRequest $request)
+    {
+        $rental = $this->rentalRepository->findByUUID($request->input('rental_id'));
+
+        $phoneNumber = $this->rentalRepository->getPhoneByRental($rental);
+
+        if ($phoneNumber) {
+            return response()->json(['phone' => $phoneNumber]);
+        } else {
+            return response()->json(['phone' => 'No phone number provided']);
+        }
+    }
+
+    public function sendManagerMail(EmailManagerRequest $request)
+    {
+        $this->dispatchFrom(EmailManagerCommand::class, $request);
+
+        return response()->json(['message' => 'Mail sent!']);
+
+    }
 }

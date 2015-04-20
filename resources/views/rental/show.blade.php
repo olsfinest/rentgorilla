@@ -1,6 +1,21 @@
 @extends('layouts.app')
 @section('content')
 @include('partials.header')
+
+
+<section style="display: none" id="email-manager">
+    <h1>Email Property Manager</h1><br>
+    <div id="email-manager-form-errors"></div><br>
+    {!! Form::open(['route' => 'rental.email', 'id' => 'email-manager-form']) !!}
+    <input type="text" id="email-manager-fname" name="fname" placeholder="First name">
+    <input type="text" id="email-manager-lname" name="lname" placeholder="last name"><br>
+    <input type="email" id="email-manager-email" name="email" placeholder="Your email address"><br>
+    <input type="hidden" name="rental_id" value="{{ $rental->uuid }}">
+    <textarea id="email-manager-message" name="message" placeholder="Write message here"></textarea><br>
+    <input type="submit" value="Send Message">
+    {!! Form::close() !!}
+</section>
+
 <section class="listing_nav">
     <section class="main">
         <a class="back" href="">< Back</a><a class="forward" href="#">Next Listing ></a>
@@ -87,8 +102,8 @@
                 <h3><a href="#">Contact Now</a></h3>
 
                 <ul class="listing_contact">
-                    <li><a href="#">Show Phone Number</a></li>
-                    <li><a href="#">Email Property Manager</a></li>
+                    <li><a class="phone-btn" id="{{ $rental->uuid }}" href="#">Show Phone Number</a></li>
+                    <li><a class="email-manager-btn" id="{{ $rental->uuid }}" href="#">Email Property Manager</a></li>
                 </ul>
 
                 @if(count($rental->features))

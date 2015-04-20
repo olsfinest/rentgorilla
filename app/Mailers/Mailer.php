@@ -13,4 +13,15 @@ abstract class Mailer {
         Log::info('Email sent: ' . $view, ['user_id' => $user->id]);
     }
 
+    public function sendToUserWithReplyTo($user, $subject, $view, $data = [], $email, $name)
+    {
+
+        \Mail::queue($view, $data, function($message) use ($user, $subject, $email, $name)
+        {
+            $message->to($user->email, $user->getFullName())->subject($subject)->replyTo($email, $name);
+        });
+
+        Log::info('Email sent: ' . $view, ['user_id' => $user->id]);
+    }
+
 }
