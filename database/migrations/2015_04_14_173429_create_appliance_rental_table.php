@@ -14,6 +14,7 @@ class CreateApplianceRentalTable extends Migration {
 	{
         Schema::create('appliance_rental', function(Blueprint $table)
         {
+
             $table->integer('rental_id')->unsigned()->index();
             $table->integer('appliance_id')->unsigned()->index();
             $table->timestamps();

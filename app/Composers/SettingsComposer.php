@@ -11,8 +11,10 @@ class SettingsComposer {
             ['route' => 'promotions', 'text' => 'Promote Properties'],
             ['route' => 'favourites', 'text' => 'My Favourites'],
             ['route' => 'profile', 'text' => 'Profile'],
-            ['route' => 'changePlan', 'text' => 'Subscription']
-          ];
+            ['route' => 'changePlan', 'text' => 'Subscription'],
+            ['route' => 'redeem.show', 'text' => 'Rewards'],
+
+        ];
 
 
         //user is a Stripe customer

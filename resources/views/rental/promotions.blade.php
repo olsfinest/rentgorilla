@@ -19,7 +19,7 @@
 
                 <h3>About Property Promotions</h3>
 
-                <p>Property promotions cost ${{ (Config::get('promotion.price')/100) }} for seven days. A promoted property will be at the top of the search results for that city.</p>
+                <p>Property promotions cost ${{ $price }} for seven days. A promoted property will be at the top of the search results for that city.</p>
                 <p>Also, only three promotions are allowed for any city at any given time, ensuring your property will be seen.</p>
                 <p>If there are already three promotions running for your city, you may still purchase a promotion now and your property will be promoted at the earliest possible time.</p>
                 <hr>
@@ -62,7 +62,7 @@
 
 
                         <div class="form-group">
-                            {!! Form::submit('Charge my Credit Card $' . (Config::get('promotion.price')/100), ['class' => 'btn btn-primary']) !!}
+                            {!! Form::submit('Charge my Credit Card $' . $price, ['class' => 'btn btn-primary']) !!}
                         </div>
 
                         {!! Form::close() !!}
@@ -79,7 +79,7 @@
                         </div>
 
 
-                        @include('partials.credit-card', [ 'submitButtonText' => 'Charge my Credit Card $' . (Config::get('promotion.price')/100)])
+                        @include('partials.credit-card', [ 'submitButtonText' => 'Charge my Credit Card $' . $price])
 
 
                         {!! Form::close() !!}

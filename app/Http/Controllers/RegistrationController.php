@@ -46,6 +46,16 @@ class RegistrationController extends Controller {
     }
 
 
+    public function deleteAccount()
+    {
+        //get all rentals
+        //delete the images
+        //cancel active stripe subscription
+        //delete stripe customer?
+        //delete all db entries for the user
+    }
+
+
 
 
 

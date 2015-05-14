@@ -37,9 +37,34 @@ class Photo extends Model {
         return $this->belongsTo('RentGorilla\Rental');
     }
 
-    public function getNameAttribute($value)
+    //TODO: Strip out local stuff for production?
+    public function getSize($size)
     {
-        return self::IMAGE_PATH . $value;
+        if(app()->environment() == 'local') {
+            if($size == 'small' && file_exists( public_path() . self::IMAGE_PATH . 'placeholders/' . $this->name)) {
+                return self::IMAGE_PATH . 'placeholders/' . $this->name;
+            } else if( $size == 'medium' && file_exists( public_path() . self::IMAGE_PATH . 'placeholders/mine/' . $this->name)) {
+                return self::IMAGE_PATH . 'placeholders/mine/' . $this->name;
+            }
+        } else {
+            if (file_exists(public_path() . self::IMAGE_PATH . $size . $this->name)) {
+                return self::IMAGE_PATH . $size . $this->name;
+            } else {
+                return 'defaults';
+            }
+        }
+    }
+
+    public function deleteAllSizes()
+    {
+        $sizes = ['small', 'medium', 'large'];
+
+        foreach($sizes as $size) {
+            $file = public_path() . self::IMAGE_PATH . $size . $this->name;
+            if(file_exists($file)) {
+                unlink($file);
+            }
+        }
     }
 
 }

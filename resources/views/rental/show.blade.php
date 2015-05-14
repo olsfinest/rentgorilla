@@ -18,7 +18,12 @@
 
 <section class="listing_nav">
     <section class="main">
-        <a class="back" href="">< Back</a><a class="forward" href="#">Next Listing ></a>
+        @if($previous)
+        <a class="back" href="{{ route('rental.show', [$previous]) }}"> &laquo; Previous Listing</a>
+        @endif
+        @if($next)
+        <a class="forward" href="{{ route('rental.show', [$next]) }}">Next Listing &raquo;</a>
+        @endif
     </section>
 </section>
 <section class="main">
@@ -30,19 +35,23 @@
 			</span>
 			<span class="listing_availability">
 				<h1>Available {{ $rental->available_at->format('F j, Y') }}</h1>
-				<h2>Last updated: {{ $rental->updated_at->diffForHumans() }}</h2>
+				<h2>Last updated: {{ $rental->edited_at->diffForHumans() }}</h2>
 			</span>
             <div class="cf"></div>
         </section>
         <article class="listing_details">
-            <section class="listing_overview">
-                <div id="photos" class="listing_image cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="5000">
-                    <img src="/img/listing_image_01.jpg" alt="">
-                    <img src="/img/listing_image_01.jpg" alt="">
-                    <img src="/img/listing_image_01.jpg" alt="">
-
+            <section class="listing_overview" style="position: relative;">
+                <div id="photos" class="listing_image cycle-slideshow" data-cycle-pause-on-hover="true" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="5000">
+                    <span id="like" class="fa fa-thumbs-o-up"></span>
+                    @if($hasPhotos = count($rental->photos))
+                        @foreach($rental->photos as $photo)
+                            <img id="{{ $photo->id }}" class="{{ in_array($photo->id, $likes) ? 'liked' : '' }}" src="{{ $photo->getSize('medium') }}">
+                        @endforeach
+                    @else
+                        <img src="{{ getNoPhoto('medium') }}">
+                    @endif
                     <h3>{{ $rental->beds }} Bedroom / {{ $rental->baths }} Bathroom {{ Config::get('rentals.type.' . $rental->type) }}</h3>
-                    <span id="{{ $rental->uuid }}" class="favourite fa {{ in_array($rental->id, $favourites) ? 'fa-heart' : 'fa-heart-o' }}">{{ $rental->favouritedBy()->count() }}</span>
+                    <span id="favourite" class="favourite fa {{ in_array($rental->id, $favourites) ? 'fa-heart' : 'fa-heart-o' }}">{{ $rental->favouritedBy()->count() }}</span>
                 </div>
                 <div id="map" style="width:100%; height:468px !important; display: none"></div>
                 <div class="listing_view_controls">
@@ -79,13 +88,13 @@
                     <td class="listing_ng_label">Parking</td>
                     <td>{{ Config::get('rentals.parking.' . $rental->parking) }}</td>
                     <td class="listing_ng_label">Appliances</td>
-                    <td></td>
+                    <td class="tooltipable" title="{{ $appliances = implode(', ', $rental->appliances()->lists('name')) }}">{{ str_limit($appliances, 17) }}</td>
                 </tr>
                 <tr>
                     <td class="listing_ng_label">Laundry</td>
                     <td>{{ Config::get('rentals.laundry.' . $rental->laundry) }}</td>
                     <td class="listing_ng_label">Heat Type</td>
-                    <td></td>
+                    <td class="tooltipable" title="{{ $heat = implode(', ', $rental->heat()->lists('name')) }}">{{ str_limit($heat, 17) }}</td>
                 </tr>
                 <tr>
                     <td class="listing_ng_label">Disability Access</td>
@@ -102,8 +111,8 @@
                 <h3><a href="#">Contact Now</a></h3>
 
                 <ul class="listing_contact">
-                    <li><a class="phone-btn" id="{{ $rental->uuid }}" href="#">Show Phone Number</a></li>
-                    <li><a class="email-manager-btn" id="{{ $rental->uuid }}" href="#">Email Property Manager</a></li>
+                    <li><a id="phone-btn">Show Phone Number</a></li>
+                    <li><a id="email-manager-btn">Email Property Manager</a></li>
                 </ul>
 
                 @if(count($rental->features))
@@ -155,6 +164,10 @@
 @section('footer')
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="/js/cycle.js"></script>
+    <script language="JavaScript">
+        var rental_id = "{{ $rental->uuid }}";
+        var hasPhotos = {{ $hasPhotos ? 'true' : 'false' }}
+    </script>
     <script src="/js/detail-view.js"></script>
     <script language="JavaScript">
         var initialPosition = new google.maps.LatLng({{ $rental->lat . ', ' . $rental->lng  }});
@@ -228,8 +241,36 @@
 
 
         $(document).ready(function() {
-            $(".cycle-slideshow").cycle();
+
+            if(hasPhotos) {
+                $(".cycle-slideshow").cycle();
+
+                $(".cycle-slideshow").hover(function () {
+                    $('#like').show();
+                }, function () {
+                    $('#like').hide();
+                });
+
+                $(".cycle-slideshow").on('cycle-update-view', function (event, optionHash, slideOptionsHash, currentSlideEl) {
+                    var slide = $(currentSlideEl);
+                    $('#like').data('photo_id', slide.attr('id'));
+                    if (slide.hasClass('liked')) {
+                        $('#like').removeClass('fa-thumbs-o-up');
+                        $('#like').addClass('fa-thumbs-up');
+                    } else {
+                        $('#like').removeClass('fa-thumbs-up');
+                        $('#like').addClass('fa-thumbs-o-up');
+                    }
+                });
+            }
+
+            $(".tooltipable").hover(function(){
+                $(this).tooltip({position:{my:"center bottom",at:"left top"}});
+            })
+
+
         });
+
 
 </script>
 

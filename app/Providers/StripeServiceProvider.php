@@ -1,7 +1,7 @@
 <?php namespace RentGorilla\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Stripe;
+use Stripe\Stripe;
 
 class StripeServiceProvider extends ServiceProvider {
 

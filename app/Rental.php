@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rental extends Model {
 
+    const RESULTS_PER_PAGE = 12;
+
     protected $guarded = ['id'];
     /**
      * The database table used by the model.
@@ -21,7 +23,7 @@ class Rental extends Model {
      */
     protected $hidden = [];
 
-    protected $dates = ['available_at', 'promotion_ends_at'];
+    protected $dates = ['available_at', 'promotion_ends_at', 'queued_at', 'activated_at', 'edited_at'];
 
     public function user()
     {
@@ -102,5 +104,11 @@ class Rental extends Model {
         return Carbon::parse($date)->format('M jS, Y');
     }
     */
+
+
+    public function likes()
+    {
+        return $this->hasMany('RentGorilla\Like');
+    }
 
 }

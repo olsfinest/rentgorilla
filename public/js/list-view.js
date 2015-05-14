@@ -15,6 +15,21 @@ function getParameterByName (url, name)
         return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+var	serialize = function(obj) {
+    var str = [];
+    for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return str.join("&");
+}
+
+function addURLSearchParams(params) {
+    if (history.replaceState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + serialize(params);
+        window.history.replaceState({path:newurl},'',newurl);
+    }
+}
 
 
 $(document).ready(function() {
@@ -22,7 +37,7 @@ $(document).ready(function() {
 
     $('#spinner').hide();
 
-    loadRentals();
+    loadRentals(0);
 
     $(".selectmenu").selectmenu({
         change: function( event, ui ) {
@@ -50,25 +65,51 @@ $(document).ready(function() {
     });
 
     $('#location').on("change", function(e) {
-        loadRentals();
+        loadRentals(0, 1);
+    });
+
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            if(currentPage < totalPages) {
+                loadRentals(1, currentPage + 1);
+            }
+        }
     });
 });
 
-function loadRentals(page) {
+var count, currentPage, totalPages;
+
+function loadRentals(paginate, page) {
 
     $('#spinner').show();
 
     if(page === undefined) {
-        page = 1;
+        page = getPage(window.location.href);
     }
 
-    var url = '/rentals?page=' + page;
+    var url = '/rentals';
 
-    $.get(url, $('#search').serialize(), function(data){
+    var data = $('#search').serializeArray();
+    data.push({name: 'page', value: page});
+    data.push({name: 'paginate', value: paginate});
+
+    $.get(url, data, function(data){
 
         $('#spinner').hide();
 
-        $('#list-canvas').fadeOut(100).html(data.rentals).fadeIn(500);
+        if(paginate) {
+            $('#rental-list').append(data.rentals);
+        } else {
+            $('#list-canvas').html(data.rentals);
+        }
+
+        count = data.count;
+        currentPage = data.page;
+        totalPages = data.totalPages;
+
+        if(count > 0) {
+            addURLSearchParams({page: currentPage});
+        }
 
         $('.favourite').on('click', function(){
             if(isLoggedIn()) {
@@ -101,20 +142,11 @@ function loadRentals(page) {
         $(".cycle-slideshow").cycle();
         $(".cycle-slideshow").cycle("pause"),$(".cycle-slideshow").hover(function(){$(this).cycle("resume")},function(){$(this).cycle("pause")});
 
-
             $(".listings > ul > li").mouseenter(function(){
             var e=$(".progress",this),i=$(".cycle-slideshow",this);
             i.on("cycle-initialized cycle-before",this,function(){e.stop(!0).css("width",0)});
                 i.on("cycle-initialized cycle-after",this,function(t,o){i.is(".cycle-paused",this)||e.animate({width:"100%"},o.timeout,"linear")});
                 i.on("cycle-paused",this,function(){e.stop()});
                 i.on("cycle-resumed",this,function(i,t,o){e.animate({width:"100%"},o,"linear")})});
-
-        $('.pagination a').on('click', function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-            var page = getPage(url);
-            loadRentals(page);
-
-        });
     });
 }

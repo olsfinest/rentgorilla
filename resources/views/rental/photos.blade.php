@@ -14,13 +14,17 @@
                 @include('partials.settings-sidebar')
             </div>
             <div class="col-md-8">
-                {!! Form::open(['route' => ['rental.photos.store', $rental->id], 'class' => 'dropzone']) !!}
+                {!! Form::open(['route' => ['rental.photos.store', $rental->uuid], 'class' => 'dropzone']) !!}
                 {!! Form::close() !!}
                     @if($rental->photos->count())
                     <table class="table table-striped table-hover">
                         <tbody>
                         @foreach($rental->photos as $photo)
-                            <tr><td><img width="237" height="158" src="{{ $photo->name }}"></td><td style="vertical-align:middle"><a href="#" class="btn btn-primary">Delete</a></td></tr>
+                            <tr><td><img width="237" height="158" src="{{ $photo->getSize('medium') }}"></td><td style="vertical-align:middle">
+                                    {!! Form::open(['method' => 'DELETE', 'route' => ['photos.delete', $photo->id]]) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-primary']) !!}
+                                    {!! Form::close() !!}
+                                </td></tr>
                         @endforeach
                         </tbody>
                     </table>

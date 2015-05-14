@@ -22,11 +22,6 @@
         <input type="email" id="signup_email" name="email" placeholder="Email Address">
         <input type="password" id="signup_password" name="password" placeholder="Password" class="firstpass">
         <input type="password" id="signup_password_confirmation" name="password_confirmation" placeholder="Confirm">
-        <select class="replaceme" id="signup_user_type" name="user_type" id="">
-            <option value="default" disabled="disabled" selected>User Type (pick one)</option>
-            <option value="tenant">Tenant</option>
-            <option value="landlord">Landlord</option>
-        </select>
         <input type="submit" name="signup_submit" value="Create Account">
     {!! Form::close() !!}
     <p><a href="#">FAQ</a> or <a href="#" class="login">Login</a></p>
@@ -39,5 +34,5 @@
         <input type="password" id="login_password" name="password" placeholder="Password">
         <input type="submit" value="Login">
     {!! Form::close() !!}
-    <p><a href="#">Forgot password</a> or <a class="sign_up" href="#">Sign up</a></p>
+    <p><a href="/password/email">Forgot password</a> or <a class="sign_up" href="#">Sign up</a></p>
 </section>

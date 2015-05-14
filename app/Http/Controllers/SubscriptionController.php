@@ -13,16 +13,22 @@ use RentGorilla\Http\Requests\ChangePlanRequest;
 use RentGorilla\Http\Requests\ResumeSubscriptionRequest;
 use RentGorilla\Http\Requests\SubscriptionRequest;
 use RentGorilla\Http\Requests\UpdateCardRequest;
+use RentGorilla\Mailers\UserMailer;
 use RentGorilla\Repositories\RentalRepository;
 
 class SubscriptionController extends Controller {
 
     protected $rentalRepository;
+    /**
+     * @var UserMailer
+     */
+    protected $mailer;
 
-    function __construct(RentalRepository $rentalRepository)
+    function __construct(RentalRepository $rentalRepository, UserMailer $mailer)
     {
         $this->middleware('auth');
         $this->rentalRepository = $rentalRepository;
+        $this->mailer = $mailer;
     }
 
     public function subscribe(SubscriptionRequest $request)
@@ -43,6 +49,8 @@ class SubscriptionController extends Controller {
             $messages->add('Stripe Error', $e->getMessage());
             return redirect()->back()->withErrors($messages);
         }
+
+        $this->mailer->sendSubscriptionBegun(Auth::user());
 
         return redirect()->back()->with('flash_message', 'Thank you! Your subscription has begun!');
 
@@ -70,9 +78,11 @@ class SubscriptionController extends Controller {
             if (Auth::user()->cancelled() && Auth::user()->getStripePlan() === $request->stripe_plan && ! Auth::user()->expired()) {
                 Auth::user()->subscription(Auth::user()->getStripePlan())->resume(null);
                 $message = 'Your plan has been resumed!';
+                $this->mailer->sendSubscriptionResumed(Auth::user());
             } else {
                 Auth::user()->subscription($request->stripe_plan)->swap();
                 $message = 'Your plan has been changed!';
+                $this->mailer->sendSubscriptionChanged(Auth::user());
             }
         } catch (\Exception $e) {
             $messages = new MessageBag();
@@ -92,8 +102,6 @@ class SubscriptionController extends Controller {
                 Auth::user()->updateCard($request->stripe_token);
 
         } catch (\Exception $e) {
-
-            dd($e);
 
             $messages = new MessageBag();
             $messages->add('Stripe Error', $e->getMessage());
@@ -119,7 +127,9 @@ class SubscriptionController extends Controller {
             return redirect()->back()->withErrors($messages);
         }
 
-        return redirect()->back()->with('flash_message', 'We are sorry to see you go!');
+        $this->mailer->sendSubscriptionCancelled(Auth::user());
+
+        return redirect()->back()->with('flash_message', 'Your subscription has been cancelled.');
     }
 
 }

@@ -4,6 +4,10 @@
 
 $router->get('/', ['as' => 'home', 'uses' => 'AppController@showHome']);
 
+Route::controllers([
+    'password' => 'Auth\PasswordController',
+]);
+
 
 /** Authentication */
 
@@ -37,12 +41,14 @@ $router->post('admin/subscription/cancel', ['as' => 'subscription.cancelSubscrip
 
 $router->get('admin/promotions', ['as' => 'promotions', 'uses' => 'RentalController@showPromotions']);
 
+$router->get('admin/redeem', ['as' => 'redeem.show', 'uses' => 'AchievementsController@showRedeemForm']);
+$router->post('admin/redeem', ['as' => 'redeem.create', 'uses' => 'AchievementsController@redeemPoints']);
 
 
 
 /** Application  */
-$router->get('list', ['as' => 'list', 'uses' => 'AppController@showList']);
-$router->get('map', ['as' => 'map', 'uses' =>'AppController@showMap']);
+$router->get('list/{location?}', ['as' => 'list', 'uses' => 'AppController@showList']);
+$router->get('map/{location?}', ['as' => 'map', 'uses' =>'AppController@showMap']);
 $router->post('clearSearch', ['as' => 'clearSearch', 'uses' => 'AppController@clearSearch']);
 
 # AJAX
@@ -54,7 +60,7 @@ $router->get('map-list', 'AppController@getRentalListForMap');
 # AJAX
 $router->get('location-list', 'AppController@getLocations');
 
-
+$router->post('like', 'LikesController@toggleLike');
 
 $router->get('testing', function() {
 });
@@ -67,6 +73,8 @@ $router->post('rental/promote/new', ['as' => 'rental.promote.new', 'uses' => 'Re
 $router->post('rental/promote/existing', ['as' => 'rental.promote.existing', 'uses' => 'RentalController@promoteRentalExistingCustomer']);
 $router->post('rental/phone', ['as' => 'rental.phone', 'uses' => 'RentalController@showPhone']);
 $router->post('rental/email-manager', ['as' => 'rental.email', 'uses' => 'RentalController@sendManagerMail']);
+
+$router->delete('photo/{id}', ['as' => 'photos.delete', 'uses' => 'RentalController@deletePhoto']);
 
 $router->post('favourite', 'FavouritesController@toggleFavourite');
 $router->get('favourites', ['as' => 'favourites', 'uses' => 'FavouritesController@showFavourites']);

@@ -138,6 +138,7 @@ return [
 		'Laravel\Cashier\CashierServiceProvider',
         'Illuminate\Html\HtmlServiceProvider',
         'Torann\Hashids\HashidsServiceProvider',
+        'Intervention\Image\ImageServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */
@@ -196,6 +197,7 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
         'Form'      => 'Illuminate\Html\FormFacade',
+        'Image'     => 'Intervention\Image\Facades\Image'
 	],
 
 ];

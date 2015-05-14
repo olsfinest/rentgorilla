@@ -1,84 +1,89 @@
 <?php namespace RentGorilla\Promotions;
 
-use Auth;
 use Config;
 use Carbon\Carbon;
 use RentGorilla\Mailers\UserMailer;
+use RentGorilla\Promotion;
 use RentGorilla\Rental;
 use RentGorilla\Repositories\RentalRepository;
-use RentGorilla\Promotion;
+use RentGorilla\Repositories\UserRepository;
 
 class PromotionManager {
-
+    /**
+     * @var RentalRepository
+     */
     protected $rentalRepository;
     /**
      * @var UserMailer
      */
     protected $mailer;
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
 
-    function __construct(RentalRepository $rentalRepository, UserMailer $mailer)
+    function __construct(RentalRepository $rentalRepository, UserMailer $mailer, UserRepository $userRepository)
     {
         $this->rentalRepository = $rentalRepository;
         $this->mailer = $mailer;
+        $this->userRepository = $userRepository;
     }
 
-    public function processPromotionQueue(Rental $rental = null)
+    private function getUser(Rental $rental)
     {
-        // you may pass a rental to this method to process the queue immediately (e.g. when a property is deleted)
-        if($rental && $rental->isPromoted()) {
-            $rentals = [$rental];
-        } else {
-            $rentals = Rental::where('promoted', 1)->where('promotion_ends_at', '<', Carbon::now())->get();
-        }
+        return $this->userRepository->find($rental->user_id);
+    }
+
+    public function processPromotionQueue()
+    {
+
+        $rentals = Rental::where('promoted', 1)->where('promotion_ends_at', '<', Carbon::now())->get();
 
         foreach($rentals as $rental) {
 
-            if($promotion = Promotion::where(['city' => $rental->city, 'province' => $rental->province])->first()) {
+            if($queued = Rental::where(['location' => $rental->location, 'queued' => 1])->orderBy('queued_at')->first()) {
 
-                $rentalToBePromoted = $this->rentalRepository->find($promotion->rental_id);
+                $user = $this->getUser($queued);
 
-                $this->rentalRepository->promoteRental($rentalToBePromoted);
-
-                $this->mailer->sendPromotionStart(Auth::user(), $rentalToBePromoted);
-
-                $promotion->delete();
-
-            } else {
-
-                $this->rentalRepository->unpromoteRental($rental);
+                if($user->charge(Config::get('promotion.price'), ['description' => 'Promotion for ' . $queued->street_address])) {
+                    $this->rentalRepository->promoteRental($queued);
+                    $this->mailer->sendPromotionStart($user, $queued);
+                    Promotion::create(['user_id' => $queued->user_id]);
+                } else {
+                    $this->rentalRepository->unqueueRental($queued);
+                    $this->mailer->sendPromotionChargeFailed($user, $queued);
+                    //TODO::send email to admin that the charge failed?
+                }
             }
 
-            $this->mailer->sendPromotionEnded(Auth::user(), $rental);
-
+            $this->rentalRepository->unpromoteRental($rental);
+            $this->mailer->sendPromotionEnded($this->getUser($rental), $rental);
         }
     }
 
     public function promoteRental(Rental $rental)
     {
 
-       if(Rental::where(['promoted' => 1, 'city' => $rental->city, 'province' => $rental->province])->get()->count() < Config::get('promotion.max')) {
+       if($this->wontBeQueued($rental)) {
            $this->rentalRepository->promoteRental($rental);
-           $this->mailer->sendPromotionStart(Auth::user(), $rental);
+           $this->mailer->sendPromotionStart($this->getUser($rental), $rental);
+           Promotion::create(['user_id' => $rental->user_id]);
            return true;
        } else {
            //NOTE: for busy cities, the next available date could change rapidly, even between the time they saw the date available and the time they click buy!
            // that is why we have to send them the actual next available date
            $date = $this->getNextAvailablePromotionDate($rental);
-           $this->mailer->sendPromotionQueued(Auth::user(), $rental, $date);
-
-           //rental->waitListed = 1
-           //put rental on waiting list
-           Promotion::create(['user_id' => Auth::id(), 'rental_id' => $rental->id, 'city' => $rental->city, 'province' => $rental->province]);
+           $this->mailer->sendPromotionQueued($this->getUser($rental), $rental, $date);
+           $this->rentalRepository->queueRental($rental);
            return false;
        }
-
     }
 
     public function getNextAvailablePromotionDate(Rental $rental)
     {
-        if($currentReservationListLength = $this->totalReservations($rental->city, $rental->province)) {
+        if($currentReservationListLength = $this->totalReservations($rental->location)) {
 
-            $activePromotions = Rental::where(['promoted' => 1, 'city' => $rental->city, 'province' => $rental->province])->orderBy('promotion_ends_at')->take(Config::get('promotion.max'))->get();
+            $activePromotions = Rental::where(['promoted' => 1, 'location' => $rental->location])->orderBy('promotion_ends_at')->take(Config::get('promotion.max'))->get();
 
             $model = [];
 
@@ -94,7 +99,7 @@ class PromotionManager {
 
         } else {
 
-            $earliestPromotion = Rental::where(['promoted' => 1, 'city' => $rental->city, 'province' => $rental->province])->orderBy('promotion_ends_at')->first();
+            $earliestPromotion = Rental::where(['promoted' => 1, 'location' => $rental->location])->orderBy('promotion_ends_at')->first();
 
             if($earliestPromotion) {
 
@@ -110,10 +115,13 @@ class PromotionManager {
         }
     }
 
-    private function totalReservations($city, $province)
+    private function totalReservations($location)
     {
-        return Promotion::where(['city' => $city, 'province' => $province])->get()->count();
+        return Rental::where(['location' => $location, 'queued' => 1])->count();
     }
 
-
+    public function wontBeQueued(Rental $rental)
+    {
+        return  Rental::where(['promoted' => 1, 'location' => $rental->location])->count() < Config::get('promotion.max');
+    }
 }

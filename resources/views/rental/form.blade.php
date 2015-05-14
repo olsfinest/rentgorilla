@@ -117,6 +117,12 @@
     </div>
 </div>
 <div class="form-group">
+    <label for="video" class="col-sm-2 control-label">Link to video</label>
+    <div class="col-sm-10">
+        {!! Form::text('video', null, ['class' => 'form-control']) !!}
+    </div>
+</div>
+<div class="form-group">
     <label for="description" class="col-sm-2 control-label">Description</label>
     <div class="col-sm-10">
         {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
@@ -149,81 +155,7 @@
 
 
 @section('footer')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-    <script language="javascript">
-
-        function showModal(message){
-            $('<section id="alert"><p>' + message + '</p></section>').dialog({
-                modal: true,
-                dialogClass: "noTitle",
-                draggable: false,
-                resizable: false,
-                show: "fade",
-                hide: "fade"
-            });
-        }
-
-        $('#features').select2();
-        $('#heats').select2();
-        $('#appliances').select2();
-        $('#available').datepicker();
-
-        $('#modify_rental_form').submit(function(event) {
-
-            event.preventDefault();
-
-            var rentalForm = $(this);
-
-            var streetAddress = $('#street_address').val();
-            var city = $('#city').val();
-            var province = $('#province').val();
-
-            if( ! streetAddress) {
-
-                showModal('please provide a street address.');
-
-                return false;
-            }
-            if( ! city) {
-                showModal('Please provide the city.');
-                return false;
-            }
-            if( ! province) {
-                showModal('Please provide the province');
-                return false;
-            }
-
-            var geocoder = new google.maps.Geocoder();
-
-            var address = streetAddress + ',' + city + ',' + province;
-
-            geocoder.geocode({'address': address}, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    var locationResult = results[0].geometry.location;
-
-                    $('<input>', {
-                        type: 'hidden',
-                        name: 'lat',
-                        value: locationResult.lat()
-                    }).appendTo(rentalForm);
-
-                    $('<input>', {
-                        type: 'hidden',
-                        name: 'lng',
-                        value: locationResult.lng()
-                    }).appendTo(rentalForm);
-
-                    rentalForm.unbind('submit');
-                    rentalForm.trigger('submit');
-
-                } else {
-                    showModal('We were unable to find that address. Please check your address.');
-                    return false;
-                }
-            });
-
-        });
-
-    </script>
-@stop
+    <script src="/js/select2.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="/js/modify-rental.js"></script>
+@endsection

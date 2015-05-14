@@ -26,8 +26,6 @@ $( document ).ajaxError(function( event, jqxhr, settings, thrownError ) {
 
 $(document).ready(function() {
 
-    $("#signupmodal form select").selectmenu({appendTo:"#signupmodal form"});
-
     $(".login").click(function () {
         login();
     });
@@ -74,7 +72,8 @@ $('#login_form').submit(function( event ) {
         url: '/login',
         data: $(this).serialize(),
         success: function (data, textStatus, jqXHR) {
-            window.location.href = '/rental';
+            //window.location.href = '/rental';
+            window.location.reload();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var errors = jqXHR.responseJSON;

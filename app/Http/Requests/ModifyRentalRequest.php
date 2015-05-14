@@ -43,7 +43,8 @@ class ModifyRentalRequest extends Request {
             'lng' => 'required|numeric',
             'pets' => 'required|in:' . implode(',', array_keys(Config::get('rentals.pets'))),
             'baths' => 'required|numeric',
-            'lease' => 'required|integer'
+            'lease' => 'required|integer',
+            'video' => 'url'
         ];
 
         if($this->request->get('feature_list')) {

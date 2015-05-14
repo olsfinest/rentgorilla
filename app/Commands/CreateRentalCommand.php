@@ -7,6 +7,7 @@ class CreateRentalCommand extends Command {
     public $user_id;
     public $street_address;
     public $city;
+    public $county;
     public $province;
     public $type;
     public $pets;
@@ -26,15 +27,17 @@ class CreateRentalCommand extends Command {
     public $lng;
     public $lease;
     public $description;
+    public $video;
     public $feature_list;
     public $appliance_list;
     public $heat_list;
 
-    function __construct($user_id, $street_address, $city, $province, $type, $pets, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking, $utilities_included, $heat_included, $furnished, $square_footage, $available, $lat, $lng, $lease, $description, $feature_list = null,  $appliance_list = null, $heat_list = null)
+    function __construct($user_id, $street_address, $city, $county, $province, $type, $pets, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking, $utilities_included, $heat_included, $furnished, $square_footage, $available, $lat, $lng, $lease, $description, $video, $feature_list = null,  $appliance_list = null, $heat_list = null)
     {
         $this->user_id = $user_id;
         $this->street_address = $street_address;
         $this->city = $city;
+        $this->county = $county;
         $this->province = $province;
         $this->type = $type;
         $this->pets = $pets;
@@ -54,6 +57,7 @@ class CreateRentalCommand extends Command {
         $this->lng = $lng;
         $this->lease = $lease;
         $this->description = $description;
+        $this->video = $video;
         $this->feature_list = $feature_list;
         $this->appliance_list = $appliance_list;
         $this->heat_list = $heat_list;

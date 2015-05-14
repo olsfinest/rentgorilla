@@ -5,7 +5,8 @@ use RentGorilla\User;
 
 interface RentalRepository
 {
-    public function search($city, $province, $type, $availability, $beds, $price);
+    public function search($page, $paginate, $city, $province, $type, $availability, $beds, $price);
+    public function uuids($city, $province, $type, $availability, $beds, $price);
     public function geographicSearch($north, $south, $west, $east, $type = null, $availability = null, $beds = null, $price = null);
     public function getRentalsByIds(array $ids);
     public function locationSearch($city);
@@ -23,5 +24,12 @@ interface RentalRepository
     public function findByUUID($id);
     public function getPhoneByRental(Rental $rental);
     public function getUserByRental(Rental $rental);
-
+    public function locationExists($location);
+    public function queueRental(Rental $rental);
+    public function unqueueRental(Rental $rental);
+    public function delete(Rental $rental);
+    public function incrementViews(Rental $rental);
+    public function cityIsDuplicate($city, $county, $province);
+    public function incrementEmailClick(Rental $rental);
+    public function incrementPhoneClick(Rental $rental);
 }

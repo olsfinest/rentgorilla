@@ -54,6 +54,16 @@ class AppServiceProvider extends ServiceProvider {
             'RentGorilla\Repositories\ProfileRepository',
             'RentGorilla\Repositories\EloquentProfileRepository'
         );
+
+        $this->app->bind(
+            'RentGorilla\Repositories\PhotoRepository',
+            'RentGorilla\Repositories\EloquentPhotoRepository'
+        );
+
+        $this->app->bind(
+            'RentGorilla\Repositories\LikeRepository',
+            'RentGorilla\Repositories\EloquentLikeRepository'
+        );
 	}
 
 }

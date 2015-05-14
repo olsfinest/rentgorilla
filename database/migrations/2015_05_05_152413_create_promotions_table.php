@@ -15,22 +15,13 @@ class CreatePromotionsTable extends Migration {
 		Schema::create('promotions', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('rental_id');
-            $table->enum('province', ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']);
-            $table->string('city');
-            $table->timestamps();
-
+            $table->integer('user_id')->unsigned();
+			$table->timestamps();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-
-            $table->foreign('rental_id')
-                ->references('id')
-                ->on('rentals')
-                ->onDelete('cascade');
-        });
+		});
 	}
 
 	/**

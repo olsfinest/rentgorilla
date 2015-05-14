@@ -1,8 +1,9 @@
 <?php namespace RentGorilla\Handlers\Commands;
 
+use Carbon\Carbon;
 use Hashids;
 use RentGorilla\Commands\CreateRentalCommand;
-
+use Illuminate\Support\Str;
 use Illuminate\Queue\InteractsWithQueue;
 use RentGorilla\Rental;
 use RentGorilla\Repositories\RentalRepository;
@@ -10,28 +11,31 @@ use RentGorilla\Repositories\RentalRepository;
 class CreateRentalCommandHandler {
 
 
+    /**
+     * @var RentalRepository
+     */
+    private $rentalRepository;
 
-    protected $rentalRepository;
-
-    function __construct( RentalRepository $rentalRepository)
+    function __construct(RentalRepository $rentalRepository)
     {
-        $this->rentalRepositoy = $rentalRepository;
+        $this->rentalRepository = $rentalRepository;
     }
 
-
-    /**
-	 * Handle the command.
-	 *
-	 * @param  CreateRentalCommand  $command
-	 * @return void
-	 */
-	public function handle(CreateRentalCommand $command)
+    public function handle(CreateRentalCommand $command)
 	{
 		$rental = new Rental();
         $rental->user_id = $command->user_id;
         $rental->street_address = $command->street_address;
-        $rental->city = $command->city;
+
+        if($this->rentalRepository->cityIsDuplicate($command->city, $command->county, $command->province)) {
+            $rental->city = $command->city . ' ' . $command->county;
+        } else {
+            $rental->city = $command->city;
+        }
+
+        $rental->county = $command->county;
         $rental->province = $command->province;
+        $rental->location = Str::slug($rental->city . '-' . $command->province);
         $rental->type = $command->type;
         $rental->pets = $command->pets;
         $rental->baths = $command->baths;
@@ -51,9 +55,11 @@ class CreateRentalCommandHandler {
         $rental->lease = $command->lease;
         $rental->description = $command->description;
 
+        $rental->edited_at = Carbon::now();
+
         $rental->save();
 
-        //TODO::is there a mre efficient way of doing this?
+        //TODO::is there a more efficient way of doing this?
         $rental->uuid = Hashids::encode($rental->id);
         $rental->save();
 

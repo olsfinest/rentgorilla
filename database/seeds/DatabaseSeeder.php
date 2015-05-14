@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Str;
 use Laracasts\TestDummy\Factory;
 
 class DatabaseSeeder extends Seeder {
@@ -10,7 +11,6 @@ class DatabaseSeeder extends Seeder {
 	const TOTAL_USERS = 20;
 	const TOTAL_RENTALS = 100;
 	const MAX_PRICE = 1500;
-	const IMAGE_PLACEHOLDER_PATH = 'placeholders/';
 	const MAX_BEDS = 6;
 
 	private $faker;
@@ -31,7 +31,12 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		Model::unguard();
+
+        if(app()->environment() !== 'local') {
+          exit("Just saved your job. Don't seed production database!");
+        }
+
+        Model::unguard();
 
         $user = Factory::create('RentGorilla\User', ['email' => 'test@test.com', 'password' => bcrypt('password')]);
 
@@ -67,12 +72,14 @@ class DatabaseSeeder extends Seeder {
 		}
 
         $this->call('FeaturesSeeder');
+        $this->call('AppliancesSeeder');
+        $this->call('HeatsSeeder');
 
    }
 
 	private function getRandomImage()
 	{
-		return self::IMAGE_PLACEHOLDER_PATH . $this->faker->randomElement($this->images);
+		return $this->faker->randomElement($this->images);
 	}
 
 	private function getRandomType()
@@ -124,14 +131,12 @@ class DatabaseSeeder extends Seeder {
 
         $city = $this->getRandomCity();
 
-        if( ! array_key_exists($city, $locations)) {
-            throw new \Exception('There are no geographical boundaries defined for ' . $city);
-        }
+        $location = Str::slug($city . '-' . 'NS');
 
         $lat = $this->faker->randomFloat(6, $locations[$city]['S'], $locations[$city]['N']);
         $lng = $this->faker->randomFloat(6, $locations[$city]['W'], $locations[$city]['E']);
 
-        return compact('city', 'lat', 'lng');
+        return compact('city', 'lat', 'lng', 'location');
 
     }
 }

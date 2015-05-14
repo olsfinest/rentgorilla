@@ -1,0 +1,61 @@
+<?php namespace RentGorilla\Http\Controllers;
+
+use Illuminate\Support\MessageBag;
+use RentGorilla\Http\Requests;
+use RentGorilla\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use Auth;
+use RentGorilla\Repositories\UserRepository;
+use RentGorilla\User;
+use Stripe\InvoiceItem;
+
+class AchievementsController extends Controller {
+
+
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    function __construct(UserRepository $userRepository)
+    {
+        $this->middleware('auth');
+        $this->userRepository = $userRepository;
+    }
+
+    public function showRedeemForm()
+    {
+        return view('rewards.show');
+    }
+
+    public function redeemPoints()
+    {
+
+        if( ! Auth::user()->points < User::POINT_REDEMPTION_THRESHOLD || ! Auth::user()->stripeIsActive()) {
+            $messages = new MessageBag();
+            $messages->add('Error', 'You must have earned at least ' . User::POINT_REDEMPTION_THRESHOLD . ' points and be an active subscriber to redeem them.');
+            return redirect()->back()->withErrors($messages);
+        }
+
+        try {
+
+            InvoiceItem::create([
+                'customer' => Auth::user()->getStripeId(),
+                'amount' => Auth::user()->getStripeDiscount(),
+                'currency' => 'cad',
+                'description' => 'Redeemed ' . Auth::user()->getPointsReadyToRedeem() . ' points'
+            ]);
+
+            $this->userRepository->redeemPoints(Auth::user());
+
+        } catch (\Exception $e) {
+            $messages = new MessageBag();
+            $messages->add('Stripe Error', $e->getMessage());
+            return redirect()->back()->withErrors($messages);
+        }
+
+        return redirect()->back()->with('flash_message', 'Your points have been redeemed!');
+    }
+
+}

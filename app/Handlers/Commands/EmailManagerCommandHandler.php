@@ -34,6 +34,8 @@ class EmailManagerCommandHandler {
 	{
         $rental = $this->rentalRepository->findByUUID($command->rental_id);
 
+        $this->rentalRepository->incrementEmailClick($rental);
+
         $user = $this->rentalRepository->getUserByRental($rental);
 
         $this->userMailer->sendContactManager($user, $rental, $command->fname, $command->lname, $command->message, $command->email);

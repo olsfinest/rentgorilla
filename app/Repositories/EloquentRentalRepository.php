@@ -17,7 +17,6 @@ class EloquentRentalRepository implements RentalRepository
        } else {
            $query = DB::table('rentals');
        }
-
         $query->where('active', 1);
 
         if ($city) {
@@ -83,14 +82,39 @@ class EloquentRentalRepository implements RentalRepository
 
     }
 
-    public function search($city = null, $province = null, $type = null, $availability = null, $beds = null, $price = null)
+    public function search($page = 1, $paginate = false, $city = null, $province = null, $type = null, $availability = null, $beds = null, $price = null)
+    {
+        $count = $this->baseSearch(false, $city, $province, $type, $availability, $beds, $price)->count();
+
+        $totalPages = ceil($count / Rental::RESULTS_PER_PAGE);
+
+        $query = $this->baseSearch(true, $city, $province, $type, $availability, $beds, $price)->orderBy('available_at');
+
+        if($paginate) {
+            $offset = ($page - 1) * Rental::RESULTS_PER_PAGE;
+            $results = $query->skip($offset)->take(Rental::RESULTS_PER_PAGE)->get();
+        } else {
+            if($page <= $totalPages) {
+                $limit = $page * Rental::RESULTS_PER_PAGE;
+                $results = $query->skip(0)->take($limit)->get();
+            } else {
+                $page = $totalPages;
+                $results = $query->get();
+            }
+        }
+
+        return compact('count', 'results', 'page', 'totalPages');
+    }
+
+    public function uuids($city = null, $province = null, $type = null, $availability = null, $beds = null, $price = null)
     {
         $query = $this->baseSearch(true, $city, $province, $type, $availability, $beds, $price);
 
         $query->orderBy('available_at');
 
-        return $query->paginate(12);
+        return $query->lists('uuid');
     }
+
 
     public function geographicSearch($north, $south, $west, $east, $type = null, $availability = null, $beds = null, $price = null)
     {
@@ -112,12 +136,21 @@ class EloquentRentalRepository implements RentalRepository
 
     public function locationSearch($city)
     {
+        return Rental::select([ DB::raw('concat(city, ", ", province) as text'), DB::raw('location as id')])
+            ->where(DB::raw('concat(city, ", ", province)'), 'like', "%$city%")
+            ->where('active', 1)
+            ->groupBy('location')
+            ->get();
+    }
+/*
+    public function locationSearch($city)
+    {
         return Rental::select([ DB::raw('concat(city, ", ", province) as text'), DB::raw('concat(city, ", ", province) as id')])
             ->where(DB::raw('concat(city, ", ", province)'), 'like', "%$city%")
             ->groupBy('city', 'province')
             ->get();
     }
-
+*/
     public function getRentalsForUser(User $user)
     {
         return $user->rentals;
@@ -142,6 +175,7 @@ class EloquentRentalRepository implements RentalRepository
     {
 
         $rental->active = 1;
+        $rental->activated_at = Carbon::now();
 
         return $rental->save();
     }
@@ -150,6 +184,7 @@ class EloquentRentalRepository implements RentalRepository
     {
 
         $rental->active = 0;
+        $rental->activated_at = null;
 
         return $rental->save();
     }
@@ -173,13 +208,15 @@ class EloquentRentalRepository implements RentalRepository
 
     public function getUnpromotedRentals(user $user)
     {
-        return $user->rentals()->where(['active' => 1, 'promoted' => 0])->get();
+        return $user->rentals()->where(['active' => 1, 'promoted' => 0, 'queued' => 0])->get();
     }
 
     public function promoteRental(Rental $rental)
     {
         $rental->promoted = 1;
         $rental->promotion_ends_at = Carbon::now()->addDays(Config::get('promotion.days'));
+        $rental->queued = 0;
+        $rental->queued_at = null;
 
         return $rental->save();
     }
@@ -200,5 +237,80 @@ class EloquentRentalRepository implements RentalRepository
     public function getUserByRental(Rental $rental)
     {
         return $rental->user;
+    }
+
+    public function locationExists($location)
+    {
+        return Rental::where('location', $location)->take(1)->get()->count() > 0;
+    }
+
+    public function queueRental(Rental $rental)
+    {
+        $rental->queued = 1;
+        $rental->queued_at = Carbon::now();
+
+        return $rental->save();
+    }
+
+    public function unqueueRental(Rental $rental)
+    {
+        $rental->queued = 0;
+        $rental->queued_at = null;
+
+        return $rental->save();
+    }
+
+    public function delete(Rental $rental)
+    {
+        return $rental->delete();
+    }
+
+    public function incrementViews(Rental $rental)
+    {
+        return $rental->increment('views');
+    }
+
+    public function cityIsDuplicate($city, $county, $province)
+    {
+        /*
+     return DB::table('rentals')
+         ->where(function ($query) use ($city, $province, $county) {
+             $query->where('city', $city)
+                 ->where('province', $province)
+                 ->where('county', '!=', $county);
+         })->orWhere(function ($query) use ($city, $province, $county) {
+             $query->where('province', $province)
+                 ->where('county', '=', $county)
+                 ->where('city', '=', $city . ' ' . $county);
+         })->count() > 0;
+ */
+        $differentCounty = DB::table('rentals')
+            ->where('city', $city)
+            ->where('province', $province)
+            ->where('county', '!=', $county)
+            ->count();
+
+        if($differentCounty > 0) return true;
+
+        $alreadyDuplicate = DB::table('rentals')
+            ->where('province', $province)
+            ->where('county', '=', $county)
+            ->where('city', '=', $city . ' ' . $county)
+            ->count();
+
+        if($alreadyDuplicate > 0) return true;
+
+        return false;
+
+    }
+
+    public function incrementEmailClick(Rental $rental)
+    {
+        return  $rental->increment('email_click');
+    }
+
+    public function incrementPhoneClick(Rental $rental)
+    {
+        return  $rental->increment('phone_click');
     }
 }

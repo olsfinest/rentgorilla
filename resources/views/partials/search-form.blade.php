@@ -1,8 +1,10 @@
 {!! Form::open(['route' => 'clearSearch', 'id' => 'search']) !!}
     <label for="location">
         <select name="location" id="location" style="width: 200px;">
-            @if(Session::has('location'))
-                <option value="{{ Session::get('location') }}" selected="selected">{{ Session::get('location') }}</option>
+            @if($location)
+                <option value="{{ $location }}" selected="selected">{{ getCityAndProvince($location) }}</option>
+            @elseif(Session::has('location'))
+                <option value="{{ Session::get('location') }}" selected="selected">{{ getCityAndProvince(Session::get('location')) }}</option>
             @endif
         </select>
     </label>

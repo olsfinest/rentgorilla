@@ -1,14 +1,7 @@
-@extends('layouts.main')
-
-
-@section('header-text')
-<h2 class="jumbotron__heading">Please Login</h2>
-@stop
-
+@extends('app')
 
 @section('content')
-    @include('partials.settings-header')
-<div class="container">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
@@ -25,7 +18,8 @@
 						</div>
 					@endif
 
-					{!! Form::open(['route' => 'login']) !!}
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('login') }}">
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">E-Mail Address</label>
@@ -53,14 +47,12 @@
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
-									Login
-								</button>
+								<button type="submit" class="btn btn-primary">Login</button>
 
-								<a href="/password/email">Forgot Your Password?</a>
+								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
 							</div>
 						</div>
-                        {!! Form::close() !!}
+					</form>
 				</div>
 			</div>
 		</div>

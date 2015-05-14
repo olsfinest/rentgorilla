@@ -6,8 +6,18 @@ use Illuminate\Database\Seeder;
 class FeaturesSeeder extends Seeder {
 
     protected $features = [
-        'Deck/patio',
-        'Private yard',
+        'Hardwood Floors',
+        'Hot Tub',
+        'Deck',
+        'Fireplace',
+        'Private Yard',
+        'Storage Shed',
+        'Front Lawn',
+        'Back Lawn',
+        'Door Man',
+        'Roof Access',
+        'Deck/Patio',
+        'Private Yard',
         'Attached garage',
         'Furnished',
         'Open Concept',

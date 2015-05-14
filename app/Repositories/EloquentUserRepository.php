@@ -1,5 +1,6 @@
 <?php namespace RentGorilla\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use RentGorilla\User;
 
 class EloquentUserRepository implements UserRepository
@@ -23,7 +24,7 @@ class EloquentUserRepository implements UserRepository
      * @param $user \RentGorilla\User
      * @return array
      */
-    public function getFavouriteRentalIdsForUser($user)
+    public function getFavouriteRentalIdsForUser(User $user)
     {
         return $user->favourites->lists('id');
     }
@@ -64,5 +65,29 @@ class EloquentUserRepository implements UserRepository
         $user->save();
 
         return $user;
+    }
+
+    public function getPhotoLikesForUser(User $user)
+    {
+        return $user->likes->lists('photo_id');
+    }
+
+    public function awardPoints(User $user, $points)
+    {
+        $user->points = $user->points + $points;
+
+        return $user->save();
+    }
+
+    public function redeemPoints(User $user)
+    {
+        $pointsToSubtract = $user->getPointsReadyToRedeem();
+
+        if($pointsToSubtract) {
+            $user->points = $user->points - $pointsToSubtract;
+            return $user->save();
+        } else {
+            return false;
+        }
     }
 }

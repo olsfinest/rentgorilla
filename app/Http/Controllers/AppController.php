@@ -21,27 +21,34 @@ class AppController extends Controller {
 
     public function showHome()
     {
-        return view('app');
+        return view('app.home');
     }
 
-    /**
-     * Show list view
-     * @return \Illuminate\View\View
-     */
-    public function showList()
+
+    public function showList($location = null)
     {
-		return view('app.list');
+
+        if($location) {
+            if( ! $this->rentalRepository->locationExists($location)) {
+                return abort(404);
+            }
+        }
+
+        return view('app.list', compact('location'));
+
 	}
 
-    /**
-     * Show map view
-     *
-     * @return \Illuminate\View\View
-     */
-    public function showMap()
+
+    public function showMap($location = null)
     {
-		return view('app.map');
-	}
+        if($location) {
+            if( ! $this->rentalRepository->locationExists($location)) {
+                return abort(404);
+            }
+        }
+
+        return view('app.map', compact('location'));
+    }
 
 
     /**
@@ -59,18 +66,21 @@ class AppController extends Controller {
             Session::put($key, $value);
         }
 
+        $page = (int) Input::get('page', 1);
+
+        $paginate = (boolean) Input::get('paginate');
+
         extract($search);
 
         if(Input::has('location')) {
-            $location = explode(',', Input::get('location'));
-            $city = $location[0];
-            $province = trim($location[1]);
+            $city = getCity($location);
+            $province = getProvince($location);
         } else {
             $city = null;
             $province = null;
         }
 
-        $rentals = $this->rentalRepository->search($city, $province, $type, $availability, $beds, $price);
+        $rentals = $this->rentalRepository->search($page, $paginate, $city, $province, $type, $availability, $beds, $price);
 
 		if(Auth::check()) {
 			$favourites = $userRepository->getFavouriteRentalIdsForUser(Auth::user());
@@ -78,9 +88,17 @@ class AppController extends Controller {
 			$favourites = [];
 		}
 
-		$html = view('app.rental-list-hits', compact('rentals', 'favourites'))->render();
+        if($paginate) {
+            $html = view('app.rental-list-hits-paginated')->with('rentals', $rentals['results'])->with('favourites', $favourites)->render();
+        } else {
+            $html = view('app.rental-list-hits')->with('rentals', $rentals['results'])->with('favourites', $favourites)->with('total', $rentals['count'])->render();
+        }
 
-		return response()->json(['rentals' => $html]);
+		return response()->json(['rentals' => $html,
+                'count' => $rentals['count'],
+                'page' => $rentals['page'],
+                'totalPages' => $rentals['totalPages']
+        ]);
 	}
 
     /**

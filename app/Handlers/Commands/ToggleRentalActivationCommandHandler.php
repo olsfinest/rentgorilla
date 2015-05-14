@@ -37,7 +37,7 @@ class ToggleRentalActivationCommandHandler
 
         } else {
 
-            if ($rental->user->onTrial() || $this->rentalRepository->getActiveRentalCountForUser($rental->user) === 0) {
+            if ($rental->user->onTrial() || ($this->rentalRepository->getActiveRentalCountForUser($rental->user) === 0 && $rental->user->joinedLessThanOneYearAgo())) {
 
                 $this->rentalRepository->activate($rental);
 

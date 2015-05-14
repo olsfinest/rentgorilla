@@ -9,7 +9,7 @@
         <p>(You may simply reply to this email to respond.)</p>
         <p>Name: {{ $name }}</p>
         <p>Email: {{ $email }}</p>
-        <p>Message: {{ $the_message }}</p>
+        <p>Message: {{ nl2br($the_message) }}</p>
     </div>
 
 @stop

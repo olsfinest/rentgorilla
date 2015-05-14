@@ -6,8 +6,7 @@ $factory('RentGorilla\User', [
     'email' => $faker->email,
     'password' => bcrypt('password'),
     'confirmation' => str_random(40),
-    'confirmed' => 1,
-    'user_type' => 'landlord'
+    'confirmed' => 1
 ]);
 
 $factory('RentGorilla\Rental', [
@@ -21,6 +20,8 @@ $factory('RentGorilla\Rental', [
     'street_address' => '48 Perrier Drive',
     'city' => 'New Minas',
     'province' => 'NS',
+    'location' => 'new-minas-ns',
+    'county' => 'Kings County',
     'available_at' => $faker->dateTime,
     'lat' => 45,
     'lng' => -64,
@@ -36,7 +37,8 @@ $factory('RentGorilla\Rental', [
     'parking' => 'driveway',
     'deposit' => 500,
     'baths' => 3,
-    'lease' => 12
+    'lease' => 12,
+    'edited_at' => \Carbon\Carbon::now()
 ]);
 
 $factory('RentGorilla\Photo', [
@@ -51,7 +53,12 @@ $factory('RentGorilla\Favourite', [
 ]);
 
 $factory('RentGorilla\Promotion', [
-    'rental_id' => 'factory:RentGorilla\Rental',
-    'city' => 'New Minas',
-    'province' => 'NS'
+    'user_id' => 'factory:RentGorilla\User',
 ]);
+
+$factory('RentGorilla\Like', [
+    'user_id' => 'factory:RentGorilla\User',
+    'rental_id' => 'factory:RentGorilla\Rental',
+    'photo_id' => 'factory:RentGorilla\Photo'
+]);
+

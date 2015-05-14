@@ -18,6 +18,7 @@ class CreateProfilesTable extends Migration
             $table->string('primary_phone')->nullable();
             $table->string('alternate_phone')->nullable();
             $table->string('website')->nullable();
+            $table->string('photo')->nullable();
             $table->text('bio')->nullable();
             $table->timestamps();
             $table->foreign('user_id')

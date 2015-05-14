@@ -1,9 +1,12 @@
 <?php namespace RentGorilla\Handlers\Commands;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use RentGorilla\Commands\EditRentalCommand;
 
 use Illuminate\Queue\InteractsWithQueue;
 use RentGorilla\Repositories\RentalRepository;
+
 
 class EditRentalCommandHandler {
 
@@ -11,7 +14,7 @@ class EditRentalCommandHandler {
     /**
      * @var RentalRepository
      */
-    protected $rentalRepository;
+    private $rentalRepository;
 
     function __construct(RentalRepository $rentalRepository)
     {
@@ -23,8 +26,16 @@ class EditRentalCommandHandler {
         $rental = $this->rentalRepository->findByUUID($command->id);
 
         $rental->street_address = $command->street_address;
-        $rental->city = $command->city;
+
+        if( $this->rentalRepository->cityIsDuplicate($command->city, $command->county, $command->province)) {
+            $rental->city = $command->city . ' ' . $command->county;
+        } else {
+            $rental->city = $command->city;
+        }
+
+        $rental->county = $command->county;
         $rental->province = $command->province;
+        $rental->location = Str::slug($rental->city . '-' . $command->province);
         $rental->type = $command->type;
         $rental->pets = $command->pets;
         $rental->baths = $command->baths;
@@ -42,7 +53,10 @@ class EditRentalCommandHandler {
         $rental->lat = $command->lat;
         $rental->lng = $command->lng;
         $rental->lease = $command->lease;
-        $rental->description = $command->description;
+        $rental->description = nullIfEmpty($command->description);
+        $rental->video = nullIfEmpty($command->video);
+
+        $rental->edited_at = Carbon::now();
 
         $rental->save();
 
