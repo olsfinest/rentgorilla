@@ -44,13 +44,28 @@ class ModifyRentalRequest extends Request {
             'pets' => 'required|in:' . implode(',', array_keys(Config::get('rentals.pets'))),
             'baths' => 'required|numeric',
             'lease' => 'required|integer',
-            'video' => 'url'
+            'video' => 'url',
+            'postal_code' => 'max:7'
         ];
 
         if($this->request->get('feature_list')) {
 
             foreach ($this->request->get('feature_list') as $key => $val) {
-                $rules['feature_list.' . $key] = 'required|integer';
+                $rules['feature_list.' . $key] = 'integer';
+            }
+        }
+
+        if($this->request->get('appliance_list')) {
+
+            foreach ($this->request->get('appliance_list') as $key => $val) {
+                $rules['appliance_list.' . $key] = 'integer';
+            }
+        }
+
+        if($this->request->get('heat_list')) {
+
+            foreach ($this->request->get('heat_list') as $key => $val) {
+                $rules['heat_list.' . $key] = 'integer';
             }
         }
 

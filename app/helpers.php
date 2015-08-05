@@ -31,3 +31,15 @@ function getNoPhoto($size)
 {
     return "/img/no-photo/{$size}-no-photo-icon.jpg";
 }
+
+function  sort_users_by($column, $body)
+{
+    $direction = (Input::get('direction') == 'asc') ? 'desc' : 'asc';
+    $link = link_to_route('admin.searchUsers', $body, ['sortBy' => $column, 'direction' => $direction]);
+    $icon = '';
+    if(Input::get('sortBy') == $column) {
+        $icon =  '<i class="fa fa-sort-' . e(Input::get('direction')) . '"></i>';
+    }
+    return $link . $icon;
+
+}

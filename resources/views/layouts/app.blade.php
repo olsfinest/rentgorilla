@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/typography.css">
 		<link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.css">
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
+        @yield('head')
 	</head>
 	<body>
         @yield('content')
@@ -23,7 +24,14 @@
             <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
             <script src="/js/auth.js"></script>
             @yield('footer')
-
+            <script language="JavaScript" type="text/javascript">
+                setInterval(function(){
+                    $('.eyes').toggleClass('blink');
+                    setTimeout(function(){
+                        $('.eyes').toggleClass('blink')
+                    }, 200);
+                }, 5000);
+            </script>
         </footer>
 	</body>
 </html>

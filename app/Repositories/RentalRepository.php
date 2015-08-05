@@ -17,6 +17,7 @@ interface RentalRepository
     public function deactivate(Rental $rental);
     public function getActiveRentalCountForUser(User $user);
     public function deactivateAllForUser(User $user);
+    public function downgradePlanCapacityForUser(User $user, $capacity);
     public function getPromotedRentals(User $user);
     public function getUnpromotedRentals(User $user);
     public function promoteRental(Rental $rental);
@@ -32,4 +33,5 @@ interface RentalRepository
     public function cityIsDuplicate($city, $county, $province);
     public function incrementEmailClick(Rental $rental);
     public function incrementPhoneClick(Rental $rental);
+    public function updateSearchViews($rentalIds);
 }

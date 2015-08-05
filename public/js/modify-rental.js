@@ -23,6 +23,7 @@ $('#modify_rental_form').submit(function(event) {
     var streetAddress = $('#street_address').val();
     var city = $('#city').val();
     var province = $('#province').val();
+    var postal_code = $('#postal_code').val();
 
     if( ! streetAddress) {
 
@@ -41,7 +42,13 @@ $('#modify_rental_form').submit(function(event) {
 
     var geocoder = new google.maps.Geocoder();
 
-    var address = streetAddress + ',' + city + ',' + province;
+    var address = '';
+
+    if( ! postal_code) {
+        address = streetAddress + ',' + city + ',' + province;
+    } else {
+        address = streetAddress + ',' + city + ',' + province + ',' + postal_code;
+    }
 
     geocoder.geocode({'address': address,
 
@@ -49,7 +56,6 @@ $('#modify_rental_form').submit(function(event) {
 
     }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-
             var county_result;
             var city_result;
             for (var x = 0, length_1 = results.length; x < length_1; x++){
@@ -67,8 +73,7 @@ $('#modify_rental_form').submit(function(event) {
 
 
             if( ! county_result) {
-                showModal('Sorry, we were not able to find that location.');
-                return false;
+                county_result = 0;
             }
 
             if(city_result != city) {

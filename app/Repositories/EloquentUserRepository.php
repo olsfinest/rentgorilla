@@ -90,4 +90,46 @@ class EloquentUserRepository implements UserRepository
             return false;
         }
     }
+
+    public function emailSearch($email)
+    {
+        return User::select([ DB::raw('email as text'), DB::raw('id')])
+            ->where('email', 'like', "%$email%")
+            ->get();
+    }
+
+    public function getPaginated(array $params)
+    {
+
+        if($this->isSortable($params)) {
+
+            return User::leftJoin('rentals',  function ($join) {
+                $join->on('users.id', '=', 'rentals.user_id')
+                    ->where('rentals.active', '=', 1);
+            })
+            ->selectRaw('users.*, count(rentals.user_id) as rentalsCount')
+            ->groupBy('users.id')
+            ->orderBy($params['sortBy'], $params['direction'])->paginate(10);
+        }
+
+        return User::leftJoin('rentals',  function ($join) {
+            $join->on('users.id', '=', 'rentals.user_id')
+                ->where('rentals.active', '=', 1);
+        })
+        ->selectRaw('users.*, count(rentals.user_id) as rentalsCount')
+        ->groupBy('users.id')
+        ->orderBy('email')
+        ->paginate(10);
+
+
+    }
+
+    /**
+     * @param array $params
+     * @return bool
+     */
+    private function isSortable(array $params)
+    {
+        return $params['sortBy'] && $params['direction'];
+    }
 }

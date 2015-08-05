@@ -2,6 +2,13 @@
 
 return [
 
+    'Free' => [
+        'maximumListings' => 1,
+        'totalYearlyCost' => 0,
+        'planName' => 'Free',
+        'interval' => null
+    ],
+
     'Personal_Monthly' => [
         'maximumListings' => 5,
         'totalYearlyCost' => 12000,

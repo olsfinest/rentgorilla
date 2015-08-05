@@ -1,61 +1,40 @@
-@extends('app')
+@extends('layouts.app')
+
+@section('head')
+    <link rel="stylesheet" href="/css/login.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/form.css" media="screen" title="no title" charset="utf-8">
+@endsection
 
 @section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+<script type="text/javascript">
+    document.body.classList.add("login_only");
+</script>
+<section class="main">
+    <header>
+        <section class="main">
+            <a title="RentGorilla... move on up." class="home" href="/">RentGorilla<small>Move on up</small>
+            <span class="eyes" title="Did you know that gorillas blink approximately 30 times per minute? That's once every 2 seconds!">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+            </span>
+            </a>
+            </section>
+       </header>
+    <section class="content full pricing">
+        @include('errors.error-list')
+        <div class="loginOnly">
+            {!! Form::open(['route' => 'login']) !!}
+                <input placeholder="Your email address" type="email" name="email" value="" autofocus tabindex="1" required>
+                <input placeholder="Your password" type="password" name="password" value="" tabindex="2" required>
+                <input placeholder="" type="submit" name="submit" value="Log In" tabindex="3">
+           {!! Form::close() !!}
+            <a class="forgotPass" href="password/email">Reset password</a>
+        </div>
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('login') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">Login</button>
-
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+        <div class="loginOnly">
+            <a class="facebook" href="/login/facebook"><i class="fa fa-facebook"></i> Login with Facebook</a>
+            <a class="google" href="/login/google"><i class="fa fa-google"></i> Login with Google</a>
+        </div>
+    </section>
+</section>
 @endsection

@@ -96,6 +96,10 @@ function showRentals(ids, marker, cluster) {
 
 function loadRentals() {
 
+    if(ib) {
+        ib.close();
+    }
+
     $('#spinner').show();
 
     var bounds = map.getBounds();

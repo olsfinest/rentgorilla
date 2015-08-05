@@ -33,7 +33,7 @@ class RegistrationController extends Controller {
 
         //TODO: where to redirect to?
 
-        return redirect('/rental');
+        return redirect('/rental')->with('flash:success', 'Thank you! Your account has been confirmed!');
     }
 
     public function resendConfirmation(ResendConfirmationRequest $request)

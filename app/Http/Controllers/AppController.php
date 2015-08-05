@@ -1,6 +1,7 @@
 <?php namespace RentGorilla\Http\Controllers;
 
 use Auth;
+use RentGorilla\Events\SearchWasInitiated;
 use RentGorilla\Repositories\UserRepository;
 use Session;
 use Input;
@@ -82,7 +83,11 @@ class AppController extends Controller {
 
         $rentals = $this->rentalRepository->search($page, $paginate, $city, $province, $type, $availability, $beds, $price);
 
-		if(Auth::check()) {
+        if( $rentals['results']->count()) {
+            event(new SearchWasInitiated( $rentals['results']->lists('id')));
+        }
+
+        if(Auth::check()) {
 			$favourites = $userRepository->getFavouriteRentalIdsForUser(Auth::user());
 		} else {
 			$favourites = [];
@@ -108,7 +113,6 @@ class AppController extends Controller {
      */
     public function clearSearch()
     {
-        Session::forget('location');
         Session::forget('type');
         Session::forget('availability');
         Session::forget('beds');

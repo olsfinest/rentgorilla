@@ -24,8 +24,9 @@ class CreateRentalsTable extends Migration {
 			$table->enum('province', ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']);
 			$table->string('city');
             $table->string('location');
-            $table->string('county');
+            $table->string('county')->nullable();
             $table->string('street_address');
+            $table->string('postal_code')->nullable();
             $table->float('lat', 10, 6);
             $table->float('lng', 10, 6);
 			$table->integer('beds');
@@ -50,6 +51,7 @@ class CreateRentalsTable extends Migration {
             $table->boolean('furnished');
             $table->string('video')->nullable();
             $table->unsignedInteger('views')->default(0);
+            $table->unsignedInteger('search_views')->default(0);
             $table->unsignedInteger('email_click')->default(0);
             $table->unsignedInteger('phone_click')->default(0);
 

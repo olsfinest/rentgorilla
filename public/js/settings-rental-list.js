@@ -1,6 +1,6 @@
  $(document).ready(function() {
 
-    $(".rental-active").on('click', function(event) {
+    $(".activity").on('click', function(event) {
 
         var button = $(this);
 
@@ -12,12 +12,12 @@
                 if(data.activated) {
                     button.attr('title', 'deactivate');
                     button.removeClass();
-                    button.addClass('rental-active btn btn-success');
+                    button.addClass('activity on');
                     button.html('Active');
                 } else {
                     button.attr('title', 'activate');
                     button.removeClass();
-                    button.addClass('rental-active btn btn-danger');
+                    button.addClass('activity off');
                     button.html('Inactive');
                 }
             },

@@ -2,7 +2,12 @@
 
 use Auth;
 use RentGorilla\Billing\StripeBiller;
+use RentGorilla\Commands\ModifyProfileCommand;
+use RentGorilla\Commands\ModifySettingsCommand;
+use RentGorilla\Commands\SupportRequestCommand;
 use RentGorilla\Http\Requests\ModifyProfileRequest;
+use RentGorilla\Http\Requests\ModifySettingsRequest;
+use RentGorilla\Http\Requests\SupportRequest;
 use RentGorilla\Plans\Subscription;
 
 
@@ -29,23 +34,13 @@ class SettingsController extends Controller {
 
     public function updateProfile(ModifyProfileRequest $request)
     {
-        $this->dispatchFrom('RentGorilla\Commands\ModifyProfileCommand', $request, [
+        $this->dispatchFrom(ModifyProfileCommand::class, $request, [
             'user_id' => Auth::user()->id,
+            'photo' => $request->file('photo')
         ]);
 
-        return redirect()->back()->with('flash_message', 'Your profile has been updated!');
+        return redirect()->back()->with('flash:success', 'Your profile has been updated!');
     }
-
-	public function showChangePlan()
-	{
-		return view('settings.change-plan');
-	}
-
-
-	public function showApplyCoupon()
-	{
-		return view('settings.apply-coupon');
-	}
 
 	public function showPaymentHistory()
 	{
@@ -76,8 +71,31 @@ class SettingsController extends Controller {
 		return view('settings.update-card');
 	}
 
-	public function showCancelSubscription()
-	{
-		return view('settings.cancel-subscription');
-	}
+    public function showSupport()
+    {
+        return view('settings.contact');
+    }
+
+    public function showSettings()
+    {
+        return view('settings.settings');
+    }
+
+    public function saveSettings(ModifySettingsRequest $request)
+    {
+        $this->dispatchFrom(ModifySettingsCommand::class, $request, [
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect()->back()->with('flash:success', 'Settings updated!');
+    }
+
+    public function sendContact(SupportRequest $request)
+    {
+        $this->dispatchFrom(SupportRequestCommand::class, $request, [
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect()->back()->with('flash:success', 'Your support request was sent!');
+    }
 }

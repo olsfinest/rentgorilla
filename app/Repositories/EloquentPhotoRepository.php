@@ -5,9 +5,9 @@ use RentGorilla\User;
 
 class EloquentPhotoRepository implements PhotoRepository {
 
-    public function findPhotoForUser(User $user, $id)
+    public function findPhotoForUser(User $user, $filename)
     {
-        return Photo::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        return Photo::where(['user_id' => $user->id, 'name' => $filename])->firstOrFail();
     }
 
     public function delete(Photo $photo)

@@ -6,7 +6,8 @@ $factory('RentGorilla\User', [
     'email' => $faker->email,
     'password' => bcrypt('password'),
     'confirmation' => str_random(40),
-    'confirmed' => 1
+    'confirmed' => 1,
+    'provider' => 'email'
 ]);
 
 $factory('RentGorilla\Rental', [

@@ -2,7 +2,7 @@
 
 use RentGorilla\Commands\Command;
 
-class RemoveFavouriteCommand extends Command {
+class ShowEmbeddedVideoCommand extends Command {
 
     public $rental_id;
 

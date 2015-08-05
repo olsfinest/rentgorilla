@@ -3,6 +3,7 @@
 use Config;
 use DB;
 use Carbon\Carbon;
+use RentGorilla\Promotion;
 use RentGorilla\Rental;
 use RentGorilla\User;
 
@@ -88,7 +89,7 @@ class EloquentRentalRepository implements RentalRepository
 
         $totalPages = ceil($count / Rental::RESULTS_PER_PAGE);
 
-        $query = $this->baseSearch(true, $city, $province, $type, $availability, $beds, $price)->orderBy('available_at');
+        $query = $this->baseSearch(true, $city, $province, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy('available_at');
 
         if($paginate) {
             $offset = ($page - 1) * Rental::RESULTS_PER_PAGE;
@@ -110,7 +111,7 @@ class EloquentRentalRepository implements RentalRepository
     {
         $query = $this->baseSearch(true, $city, $province, $type, $availability, $beds, $price);
 
-        $query->orderBy('available_at');
+        $query->orderBy('promoted', 'desc')->orderBy('available_at');
 
         return $query->lists('uuid');
     }
@@ -184,7 +185,7 @@ class EloquentRentalRepository implements RentalRepository
     {
 
         $rental->active = 0;
-        $rental->activated_at = null;
+       // $rental->activated_at = null;
 
         return $rental->save();
     }
@@ -218,7 +219,9 @@ class EloquentRentalRepository implements RentalRepository
         $rental->queued = 0;
         $rental->queued_at = null;
 
-        return $rental->save();
+        $rental->save();
+
+        Promotion::create(['user_id' => $rental->user_id]);
     }
 
     public function unpromoteRental(Rental $rental)
@@ -287,6 +290,7 @@ class EloquentRentalRepository implements RentalRepository
         $differentCounty = DB::table('rentals')
             ->where('city', $city)
             ->where('province', $province)
+            ->whereNotNull('county')
             ->where('county', '!=', $county)
             ->count();
 
@@ -294,6 +298,7 @@ class EloquentRentalRepository implements RentalRepository
 
         $alreadyDuplicate = DB::table('rentals')
             ->where('province', $province)
+            ->whereNotNull('county')
             ->where('county', '=', $county)
             ->where('city', '=', $city . ' ' . $county)
             ->count();
@@ -306,11 +311,27 @@ class EloquentRentalRepository implements RentalRepository
 
     public function incrementEmailClick(Rental $rental)
     {
-        return  $rental->increment('email_click');
+        return $rental->increment('email_click');
     }
 
     public function incrementPhoneClick(Rental $rental)
     {
-        return  $rental->increment('phone_click');
+        return $rental->increment('phone_click');
+    }
+
+    public function downgradePlanCapacityForUser(User $user, $capacity)
+    {
+        // toggle them all off first ...
+        DB::table('rentals')
+            ->where('user_id', $user->id)
+            ->update(['active' => 0]);
+
+        // then activate only up to the new plans capacity
+        return DB::update(DB::raw("UPDATE rentals SET active = 1 WHERE user_id = {$user->id} ORDER BY edited_at LIMIT {$capacity}"));
+    }
+
+    public function updateSearchViews($rentalIds)
+    {
+        return DB::table('rentals')->whereIn('id', $rentalIds)->increment('search_views');
     }
 }

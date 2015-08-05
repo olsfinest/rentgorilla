@@ -3,7 +3,7 @@
 use RentGorilla\Http\Requests\Request;
 use Auth;
 
-class PromoteRentalNewCustomerRequest extends Request {
+class AdminNewUserRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -12,7 +12,7 @@ class PromoteRentalNewCustomerRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return Auth::check() && ! $this->user()->readyForBilling();
+		return Auth::check() && $this->user()->isAdmin();
 	}
 
 	/**
@@ -23,8 +23,7 @@ class PromoteRentalNewCustomerRequest extends Request {
 	public function rules()
 	{
 		return [
-			'rental_id' => 'required',
-            'stripe_token' => 'required'
+			'email' => 'required|email|unique:users'
 		];
 	}
 

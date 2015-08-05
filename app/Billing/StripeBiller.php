@@ -15,7 +15,15 @@ class StripeBiller {
 
         $charges = Charge::all(['customer' => $customer_id]);
 
-        return count($charges['data']) > 0 ? $charges['data'] : null;
+        if(count($charges['data']) > 0) {
+
+           return array_filter($charges['data'], function($obj){
+               return  ! is_null($obj->description) ;
+           });
+
+        } else {
+            return null;
+        }
 
     }
 

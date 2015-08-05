@@ -12,7 +12,7 @@ class ChangePlanRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return Auth::check() && $this->user()->readyForBilling();
+		return Auth::check() && $this->user()->stripeIsActive();
 	}
 
 	/**
@@ -22,9 +22,7 @@ class ChangePlanRequest extends Request {
 	 */
 	public function rules()
 	{
-		return [
-            'stripe_plan' => 'required'
-		];
+		return [];
 	}
 
 }

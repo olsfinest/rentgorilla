@@ -23,7 +23,10 @@ class ModifyProfileRequest extends Request
     public function rules()
     {
         return [
-            'website' => 'url'
+            'website' => 'url',
+            'photo' => 'image|max:3000',
+            'first_name' => 'required',
+            'last_name' => 'required',
         ];
     }
 }

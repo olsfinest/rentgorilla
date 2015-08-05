@@ -5,6 +5,7 @@ use Laracasts\TestDummy\Factory;
 use RentGorilla\Reward;
 use RentGorilla\Rewards\Achievement;
 use RentGorilla\Rewards\PowerPromoter;
+use RentGorilla\User;
 
 class PowerPromoterTest  extends DbTestCase {
 
@@ -27,6 +28,11 @@ class PowerPromoterTest  extends DbTestCase {
         $reward = Reward::create(['user_id' => $user->id, 'type' => Achievement::POWER_PROMOTER]);
 
         dd($pp->checkEligibility());
+
+        $user = User::where('id', $user->id);
+
+        $this->assertEquals(1000, $user->points);
+
 */
 
     }

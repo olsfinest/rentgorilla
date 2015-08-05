@@ -7,6 +7,7 @@ class DeactivateRentalsTest extends DbTestCase {
 
     public function testCheckIfAccountExpired()
     {
+        /*
         $dr = app()->make('RentGorilla\DailyJobs\DeactivateRentals');
 
         $user = Factory::create('RentGorilla\User');
@@ -14,6 +15,7 @@ class DeactivateRentalsTest extends DbTestCase {
         $rental = Factory::create('RentGorilla\Rental', ['user_id' => $user->id]);
 
         dd($dr->checkIfAccountExpired());
+        */
     }
 
 

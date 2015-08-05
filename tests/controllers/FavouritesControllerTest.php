@@ -40,24 +40,4 @@ class FavouritesControllerTest extends DbTestCase
     }
 
 
-    public function testRemoveFavourite()
-    {
-        $user = Factory::create('RentGorilla\User');
-
-        $rental = Factory::create('RentGorilla\Rental');
-
-        Auth::loginUsingId($user->id);
-
-        $this->assertCount(0, Auth::user()->favourites()->get());
-
-        Auth::user()->favourites()->attach($rental->id);
-
-        $this->assertCount(1, Auth::user()->favourites()->get());
-
-        $this->route('DELETE', 'favourites.delete', [$rental->uuid]);
-
-        $this->assertCount(0, Auth::user()->favourites()->get());
-
-    }
-
 }

@@ -6,6 +6,8 @@ use RentGorilla\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use RentGorilla\Http\Requests\LoginRequest;
+use RentGorilla\User;
+use Socialite;
 
 class SessionController extends Controller {
 
@@ -28,10 +30,19 @@ class SessionController extends Controller {
 
     public function login(LoginRequest $request)
     {
+
+        $user = User::where('email', $request->email)->first();
+
+        if($user && ($user->provider !== 'email')) {
+
+            return Socialite::driver($user->provider)->redirect();
+            
+        }
+
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
-            'confirmed' => 1
+            'confirmed' => 1,
         ];
 
         if ($this->auth->attempt($credentials, $request->has('remember')))
@@ -47,7 +58,7 @@ class SessionController extends Controller {
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
-            'confirmed' => 0
+            'confirmed' => 0,
         ];
 
         if ($this->auth->attempt($credentials, false, false)) {
@@ -62,9 +73,10 @@ class SessionController extends Controller {
         //credentials did not match...
 
         if($request->ajax()) {
-            return response()->json(['message' => self::MESSAGE, 'success' => false], 401);
+            return response()->json(['message' => self::MESSAGE], 401);
         } else {
-            return redirect(route('home'))
+            return redirect()
+                ->back()
                 ->withInput()
                 ->withErrors([
                     'email' => self::MESSAGE

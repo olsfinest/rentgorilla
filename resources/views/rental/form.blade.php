@@ -1,157 +1,91 @@
-@section('header')
-    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
-@stop
-
-<div class="form-group">
-    <label for="street_address" class="col-sm-2 control-label">Street Address</label>
-    <div class="col-sm-10">
-        {!! Form::text('street_address', null, ['class' => 'form-control', 'id' => 'street_address']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="city" class="col-sm-2 control-label">City</label>
-    <div class="col-sm-10">
-        {!! Form::text('city', null, ['class' => 'form-control', 'id' => 'city']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="province" class="col-sm-2 control-label">Province</label>
-    <div class="col-sm-10">
+    <label for="street_address" class="">Street Address
+         {!! Form::text('street_address', null, ['class' => 'form-control', 'id' => 'street_address', 'placeholder' => '123 Main Street']) !!}
+    </label>
+    <label for="city" class="">City
+        {!! Form::text('city', $rental->cityOnly, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Antigonish']) !!}
+    </label>
+    <label for="province" class="">Province
         {!! Form::select('province', Config::get('rentals.provinces'), null, ['id' => 'province', 'class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="type" class="col-sm-2 control-label">Type</label>
-    <div class="col-sm-10">
+    </label>
+    <label for="postal_code" class="">Postal Code
+        {!! Form::text('postal_code', $rental->postal_code, ['id' => 'postal_code', 'class' => 'form-control', 'placeholder' => 'B2G 2L2']) !!}
+    </label>
+    <label for="type" class="">Type
         {!! Form::select('type', Config::get('rentals.type'), null, ['class' => 'form-control']) !!}
-    </diV>
-</div>
-<div class="form-group">
-    <label for="beds" class="col-sm-2 control-label">Beds</label>
-    <div class="col-sm-10">
-        {!! Form::text('beds', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="baths" class="col-sm-2 control-label">Bathrooms</label>
-    <div class="col-sm-10">
-        {!! Form::text('baths', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="price" class="col-sm-2 control-label">Monthly Rent</label>
-    <div class="col-sm-10">
-        {!! Form::text('price', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="lease" class="col-sm-2 control-label">Lease (months)</label>
-    <div class="col-sm-10">
-        {!! Form::text('lease', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="deposit" class="col-sm-2 control-label">Deposit</label>
-    <div class="col-sm-10">
-        {!! Form::text('deposit', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="laundry" class="col-sm-2 control-label">Laundry</label>
-    <div class="col-sm-10">
+    </label>
+    <label for="beds" class="">Beds
+        {!! Form::text('beds', null, ['class' => 'form-control', 'placeholder' => '4']) !!}
+    </label>
+    <label for="baths" class="">Bathrooms
+        {!! Form::text('baths', null, ['class' => 'form-control', 'placeholder' => '2.5']) !!}
+    </label>
+    <label for="price" class="">Monthly Rent
+        {!! Form::text('price', null, ['class' => 'form-control', 'placeholder' => '500']) !!}
+    </label>
+    <label for="lease" class="">Lease (months)
+        {!! Form::text('lease', null, ['class' => 'form-control', 'placeholder' => '12']) !!}
+    </label>
+    <label for="deposit" class="">Deposit
+        {!! Form::text('deposit', null, ['class' => 'form-control', 'placeholder' => '300']) !!}
+    </label>
+    <label for="laundry" class="">Laundry
         {!! Form::select('laundry', Config::get('rentals.laundry'), null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="pets" class="col-sm-2 control-label">Pets</label>
-    <div class="col-sm-10">
+    </label>
+    <label for="pets" class="">Pets
         {!! Form::select('pets', Config::get('rentals.pets'), null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="parking" class="col-sm-2 control-label">Parking</label>
-    <div class="col-sm-10">
+    </label>
+    <label for="parking" class="">Parking
         {!! Form::select('parking', Config::get('rentals.parking'), null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="disability_access" class="col-sm-2 control-label">Disability Access</label>
-    <div class="col-sm-10">
+    </label>
+    <label for="disability_access" class="">Disability Access
+        <span>
         {!! Form::radio('disability_access', 1) !!} Yes {!! Form::radio('disability_access', 0) !!} No
-    </div>
-</div>
-<div class="form-group">
-    <label for="smoking" class="col-sm-2 control-label">Smoking</label>
-    <div class="col-sm-10">
+        </span>
+    </label>
+    <label for="smoking" class="">Smoking
+        <span>
         {!! Form::radio('smoking', 1) !!} Yes {!! Form::radio('smoking', 0) !!} No
-    </div>
-</div>
-<div class="form-group">
-    <label for="utilities_included" class="col-sm-2 control-label">Utilities Included</label>
-    <div class="col-sm-10">
+        </span>
+    </label>
+    <label for="utilities_included" class="">Utilities Included
+        <span>
         {!! Form::radio('utilities_included', 1) !!} Yes {!! Form::radio('utilities_included', 0) !!} No
-    </div>
-</div>
-<div class="form-group">
-    <label for="heat_included" class="col-sm-2 control-label">Heat Included</label>
-    <div class="col-sm-10">
+        </span>
+    </label>
+    <label for="heat_included" class="">Heat Included
+        <span>
         {!! Form::radio('heat_included', 1) !!} Yes {!! Form::radio('heat_included', 0) !!} No
-    </div>
-</div>
-<div class="form-group">
-    <label for="furnished" class="col-sm-2 control-label">Furnished</label>
-    <div class="col-sm-10">
+        </span>
+    </label>
+    <label for="furnished" class="">Furnished
+        <span>
         {!! Form::radio('furnished', 1) !!} Yes {!! Form::radio('furnished', 0) !!} No
-    </div>
-</div>
-<div class="form-group">
-    <label for="square_footage" class="col-sm-2 control-label">Square Footage</label>
-    <div class="col-sm-10">
-        {!! Form::text('square_footage', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="available" class="col-sm-2 control-label">Date Available</label>
-    <div class="col-sm-10">
-        {!! Form::text('available', null, ['id' => 'available', 'class' => 'form-control', 'readonly']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="video" class="col-sm-2 control-label">Link to video</label>
-    <div class="col-sm-10">
-        {!! Form::text('video', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="description" class="col-sm-2 control-label">Description</label>
-    <div class="col-sm-10">
-        {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="features" class="col-sm-2 control-label">Features</label>
-    <div class="col-sm-10">
+        </span>
+    </label>
+    <label for="square_footage" class="">Square Footage
+        {!! Form::text('square_footage', null, ['class' => 'form-control', 'placeholder' => '1000']) !!}
+    </label>
+    <label for="available" class="">Date Available
+        {!! Form::text('available', null, ['id' => 'available', 'class' => 'form-control', 'readonly', 'placeholder' => 'MM/DD/YYYY']) !!}
+    </label>
+    <label for="video" class="">Link to video
+        {!! Form::text('video', null, ['class' => 'form-control', 'placeholder' => 'https://www.youtube.com/watch?v=764xqeDO3yk']) !!}
+    </label>
+    <label for="description" class="">Description
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'A brief description of the property...']) !!}
+    </label>
+    <label for="features" class="">Features</label>
         {!! Form::select('feature_list[]', \RentGorilla\Feature::lists('name', 'id'), null, ['id' => 'features', 'class' => 'form-control', 'multiple']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="features" class="col-sm-2 control-label">Appliances</label>
-    <div class="col-sm-10">
+
+    <label for="appliances" class="">Appliances</label>
         {!! Form::select('appliance_list[]', \RentGorilla\Appliance::lists('name', 'id'), null, ['id' => 'appliances', 'class' => 'form-control', 'multiple']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="features" class="col-sm-2 control-label">Heating</label>
-    <div class="col-sm-10">
+    <br>
+    <label for="heats" class="">Heating</label>
         {!! Form::select('heat_list[]', \RentGorilla\Heat::lists('name', 'id'), null, ['id' => 'heats', 'class' => 'form-control', 'multiple']) !!}
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-sm-10">
-    {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary btn-lg']) !!}
-    <a href="{{ route('rental.index') }}" class="btn btn-primary btn-lg">Cancel</a>
-    </div>
-</div>
+    <br>
+
+    {!! Form::submit($submitButtonText, ['class' => 'button']) !!}
+    <a href="{{ route('rental.index') }}" class="button">Cancel</a>
 
 
 @section('footer')

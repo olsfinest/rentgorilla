@@ -1,6 +1,7 @@
 <?php namespace RentGorilla\Http\Requests;
 
 use RentGorilla\Http\Requests\Request;
+use Auth;
 
 class LoginRequest extends Request {
 
@@ -11,7 +12,7 @@ class LoginRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+		return ! Auth::check();
 	}
 
 	/**

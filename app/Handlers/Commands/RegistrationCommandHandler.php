@@ -25,7 +25,7 @@ class RegistrationCommandHandler {
         $user->password = bcrypt($command->password);
         $user->confirmed = 0;
         $user->confirmation = str_random(40);
-
+        $user->provider = 'email';
         $this->repository->save($user);
 
         event(new UserHasRegistered($user));

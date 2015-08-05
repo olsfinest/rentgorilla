@@ -4,6 +4,7 @@ use Laracasts\TestDummy\DbTestCase;
 use Laracasts\TestDummy\Factory;
 use RentGorilla\Reward;
 use RentGorilla\Rewards\Achievement;
+use RentGorilla\User;
 
 class LotsOfFavouritesTest  extends DbTestCase {
 
@@ -28,6 +29,12 @@ class LotsOfFavouritesTest  extends DbTestCase {
         Reward::create(['user_id' => 1, 'type' => Achievement::LOTS_OF_FAVOURITES]);
 
         dd($gp->checkEligibility());
+
+
+        $user = User::where('id', $user->id);
+
+        $this->assertEquals(5000, $user->points);
+
 */
     }
 

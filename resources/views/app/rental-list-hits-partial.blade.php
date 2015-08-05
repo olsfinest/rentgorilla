@@ -1,6 +1,9 @@
 @foreach($rentals as $rental)
     <li>
-        <span id="{{ $rental->uuid }}" class="favourite fa {{ in_array($rental->id, $favourites) ? 'fa-heart' : 'fa-heart-o' }}"></span>
+        @if($rental->isPromoted())
+            <span class="promoted-small"></span>
+        @endif
+            <span id="{{ $rental->uuid }}" class="favourite fa {{ in_array($rental->id, $favourites) ? 'fa-heart' : 'fa-heart-o' }}"></span>
         <div class="images cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="1000">
             @if($rental->photos->count())
                 @foreach($rental->photos as $photo)

@@ -54,6 +54,10 @@ function login() {
         $("#signupmodal").dialog('close');
     }
 
+    if ($("#showVideoModal").hasClass('ui-dialog-content')) {
+        $("#showVideoModal").dialog('close');
+    }
+
     return $("#login").dialog({
         modal: true,
         dialogClass: "noTitle",
@@ -143,3 +147,5 @@ $('#signup_form').submit(function( event ) {
         }
     });
 });
+
+

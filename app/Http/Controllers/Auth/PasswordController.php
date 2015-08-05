@@ -5,9 +5,11 @@ use RentGorilla\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
+use RentGorilla\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Password;
 use Auth;
+use Socialite;
 
 class PasswordController extends Controller {
 
@@ -20,6 +22,14 @@ class PasswordController extends Controller {
     public function postEmail(Request $request)
     {
         $this->validate($request, ['email' => 'required|email']);
+
+        //redirect them to social login if they previously joined with a social account as there was no password to reset
+
+        if($user = User::where('email', $request->email)->where('provider', '!=', 'email')->first()) {
+
+            return Socialite::driver($user->provider)->redirect();
+
+        }
 
         $response = Password::sendResetLink($request->only('email'), function($m)
         {

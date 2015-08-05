@@ -22,10 +22,13 @@ class SubscriptionRequest extends Request {
 	 * @return array
 	 */
 	public function rules()
-	{
-		return [
-			'stripe_token' => 'required'
-		];
-	}
-
+    {
+        if ( ! $this->user()->readyForBilling()) {
+            return [
+                'stripe_token' => 'required'
+            ];
+        } else {
+            return [];
+        }
+    }
 }

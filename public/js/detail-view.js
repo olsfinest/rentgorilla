@@ -75,24 +75,28 @@ $('#phone-btn').on('click', function(e) {
 })
 
 $('#email-manager-btn').on('click', function(e) {
-    $('#email-manager').dialog({
-        modal: true,
-        dialogClass: "noTitle",
-        draggable: false,
-        resizable: false,
-        show: "fade",
-        hide: "fade"
+    $('.modalLogin').dialog({
+        resizable: 'false',
+        dialogClass: 'modalLogin',
+        width: '100%',
+        height: '100%',
+        position: 'fixed',
+        top: '0',
+        left: '0'
     });
 })
 
 $('#email-manager-form').submit(function( event ) {
     event.preventDefault();
+    var form = $(this);
     $.ajax({
         type: 'POST',
         url: '/rental/email-manager',
         data: $(this).serialize(),
         success: function (data, textStatus, jqXHR) {
-            $('#email-manager').html(data.message);
+            //alert(data.message);
+            var $dialog = form.parents('.ui-dialog-content');
+            $dialog.dialog('close');
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var errors = jqXHR.responseJSON;
@@ -104,6 +108,68 @@ $('#email-manager-form').submit(function( event ) {
 
             html += "</ul>";
             $('#email-manager-form-errors').addClass("ui-state-error").html(html);
+        }
+    });
+});
+
+
+$('#show_video').on('click', function() {
+
+    var showVideoModal = $('<div id="showVideoModal"></div>');
+
+    showVideoModal.dialog({
+        modal: true,
+        dialogClass: "noTitle",
+        draggable: false,
+        resizable: false,
+        show: "fade",
+        hide: "fade",
+        close: function( event, ui ) {
+            showVideoModal.remove();
+        }
+    });
+
+    $.ajax({
+        type: 'POST',
+        url: '/rental/show-video',
+        data: {rental_id: rental_id},
+        success: function (data, textStatus, jqXHR) {
+            showVideoModal.html(data.html);
+
+            $('#toggleVideoLike').on('click', function() {
+
+                var icon = $(this);
+
+                if(isLoggedIn()) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/rental/like-video',
+                        data: {rental_id: rental_id},
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.like) {
+                                $('#toggleVideoLike').removeClass('fa-thumbs-o-up');
+                                $('#toggleVideoLike').addClass('fa-thumbs-up');
+                            } else {
+                                $('#toggleVideoLike').removeClass('fa-thumbs-up');
+                                $('#toggleVideoLike').addClass('fa-thumbs-o-up');
+                            }
+
+                            icon.html(data.likeCount);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                } else {
+                    login();
+                }
+
+            });
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
         }
     });
 });

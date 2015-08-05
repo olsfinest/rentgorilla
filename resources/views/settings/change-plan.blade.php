@@ -1,102 +1,155 @@
-@extends('layouts.main')
 
-@section('header')
-    <meta name="publishable-key" content="{{ env('STRIPE_PUBLISHABLE_KEY') }}">
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-@stop
-
-
-@section('header-text')
-<h2 class="jumbotron__heading">Your Subscription Plan</h2>
-<h3>Current Plan:
-    @if(Auth::user()->subscribed())
-        @if(Auth::user()->getStripePlan())
-                {{ \RentGorilla\Plans\Subscription::plan(Auth::user()->getStripePlan())->planName() }}
-        @else
-            Trial
-        @endif
-    @else
-    Not Subscribed
-    @endif
-</h3>
-@if(Auth::user()->getSubscriptionEndDate())
-    <h3>Expires: {{  Auth::user()->getSubscriptionEndDate()->format('F jS, Y') }} ({{ Auth::user()->getSubscriptionEndDate()->diffForHumans() }})</h3>
-@endif
-@if(Auth::user()->getTrialEndDate())
-    <h3>Trial expires: {{  Auth::user()->getTrialEndDate()->format('F jS, Y') }} ({{ Auth::user()->getTrialEndDate()->diffForHumans() }})</h3>
-@endif
+@extends('layouts.admin')
+@section('head')
+    <link rel="stylesheet" href="/css/pricing.css">
 @stop
 @section('content')
-@include('partials.settings-header')
-<div class="container">
-    <div class="row">
-        <div class="col-md-2 col-md-offset-1">
-            @include('partials.settings-sidebar')
-        </div>
-        <div class="col-md-8">
-
-            <h3>Available Subscription Plans</h3>
-
-            @include('partials.plans-table')
-
-            <div class="payment-errors alert alert-danger" style="display: none"></div>
-
-            @include('errors.error-list')
-
-            @if(Auth::user()->stripeIsActive())
-
-                <h3>Change your Subscription Plan</h3>
-
-            <hr>
-
-                {!! Form::open(['route' => 'subscription.changePlan']) !!}
-
-                @include('partials.subscription-plans', ['stripe_plan' => Auth::user()->getStripePlan()])
-
-                <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="Change Plan">
-                </div>
-                {!! Form::close() !!}
-
-            @else
-
-                <h3>Start a Subscription Plan</h3>
-
-                <hr>
-
-                @if( ! Auth::user()->readyForBilling())
-
-                    {!! Form::open(['route' => 'subscribe', 'id' => 'cc-form']) !!}
-
-                    @include('partials.subscription-plans', ['stripe_plan' => Auth::user()->getStripePlan()])
-
-                    <div class="form-group row">
-                        <label for="cvv" class="col-md-3 control-label" for="coupon_code">Have a Coupon?</label>
-
-                        <div class="col-md-3">
-                            <input type="text" id="coupon_code" name="coupon_code" placeholder="" class="form-control">
-                        </div>
-                    </div>
-
-                    @include('partials.credit-card',  ['submitButtonText' => 'Start Subscription'])
-                    {!! Form::close() !!}
-                @else
-
-                    {!! Form::open(['route' => 'subscription.changePlan']) !!}
-
-                    @include('partials.subscription-plans', ['stripe_plan' => Auth::user()->getStripePlan()])
-
-                    <div class="form-group">
-                        <input class="btn btn-primary" type="submit" value="Start Subscription">
-                    </div>
-                    {!! Form::close() !!}
+    <section class="content full admin pricing">
+        <h1>RentGorilla Subscription Pricing</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a condimentum est. Praesent id turpis nec libero bibendum convallis. Morbi mi leo, aliquet vel feugiat nec, sollicitudin eget erat. Morbi posuere turpis a risus venenatis congue. Sed mattis facilisis lacinia
+        </p>
+        <ul id="plans">
+            <li>
+                <h2>Free Year</h2>
+                <span class="quantity"><strong>1</strong> Property</span>
+                <span class="price">$0.00</span>
+                <span class="terms">Free for 1 property</span>
+                @if(Auth::user()->isOnFreePlan())
+                    <span class="currentPlan">This is your current plan</span>
                 @endif
-            @endif
-        </div>
-    </div>
-</div>
-@stop
+            </li>
+            <li class="focus">
+                <h2>Personal Plan <small>Most Popular</small></h2>
+                <span class="quantity"><strong>2-5</strong> Properties</span>
+                <span class="price">$8.00</span>
+                <span class="terms">Billed annually or $10 month-to-month</span>
+                {!! Auth::user()->getPlanLink('Personal_Monthly') !!}
+                {!! Auth::user()->getPlanLink('Personal_Yearly') !!}
+                @if(Auth::user()->isOnActivePlans(['Personal_Monthly', 'Personal_Yearly']))
+                    <span class="currentPlan">This is your current plan</span>
+                @endif
 
+            </li>
+            <li>
+                <h2>Professional Plan</h2>
+                <span class="quantity"><strong>6-10</strong> Properties</span>
+                <span class="price">$16.00</span>
+                <span class="terms">Billed annually or $20 month-to-month</span>
+                {!! Auth::user()->getPlanLink('Professional_Monthly') !!}
+                {!! Auth::user()->getPlanLink('Professional_Yearly') !!}
+                @if(Auth::user()->isOnActivePlans(['Professional_Monthly', 'Professional_Yearly']))
+                    <span class="currentPlan">This is your current plan</span>
+                @endif
+            </li>
+            <li>
+                <h2>Business Plan</h2>
+                <span class="quantity"><strong>11+</strong> Properties</span>
+                <span class="price">$24.00</span>
+                <span class="terms">Billed annually or $30 month-to-month</span>
+                {!! Auth::user()->getPlanLink('Business_Monthly') !!}
+                {!! Auth::user()->getPlanLink('Business_Yearly') !!}
+                @if(Auth::user()->isOnActivePlans(['Business_Monthly', 'Business_Yearly']))
+                    <span class="currentPlan">This is your current plan</span>
+                @endif
+            </li>
+            <div class="cf"></div>
+        </ul>
+    </section>
+    <section class="content full pricing">
+        <img src="/img/achievements_large.png" alt="" class="align-left">
+        <div class="achievements_container">
+            <h2>Earn Credit With RentGorilla Achievements</h2>
+            <p>
+                Earn credit towards your plan with RentGorilla achievements. Each achievement earns you points that you can {!! link_to_route('redeem.show', 'redeem') !!}
+            </p>
+            <p>
+                Some achievements are even awarded monthly!
+            </p>
+            <table class="achievements_overview">
+                <tr>
+                    <td>
+                        <ul id="achievements_tabs">
+                            <li><a href="#complete">Complete Profile</a></li>
+                            <li><a href="#current">Current Listings</a></li>
+                            <li><a href="#photos">Lots of Photos</a></li>
+                            <li><a href="#promoted">Power Promoter</a></li>
+                            <li><a href="#rentgorilla">Rent Gorilla</a></li>
+                            <li><a href="#favourites">Lots of Favourites</a></li>
+                            <li><a href="#star">Movie Star</a></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div id="complete" class="achievement">
+                            <h1>Complete Profile - 500 Points / Month</h1>
+                            <img src="/img/achievements_badge_small.png" alt="">
+                            <p>
+                                Complete 100% of all fields in your property profile, required and optional. This includes a photo, website address. Don’t have a website address, register one with us or just leave rentgorilla.com.
+                            </p>
+                            <span class="cf"></span>
+                        </div>
+                        <div id="current" class="achievement">
+                            <h1>Current Listings - 1000 Points / Month</h1>
+                            <img src="/img/achievements_badge_small.png" alt="">
+                            <p>
+                                Each of your listings has never exceeded 30 days without an update.
+                            </p>
+                            <span class="cf"></span>
+                        </div>
+                        <div id="photos" class="achievement">
+                            <h1>Lots of Photos - 1000 Points / Month</h1>
+                            <img src="/img/achievements_badge_small.png" alt="">
+                            <p>
+                                You maintain at least 10 photos over 2+ properties.
+                            </p>
+                            <span class="cf"></span>
+                        </div>
+                        <div id="promoted" class="achievement">
+                            <h1>Power Promoter - 1000 Points / Month</h1>
+                            <img src="/img/achievements_badge_small.png" alt="">
+                            <p>
+                                You have promoted any combinations of properties at least twice a month.
+                            </p>
+                            <span class="cf"></span>
+                        </div>
+                        <div id="rentgorilla" class="achievement">
+                            <h1>Rent Gorilla - 10,000 Points</h1>
+                            <img src="/img/achievements_badge_small.png" alt="">
+                            <p>
+                                You have an active listing for a total of 365 days. This is easiest to achieve by simply modifying your date of availability.
+                            </p>
+                            <span class="cf"></span>
+                        </div>
+                        <div id="favourites" class="achievement">
+                            <h1>Lots of Favorites - 5000 Points</h1>
+                            <img src="/img/achievements_badge_small.png" alt="">
+                            <p>
+                                Any combination of properties has received at least 20 favorites.
+                            </p>
+                            <span class="cf"></span>
+                        </div>
+                        <div id="star" class="achievement">
+                            <h1>Movie Star - 10,000 Points</h1>
+                            <img src="/img/achievements_badge_small.png" alt="">
+                            <p>
+                                You have added links to at least two videos for any combination of properties and those videos have received at least 20 Likes.
+                            </p>
+                            <span class="cf"></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="cf"></div>
+    </section>
+@endsection
 @section('footer')
-<script src="/js/billing.js"></script>
-@stop
+    <script>
+    jQuery(document).ready(function($){
+        $('.fa-question-circle').tooltip({
+            position: { my: "bottom", at: "left center" }
+        });
+        $('.achievements_overview').tabs();
+    });
+</script>
+@endsection

@@ -7,6 +7,7 @@ use RentGorilla\Promotion;
 use RentGorilla\Rental;
 use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Repositories\UserRepository;
+use Log;
 
 class PromotionManager {
     /**
@@ -39,26 +40,33 @@ class PromotionManager {
 
         $rentals = Rental::where('promoted', 1)->where('promotion_ends_at', '<', Carbon::now())->get();
 
-        foreach($rentals as $rental) {
+       if($rentals->count()) {
 
-            if($queued = Rental::where(['location' => $rental->location, 'queued' => 1])->orderBy('queued_at')->first()) {
+           foreach ($rentals as $rental) {
 
-                $user = $this->getUser($queued);
+               if ($queued = Rental::where(['location' => $rental->location, 'queued' => 1])->orderBy('queued_at')->first()) {
 
-                if($user->charge(Config::get('promotion.price'), ['description' => 'Promotion for ' . $queued->street_address])) {
-                    $this->rentalRepository->promoteRental($queued);
-                    $this->mailer->sendPromotionStart($user, $queued);
-                    Promotion::create(['user_id' => $queued->user_id]);
-                } else {
-                    $this->rentalRepository->unqueueRental($queued);
-                    $this->mailer->sendPromotionChargeFailed($user, $queued);
-                    //TODO::send email to admin that the charge failed?
-                }
-            }
+                   $user = $this->getUser($queued);
 
-            $this->rentalRepository->unpromoteRental($rental);
-            $this->mailer->sendPromotionEnded($this->getUser($rental), $rental);
-        }
+                   if ($user->charge(Config::get('promotion.price'), ['description' => 'Promotion for ' . $queued->street_address])) {
+                       $this->rentalRepository->promoteRental($queued);
+                       $this->mailer->sendPromotionStart($user, $queued);
+                       Log::info('Queued promotion started', ['rental_id' => $queued->id]);
+                   } else {
+                       Log::info('Charge failed for queued rental', ['user_id' => $user->id]);
+                       $this->rentalRepository->unqueueRental($queued);
+                       $this->mailer->sendPromotionChargeFailed($user, $queued);
+                       //TODO::send email to admin that the charge failed?
+                   }
+               }
+
+               $this->rentalRepository->unpromoteRental($rental);
+               $this->mailer->sendPromotionEnded($this->getUser($rental), $rental);
+               Log::info('Promotion ended', ['rental_id' => $rental->id]);
+           }
+       } else {
+           Log::info('No promotions ended today');
+       }
     }
 
     public function promoteRental(Rental $rental)
@@ -67,14 +75,15 @@ class PromotionManager {
        if($this->wontBeQueued($rental)) {
            $this->rentalRepository->promoteRental($rental);
            $this->mailer->sendPromotionStart($this->getUser($rental), $rental);
-           Promotion::create(['user_id' => $rental->user_id]);
+           Log::info('Promotion started', ['rental_id' => $rental->id]);
            return true;
        } else {
            //NOTE: for busy cities, the next available date could change rapidly, even between the time they saw the date available and the time they click buy!
            // that is why we have to send them the actual next available date
            $date = $this->getNextAvailablePromotionDate($rental);
-           $this->mailer->sendPromotionQueued($this->getUser($rental), $rental, $date);
+           $this->mailer->sendPromotionQueued($this->getUser($rental), $rental, $date['dateAvailable']);
            $this->rentalRepository->queueRental($rental);
+           Log::info('Promotion queued', ['rental_id' => $rental->id]);
            return false;
        }
     }

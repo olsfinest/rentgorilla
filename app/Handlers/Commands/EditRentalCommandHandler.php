@@ -6,6 +6,7 @@ use RentGorilla\Commands\EditRentalCommand;
 
 use Illuminate\Queue\InteractsWithQueue;
 use RentGorilla\Repositories\RentalRepository;
+use Log;
 
 
 class EditRentalCommandHandler {
@@ -27,15 +28,16 @@ class EditRentalCommandHandler {
 
         $rental->street_address = $command->street_address;
 
-        if( $this->rentalRepository->cityIsDuplicate($command->city, $command->county, $command->province)) {
-            $rental->city = $command->city . ' ' . $command->county;
+        if($command->county && $this->rentalRepository->cityIsDuplicate($command->city, $command->county, $command->province)) {
+            $rental->city = $command->city . ', ' . $command->county;
         } else {
             $rental->city = $command->city;
         }
 
-        $rental->county = $command->county;
+        $rental->county = nullIfEmpty($command->county);
         $rental->province = $command->province;
         $rental->location = Str::slug($rental->city . '-' . $command->province);
+        $rental->postal_code = nullIfEmpty($command->postal_code);
         $rental->type = $command->type;
         $rental->pets = $command->pets;
         $rental->baths = $command->baths;
@@ -68,6 +70,8 @@ class EditRentalCommandHandler {
 
         $appliances = is_null($command->appliance_list) ? [] : $command->appliance_list;
         $rental->appliances()->sync($appliances);
+
+        Log::info('Rental edited', ['rental_id' => $rental->id]);
 
         return $rental;
     }

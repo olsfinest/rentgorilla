@@ -4,6 +4,7 @@ use Laracasts\TestDummy\DbTestCase;
 use Laracasts\TestDummy\Factory;
 use RentGorilla\Reward;
 use RentGorilla\Rewards\Achievement;
+use RentGorilla\User;
 
 class LotsOfPhotosTest  extends DbTestCase {
 
@@ -26,6 +27,12 @@ class LotsOfPhotosTest  extends DbTestCase {
         Reward::create(['user_id' => 1, 'type' => Achievement::LOTS_OF_PHOTOS]);
 
         dd($lop->checkEligibility());
+
+
+        $user = User::where('id', $user->id);
+
+        $this->assertEquals(1000, $user->points);
+
 */
     }
 

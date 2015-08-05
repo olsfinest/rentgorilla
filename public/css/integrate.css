@@ -1,0 +1,106 @@
+/* integrate.css */
+
+.gorilla {
+	background:url(/img/gorilla.jpg);
+	background-size:cover;
+	height:1000px;
+	width:100%;
+}
+.gorilla h1 {
+	text-align:center;
+	color:white;
+	font-size:5em;
+	margin:.25em auto 1em auto;
+}
+.gorilla label  {
+	display:block;
+	background:#74b164;
+	padding:5px;
+	position:relative;
+	margin:0 auto;
+	width:734px;
+	border-radius:8px;
+}
+.gorilla label input[type=text] {
+	display:inline-block;
+	width:85%;
+	font-size:1.5em;
+	padding:8px 8px 8px 55px;
+}
+.gorilla label input[type=text]:focus {
+	outline:none;
+}
+.gorilla label span.fa-search {
+	font-family:FontAwesome;
+	position:absolute;
+	top:20%;
+	left:16px;
+	font-size:2em;
+}
+.gorilla label span.fa-map {
+	font-family:FontAwesome;
+	position:absolute;
+	font-size:2em;
+	color:white;
+	float:right;
+}
+.promofree, .zerorisk, .simple {
+	height:310px;
+	color:white;
+	padding:0;
+}
+.promofree .full, .zerorisk .full, .simple .full {
+	height:310px;
+	position:relative;
+	display:table;
+	line-height:310px;
+	padding:0;
+}
+.promofree h1, .zerorisk h1, .simple h1 {
+	height:100%;
+	line-height:310px;
+	display: inline-block;
+	width:auto;
+	font-size:5.5em;
+	letter-spacing:-2px;
+	font-weight:400;
+	margin:0;
+	color:white;
+}
+.promofree h1, .simple h1 {
+	float:left;
+	text-align:left;
+	width:470px;
+}
+.promofree p, .simple p {
+	/*float:right;*/
+	text-align: left;
+}
+.zerorisk p {
+	/*float:left;*/
+	text-align:left;
+}
+.zerorisk h1 {
+	float:right;
+	text-align: right;
+}
+.promofree p, .zerorisk p, .simple p {
+	font-size:1.5em;
+	display:inline-block;
+	width:auto;
+	vertical-align: middle;
+	max-width:40%;
+	line-height:normal;
+	letter-spacing:-2px;
+	font-weight:400;
+	color:white;
+}
+.promofree {
+	background:#74b164;
+}
+.zerorisk {
+	background:#333333;
+}
+.simple {
+	background:#796a4d;
+}

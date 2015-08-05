@@ -73,15 +73,20 @@ class Plan {
         return $this->maximumListings() === 'unlimited';
     }
 
-
     public function interval()
     {
         return $this->interval;
     }
 
+    public function intervalSuffix()
+    {
+        return ucfirst($this->interval) . 'ly';
+    }
+
+
     public static function toDollars($cents, $dollarSign = false)
     {
-        $dollars = round($cents / 100, 2);
+        $dollars = number_format($cents / 100, 2);
         return $dollarSign ? '$' . $dollars : $dollars;
     }
 
@@ -89,4 +94,15 @@ class Plan {
     {
         return $this->planName() . ' ($' . static::toDollars($this->monthlyBilledPrice()) . '/month)';
     }
+
+    public function getPriceWithTax($monthly = false)
+    {
+        if($this->isMonthly() || $monthly) {
+            $price = $this->monthlyBilledPrice() * 1.15;
+        } else {
+            $price = $this->totalYearlyCost() * 1.15;
+        }
+        return static::toDollars($price, true);
+    }
+
 }

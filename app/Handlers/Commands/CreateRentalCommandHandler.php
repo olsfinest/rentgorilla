@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Queue\InteractsWithQueue;
 use RentGorilla\Rental;
 use RentGorilla\Repositories\RentalRepository;
+use Log;
 
 class CreateRentalCommandHandler {
 
@@ -27,15 +28,16 @@ class CreateRentalCommandHandler {
         $rental->user_id = $command->user_id;
         $rental->street_address = $command->street_address;
 
-        if($this->rentalRepository->cityIsDuplicate($command->city, $command->county, $command->province)) {
-            $rental->city = $command->city . ' ' . $command->county;
+        if($command->county && $this->rentalRepository->cityIsDuplicate($command->city, $command->county, $command->province)) {
+            $rental->city = $command->city . ', ' . $command->county;
         } else {
             $rental->city = $command->city;
         }
 
-        $rental->county = $command->county;
+        $rental->county = nullIfEmpty($command->county);
         $rental->province = $command->province;
         $rental->location = Str::slug($rental->city . '-' . $command->province);
+        $rental->postal_code = nullIfEmpty($command->postal_code);
         $rental->type = $command->type;
         $rental->pets = $command->pets;
         $rental->baths = $command->baths;
@@ -53,7 +55,8 @@ class CreateRentalCommandHandler {
         $rental->lat = $command->lat;
         $rental->lng = $command->lng;
         $rental->lease = $command->lease;
-        $rental->description = $command->description;
+        $rental->description = nullIfEmpty($command->description);
+        $rental->video = nullIfEmpty($command->video);
 
         $rental->edited_at = Carbon::now();
 
@@ -71,6 +74,8 @@ class CreateRentalCommandHandler {
 
         $features = is_null($command->feature_list) ? [] : $command->feature_list;
         $rental->features()->sync($features);
+
+        Log::info('New rental created', ['rental_id' => $rental->id]);
 
         return $rental;
 

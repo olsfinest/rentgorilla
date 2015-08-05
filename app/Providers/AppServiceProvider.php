@@ -30,10 +30,10 @@ class AppServiceProvider extends ServiceProvider {
 			'RentGorilla\Services\Registrar'
 		);
 
-		$this->app->bind(
-			'RentGorilla\Repositories\PlanRepository',
-			'RentGorilla\Repositories\LaravelConfigPlanRepository'
-		);
+        $this->app->bind(
+            'RentGorilla\Repositories\PlanRepository',
+            'RentGorilla\Repositories\LaravelConfigPlanRepository'
+        );
 
 		$this->app->bind(
 			'RentGorilla\Repositories\RentalRepository',
@@ -63,6 +63,16 @@ class AppServiceProvider extends ServiceProvider {
         $this->app->bind(
             'RentGorilla\Repositories\LikeRepository',
             'RentGorilla\Repositories\EloquentLikeRepository'
+        );
+
+        $this->app->bind(
+            'RentGorilla\Repositories\RewardRepository',
+            'RentGorilla\Repositories\EloquentRewardRepository'
+        );
+
+        $this->app->bind(
+            'RentGorilla\Repositories\VideoLikesRepository',
+            'RentGorilla\Repositories\EloquentVideoLikesRepository'
         );
 	}
 

@@ -6,7 +6,7 @@ abstract class Mailer {
 
     public function sendTo($user, $subject, $view, $data = [])
     {
-         \Mail::queue($view, $data, function ($message) use ($user, $subject) {
+        return \Mail::queue($view, $data, function ($message) use ($user, $subject) {
             $message->to($user->email, $user->getFullName())->subject($subject);
         });
 
@@ -16,7 +16,7 @@ abstract class Mailer {
     public function sendToUserWithReplyTo($user, $subject, $view, $data = [], $email, $name)
     {
 
-        \Mail::queue($view, $data, function($message) use ($user, $subject, $email, $name)
+        return \Mail::queue($view, $data, function($message) use ($user, $subject, $email, $name)
         {
             $message->to($user->email, $user->getFullName())->subject($subject)->replyTo($email, $name);
         });

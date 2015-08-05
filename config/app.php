@@ -139,6 +139,7 @@ return [
         'Illuminate\Html\HtmlServiceProvider',
         'Torann\Hashids\HashidsServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        'Cohensive\Embed\EmbedServiceProvider',
 		/*
 		 * Application Service Providers...
 		 */
@@ -197,7 +198,9 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
         'Form'      => 'Illuminate\Html\FormFacade',
-        'Image'     => 'Intervention\Image\Facades\Image'
+        'Image'     => 'Intervention\Image\Facades\Image',
+        'Embed'     => 'Cohensive\Embed\Facades\Embed',
+        'Subscription' => 'RentGorilla\Plans\SubscriptionPlan'
 	],
 
 ];

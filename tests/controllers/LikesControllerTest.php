@@ -2,7 +2,7 @@
 
 use Laracasts\TestDummy\DbTestCase;
 use Laracasts\TestDummy\Factory;
-use RentGorilla\Rental;
+use RentGorilla\Like;
 
 class LikesControllerTest extends DbTestCase{
 
@@ -13,8 +13,8 @@ class LikesControllerTest extends DbTestCase{
 
         $rental = Factory::create('RentGorilla\Rental');
 
-        DB::table('likes')->insert(['user_id' => 1, 'rental_id' => $rental->id, 'photo_id' => 1]);
-        DB::table('likes')->insert(['user_id' => 1, 'rental_id' => $rental->id, 'photo_id' => 2]);
+        Like::create(['user_id' => 1, 'rental_id' => $rental->id, 'photo_id' => 1]);
+        Like::create(['user_id' => 1, 'rental_id' => $rental->id, 'photo_id' => 2]);
 
         $this->assertCount(2, $rental->likes);
 

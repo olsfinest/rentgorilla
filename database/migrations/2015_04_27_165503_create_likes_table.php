@@ -19,6 +19,8 @@ class CreateLikesTable extends Migration {
             $table->integer('rental_id')->unsigned()->index();
             $table->integer('photo_id')->unsigned()->index();
 
+            $table->timestamps();
+
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

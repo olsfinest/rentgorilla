@@ -1,22 +1,14 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
-@section('header')
+@section('head')
     <meta name="publishable-key" content="{{ env('STRIPE_PUBLISHABLE_KEY') }}">
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <link rel="stylesheet" href="/css/form.css">
 @stop
 
-@section('header-text')
-<h2 class="jumbotron__heading">Update Your Credit Card</h2>
-@stop
 @section('content')
-@include('partials.settings-header')
-<div class="container">
-    <div class="row">
-        <div class="col-md-2 col-md-offset-1">
-            @include('partials.settings-sidebar')
-        </div>
-        <div class="col-md-8">
-
+    <section class="content full admin">
+        <h1>Update Credit Card</h1>
             @if(Auth::user()->readyForBilling())
 <p class="breather">Want to update the credit card that we have on file? Provide the new details here. Don't worry; your card information will never touch our servers.</p>
 
@@ -29,12 +21,9 @@
 
         {!! Form::close() !!}
                 @else
-            <p>No credit card on file.</p>
+            <p>You have no credit card on file.</p>
                 @endif
-
-        </div>
-    </div>
-</div>
+</section>
 @stop
 
 @section('footer')

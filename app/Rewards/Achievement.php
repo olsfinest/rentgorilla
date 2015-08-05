@@ -19,6 +19,7 @@ abstract class Achievement {
     const RENT_GORILLA = 'RentGorilla';
     const LOTS_OF_FAVOURITES = 'LotsOfFavourites';
     const CURRENT_LISTINGS = 'CurrentListings';
+    const MOVIE_STAR = 'MovieStar';
 
     abstract public function getDescription();
     abstract public function isMonthly();

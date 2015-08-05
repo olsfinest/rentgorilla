@@ -1,33 +1,19 @@
-@extends('layouts.main')
-@section('header-text')
-<h2 class="jumbotron__heading">Cancellation</h2>
+@extends('layouts.admin')
+@section('head')
+    <link rel="stylesheet" href="/css/form.css">
 @stop
 @section('content')
-@include('partials.settings-header')
-<div class="container">
-    <div class="row">
-        <div class="col-md-2 col-md-offset-1">
-            @include('partials.settings-sidebar')
-        </div>
-        <div class="col-md-8">
-            @if(! Auth::user()->cancelled())
-
-            <p class="breather">
-                     Are you really sure that you want to cancel your subscription?
-                 </p>
-
-                 <p>
-                     {!! Form::open(['route' => 'subscription.cancelSubscription']) !!}
-
-                     {!! Form::submit('Cancel Subscription', ['class' => 'btn btn-primary btn-danger']) !!}
-
-
-                     {!! Form::close() !!}
-                 </p>
-           @else
-                <div class="alert alert-success">Your subscription has been cancelled.</div>
-           @endif
-        </div>
-    </div>
-</div>
+    <section class="content full admin">
+        <h1>Cancel Subscription</h1>
+        @if(Auth::user()->stripeIsActive())
+            <p>Are you really sure that you want to cancel your subscription?</p>
+            <p>If you decide to cancel, your subscription will stay active for the time for which you have paid. (Until {{ Auth::user()->getCurrentPeriodEnd()->format('F jS, Y') }}).</p>
+            {!! Form::open(['route' => 'subscription.cancelSubscription']) !!}
+            {!! Form::submit('Cancel Subscription', ['class' => 'btn btn-primary btn-danger']) !!}
+            {!! Form::close() !!}
+            <a href="{{ route('changePlan') }}" class="button">Do not cancel</a>
+        @else
+            <p>You do not have an active subscription.</p>
+        @endif
+    </section>
 @stop

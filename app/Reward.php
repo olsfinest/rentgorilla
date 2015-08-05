@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 
 class Reward extends Model {
+    public $timestamps = true;
 
 	public $guarded = ['id'];
 

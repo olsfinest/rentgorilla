@@ -2,7 +2,7 @@
 
 use RentGorilla\Commands\ToggleRentalActivationCommand;
 use Illuminate\Queue\InteractsWithQueue;
-use RentGorilla\Plans\Subscription;
+use Subscription;
 use RentGorilla\Repositories\RentalRepository;
 
 class ToggleRentalActivationCommandHandler

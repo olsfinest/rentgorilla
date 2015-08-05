@@ -8,7 +8,9 @@ class VerifyCsrfToken extends BaseVerifier
 {
 
 
-    private $openRoutes = [];
+    private $openRoutes = [
+        'stripe/webhook'
+    ];
 
     /**
      * Handle an incoming request.
@@ -19,11 +21,11 @@ class VerifyCsrfToken extends BaseVerifier
      */
     public function handle($request, Closure $next)
     {
-        foreach ($this->openRoutes as $route) {
-            if ($request->is($route)) {
-                return $next($request);
-            }
+
+        if(in_array($request->path(), $this->openRoutes)) {
+            return $next($request);
         }
+
         return parent::handle($request, $next);
     }
 

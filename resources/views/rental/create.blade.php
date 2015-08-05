@@ -1,21 +1,14 @@
-@extends('layouts.main')
-@section('header-text')
-    <h2 class="jumbotron__heading">List a New Property</h2>
+@extends('layouts.admin')
+@section('head')
+    <link rel="stylesheet" href="/css/form.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
 @stop
 @section('content')
-    @include('partials.settings-header')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2 col-md-offset-1">
-                @include('partials.settings-sidebar')
-            </div>
-            <div class="col-md-8">
-                @include('errors.error-list')
-                {!! Form::model(new \RentGorilla\Rental(), ['route' => 'rental.store', 'class' => 'form-horizontal', 'id' => 'modify_rental_form']) !!}
-                    @include('rental.form', ['submitButtonText' => 'Create and Add Photos'])
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-@stop
-
+    <section class="content full admin">
+        <h1>Create a new rental</h1>
+    @include('errors.error-list')
+    {!! Form::model($rental = new \RentGorilla\Rental(), ['route' => 'rental.store', 'id' => 'modify_rental_form']) !!}
+         @include('rental.form', ['submitButtonText' => 'Create and Add Photos'])
+     {!! Form::close() !!}
+    </section>
+ @stop

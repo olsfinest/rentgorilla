@@ -4,6 +4,7 @@ use Laracasts\TestDummy\DbTestCase;
 use Laracasts\TestDummy\Factory;
 use RentGorilla\Reward;
 use RentGorilla\Rewards\Achievement;
+use RentGorilla\User;
 
 class CurrentListingsTest  extends DbTestCase {
 
@@ -22,6 +23,13 @@ class CurrentListingsTest  extends DbTestCase {
         $rental = Factory::create('RentGorilla\Rental', ['user_id' => $user->id, 'updated_at' => \Carbon\Carbon::now()->addYear()]);
 
         dd($cl->checkEligibility());
+
+
+
+        $user = User::where('id', $user->id);
+
+        $this->assertEquals(1000, $user->points);
+
 */
     }
 

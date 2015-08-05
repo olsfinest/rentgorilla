@@ -16,8 +16,6 @@ class ToggleFavouriteCommandHandler {
      */
     private $rentalRepository;
 
-
-
     public function __construct(FavouritesRepository $repository, RentalRepository $rentalRepository)
 	{
         $this->repository = $repository;

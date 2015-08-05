@@ -1,39 +1,38 @@
-@extends('layouts.main')
-@section('header-text')
-    <h2 class="jumbotron__heading">Edit Your Profile</h2>
-@stop
+@extends('layouts.admin')
+@section('head')
+    <link rel="stylesheet" href="/css/form.css">
+@endsection
 @section('content')
     @include('partials.settings-header')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2 col-md-offset-1">
-                @include('partials.settings-sidebar')
-            </div>
-            <div class="col-md-8">
-                @include('errors.error-list')
+    <section class="content full admin">
+        <h1>Edit Profile</h1>
+        @include('errors.error-list')
+        {!! Form::model(is_null($profile) ? new \RentGorilla\Profile() : $profile, ['route' => 'profile.update', 'files' => true]) !!}
+        <label>Photo:
 
-                {!! Form::model(is_null($profile) ? new \RentGorilla\Profile() : $profile, ['route' => 'profile.update']) !!}
-                <div class="form-group">
-                    <label>Phone:</label>
-                    {!! Form::text('primary_phone', null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    <label>Alternate Phone:</label>
-                    {!! Form::text('alternate_phone', null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    <label for="">Website:</label>
-                    {!! Form::text('website', null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    <label for="">Bio:</label>
-                    {!! Form::textarea('bio', null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="Update Profile">
-                </div>
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
+        @if( ! is_null($profile) && ! is_null($profile->photo))
+            <br>
+            <img src="{{ $profile->getPhoto() }}">
+        @endif
+        </label>
+            {!! Form::file('photo') !!}
+        <br><br>
+        <label>First Name:
+            {!! Form::text('first_name', Auth::user()->first_name) !!}
+        </label>
+        <label>Last Name:
+            {!! Form::text('last_name', Auth::user()->last_name) !!}
+        </label>
+        <label>Phone:
+            {!! Form::text('primary_phone', null) !!}
+        </label>
+        <label>Website:
+            {!! Form::text('website', null) !!}
+        </label>
+        <label>Bio:
+            {!! Form::textarea('bio', null) !!}
+        </label>
+        <input type="submit" value="Update Profile">
+        {!! Form::close() !!}
+    </section>
 @stop

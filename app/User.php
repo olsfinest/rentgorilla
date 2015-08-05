@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Subscription;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, BillableContract {
 
@@ -47,7 +48,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $fillable = ['name', 'email', 'password'];
 
-    protected $dates = ['trial_ends_at', 'subscription_ends_at'];
+    protected $dates = ['trial_ends_at', 'subscription_ends_at', 'current_period_end'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -95,6 +96,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return Carbon::today()->subYear()->lt($this->created_at);
     }
 
+    public function getFreePlanExpiryDate()
+    {
+        return $this->created_at->addYear();
+    }
+
     public function getPointsMonetaryValue()
     {
         return number_format($this->getPointsReadyToRedeem() / self::POINTS_PER_DOLLAR, 2);
@@ -108,5 +114,100 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function getPointsReadyToRedeem()
     {
         return floor($this->points / self::POINT_REDEMPTION_THRESHOLD) * self::POINT_REDEMPTION_THRESHOLD;
+    }
+
+    public function getPlanLink($plan_id)
+    {
+
+        $isCurrentPlan = $this->isCurrentPlan($plan_id);
+
+        $plan = Subscription::plan($plan_id);
+
+        $isMonthly = $plan->isMonthly();
+
+        if($this->stripeIsActive()) {
+            if($isCurrentPlan) {
+                return $this->getLink('CANCEL', $plan_id, $isMonthly);
+            } else {
+                return $this->getLink('SWAP', $plan_id, $isMonthly);
+            }
+        } else {
+            if($isCurrentPlan && ! $this->expired()) {
+                return $this->getLink('RESUME', $plan_id, $isMonthly);
+            } else {
+                return $this->getLink('SIGN UP', $plan_id, $isMonthly);
+            }
+        }
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin === 1;
+    }
+
+    public function isOnFreePlan()
+    {
+
+        return $this->joinedLessThanOneYearAgo() && ! $this->subscribed();
+
+    }
+
+    public function isCurrentPlan($plan_id)
+    {
+        return $plan_id === $this->getStripePlan();
+    }
+
+    public function isOnActivePlans($plans)
+    {
+        return $this->subscribed() && ($this->isCurrentPlan($plans[0]) || $this->isCurrentPlan($plans[1]));
+    }
+
+    public function getLink($action, $plan_id, $isMonthly)
+    {
+
+        switch ($action) {
+            case 'CANCEL':
+                if($isMonthly) {
+                    return sprintf('<a class="monthly cancel" href="%s">%s</a>', route('cancelSubscription'), $action);
+                } else {
+                    return sprintf('<a class="yearly cancel" href="%s">%s</a>', route('cancelSubscription'), $action);
+                }
+            break;
+            case 'SWAP':
+                if($isMonthly) {
+                    return sprintf('<a class="monthly" href="%s">%s</a>', route('swapSubscription', $plan_id), $action);
+                } else {
+                    return sprintf('<a class="yearly" href="%s">%s</a>', route('swapSubscription', $plan_id), $action);
+                }
+                break;
+            case 'RESUME':
+                if($isMonthly) {
+                    return sprintf('<a class="monthly" href="%s">%s</a>', route('resumeSubscription'), $action);
+                } else {
+                    return sprintf('<a class="yearly" href="%s">%s</a>', route('resumeSubscription'), $action);
+                }
+                break;
+            case 'SIGN UP':
+                if($isMonthly) {
+                    return sprintf('<a class="monthly" href="%s">%s</a>', route('showSubscribe', $plan_id), $action);
+                } else {
+                    return sprintf('<a class="yearly" href="%s">%s</a>', route('showSubscribe', $plan_id), $action);
+                }
+                break;
+
+        }
+    }
+
+    //caches Stripe's subscription current period end locally
+    public function getCurrentPeriodEnd() {
+
+        if($this->stripeIsActive() && ( is_null($this->current_period_end) || Carbon::now()->gt($this->current_period_end))) {
+            $currentPeriodEnd = $this->subscription()->getSubscriptionEndDate();
+            $this->current_period_end = $currentPeriodEnd;
+            $this->save();
+            return $currentPeriodEnd;
+        }
+
+        return $this->current_period_end;
     }
 }

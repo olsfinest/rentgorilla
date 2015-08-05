@@ -5,6 +5,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use RentGorilla\Profile;
 use RentGorilla\Repositories\ProfileRepository;
 use RentGorilla\Repositories\UserRepository;
+use Image;
 
 class ModifyProfileCommandHandler
 {
@@ -32,13 +33,40 @@ class ModifyProfileCommandHandler
     public function handle(ModifyProfileCommand $command)
     {
         $user = $this->userRepository->find($command->user_id);
+        $user->first_name = $command->first_name;
+        $user->last_name = $command->last_name;
+        $this->userRepository->save($user);
 
         $profile = $this->profileRepository->getProfileForUser($user);
 
         $profile->primary_phone = nullIfEmpty($command->primary_phone);
-        $profile->alternate_phone = nullIfEmpty($command->alternate_phone);
         $profile->website = nullIfEmpty($command->website);
         $profile->bio = nullIfEmpty($command->bio);
+
+
+        if($command->photo) {
+
+            $image = Image::make($command->photo->getRealPath());
+
+            $destinationPath = public_path() . Profile::PHOTO_PATH;
+            $randomString = str_random(12);
+            $extension = $command->photo->guessClientExtension();
+            $filename = $randomString . ".{$extension}";
+
+            $upload_success = $image->fit(Profile::PHOTO_SIDE, Profile::PHOTO_SIDE)
+                ->save($destinationPath . $filename);
+
+            if ($upload_success) {
+
+                // delete old profile pic, if any
+                if ( ! is_null($profile->photo)) {
+                    $profile->deletePhoto();
+                }
+
+                $profile->photo = $filename;
+            }
+        }
+
 
         return $this->profileRepository->save($profile);
     }

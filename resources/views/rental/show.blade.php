@@ -1,18 +1,37 @@
 @extends('layouts.app')
+
+@section('head')
+    <link rel="stylesheet" href="/css/login.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/form.css" media="screen" title="no title" charset="utf-8">
+@endsection
+
 @section('content')
 @include('partials.header')
 
 
-<section style="display: none" id="email-manager">
-    <h1>Email Property Manager</h1><br>
-    <div id="email-manager-form-errors"></div><br>
+<section class="modalLogin" id="email-manager">
     {!! Form::open(['route' => 'rental.email', 'id' => 'email-manager-form']) !!}
-    <input type="text" id="email-manager-fname" name="fname" placeholder="First name">
-    <input type="text" id="email-manager-lname" name="lname" placeholder="last name"><br>
-    <input type="email" id="email-manager-email" name="email" placeholder="Your email address"><br>
+    <a class="modalClose" title="Close">x</a>
+    <h1>Email Property Manager</h1>
+    <h4>
+        <strong>{{ $rental->user->getFullName() }}</strong>
+        {{ $rental->getAddress() }}
+    </h4>
+    <div id="email-manager-form-errors"></div><br>
+    <label for="" class="half left">
+        <input type="text" name="fname" placeholder="First Name" tabindex="4">
+    </label>
+    <label for="" class="half right">
+        <input type="text" name="lname" placeholder="Last Name" tabindex="5">
+    </label>
+    <label for="email">
+        <input placeholder="Your email address" type="email" name="email" value="" tabindex="6">
+    </label>
+    <label for="message">
+        <textarea name="message" id="" cols="30" rows="10" placeholder="Your message to the property manager" tabindex="7"></textarea>
+    </label>
     <input type="hidden" name="rental_id" value="{{ $rental->uuid }}">
-    <textarea id="email-manager-message" name="message" placeholder="Write message here"></textarea><br>
-    <input type="submit" value="Send Message">
+    <input placeholder="" type="submit" name="submit" value="Send" tabindex="8">
     {!! Form::close() !!}
 </section>
 
@@ -42,6 +61,9 @@
         <article class="listing_details">
             <section class="listing_overview" style="position: relative;">
                 <div id="photos" class="listing_image cycle-slideshow" data-cycle-pause-on-hover="true" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="5000">
+                    @if($rental->isPromoted())
+                        <span class="promoted"></span>
+                    @endif
                     <span id="like" class="fa fa-thumbs-o-up"></span>
                     @if($hasPhotos = count($rental->photos))
                         @foreach($rental->photos as $photo)
@@ -63,7 +85,29 @@
                 </div>
             </section>
             <h3 class="listing_ng_title">The Nitty Gritty</h3>
-            <a href="#" class="fa fa-share-square-o share"><span>Share</span></a>
+           <span id="share" style="width: 150px; float: right;">
+	<i class="fa fa-share-square-o"></i> Share Page
+	<ul>
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('rental.show', $rental->uuid) }}" target="_blank" title="Share on Facebook">
+                <i class="fa fa-facebook"></i>
+                Facebook
+            </a>
+        </li>
+        <li>
+            <a href="http://twitter.com/home?status={{ route('rental.show', $rental->uuid) . ' ' . $rental->getAddress() }}" target="_blank" title="Share on Twitter">
+                <i class="fa fa-twitter"></i>
+                Twitter
+            </a>
+        </li>
+        <li>
+            <a href="mailto:?subject=RentGorilla&amp;body=I thought you might be interested in this Rental listing: {{ route('rental.show', $rental->uuid) . ' ' . $rental->getAddress() }}" target="_blank" title="Share by Email">
+                <i class="fa fa-envelope"></i>
+                Email
+            </a>
+        </li>
+    </ul>
+</span>
             <span class="cf"></span>
             <table class="listing_ng">
                 <tr>
@@ -114,8 +158,14 @@
                     <li><a id="phone-btn">Show Phone Number</a></li>
                     <li><a id="email-manager-btn">Email Property Manager</a></li>
                 </ul>
+                @if( ! is_null($rental->video))
+                <h3><a href="#">Video</a></h3>
+                     <ul class="listing_contact">
+                        <li><a id="show_video">Play Video</a></li>
+                </ul>
+                @endif
 
-                @if(count($rental->features))
+            @if(count($rental->features))
                     <h3>Best Features</h3>
                     <table class="listing_features">
                         @foreach(array_chunk($rental->features->all(), 2) as $column)
@@ -139,20 +189,6 @@
                 <p>
                     {{ $rental->description }}
                 </p>
-
-                @if($count = $rental->user->rentals->count() - 1)
-
-                    <h3>More Properties</h3>
-
-                    <a href="#">From This Property Manager ({{ $count }})</a>
-                    <ul>
-                    @foreach ($rental->user->rentals as $managersProperty)
-                        @if($rental->id != $managersProperty->id)
-                            <li><a href="{{ route('rental.show', [$managersProperty->uuid]) }}">{{ $managersProperty->getAddress() }}</a></li>
-                        @endif
-                    @endforeach
-                    </ul>
-                @endif
 
             </section>
         </aside>
@@ -266,8 +302,12 @@
 
             $(".tooltipable").hover(function(){
                 $(this).tooltip({position:{my:"center bottom",at:"left top"}});
-            })
+            });
 
+            $( ".modalClose").on('click', function() {
+                var $dialog = $(this).parents('.ui-dialog-content');
+                $dialog.dialog('close');
+            });
 
         });
 

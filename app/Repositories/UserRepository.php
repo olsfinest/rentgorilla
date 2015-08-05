@@ -12,4 +12,6 @@ interface UserRepository
     public function getPhotoLikesForUser(User $user);
     public function awardPoints(User $user, $points);
     public function redeemPoints(User $user);
+    public function emailSearch($email);
+    public function getPaginated(array $params);
 }

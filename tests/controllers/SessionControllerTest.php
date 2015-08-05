@@ -59,9 +59,6 @@ class SessionControllerTest extends DbTestCase {
 
         $this->assertFalse(Auth::check());
 
-        $data = $response->getData();
-
-        $this->assertFalse($data->success);
     }
 
     public function testLogout()

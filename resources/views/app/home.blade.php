@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('head')
+    <link rel="stylesheet" type="text/css" href="/css/integrate.css">
+@stop
 @section('content')
     @include('partials.header')
 <section class="main gorilla">
@@ -7,7 +10,7 @@
         <form>
             <label>
                 <span class="fa fa-search"></span>
-                <select name="location" id="location" style="width: 200px">
+                <select name="location" id="location" style="width: 725px">
                 </select>
                 <span class="fa fa-map"></span>
             </label>
@@ -25,7 +28,7 @@
     <section class="content full">
         <h1>Zero Risk</h1>
         <p>
-            Don't take our word for it. Try our rental technology out for yourself, for free. Property managers list their first property for free, forever.
+            Don't take our word for it. Try our rental technology out for yourself, for free. Property managers list their first property for free, for one year.
         </p>
         <div class="cf"></div>
     </section>
@@ -62,9 +65,7 @@
         });
 
         $('#location').on("change", function(e) {
-            alert($(this).val());
-
-            //redirect to list
+            window.location.href = '/list/' + $(this).val();
         });
 
     </script>

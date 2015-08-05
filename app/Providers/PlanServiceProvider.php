@@ -1,6 +1,7 @@
 <?php namespace RentGorilla\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use RentGorilla\Plans\PlanService;
 
 class PlanServiceProvider extends ServiceProvider {
 
@@ -21,10 +22,12 @@ class PlanServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->bind(
-            'subscription',
-            'RentGorilla\Plans\PlanService'
-        );
+
+
+        $this->app->bind('subscription', function() {
+            $repo = $this->app->make('RentGorilla\Repositories\PlanRepository');
+            return new PlanService($repo);
+        });
 
     }
 

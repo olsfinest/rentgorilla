@@ -2,10 +2,15 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use RentGorilla\Promotions\PromotionManager;
 
 class Rental extends Model {
 
+    public $timestamps = true;
+
     const RESULTS_PER_PAGE = 12;
+
+
 
     protected $guarded = ['id'];
     /**
@@ -42,6 +47,11 @@ class Rental extends Model {
     public function favouritedBy()
     {
         return $this->belongsToMany('RentGorilla\User', 'favourites')->withTimestamps();
+    }
+
+    public function videoLikedBy()
+    {
+        return $this->belongsToMany('RentGorilla\User', 'video_likes')->withTimestamps();
     }
 
     public function features()
@@ -94,21 +104,47 @@ class Rental extends Model {
         return $this->promoted === 1;
     }
 
+    public function isQueued()
+    {
+        return $this->queued === 1;
+    }
+
+    public function getPromotedDaysRemaining()
+    {
+        return $this->promotion_ends_at->diffInDays();
+    }
+
     public function getAvailableAttribute()
     {
         return $this->available_at ? $this->available_at->format('m/d/Y') : null;
     }
 
-    /*
-    public function getAvailableAtAttribute($date) {
-        return Carbon::parse($date)->format('M jS, Y');
+    public function getCityOnlyAttribute()
+    {
+        if(is_null($this->city)) {
+            return null;
+        } else {
+            $cityAndCounty = explode(', ', $this->city);
+            return reset($cityAndCounty);
+        }
     }
-    */
-
 
     public function likes()
     {
         return $this->hasMany('RentGorilla\Like');
+    }
+
+    public function getNextAvailablePromotionDays()
+    {
+        $promotionManager = app()->make('RentGorilla\Promotions\PromotionManager');
+
+        $nextAvailableDate = $promotionManager->getNextAvailablePromotionDate($this);
+
+        if($nextAvailableDate === false) {
+            return 0;
+        } else {
+            return $nextAvailableDate['daysRemaining'];
+        }
     }
 
 }

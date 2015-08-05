@@ -1,6 +1,6 @@
 <?php namespace RentGorilla\Mailers;
 
-use RentGorilla\Plans\Subscription;
+use Subscription;
 use RentGorilla\Rental;
 use RentGorilla\User;
 
@@ -14,7 +14,7 @@ class UserMailer extends Mailer {
         ];
         $subject = 'Welcome to RentGorilla.ca, ' . $user->first_name . '!';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
 
     }
 
@@ -30,7 +30,7 @@ class UserMailer extends Mailer {
 
         $subject = 'RentGorilla.ca :: Subscription cancelled';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
 
     }
 
@@ -48,7 +48,7 @@ class UserMailer extends Mailer {
 
         $subject = 'RentGorilla.ca :: Subscription begun';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
 
     }
 
@@ -67,11 +67,11 @@ class UserMailer extends Mailer {
 
         $subject = 'RentGorilla.ca :: Subscription resumed';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
 
     }
 
-    public function sendSubscriptionChanged(User $user)
+    public function sendSubscriptionChanged(User $user, $isDownGrade)
     {
         $plan = Subscription::plan($user->getStripePlan());
 
@@ -81,12 +81,13 @@ class UserMailer extends Mailer {
             'name' => $user->first_name,
             'planName' => $plan->planName(),
             'maxListings' => $plan->maximumListings(),
-            'interval' => $plan->interval()
+            'interval' => $plan->interval(),
+            'isDowngrade' => $isDownGrade
         ];
 
         $subject = 'RentGorilla.ca :: Subscription changed';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
 
     }
 
@@ -96,12 +97,12 @@ class UserMailer extends Mailer {
 
         $view = 'emails.user.confirm';
         $data = [
-            'first_name' => $user->first_name,
+            'name' => $user->first_name,
             'url_token' => $user->confirmation
         ];
         $subject = 'RentGorilla.ca :: Please confirm your registration';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
 
     }
 
@@ -109,53 +110,53 @@ class UserMailer extends Mailer {
     {
         $view = 'emails.user.promotion-start';
         $data = [
-            'first_name' => $user->first_name,
+            'name' => $user->first_name,
             'address' => $rental->street_address
         ];
 
         $subject = 'RentGorilla.ca :: Your promotion has begun!';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
     }
 
     public function sendPromotionEnded(User $user, Rental $rental)
     {
         $view = 'emails.user.promotion-end';
         $data = [
-            'first_name' => $user->first_name,
+            'name' => $user->first_name,
             'address' => $rental->getAddress()
         ];
 
         $subject = 'RentGorilla.ca :: Your promotion has ended';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
     }
 
     public function sendPromotionQueued(User $user, Rental $rental, $date)
     {
         $view = 'emails.user.promotion-queued';
         $data = [
-            'first_name' => $user->first_name,
+            'name' => $user->first_name,
             'address' => $rental->getAddress(),
             'date' => $date->format('F jS, Y')
         ];
 
         $subject = 'RentGorilla.ca :: Your promotion has been queued!';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
     }
 
     public function sendPromotionChargeFailed(User $user, Rental $rental)
     {
         $view = 'emails.user.promotion-charge-failed';
         $data = [
-            'first_name' => $user->first_name,
+            'name' => $user->first_name,
             'address' => $rental->getAddress()
         ];
 
         $subject = 'RentGorilla.ca :: Charge failed';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
     }
 
     public function sendContactManager(User $user, Rental $rental, $fname, $lname, $message, $email)
@@ -165,10 +166,10 @@ class UserMailer extends Mailer {
         $name = $fname . ' ' . $lname;
 
         $data = [
-            'first_name' => $user->first_name,
+            'name' => $user->first_name,
             'address' => $rental->getAddress(),
-            'name' => $name,
-            'email' => $email,
+            'the_name' => $name,
+            'the_email' => $email,
             'the_message' => $message,
         ];
 
@@ -182,7 +183,7 @@ class UserMailer extends Mailer {
         $view = 'emails.user.achievement-awarded';
 
         $data = [
-            'first_name' => $user->first_name,
+            'name' => $user->first_name,
             'achievement' => $achievement,
             'points' => $points,
             'total' => $user->points
@@ -190,7 +191,7 @@ class UserMailer extends Mailer {
 
         $subject = 'RentGorilla.ca :: Achievement Awarded';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
     }
 
 
@@ -199,15 +200,97 @@ class UserMailer extends Mailer {
         $view = 'emails.user.rentals-deactivated';
 
         $data = [
-            'first_name' => $user->first_name,
+            'name' => $user->first_name,
         ];
 
-        $subject = 'RentGorilla.ca :: Rentals Deactivated';
+        $subject = 'RentGorilla.ca :: Plan Expired';
 
-        $this->sendTo($user, $subject, $view, $data);
+        return $this->sendTo($user, $subject, $view, $data);
     }
 
+    public function sendDowngradedToFreePlan(User $user)
+    {
+        $view = 'emails.user.downgraded-free-plan';
+
+        $data = [
+            'name' => $user->first_name,
+        ];
+
+        $subject = 'RentGorilla.ca :: Plan Expired';
+
+        return $this->sendTo($user, $subject, $view, $data);
+    }
+
+    public function sendPointsRedeemed(User $user, $redeemedPoints, $credit)
+    {
+        $view = 'emails.user.points-redeemed';
+
+        $data = [
+            'name' => $user->first_name,
+            'redeemedPoints' => $redeemedPoints,
+            'currentPoints' => $user->points,
+            'credit' => $credit
+        ];
+
+        $subject = 'RentGorilla.ca :: Plan Expired';
+
+        return $this->sendTo($user, $subject, $view, $data);
+    }
+
+    public function sendFailedSubscriptionPayment(User $user)
+    {
+        $view = 'emails.user.failed-subscription-payment';
+
+        $data = [
+            'name' => $user->first_name
+        ];
+
+        $subject = 'RentGorilla.ca :: Subscription Payment Failed';
+
+        return $this->sendTo($user, $subject, $view, $data);
+    }
+
+    public function sendPasswordResetToNewUser(User $user, $token)
+    {
+        $view = 'emails.user.password-reset-new-user';
+
+        $data = [
+            'name' => $user->first_name,
+            'token' => $token
+        ];
+
+        $subject = 'RentGorilla.ca :: Welcome to RentGorilla.ca';
+
+        return $this->sendTo($user, $subject, $view, $data);
+    }
+
+    public function sendReportToAllUsers()
+    {
+        $view = 'emails.user.property-report';
+        $subject = 'RentGorilla.ca :: Property Report';
+
+        User::where('monthly_emails', 1)->chunk(100, function($users) use ($view, $subject)
+        {
+            foreach ($users as $user)
+            {
+                 $data = [
+                    'name' => $user->first_name,
+                ];
+
+                //TODO::finish email template
+
+                //$this->sendTo($user, $subject, $view, $data);
+            }
+        });
+    }
+
+    public function sendTest($user)
+    {
+        $view = 'emails.user.test';
 
 
+        $subject = 'RentGorilla.ca :: test';
+
+        return $this->sendTo($user, $subject, $view, []);
+    }
 }
-

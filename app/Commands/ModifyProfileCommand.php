@@ -7,18 +7,20 @@ class ModifyProfileCommand extends Command
 
     public $user_id;
     public $primary_phone;
-    public $alternate_phone;
     public $website;
     public $bio;
+    public $photo;
+    public $first_name;
+    public $last_name;
 
-    function __construct($user_id, $primary_phone, $alternate_phone, $website, $bio)
+    function __construct($user_id, $primary_phone, $website, $bio, $photo, $first_name, $last_name)
     {
         $this->user_id = $user_id;
         $this->primary_phone = $primary_phone;
-        $this->alternate_phone = $alternate_phone;
         $this->website = $website;
         $this->bio = $bio;
+        $this->photo = $photo;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
     }
-
-
 }

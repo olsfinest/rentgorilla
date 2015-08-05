@@ -5,7 +5,7 @@ use RentGorilla\User;
 
 interface PhotoRepository {
 
-    public function findPhotoForUser(User $user, $id);
+    public function findPhotoForUser(User $user, $filename);
     public function delete(Photo $photo);
 
 }

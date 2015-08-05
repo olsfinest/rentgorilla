@@ -12,15 +12,21 @@ use RentGorilla\Http\Requests\FavouriteRequest;
 use RentGorilla\Http\Requests\RemoveFavouriteRequest;
 use RentGorilla\Repositories\FavouritesRepository;
 use RentGorilla\Repositories\RentalRepository;
+use RentGorilla\Repositories\UserRepository;
 
 class FavouritesController extends Controller {
 
     protected $favouritesRepository;
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
 
-    public function __construct(FavouritesRepository $favouritesRepository)
+    public function __construct(FavouritesRepository $favouritesRepository, UserRepository $userRepository)
     {
         $this->middleware('auth');
         $this->favouritesRepository = $favouritesRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function toggleFavourite(FavouriteRequest $request)
@@ -32,16 +38,10 @@ class FavouritesController extends Controller {
 
     public function showFavourites()
     {
-        $favourites = $this->favouritesRepository->findFavouritesForUser(Auth::user());
+        $favourites = $this->userRepository->getFavouriteRentalIdsForUser(Auth::user());
 
-        return view('rental.favourites', compact('favourites'));
-    }
+        $rentals = $this->favouritesRepository->findFavouritesForUser(Auth::user());
 
-    public function removeFavourite($id)
-    {
-
-        $this->dispatch(new RemoveFavouriteCommand($id));
-
-        return redirect()->back();
+        return view('rental.favourites', compact('rentals', 'favourites'));
     }
 }

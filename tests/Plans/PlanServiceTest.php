@@ -22,7 +22,7 @@ class PlanServiceTest extends DbTestCase
 
         $plans = $this->service->fetchAllPlans();
 
-        $this->assertCount(6, $plans, 'all plans');
+        $this->assertCount(7, $plans, 'all plans');
 
     }
 

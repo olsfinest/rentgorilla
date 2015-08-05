@@ -1,8 +1,8 @@
 <?php namespace RentGorilla\Http\Requests;
 
 use RentGorilla\Http\Requests\Request;
-use Auth;
-class PromoteRentalExistingCustomerRequest extends Request {
+
+class EmbeddedVideoRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -11,7 +11,7 @@ class PromoteRentalExistingCustomerRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return Auth::check() && $this->user()->readyForBilling();
+		return true;
 	}
 
 	/**

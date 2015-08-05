@@ -20,7 +20,6 @@ class RegistrationControllerTest extends DbTestCase {
             'email' => 'homer_simpson@springfieldpower.com',
             'password' => 12345678,
             'password_confirmation' => 12345678,
-            'user_type' => 'landlord'
         ];
 
         $response = $this->call('post', '/register', $data, [], [], $this->ajaxRequest);

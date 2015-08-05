@@ -15,18 +15,19 @@ use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
 use RentGorilla\Http\Requests\EmailManagerRequest;
 use RentGorilla\Http\Requests\ModifyRentalRequest;
-use RentGorilla\Http\Requests\PromoteRentalExistingCustomerRequest;
-use RentGorilla\Http\Requests\PromoteRentalNewCustomerRequest;
+use RentGorilla\Http\Requests\PromoteRentalRequest;
 use RentGorilla\Http\Requests\RentalPhoneRequest;
 use RentGorilla\Http\Requests\ToggleRentalActivationRequest;
 use RentGorilla\Promotions\PromotionManager;
 use RentGorilla\Repositories\PhotoRepository;
+use RentGorilla\Repositories\RewardRepository;
 use RentGorilla\Repositories\UserRepository;
 use Validator;
 use RentGorilla\Photo;
 use RentGorilla\Repositories\RentalRepository;
 use Config;
 use Image;
+use Subscription;
 
 class RentalController extends Controller {
 
@@ -40,38 +41,66 @@ class RentalController extends Controller {
      * @var PhotoRepository
      */
     protected $photoRepository;
+    /**
+     * @var RewardRepository
+     */
+    protected $rewardRepository;
 
-    function __construct(RentalRepository $rentalRepository, PromotionManager $promotionManager, PhotoRepository $photoRepository)
+    function __construct(RentalRepository $rentalRepository, PromotionManager $promotionManager, PhotoRepository $photoRepository, RewardRepository $rewardRepository)
     {
         $this->middleware('auth', ['except' => ['show', 'showPhone', 'sendManagerMail']]);
         $this->rentalRepository = $rentalRepository;
         $this->promotionManager = $promotionManager;
         $this->photoRepository = $photoRepository;
+        $this->rewardRepository = $rewardRepository;
     }
 
 
-    public function showPromotions()
+    public function showPromotions($rental_id)
     {
-        $promoted = $this->rentalRepository->getPromotedRentals(Auth::user());
-        $unpromoted = $this->rentalRepository->getUnpromotedRentals(Auth::user());
+        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $rental_id);
+
+        $queued = $this->promotionManager->getNextAvailablePromotionDate($rental);
 
         $price = number_format(Config::get('promotion.price')/100, 2);
 
-        return view('rental.promotions', compact('promoted', 'unpromoted', 'price'));
+        return view('rental.promotions', compact('rental', 'queued', 'price'));
     }
 
-
-    public function promoteRentalNewCustomer(PromoteRentalNewCustomerRequest $request)
+    public function showCancelPromotion($rental_id)
     {
+        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $rental_id);
+
+        $queued = $this->promotionManager->getNextAvailablePromotionDate($rental);
+
+        return view('rental.cancel-promotion', compact('rental', 'queued'));
+    }
+
+    public function cancelPromotion($rental_id)
+    {
+        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $rental_id);
+
+        $this->rentalRepository->unqueueRental($rental);
+
+        return redirect()->route('rental.index')->with('flash:success', 'Your promotion has been cancelled');
+    }
+
+    public function promoteRental(PromoteRentalRequest $request)
+    {
+
         $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $request->rental_id);
 
         try {
-           $customer = Auth::user()->subscription()->createStripeCustomer($request->stripe_token, [
-                'email' => Auth::user()->email
-            ]);
 
-            Auth::user()->setStripeId($customer->id);
-            Auth::user()->save();
+            if ( ! Auth::user()->readyForBilling()) {
+
+                $customer = Auth::user()->subscription()->createStripeCustomer($request->stripe_token, [
+                    'email' => Auth::user()->email
+                ]);
+
+                Auth::user()->setStripeId($customer->id);
+                Auth::user()->save();
+            }
 
             if($promotedNow = $this->promotionManager->wontBeQueued($rental)) {
                 if (Auth::user()->charge(Config::get('promotion.price'), ['description' => 'Promotion for ' . $rental->street_address])) {
@@ -81,6 +110,8 @@ class RentalController extends Controller {
                     $messages->add('Stripe Error', 'There was a problem charging your card.');
                     return redirect()->back()->withErrors($messages);
                 }
+            } else {
+                $this->promotionManager->promoteRental($rental);
             }
         } catch (\Exception $e) {
 
@@ -96,31 +127,9 @@ class RentalController extends Controller {
             $message = 'Your promotion has been queued!';
         }
 
-        return redirect()->back()->with('flash_message', $message);
+        return redirect()->route('rental.index')->with('flash:success', $message);
     }
 
-    public function promoteRentalExistingCustomer(PromoteRentalExistingCustomerRequest $request)
-    {
-
-        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $request->rental_id);
-
-        if(Auth::user()->charge(Config::get('promotion.price'), ['currency' => 'cad', 'description' => 'Promotion for ' . $rental->street_address])) {
-            $promotedNow = $this->promotionManager->promoteRental($rental);
-        } else {
-            $messages = new MessageBag();
-            $messages->add('Stripe Error', 'There was a problem charging your card.');
-            return redirect()->back()->withErrors($messages);
-        }
-
-        if($promotedNow) {
-            $message = 'Your property has been promoted!';
-        } else {
-            $message = 'Your promotion has been queued!';
-        }
-
-        return redirect()->back()->with('flash_message', $message);
-
-    }
 
 
     /**
@@ -132,7 +141,11 @@ class RentalController extends Controller {
 	{
 		$rentals = $this->rentalRepository->getRentalsForUser(Auth::user());
 
-        return view('rental.index', compact('rentals'));
+        $rewards = $this->rewardRepository->getRewardsForUser(Auth::user());
+
+        $plan = Subscription::plan(Auth::user()->getStripePlan());
+
+        return view('rental.index', compact('rentals', 'rewards', 'plan'));
 	}
 
 
@@ -148,7 +161,7 @@ class RentalController extends Controller {
             'user_id' => Auth::id()
         ]);
 
-        return redirect()->route('rental.photos.index', [$rental->uuid])->with('flash_message', 'Your property has been created! Now you may add photos!');
+        return redirect()->route('rental.photos.index', [$rental->uuid])->with('flash:success', 'Your property has been created! Now you may add photos!');
 	}
 
 	public function show($id, UserRepository $userRepository)
@@ -189,6 +202,24 @@ class RentalController extends Controller {
         return view('rental.show', compact('rental', 'favourites', 'likes', 'previous', 'next'));
 	}
 
+    public function showPreview($id, UserRepository $userRepository)
+    {
+        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $id);
+
+        if(Auth::check()) {
+            $favourites = $userRepository->getFavouriteRentalIdsForUser(Auth::user());
+            $likes = $userRepository->getPhotoLikesForUser(Auth::user());
+        } else {
+            $favourites = [];
+            $likes = [];
+        }
+
+        $previous = null;
+        $next = null;
+
+        return view('rental.preview', compact('rental', 'favourites', 'likes', 'previous', 'next'));
+    }
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -211,7 +242,7 @@ class RentalController extends Controller {
             'id' => $rental->uuid
         ]);
 
-        return redirect()->route('rental.index')->with('flash_message', 'Your property has been updated!');
+        return redirect()->route('rental.index')->with('flash:success', 'Your property has been updated!');
 
     }
 
@@ -235,6 +266,13 @@ class RentalController extends Controller {
 
         return redirect()->back();
 	}
+
+    public function showDelete($id)
+    {
+        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $id);
+
+        return view('rental.delete', compact('rental'));
+    }
 
 
     public function showPhotos($id)
@@ -270,14 +308,11 @@ class RentalController extends Controller {
         $extension = $file->guessClientExtension();
         $filename = $randomString . ".{$extension}";
 
-        $upload_success = $image->resize(1000, null, function ($constraint) {
-                                    $constraint->aspectRatio();})
+        $upload_success = $image->fit(Photo::LARGE_WIDTH, Photo::LARGE_HEIGHT)
                                 ->save($destinationPath . 'large' . $filename)
-                                ->resize(625, null, function ($constraint) {
-                                    $constraint->aspectRatio();})
+                                ->fit(Photo::MEDIUM_WIDTH, Photo::MEDIUM_HEIGHT)
                                 ->save($destinationPath . 'medium' . $filename)
-                                ->resize(237, null, function ($constraint) {
-                                    $constraint->aspectRatio();})
+                                ->fit(Photo::SMALL_WIDTH, Photo::SMALL_HEIGHT)
                                 ->save($destinationPath . 'small' . $filename);
 
         if( $upload_success ) {

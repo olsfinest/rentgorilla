@@ -2,6 +2,7 @@
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Mail\Mailer;
+use RentGorilla\User;
 
 class AdminMailer {
 
@@ -11,7 +12,7 @@ class AdminMailer {
 
     public function __construct(Repository $config, Mailer $mailer)
     {
-        $this->adminEmail = $config->get('config.admin_email');
+        $this->adminEmail = $config->get('mail.admin');
         $this->mailer = $mailer;
     }
 
@@ -36,24 +37,24 @@ class AdminMailer {
         });
     }
 
-/*
-    public function sendContactForm(ContactUs $form)
+
+    public function sendContactForm(User $user, $question)
     {
-        $view = 'emails.admin.contactForm';
+        $view = 'emails.admin.support-request';
 
         $data = [
-            'name' => $form->name,
-            'email' => $form->email,
-            'phone' => $form->phone,
-            'comments' => $form->message
+            'name' => $user->getFullName(),
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'question' => $question
         ];
 
-        $subject = 'MaritimeMarkets.ca contact form: ' . $form->subject;
-        $email = $form->email;
-        $name = $form->name;
+        $subject = 'RG Support Request';
+        $email = $user->email;
+        $name = $user->getFullName();
 
         $this->sendToAdminWithReplyTo($subject, $view, $data, $email, $name);
     }
-*/
+
 
 }
