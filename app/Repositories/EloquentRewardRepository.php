@@ -7,6 +7,6 @@ class EloquentRewardRepository implements RewardRepository {
 
     public function getRewardsForUser(User $user)
     {
-        return Reward::where('user_id', $user->id)->lists('type');
+        return Reward::where('user_id', $user->id)->lists('type')->all();
     }
 }

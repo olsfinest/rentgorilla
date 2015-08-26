@@ -10,7 +10,7 @@ class Rental extends Model {
 
     const RESULTS_PER_PAGE = 12;
 
-
+    protected $with = ['location'];
 
     protected $guarded = ['id'];
     /**
@@ -29,6 +29,12 @@ class Rental extends Model {
     protected $hidden = [];
 
     protected $dates = ['available_at', 'promotion_ends_at', 'queued_at', 'activated_at', 'edited_at'];
+
+
+    public function location()
+    {
+        return $this->belongsTo('RentGorilla\Location');
+    }
 
     public function user()
     {
@@ -71,22 +77,22 @@ class Rental extends Model {
 
     public function getAddress()
     {
-        return sprintf('%s, %s, %s', $this->street_address, $this->city, $this->province);
+        return sprintf('%s, %s, %s', $this->street_address, $this->location->city, $this->location->province);
     }
 
     public function getFeatureListAttribute()
     {
-        return $this->features()->lists('id');
+        return $this->features()->lists('id')->all();
     }
 
     public function getApplianceListAttribute()
     {
-        return $this->appliances()->lists('id');
+        return $this->appliances()->lists('id')->all();
     }
 
     public function getHeatListAttribute()
     {
-        return $this->heat()->lists('id');
+        return $this->heat()->lists('id')->all();
     }
 
     public function setAvailableAttribute($date)
@@ -109,9 +115,14 @@ class Rental extends Model {
         return $this->queued === 1;
     }
 
+    public function getProvinceAttribute()
+    {
+        return is_null($this->location) ? null : $this->location->province;
+    }
+
     public function getPromotedDaysRemaining()
     {
-        return $this->promotion_ends_at->diffInDays();
+        return $this->promotion_ends_at->diff(Carbon::now())->format('%d days, %h hours');
     }
 
     public function getAvailableAttribute()
@@ -121,10 +132,10 @@ class Rental extends Model {
 
     public function getCityOnlyAttribute()
     {
-        if(is_null($this->city)) {
+        if(is_null($this->location)) {
             return null;
         } else {
-            $cityAndCounty = explode(', ', $this->city);
+            $cityAndCounty = explode(', ', $this->location->city);
             return reset($cityAndCounty);
         }
     }

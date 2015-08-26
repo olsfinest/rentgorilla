@@ -3,6 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Log;
 
 class AwardAchievements extends Command {
 
@@ -48,7 +49,9 @@ class AwardAchievements extends Command {
 	 */
 	public function fire()
 	{
-		foreach($this->awards as $award) {
+        Log::info('Running ' . $this->getName());
+
+        foreach($this->awards as $award) {
             $achievement = app()->make('RentGorilla\Rewards\\' . $award);
             $achievement->checkEligibility();
         }

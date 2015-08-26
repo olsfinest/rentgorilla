@@ -42,6 +42,9 @@ class MigrateRAUsersCommand extends Command {
 	 */
 	public function fire()
 	{
+
+        Log::info('Running ' . $this->getName());
+
         $this->startTimer();
 
 		$users = file('http://rentantigonish.ca/getusers.php?key=LvCAh5ptd9CJk3D2');

@@ -10,7 +10,19 @@ use Log;
 
 class StripeWebhookController extends WebhookController {
 
-    protected function handleCustomerSubscriptionDeleted(array $payload, UserMailer $mailer)
+
+    /**
+     * @var UserMailer
+     */
+    private $userMailer;
+
+    function __construct(UserMailer $userMailer)
+    {
+
+        $this->userMailer = $userMailer;
+    }
+
+    protected function handleCustomerSubscriptionDeleted(array $payload)
     {
         $billable = $this->getBillable($payload['data']['object']['customer']);
 
@@ -18,7 +30,7 @@ class StripeWebhookController extends WebhookController {
 
             $billable->subscription()->cancel();
 
-            $mailer->sendFailedSubscriptionPayment($billable);
+            $this->userMailer->sendFailedSubscriptionPayment($billable);
 
             Log::info('Subscription payment failed and subscription was cancelled', ['user_id' => $billable->id]);
         }

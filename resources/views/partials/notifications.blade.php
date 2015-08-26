@@ -1,7 +1,7 @@
 @if(Session::has('flash:success') || Session::has('flash:warning') || Session::has('flash:error'))
     <ul class="toaster">
         @if(Session::has('flash:success'))
-            <li class="toast">
+            <li class="toast fadeMe">
                 <p>{{ Session::get('flash:success') }}</p>
                 <span class="fa fa-close" title="Hide the notification"></span>
             </li>

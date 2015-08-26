@@ -83,7 +83,6 @@ class Plan {
         return ucfirst($this->interval) . 'ly';
     }
 
-
     public static function toDollars($cents, $dollarSign = false)
     {
         $dollars = number_format($cents / 100, 2);
@@ -95,14 +94,19 @@ class Plan {
         return $this->planName() . ' ($' . static::toDollars($this->monthlyBilledPrice()) . '/month)';
     }
 
-    public function getPriceWithTax($monthly = false)
+    public function getPriceWithTax($monthly = false, $suffix = false)
     {
         if($this->isMonthly() || $monthly) {
             $price = $this->monthlyBilledPrice() * 1.15;
         } else {
             $price = $this->totalYearlyCost() * 1.15;
         }
-        return static::toDollars($price, true);
+
+        if($suffix) {
+            return static::toDollars($price, true) . (($this->isMonthly() || $monthly) ? '/month' : '/year');
+        } else {
+            return static::toDollars($price, true);
+        }
     }
 
 }

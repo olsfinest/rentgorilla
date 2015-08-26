@@ -20,12 +20,12 @@
                     button.addClass('activity off');
                     button.html('Inactive');
                 }
+
+                $('#activeRentalCount').html(data.activeRentalCount);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if(jqXHR.responseJSON.message) {
-                    alert(jqXHR.responseJSON.message);
-                } else {
-                    alert(errorThrown);
+                    showModal(jqXHR.responseJSON.message);
                 }
             }
         });

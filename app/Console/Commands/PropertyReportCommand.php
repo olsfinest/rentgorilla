@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use RentGorilla\Mailers\UserMailer;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Log;
 
 class PropertyReportCommand extends Command {
 
@@ -43,6 +44,7 @@ class PropertyReportCommand extends Command {
 	 */
 	public function fire()
 	{
+        Log::info('Running ' . $this->getName());
 		$this->mailer->sendReportToAllUsers();
 	}
 

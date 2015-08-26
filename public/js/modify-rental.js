@@ -1,13 +1,4 @@
-function showModal(message){
-    $('<section id="alert"><p>' + message + '</p></section>').dialog({
-        modal: true,
-        dialogClass: "noTitle",
-        draggable: false,
-        resizable: false,
-        show: "fade",
-        hide: "fade"
-    });
-}
+
 
 $('#features').select2();
 $('#heats').select2();

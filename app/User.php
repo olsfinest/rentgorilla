@@ -74,7 +74,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function rewards()
     {
-        return $this->hasMany('RentGorilla\Reward')->lists('type');
+        return $this->hasMany('RentGorilla\Reward')->lists('type')->all();
     }
 
     public function profile()

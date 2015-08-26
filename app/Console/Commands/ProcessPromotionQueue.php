@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use RentGorilla\Promotions\PromotionManager;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Log;
 
 class ProcessPromotionQueue extends Command {
 
@@ -39,7 +40,9 @@ class ProcessPromotionQueue extends Command {
 	 */
 	public function fire()
 	{
-		$this->promotionManager->processPromotionQueue();
+        Log::info('Running ' . $this->getName());
+
+        $this->promotionManager->processPromotionQueue();
 	}
 
 	/**

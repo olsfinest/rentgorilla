@@ -10,19 +10,23 @@ $factory('RentGorilla\User', [
     'provider' => 'email'
 ]);
 
+$factory('RentGorilla\Location', [
+    'city' => 'New Minas',
+    'county' => 'Kings County',
+    'province' => 'NS',
+    'slug' => 'new-minas-ns'
+]);
+
 $factory('RentGorilla\Rental', [
     'uuid' => str_random(8),
     'user_id' => 'factory:RentGorilla\User',
+    'location_id' => 'factory:RentGorilla\Location',
     'promoted' => 0,
     'active' => 1,
     'type' => 'house',
     'price' => 0,
     'beds' => 1,
     'street_address' => '48 Perrier Drive',
-    'city' => 'New Minas',
-    'province' => 'NS',
-    'location' => 'new-minas-ns',
-    'county' => 'Kings County',
     'available_at' => $faker->dateTime,
     'lat' => 45,
     'lng' => -64,

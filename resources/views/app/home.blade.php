@@ -10,7 +10,7 @@
         <form>
             <label>
                 <span class="fa fa-search"></span>
-                <select name="location" id="location" style="width: 725px">
+                <select name="location" id="location" style="width: 100%">
                 </select>
                 <span class="fa fa-map"></span>
             </label>
@@ -48,7 +48,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
     <script language="JavaScript" type="text/javascript">
         $('#location').select2({
-            placeholder: 'City',
+            placeholder: 'Please enter a city',
             minimumInputLength: 3,
             ajax: {
                 url: '/location-list',

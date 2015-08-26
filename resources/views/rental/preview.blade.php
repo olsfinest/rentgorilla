@@ -36,7 +36,7 @@
             <section class="listing_meta">
 			<span class="listing_neighborhood">
 				<h1>{{ $rental->street_address }}</h1>
-				<h2>{{ $rental->city . ', ' . Config::get('rentals.provinces.' . $rental->province) }}</h2>
+				<h2>{{ $rental->location->city . ', ' . Config::get('rentals.provinces.' . $rental->location->province) }}</h2>
 			</span>
 			<span class="listing_availability">
 				<h1>Available {{ $rental->available_at->format('F j, Y') }}</h1>
@@ -93,13 +93,13 @@
                         <td class="listing_ng_label">Parking</td>
                         <td>{{ Config::get('rentals.parking.' . $rental->parking) }}</td>
                         <td class="listing_ng_label">Appliances</td>
-                        <td class="tooltipable" title="{{ $appliances = implode(', ', $rental->appliances()->lists('name')) }}">{{ str_limit($appliances, 17) }}</td>
+                        <td class="tooltipable" title="{{ $appliances = implode(', ', $rental->appliances()->lists('name')->all()) }}">{{ str_limit($appliances, 17) }}</td>
                     </tr>
                     <tr>
                         <td class="listing_ng_label">Laundry</td>
                         <td>{{ Config::get('rentals.laundry.' . $rental->laundry) }}</td>
                         <td class="listing_ng_label">Heat Type</td>
-                        <td class="tooltipable" title="{{ $heat = implode(', ', $rental->heat()->lists('name')) }}">{{ str_limit($heat, 17) }}</td>
+                        <td class="tooltipable" title="{{ $heat = implode(', ', $rental->heat()->lists('name')->all()) }}">{{ str_limit($heat, 17) }}</td>
                     </tr>
                     <tr>
                         <td class="listing_ng_label">Disability Access</td>
@@ -150,20 +150,6 @@
                     <p>
                         {{ $rental->description }}
                     </p>
-
-                    @if($count = $rental->user->rentals->count() - 1)
-
-                        <h3>More Properties</h3>
-
-                        <a href="#">From This Property Manager ({{ $count }})</a>
-                        <ul>
-                            @foreach ($rental->user->rentals as $managersProperty)
-                                @if($rental->id != $managersProperty->id)
-                                    <li><a href="{{ route('rental.show', [$managersProperty->uuid]) }}">{{ $managersProperty->getAddress() }}</a></li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    @endif
 
                 </section>
             </aside>

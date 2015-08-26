@@ -492,6 +492,7 @@ header .user_actions .list_property {
 /* line 410, style.scss */
 .listing_nav .forward {
   float: right;
+  margin-left: 10px;
 }
 
 /* line 412, style.scss */

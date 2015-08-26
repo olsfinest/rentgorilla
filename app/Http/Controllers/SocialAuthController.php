@@ -1,5 +1,6 @@
 <?php namespace RentGorilla\Http\Controllers;
 
+use RentGorilla\Events\UserHasConfirmed;
 use RentGorilla\Http\Controllers\Controller;
 use RentGorilla\User;
 use Validator;
@@ -155,6 +156,9 @@ class SocialAuthController extends Controller
         $user->email = $email;
         $user->avatar = $avatar;
         $user->save();
+
+        //sends out welcome email
+        event(new UserHasConfirmed($user));
 
         return $user;
     }

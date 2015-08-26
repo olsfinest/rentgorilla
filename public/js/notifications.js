@@ -1,9 +1,10 @@
 var timer1;
 
 function startInterval() {
-    timer1  = setTimeout(function() {
-        $('.toast').fadeOut('slow');
-    }, 5000);
+
+        timer1 = setTimeout(function () {
+            $('.fadeMe').fadeOut('slow');
+        }, 5000);
 
 }
 

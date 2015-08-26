@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use RentGorilla\Tasks\Daily\ClearPromotionsHistory;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Log;
 
 class ClearPromotionsHistoryCommand extends Command {
 
@@ -40,7 +41,9 @@ class ClearPromotionsHistoryCommand extends Command {
 	 */
 	public function fire()
 	{
-		$this->clearPromotionsHistory->clear();
+        Log::info('Running ' . $this->getName());
+
+        $this->clearPromotionsHistory->clear();
 	}
 
 	/**

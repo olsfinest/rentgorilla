@@ -14,6 +14,16 @@ function isLoggedIn()
     return $("meta[name='loggedin']").attr('content') === '1';
 }
 
+function showModal(message){
+    $('<section id="alert"><p>' + message + '</p></section>').dialog({
+        modal: true,
+        dialogClass: "noTitle",
+        draggable: false,
+        resizable: false,
+        show: "fade",
+        hide: "fade"
+    });
+}
 
 //put this handler in global js
 $( document ).ajaxError(function( event, jqxhr, settings, thrownError ) {

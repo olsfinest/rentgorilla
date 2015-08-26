@@ -7,8 +7,23 @@
     <section class="content full admin pricing">
         <h1>RentGorilla Subscription Pricing</h1>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a condimentum est. Praesent id turpis nec libero bibendum convallis. Morbi mi leo, aliquet vel feugiat nec, sollicitudin eget erat. Morbi posuere turpis a risus venenatis congue. Sed mattis facilisis lacinia
         </p>
+
+        @if(Auth::user()->onTrial())
+            <div class="toast">
+                <span class="fa fa-close"></span>
+                <h1><i class="fa fa-info-circle"></i> Free Trial</h1>
+                <p>
+                    <strong>Lucky you! You're on a free trial with RentGorilla.</strong><br/>
+                    During your trial period ({{  Auth::user()->getTrialEndDate()->diffInDays() }} days remaining) you can list an unlimited number of properties with us.
+                    <br/>
+                    However, once your trial ends, your account will be limited to 1 listing. At this point, you can continue on with your free account, or purchase a plan below to suit your needs.
+                </p>
+                <p>
+                    Thanks for listing with RentGorilla!
+                </p>
+            </div>
+        @endif
         <ul id="plans">
             <li>
                 <h2>Free Year</h2>

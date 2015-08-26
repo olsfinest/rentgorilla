@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Str;
 use Laracasts\TestDummy\Factory;
+use RentGorilla\Location;
 
 class DatabaseSeeder extends Seeder {
 
@@ -18,8 +19,7 @@ class DatabaseSeeder extends Seeder {
 	private $images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg'];
 	private $types = ['house', 'apartment', 'room'];
 	private $cities = ['Antigonish', 'Halifax', 'New Minas'];
-
-	function __construct()
+   function __construct()
 	{
 		$this->faker = \Faker\Factory::create('en_CA');
 	}
@@ -31,12 +31,25 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-
-        if(app()->environment() !== 'local') {
-          exit("Just saved your job. Don't seed production database!");
-        }
-
         Model::unguard();
+
+        $newMinas = Location::create([
+            'province' => 'NS',
+            'city' => 'New Minas',
+            'slug' => 'new-minas-ns'
+        ]);
+
+        $antigonish = Location::create([
+            'province' => 'NS',
+            'city' => 'Antigonish',
+            'slug' => 'antigonish-ns'
+        ]);
+
+        $halifax = Location::create([
+            'province' => 'NS',
+            'city' => 'Halifax',
+            'slug' => 'halifax-ns'
+        ]);
 
         $user = Factory::create('RentGorilla\User', ['email' => 'test@test.com', 'password' => bcrypt('password')]);
 
@@ -57,7 +70,6 @@ class DatabaseSeeder extends Seeder {
                     'price' => $this->getRandomPrice(),
                     'beds' => $this->getRandomBeds(),
                     'street_address' => $this->faker->streetAddress,
-                    'province'=> 'NS',
                     'available_at' => $this->getRandomDate()];
 
             $merged = array_merge($rentalModelOverrides, $this->getRandomLocation());
@@ -131,12 +143,14 @@ class DatabaseSeeder extends Seeder {
 
         $city = $this->getRandomCity();
 
-        $location = Str::slug($city . '-' . 'NS');
+        $numLocations = count($this->cities);
+
+        $location_id = rand(1, $numLocations);
 
         $lat = $this->faker->randomFloat(6, $locations[$city]['S'], $locations[$city]['N']);
         $lng = $this->faker->randomFloat(6, $locations[$city]['W'], $locations[$city]['E']);
 
-        return compact('city', 'lat', 'lng', 'location');
+        return compact('lat', 'lng', 'location_id');
 
     }
 }

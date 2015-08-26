@@ -112,18 +112,18 @@ class SubscriptionController extends Controller {
                 $customer = Auth::subscription()->getStripeCustomer();
 
                 if ($request->coupon_code) {
-                    Auth::user()->subscription($plan_id)->withCoupon($request->coupon_code)->create(null, [], $customer);
+                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->withCoupon($request->coupon_code)->create(null, [], $customer);
                 } else {
-                    Auth::user()->subscription($plan_id)->create(null, [], $customer);
+                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->create(null, [], $customer);
                 }
 
             } else {
 
                 if ($request->coupon_code) {
-                    Auth::user()->subscription($plan_id)->withCoupon($request->coupon_code)->create($request->stripe_token, [
+                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->withCoupon($request->coupon_code)->create($request->stripe_token, [
                         'email' => Auth::user()->email]);
                 } else {
-                    Auth::user()->subscription($plan_id)->create($request->stripe_token, [
+                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->create($request->stripe_token, [
                         'email' => Auth::user()->email]);
                 }
             }

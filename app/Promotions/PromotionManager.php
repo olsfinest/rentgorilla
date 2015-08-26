@@ -44,7 +44,7 @@ class PromotionManager {
 
            foreach ($rentals as $rental) {
 
-               if ($queued = Rental::where(['location' => $rental->location, 'queued' => 1])->orderBy('queued_at')->first()) {
+               if ($queued = Rental::where(['location_id' => $rental->location->id, 'queued' => 1])->orderBy('queued_at')->first()) {
 
                    $user = $this->getUser($queued);
 
@@ -92,7 +92,7 @@ class PromotionManager {
     {
         if($currentReservationListLength = $this->totalReservations($rental->location)) {
 
-            $activePromotions = Rental::where(['promoted' => 1, 'location' => $rental->location])->orderBy('promotion_ends_at')->take(Config::get('promotion.max'))->get();
+            $activePromotions = Rental::where(['promoted' => 1, 'location_id' => $rental->location->id])->orderBy('promotion_ends_at')->take(Config::get('promotion.max'))->get();
 
             $model = [];
 
@@ -108,7 +108,7 @@ class PromotionManager {
 
         } else {
 
-            $earliestPromotion = Rental::where(['promoted' => 1, 'location' => $rental->location])->orderBy('promotion_ends_at')->first();
+            $earliestPromotion = Rental::where(['promoted' => 1, 'location_id' => $rental->location->id])->orderBy('promotion_ends_at')->first();
 
             if($earliestPromotion) {
 
@@ -126,11 +126,11 @@ class PromotionManager {
 
     private function totalReservations($location)
     {
-        return Rental::where(['location' => $location, 'queued' => 1])->count();
+        return Rental::where(['location_id' => $location->id, 'queued' => 1])->count();
     }
 
     public function wontBeQueued(Rental $rental)
     {
-        return  Rental::where(['promoted' => 1, 'location' => $rental->location])->count() < Config::get('promotion.max');
+        return  Rental::where(['promoted' => 1, 'location_id' => $rental->location->id])->count() < Config::get('promotion.max');
     }
 }

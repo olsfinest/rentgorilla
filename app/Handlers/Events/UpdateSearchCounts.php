@@ -1,12 +1,14 @@
 <?php namespace RentGorilla\Handlers\Events;
 
+use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use RentGorilla\Events\SearchWasInitiated;
 
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldBeQueued;
+use RentGorilla\Jobs\Job;
 use RentGorilla\Repositories\RentalRepository;
 
-class UpdateSearchCounts implements ShouldBeQueued {
+class UpdateSearchCounts extends Job implements SelfHandling, ShouldQueue {
 
 	use InteractsWithQueue;
 

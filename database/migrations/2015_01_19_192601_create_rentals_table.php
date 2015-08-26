@@ -16,16 +16,13 @@ class CreateRentalsTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('uuid')->index();
+            $table->unsignedInteger('location_id');
 			$table->unsignedInteger('user_id');
             $table->boolean('active')->default(0);
             $table->boolean('promoted')->default(0);
             $table->boolean('queued')->default(0);
 			$table->enum('type', ['house', 'apartment', 'room', 'commercial']);
-			$table->enum('province', ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']);
-			$table->string('city');
-            $table->string('location');
-            $table->string('county')->nullable();
-            $table->string('street_address');
+		    $table->string('street_address');
             $table->string('postal_code')->nullable();
             $table->float('lat', 10, 6);
             $table->float('lng', 10, 6);

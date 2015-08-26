@@ -143,9 +143,11 @@ class RentalController extends Controller {
 
         $rewards = $this->rewardRepository->getRewardsForUser(Auth::user());
 
+        $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser(Auth::user());
+
         $plan = Subscription::plan(Auth::user()->getStripePlan());
 
-        return view('rental.index', compact('rentals', 'rewards', 'plan'));
+        return view('rental.index', compact('rentals', 'rewards', 'plan', 'activeRentalCount'));
 	}
 
 
@@ -185,7 +187,7 @@ class RentalController extends Controller {
             $province = null;
         }
 
-        $search = $this->rentalRepository->uuids($city, $province, Session::get('type'), Session::get('availability'), Session::get('beds'), Session::get('price'));
+        $search = $this->rentalRepository->uuids($rental->location->id, Session::get('type'), Session::get('availability'), Session::get('beds'), Session::get('price'));
 
         $index = array_search($id, $search);
 
@@ -264,7 +266,7 @@ class RentalController extends Controller {
 
         $this->rentalRepository->delete($rental);
 
-        return redirect()->back();
+        return redirect()->route('rental.index')->with('flash:success', 'Your property has been deleted!');
 	}
 
     public function showDelete($id)
@@ -345,10 +347,13 @@ class RentalController extends Controller {
 
         $activated = $this->dispatch(new ToggleRentalActivationCommand($request->rental_id));
 
+        $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser(Auth::user());
+
         if ($activated === ToggleRentalActivationCommandHandler::SUBSCRIPTION_NEEDED) {
-            return response()->json(['message' => ToggleRentalActivationCommandHandler::SUBSCRIPTION_NEEDED], 401);
+            return response()->json(['message' => ToggleRentalActivationCommandHandler::SUBSCRIPTION_NEEDED,
+                'activeRentalCount' => $activeRentalCount ], 401);
         } else {
-            return response()->json(compact('activated'));
+            return response()->json(compact('activated', 'activeRentalCount'));
         }
    }
 

@@ -1,0 +1,1 @@
+<a class="button large" href="{{ $route }}" style="max-width: 100%; display: block; box-sizing: border-box; background: #333;     color: #FFF!important; font-weight: bold; margin: 1em auto; text-align: center; text-decoration: none!important;     padding: 1em; transition: .1s;">{{ $title }}</a>

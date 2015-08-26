@@ -65,7 +65,8 @@ $(document).ready(function() {
     });
 
     $('#location').on("change", function(e) {
-        loadRentals(0, 1);
+        //loadRentals(0, 1);
+        window.location.href = '/list/' + $(this).val();
     });
 
     $(window).scroll(function() {
@@ -92,6 +93,8 @@ function loadRentals(paginate, page) {
     var data = $('#search').serializeArray();
     data.push({name: 'page', value: page});
     data.push({name: 'paginate', value: paginate});
+
+    console.log(data);
 
     $.get(url, data, function(data){
 

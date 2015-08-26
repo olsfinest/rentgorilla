@@ -5,6 +5,7 @@ use Illuminate\Support\Str;
 use RentGorilla\Commands\EditRentalCommand;
 
 use Illuminate\Queue\InteractsWithQueue;
+use RentGorilla\Repositories\LocationRepository;
 use RentGorilla\Repositories\RentalRepository;
 use Log;
 
@@ -16,10 +17,15 @@ class EditRentalCommandHandler {
      * @var RentalRepository
      */
     private $rentalRepository;
+    /**
+     * @var LocationRepository
+     */
+    private $locationRepository;
 
-    function __construct(RentalRepository $rentalRepository)
+    function __construct(RentalRepository $rentalRepository, LocationRepository $locationRepository)
     {
         $this->rentalRepository = $rentalRepository;
+        $this->locationRepository = $locationRepository;
     }
 
     public function handle(EditRentalCommand $command)
@@ -27,16 +33,7 @@ class EditRentalCommandHandler {
         $rental = $this->rentalRepository->findByUUID($command->id);
 
         $rental->street_address = $command->street_address;
-
-        if($command->county && $this->rentalRepository->cityIsDuplicate($command->city, $command->county, $command->province)) {
-            $rental->city = $command->city . ', ' . $command->county;
-        } else {
-            $rental->city = $command->city;
-        }
-
-        $rental->county = nullIfEmpty($command->county);
-        $rental->province = $command->province;
-        $rental->location = Str::slug($rental->city . '-' . $command->province);
+        $rental->location_id = $this->locationRepository->getLocation($command->city, $command->county, $command->province);
         $rental->postal_code = nullIfEmpty($command->postal_code);
         $rental->type = $command->type;
         $rental->pets = $command->pets;

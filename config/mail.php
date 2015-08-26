@@ -2,7 +2,7 @@
 
 return [
 
-    'admin' => 'curran.jensen@gmail.com',
+    'admin' => 'admin@rentgorilla.ca',
 
 	/*
 	|--------------------------------------------------------------------------

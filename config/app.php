@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://rentgorilla.dev',
+	'url' => 'https://rentgorilla.ca',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'America/Halifax',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -152,6 +152,11 @@ return [
         'RentGorilla\Providers\ComposerServiceProvider',
         'RentGorilla\Providers\RouteServiceProvider',
 
+        'Illuminate\Broadcasting\BroadcastServiceProvider',
+        'BackupManager\Laravel\Laravel5ServiceProvider',
+
+        'Laravel\Socialite\SocialiteServiceProvider',
+
 	],
 
 	/*
@@ -200,7 +205,8 @@ return [
         'Form'      => 'Illuminate\Html\FormFacade',
         'Image'     => 'Intervention\Image\Facades\Image',
         'Embed'     => 'Cohensive\Embed\Facades\Embed',
-        'Subscription' => 'RentGorilla\Plans\SubscriptionPlan'
+        'Subscription' => 'RentGorilla\Plans\SubscriptionPlan',
+        'Socialite' => 'Laravel\Socialite\Facades\Socialite',
 	],
 
 ];

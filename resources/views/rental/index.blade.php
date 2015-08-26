@@ -12,7 +12,7 @@
             @if($rentals->count())
             @foreach($rentals as $rental)
                 <article class="property"> <!-- article.property - 1 per listing -->
-                <h1>{{ $rental->street_address }}<span class="neighborhood">{{ $rental->city . ', ' . $rental->province }}</span></h1>
+                <h1>{{ $rental->street_address }}<span class="neighborhood">{{ $rental->location->city . ', ' . $rental->location->province }}</span></h1>
                 <nav>
                     <ul>
                         <li><a class="preview" href="{{ route('rental.preview', $rental->uuid) }}">Preview</a></li>
@@ -52,7 +52,7 @@
                             @if($rental->isQueued())
                                 <td>Starts in approx {{ $rental->getNextAvailablePromotionDays() }} day(s)</td>
                             @elseif($rental->isPromoted())
-                                <td>{{ $rental->getPromotedDaysRemaining() }} day(s) remaining</td>
+                                <td>{{ $rental->getPromotedDaysRemaining() }} remaining</td>
                             @else
                                 <td>Not promoted</td>
                             @endif
@@ -127,8 +127,12 @@
                             <th colspan="2">{{ $plan->planName() }}<a href="{{ route('changePlan') }}">Change</a></th>
                         </tr>
                         <tr>
-                            <td>Capacity</td>
-                            <td>{{ $plan->maximumListings() }} Properties</td>
+                            <td>Plan Capacity</td>
+                            <td>{{ $plan->maximumListings() }} Active</td>
+                        </tr>
+                        <tr>
+                            <td>Currently Active</td>
+                            <td><span id="activeRentalCount">{{ $activeRentalCount }}</span></td>
                         </tr>
                         <tr>
                             <td>Cost Per Month</td>
@@ -152,8 +156,12 @@
                             <th colspan="2">Free Trial<a href="{{ route('changePlan') }}">Change</a></th>
                         </tr>
                         <tr>
-                            <td>Capacity</td>
+                            <td>Plan Capacity</td>
                             <td>Unlimited Properties</td>
+                        </tr>
+                        <tr>
+                            <td>Currently Active</td>
+                            <td><span id="activeRentalCount">{{ $activeRentalCount }}</span></td>
                         </tr>
                         <tr>
                             <td>Cost Per Month</td>
@@ -173,8 +181,12 @@
                             <th colspan="2">Free Plan<a href="{{ route('changePlan') }}">Change</a></th>
                         </tr>
                         <tr>
-                            <td>Capacity</td>
-                            <td>1 Property</td>
+                            <td>Plan Capacity</td>
+                            <td>1 Active</td>
+                        </tr>
+                        <tr>
+                            <td>Currently Active</td>
+                            <td><span id="activeRentalCount">{{ $activeRentalCount }}</span></td>
                         </tr>
                         <tr>
                             <td>Cost Per Month</td>

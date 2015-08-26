@@ -2,6 +2,7 @@
 
 use Auth;
 use RentGorilla\Events\SearchWasInitiated;
+use RentGorilla\Repositories\LocationRepository;
 use RentGorilla\Repositories\UserRepository;
 use Session;
 use Input;
@@ -14,10 +15,15 @@ use RentGorilla\Repositories\RentalRepository;
 class AppController extends Controller {
 
     protected $rentalRepository;
+    /**
+     * @var LocationRepository
+     */
+    protected $locationRepository;
 
-    function __construct(RentalRepository $rentalRepository)
+    function __construct(RentalRepository $rentalRepository, LocationRepository $locationRepository)
     {
         $this->rentalRepository = $rentalRepository;
+        $this->locationRepository = $locationRepository;
     }
 
     public function showHome()
@@ -30,9 +36,8 @@ class AppController extends Controller {
     {
 
         if($location) {
-            if( ! $this->rentalRepository->locationExists($location)) {
-                return abort(404);
-            }
+
+            $check = $this->locationRepository->fetchBySlug($location);
         }
 
         return view('app.list', compact('location'));
@@ -43,9 +48,7 @@ class AppController extends Controller {
     public function showMap($location = null)
     {
         if($location) {
-            if( ! $this->rentalRepository->locationExists($location)) {
-                return abort(404);
-            }
+            $check = $this->locationRepository->fetchBySlug($location);
         }
 
         return view('app.map', compact('location'));
@@ -73,18 +76,12 @@ class AppController extends Controller {
 
         extract($search);
 
-        if(Input::has('location')) {
-            $city = getCity($location);
-            $province = getProvince($location);
-        } else {
-            $city = null;
-            $province = null;
-        }
+        $location = $this->locationRepository->fetchBySlug($location);
 
-        $rentals = $this->rentalRepository->search($page, $paginate, $city, $province, $type, $availability, $beds, $price);
+        $rentals = $this->rentalRepository->search($page, $paginate, $location->id, $type, $availability, $beds, $price);
 
         if( $rentals['results']->count()) {
-            event(new SearchWasInitiated( $rentals['results']->lists('id')));
+            event(new SearchWasInitiated( $rentals['results']->lists('id')->all()));
         }
 
         if(Auth::check()) {
@@ -155,7 +152,7 @@ class AppController extends Controller {
     {
         $location = Input::get('location');
 
-        return $this->rentalRepository->locationSearch($location['term']);
+        return $this->locationRepository->locationSearch($location['term']);
     }
 
 

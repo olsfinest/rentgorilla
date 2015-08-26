@@ -75,16 +75,16 @@
         {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'A brief description of the property...']) !!}
     </label>
     <label for="features" class="">Features</label>
-        {!! Form::select('feature_list[]', \RentGorilla\Feature::lists('name', 'id'), null, ['id' => 'features', 'class' => 'form-control', 'multiple']) !!}
+        {!! Form::select('feature_list[]', \RentGorilla\Feature::lists('name', 'id')->all(), null, ['id' => 'features', 'class' => 'form-control', 'multiple']) !!}
 
     <label for="appliances" class="">Appliances</label>
-        {!! Form::select('appliance_list[]', \RentGorilla\Appliance::lists('name', 'id'), null, ['id' => 'appliances', 'class' => 'form-control', 'multiple']) !!}
+        {!! Form::select('appliance_list[]', \RentGorilla\Appliance::lists('name', 'id')->all(), null, ['id' => 'appliances', 'class' => 'form-control', 'multiple']) !!}
     <br>
     <label for="heats" class="">Heating</label>
-        {!! Form::select('heat_list[]', \RentGorilla\Heat::lists('name', 'id'), null, ['id' => 'heats', 'class' => 'form-control', 'multiple']) !!}
+        {!! Form::select('heat_list[]', \RentGorilla\Heat::lists('name', 'id')->all(), null, ['id' => 'heats', 'class' => 'form-control', 'multiple']) !!}
     <br>
 
-    {!! Form::submit($submitButtonText, ['class' => 'button']) !!}
+    {!! Form::submit($submitButtonText) !!}
     <a href="{{ route('rental.index') }}" class="button">Cancel</a>
 
 

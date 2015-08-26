@@ -73,8 +73,8 @@ $router->post('admin/redeem', ['as' => 'redeem.create', 'uses' => 'AchievementsC
 
 
 /** Application  */
-$router->get('list/{location?}', ['as' => 'list', 'uses' => 'AppController@showList']);
-$router->get('map/{location?}', ['as' => 'map', 'uses' =>'AppController@showMap']);
+$router->get('list/{slug?}', ['as' => 'list', 'uses' => 'AppController@showList']);
+$router->get('map/{slug?}', ['as' => 'map', 'uses' =>'AppController@showMap']);
 $router->post('clearSearch', ['as' => 'clearSearch', 'uses' => 'AppController@clearSearch']);
 
 # AJAX
@@ -92,8 +92,8 @@ $router->post('like', 'LikesController@toggleLike');
 
 $router->get('testing', function() {
 
-  // app('RentGorilla\Mailers\UserMailer')->sendTest(Auth::user());
-  //  dd('done');
+   app('RentGorilla\Mailers\UserMailer')->sendTest(Auth::user());
+    dd('done');
 });
 
 $router->resource('rental', 'RentalController');

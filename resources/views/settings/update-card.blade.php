@@ -10,7 +10,7 @@
     <section class="content full admin">
         <h1>Update Credit Card</h1>
             @if(Auth::user()->readyForBilling())
-<p class="breather">Want to update the credit card that we have on file? Provide the new details here. Don't worry; your card information will never touch our servers.</p>
+<p class="breather">Want to update the credit card that we have on file? Provide the new details here.</p>
 
             <div class="payment-errors alert alert-danger" style="display: none"></div>
             @include('errors.error-list')

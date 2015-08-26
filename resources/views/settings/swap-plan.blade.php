@@ -12,15 +12,15 @@
         <table>
             <thead>
                 <tr>
-                    <th>Plan Name</th><th>Maximum Listings</th><th>Billing Period</th><th>Monthly Cost</th><th>Yearly Cost</th>
+                    <th>Plan Name</th><th>Maximum Listings</th><th>Billing Period</th><th>Monthly Cost *</th><th>Yearly Cost *</th><th>15% tax incl.</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>{{ $plan->planName() }} [current plan]</td><td>{{ $plan->maximumListings() }}</td><td>{{ $plan->interval() }}</td><td>{{ \RentGorilla\Plans\Plan::toDollars($plan->monthlyBilledPrice(), true)  }}</td><td>{{ \RentGorilla\Plans\Plan::toDollars($plan->totalYearlyCost(), true) }}</td></tr>
-                <tr><td>{{ $newPlan->planName() }}</td><td>{{ $newPlan->maximumListings() }}</td><td>{{ $newPlan->interval() }}</td><td>{{ \RentGorilla\Plans\Plan::toDollars($plan->monthlyBilledPrice(), true)  }}</td><td>{{ \RentGorilla\Plans\Plan::toDollars($newPlan->totalYearlyCost(), true) }}</td></tr>
+                <tr><td>{{ $plan->planName() }} [current plan]</td><td>{{ $plan->maximumListings() }}</td><td>{{ $plan->intervalSuffix() }}</td><td>{{ \RentGorilla\Plans\Plan::toDollars($plan->monthlyBilledPrice(), true)  }}</td><td>{{ \RentGorilla\Plans\Plan::toDollars($plan->totalYearlyCost(), true) }}</td><td>{{ $plan->getPriceWithTax(false, true) }}</td></tr>
+                <tr><td>{{ $newPlan->planName() }}</td><td>{{ $newPlan->maximumListings() }}</td><td>{{ $newPlan->intervalSuffix() }}</td><td>{{ \RentGorilla\Plans\Plan::toDollars($newPlan->monthlyBilledPrice(), true)  }}</td><td>{{ \RentGorilla\Plans\Plan::toDollars($newPlan->totalYearlyCost(), true) }}</td><td>{{ $newPlan->getPriceWithTax(false, true) }}</td></tr>
             </tbody>
         </table>
-
+        <p>* price does not include 15% tax</p>
         @if($isDowngrade)
             <p>Please note any active listings that exceed your new plan's capacity will be deactivated based on the date you last edited the listing(s).</p>
         @endif

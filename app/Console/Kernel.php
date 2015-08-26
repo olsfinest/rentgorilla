@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel {
         'RentGorilla\Console\Commands\PropertyReportCommand',
         'RentGorilla\Console\Commands\MigrateRAUsersCommand',
         'RentGorilla\Console\Commands\CreateNewUserCommand',
+        'RentGorilla\Console\Commands\BackUpDBCommand',
 	];
 
 	/**
@@ -29,10 +30,6 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-
-        $schedule->command('rg:property-report')
-            ->monthly();
-
         $schedule->command('rg:clear-promotions-history')
             ->dailyAt('00:00');
 
@@ -44,6 +41,10 @@ class Kernel extends ConsoleKernel {
 
         $schedule->command('rg:award-achievements')
             ->dailyAt('02:00');
-	}
+
+        $schedule->command('rg:backup-db')
+            ->dailyAt('03:00');
+
+    }
 
 }

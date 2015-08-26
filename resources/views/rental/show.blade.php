@@ -37,12 +37,14 @@
 
 <section class="listing_nav">
     <section class="main">
-        @if($previous)
-        <a class="back" href="{{ route('rental.show', [$previous]) }}"> &laquo; Previous Listing</a>
-        @endif
+        <a class="back" href="{{ route('list') }}">&laquo; Back to Search Results</a>
         @if($next)
-        <a class="forward" href="{{ route('rental.show', [$next]) }}">Next Listing &raquo;</a>
+            <a class="forward" href="{{ route('rental.show', [$next]) }}">Next &raquo;</a>
         @endif
+        @if($previous)
+            <a class="forward" href="{{ route('rental.show', [$previous]) }}"> &laquo; Previous</a>
+        @endif
+
     </section>
 </section>
 <section class="main">
@@ -50,7 +52,7 @@
         <section class="listing_meta">
 			<span class="listing_neighborhood">
 				<h1>{{ $rental->street_address }}</h1>
-				<h2>{{ $rental->city . ', ' . Config::get('rentals.provinces.' . $rental->province) }}</h2>
+				<h2>{{ $rental->location->city . ', ' . Config::get('rentals.provinces.' . $rental->location->province) }}</h2>
 			</span>
 			<span class="listing_availability">
 				<h1>Available {{ $rental->available_at->format('F j, Y') }}</h1>
@@ -132,13 +134,13 @@
                     <td class="listing_ng_label">Parking</td>
                     <td>{{ Config::get('rentals.parking.' . $rental->parking) }}</td>
                     <td class="listing_ng_label">Appliances</td>
-                    <td class="tooltipable" title="{{ $appliances = implode(', ', $rental->appliances()->lists('name')) }}">{{ str_limit($appliances, 17) }}</td>
+                    <td class="tooltipable" title="{{ $appliances = implode(', ', $rental->appliances()->lists('name')->all()) }}">{{ str_limit($appliances, 17) }}</td>
                 </tr>
                 <tr>
                     <td class="listing_ng_label">Laundry</td>
                     <td>{{ Config::get('rentals.laundry.' . $rental->laundry) }}</td>
                     <td class="listing_ng_label">Heat Type</td>
-                    <td class="tooltipable" title="{{ $heat = implode(', ', $rental->heat()->lists('name')) }}">{{ str_limit($heat, 17) }}</td>
+                    <td class="tooltipable" title="{{ $heat = implode(', ', $rental->heat()->lists('name')->all()) }}">{{ str_limit($heat, 17) }}</td>
                 </tr>
                 <tr>
                     <td class="listing_ng_label">Disability Access</td>

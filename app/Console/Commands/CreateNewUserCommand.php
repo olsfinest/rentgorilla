@@ -45,6 +45,8 @@ class CreateNewUserCommand extends Command {
 	 */
 	public function fire()
 	{
+        Log::info('Running ' . $this->getName());
+
         $this->prompt();
 	}
 

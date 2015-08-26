@@ -26,7 +26,7 @@ class EloquentUserRepository implements UserRepository
      */
     public function getFavouriteRentalIdsForUser(User $user)
     {
-        return $user->favourites->lists('id');
+        return $user->favourites->lists('id')->all();
     }
 
     /**
@@ -69,7 +69,7 @@ class EloquentUserRepository implements UserRepository
 
     public function getPhotoLikesForUser(User $user)
     {
-        return $user->likes->lists('photo_id');
+        return $user->likes->lists('photo_id')->all();
     }
 
     public function awardPoints(User $user, $points)

@@ -74,6 +74,11 @@ class AppServiceProvider extends ServiceProvider {
             'RentGorilla\Repositories\VideoLikesRepository',
             'RentGorilla\Repositories\EloquentVideoLikesRepository'
         );
+
+        $this->app->bind(
+            'RentGorilla\Repositories\LocationRepository',
+            'RentGorilla\Repositories\EloquentLocationRepository'
+        );
 	}
 
 }

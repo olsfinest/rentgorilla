@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use RentGorilla\Tasks\Daily\DeactivateRentals as Task;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Log;
 
 class DeactivateRentals extends Command {
 
@@ -39,7 +40,9 @@ class DeactivateRentals extends Command {
 	 */
 	public function fire()
 	{
-		$this->deactivateRentals->checkIfAccountExpired();
+        Log::info('Running ' . $this->getName());
+
+        $this->deactivateRentals->checkIfAccountExpired();
 	}
 
 	/**

@@ -10,7 +10,7 @@ use RentGorilla\User;
 class EloquentRentalRepository implements RentalRepository
 {
 
-    protected function baseSearch($photos, $city = null, $province = null, $type = null, $availability = null, $beds = null, $price = null)
+    protected function baseSearch($photos, $location_id = null, $type = null, $availability = null, $beds = null, $price = null)
     {
 
        if($photos) {
@@ -20,12 +20,9 @@ class EloquentRentalRepository implements RentalRepository
        }
         $query->where('active', 1);
 
-        if ($city) {
-            $query->where('city', '=', $city);
-        }
-
-        if ($province) {
-            $query->where('province', '=', $province);
+        if($location_id)
+        {
+            $query->where('location_id', '=', $location_id);
         }
 
         if ($type) {
@@ -83,13 +80,13 @@ class EloquentRentalRepository implements RentalRepository
 
     }
 
-    public function search($page = 1, $paginate = false, $city = null, $province = null, $type = null, $availability = null, $beds = null, $price = null)
+    public function search($page = 1, $paginate = false, $location_id = null, $type = null, $availability = null, $beds = null, $price = null)
     {
-        $count = $this->baseSearch(false, $city, $province, $type, $availability, $beds, $price)->count();
+        $count = $this->baseSearch(false, $location_id, $type, $availability, $beds, $price)->count();
 
         $totalPages = ceil($count / Rental::RESULTS_PER_PAGE);
 
-        $query = $this->baseSearch(true, $city, $province, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy('available_at');
+        $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy('available_at');
 
         if($paginate) {
             $offset = ($page - 1) * Rental::RESULTS_PER_PAGE;
@@ -107,20 +104,20 @@ class EloquentRentalRepository implements RentalRepository
         return compact('count', 'results', 'page', 'totalPages');
     }
 
-    public function uuids($city = null, $province = null, $type = null, $availability = null, $beds = null, $price = null)
+    public function uuids($location_id = null, $type = null, $availability = null, $beds = null, $price = null)
     {
-        $query = $this->baseSearch(true, $city, $province, $type, $availability, $beds, $price);
+        $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price);
 
         $query->orderBy('promoted', 'desc')->orderBy('available_at');
 
-        return $query->lists('uuid');
+        return $query->lists('uuid')->all();
     }
 
 
     public function geographicSearch($north, $south, $west, $east, $type = null, $availability = null, $beds = null, $price = null)
     {
 
-        $query = $this->baseSearch(false, null, null, $type, $availability, $beds, $price);
+        $query = $this->baseSearch(false, null, $type, $availability, $beds, $price);
 
         $query->whereBetween('lat', [$south, $north]);
 
@@ -135,23 +132,6 @@ class EloquentRentalRepository implements RentalRepository
         return Rental::with('photos')->whereIn('uuid', $ids)->get();
     }
 
-    public function locationSearch($city)
-    {
-        return Rental::select([ DB::raw('concat(city, ", ", province) as text'), DB::raw('location as id')])
-            ->where(DB::raw('concat(city, ", ", province)'), 'like', "%$city%")
-            ->where('active', 1)
-            ->groupBy('location')
-            ->get();
-    }
-/*
-    public function locationSearch($city)
-    {
-        return Rental::select([ DB::raw('concat(city, ", ", province) as text'), DB::raw('concat(city, ", ", province) as id')])
-            ->where(DB::raw('concat(city, ", ", province)'), 'like', "%$city%")
-            ->groupBy('city', 'province')
-            ->get();
-    }
-*/
     public function getRentalsForUser(User $user)
     {
         return $user->rentals;
@@ -242,10 +222,7 @@ class EloquentRentalRepository implements RentalRepository
         return $rental->user;
     }
 
-    public function locationExists($location)
-    {
-        return Rental::where('location', $location)->take(1)->get()->count() > 0;
-    }
+
 
     public function queueRental(Rental $rental)
     {
@@ -271,42 +248,6 @@ class EloquentRentalRepository implements RentalRepository
     public function incrementViews(Rental $rental)
     {
         return $rental->increment('views');
-    }
-
-    public function cityIsDuplicate($city, $county, $province)
-    {
-        /*
-     return DB::table('rentals')
-         ->where(function ($query) use ($city, $province, $county) {
-             $query->where('city', $city)
-                 ->where('province', $province)
-                 ->where('county', '!=', $county);
-         })->orWhere(function ($query) use ($city, $province, $county) {
-             $query->where('province', $province)
-                 ->where('county', '=', $county)
-                 ->where('city', '=', $city . ' ' . $county);
-         })->count() > 0;
- */
-        $differentCounty = DB::table('rentals')
-            ->where('city', $city)
-            ->where('province', $province)
-            ->whereNotNull('county')
-            ->where('county', '!=', $county)
-            ->count();
-
-        if($differentCounty > 0) return true;
-
-        $alreadyDuplicate = DB::table('rentals')
-            ->where('province', $province)
-            ->whereNotNull('county')
-            ->where('county', '=', $county)
-            ->where('city', '=', $city . ' ' . $county)
-            ->count();
-
-        if($alreadyDuplicate > 0) return true;
-
-        return false;
-
     }
 
     public function incrementEmailClick(Rental $rental)

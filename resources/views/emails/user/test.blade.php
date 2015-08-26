@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>*|MC:SUBJECT|*</title>
+    <title>Greetings from RentGorilla!</title>
     <style type="text/css">
         /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
         #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
@@ -58,7 +58,9 @@
 			* @tip Set the border for your email.
 			*/
         #templateContainer{
-            /*@editable*/ border:1px solid #BBBBBB;
+            /*@editable*/
+            /*border:1px solid #5B964C;*/
+            /*box-shadow:0 0 20px dimGray;*/
         }
 
         /**
@@ -112,7 +114,7 @@
 			* @style heading 3
 			*/
         h3{
-            /*@editable*/ color:#606060 !important;
+            /*@editable*/ color:#606060;
             display:block;
             /*@editable*/ font-family:Helvetica;
             /*@editable*/ font-size:16px;
@@ -158,8 +160,10 @@
 			* @theme header
 			*/
         #templatePreheader{
-            /*@editable*/ background:#74B164;
-            /*@editable*/ border-bottom:1px solid #CCCCCC;
+            /*@editable*/ background:#5b964c;
+            border-spacing:1px;
+            /*@editable*/
+            /*border-bottom:1px solid #5b964c;*/
         }
 
         /**
@@ -194,8 +198,8 @@
 			*/
         #templateHeader{
             /*@editable*/ background:#F4F4F4;
-            /*@editable*/ border-top:1px solid #FFFFFF;
-            /*@editable*/ border-bottom:1px solid #CCCCCC;
+            /*@editable*/ border-top:0px solid #FFFFFF;
+            /*@editable*/ border-bottom:0px solid #CCCCCC;
             text-align:center;
         }
 
@@ -224,8 +228,8 @@
 			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
 			*/
         .headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
-            /*@editable*/ color:#EB4102;
-            /*@editable*/ font-weight:normal;
+            /*@editable*/ color:#74B164;
+            /*@editable*/ font-weight:bold;
             /*@editable*/ text-decoration:underline;
         }
 
@@ -234,6 +238,7 @@
             margin:0 auto;
             display:block;
             max-width:600px;
+            clip: rect(0px,0px,200px,0px);
         }
 
         /* ========== Body Styles ========== */
@@ -245,8 +250,10 @@
 			*/
         #templateBody{
             /*@editable*/ background:#E7E7E6;
-            /*@editable*/ border-top:1px solid #FFFFFF;
-            /*@editable*/ border-bottom:1px solid #CCCCCC;
+            /*@editable*/
+            /*border-top:1px solid #5B964C;*/
+            /*@editable*/
+            /*border-bottom:1px solid #5B964C;*/
         }
 
         /**
@@ -265,6 +272,39 @@
             padding-bottom:20px;
             padding-left:20px;
             /*@editable*/ text-align:left;
+        }
+        .bodyContent *:last-child {
+            margin-bottom:0!important;
+        }
+        .bodyContent a.button.small {
+            width:15%;
+            font-size:.8em;
+        }
+        .bodyContent a.button.medium, *[title="button"] {
+            width:30%;
+        }
+        .bodyContent a.button.large {
+            width:100%;
+        }
+        .bodyContent a.button,
+        .bodyContent a.button:visited,
+        .bodyContent a.button:active {
+            max-width:100%;
+            display:block;
+            box-sizing:border-box;
+            background:#333;
+            color:white!important;
+            font-weight:bold;
+            margin:1em auto;
+            text-align:center;
+            text-decoration:none!important;
+            padding:1em;
+            transition:.1s;
+        }
+        .bodyContent a.button:hover {
+            /*box-shadow: 0 0 10px black;*/
+            transition:.1s;
+            color:#74B164!important;
         }
 
         /**
@@ -295,8 +335,10 @@
 			*/
         #templateColumns{
             /*@editable*/ background:#F4F4F4;
-            /*@editable*/ border-top:1px solid #FFFFFF;
-            /*@editable*/ border-bottom:1px solid #CCCCCC;
+            /*@editable*/
+            /* border-top:1px solid #FFFFFF; */
+            /*@editable*/
+            /*border-bottom:1px solid #CCCCCC;*/
         }
 
         /**
@@ -322,8 +364,8 @@
 			* @tip Set the styling for your email's left column content links. Choose a color that helps them stand out from your text.
 			*/
         .leftColumnContent a:link, .leftColumnContent a:visited, /* Yahoo! Mail Override */ .leftColumnContent a .yshortcuts /* Yahoo! Mail Override */{
-            /*@editable*/ color:#EB4102;
-            /*@editable*/ font-weight:normal;
+            /*@editable*/ color:#74B164;
+            /*@editable*/ font-weight:bold;
             /*@editable*/ text-decoration:underline;
         }
 
@@ -350,8 +392,8 @@
 			* @tip Set the styling for your email's center column content links. Choose a color that helps them stand out from your text.
 			*/
         .centerColumnContent a:link, .centerColumnContent a:visited, /* Yahoo! Mail Override */ .centerColumnContent a .yshortcuts /* Yahoo! Mail Override */{
-            /*@editable*/ color:#EB4102;
-            /*@editable*/ font-weight:normal;
+            /*@editable*/ color:#74B164;
+            /*@editable*/ font-weight:bold;
             /*@editable*/ text-decoration:underline;
         }
 
@@ -378,8 +420,8 @@
 			* @tip Set the styling for your email's right column content links. Choose a color that helps them stand out from your text.
 			*/
         .rightColumnContent a:link, .rightColumnContent a:visited, /* Yahoo! Mail Override */ .rightColumnContent a .yshortcuts /* Yahoo! Mail Override */{
-            /*@editable*/ color:#EB4102;
-            /*@editable*/ font-weight:normal;
+            /*@editable*/ color:#74B164;
+            /*@editable*/ font-weight:bold;
             /*@editable*/ text-decoration:underline;
         }
 
@@ -398,8 +440,9 @@
 			* @theme footer
 			*/
         #templateFooter{
-            /*@editable*/ background:#F4F4F4;
-            /*@editable*/ border-top:1px solid #FFFFFF;
+            /*@editable*/ background:#74B164;
+            /*@editable*/
+            /*border-top:1px solid #FFFFFF;*/
         }
 
         /**
@@ -409,7 +452,7 @@
 			* @theme footer
 			*/
         .footerContent{
-            /*@editable*/ color:#808080;
+            /*@editable*/ color:white;
             /*@editable*/ font-family:Helvetica;
             /*@editable*/ font-size:10px;
             /*@editable*/ line-height:150%;
@@ -426,7 +469,7 @@
 			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
 			*/
         .footerContent a:link, .footerContent a:visited, /* Yahoo! Mail Override */ .footerContent a .yshortcuts, .footerContent a span /* Yahoo! Mail Override */{
-            /*@editable*/ color:#606060;
+            /*@editable*/ color:white;
             /*@editable*/ font-weight:normal;
             /*@editable*/ text-decoration:underline;
         }
@@ -591,6 +634,70 @@
 
             .footerContent a{display:block !important;} /* Place footer social and utility links on their own lines, for easier access */
         }
+
+        /*stats related css*/
+        h3.statHeading {
+            color:white;
+            margin:0;
+            background:#5B964C;
+        }
+        h3.statHeading a {
+            display:block;
+            color:white;
+            padding:10px 20px;
+            text-decoration:none;
+            font-weight:bold;
+        }
+        h3.statHeading a:hover {
+            color:#333;
+        }
+        .stats {
+            clear: both;
+            height: 90px;
+            padding:0;
+            width:100%;
+            list-style: none;
+            margin:0;
+            box-sizing:border-box;
+        }
+        .stats li {
+            /*border-left: 1px solid #5B964C;*/
+            height: 100%;
+            float: left;
+            background: #74B164;
+            color: white;
+            position: relative;
+            font-family: "Khula", sans-serif;
+            font-size: 2.5em;
+            font-weight: 800;
+            text-align: center;
+            width: 16.666667%;
+            box-sizing:border-box; }
+        .stats li:first-child {
+            border-left: none; }
+        .stats li:last-child {
+            float: right; }
+        .stats li:hover {
+            background: #5b964c;
+            cursor: default; }
+        .stats li span {
+            font-size: 0.25em;
+            line-height: 30px;
+            background: #E7E7E6;
+            color:#333;
+            font-weight: 400;
+            font-family: "open_sans_regular", sans-serif;
+            position: absolute;
+            display: inline-block;
+            width: 100%;
+            height: 30px;
+            bottom: 0;
+            left: 0; }
+        .stats li:hover span {
+            color:black;
+            font-weight:bold;
+            /*text-decoration: underline;*/
+        }
     </style>
 </head>
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
@@ -599,25 +706,7 @@
         <tr>
             <td align="center" valign="top" id="bodyCell">
                 <!-- BEGIN TEMPLATE // -->
-                <table border="0" cellpadding="0" cellspacing="0" id="templateContainer">
-                    <tr>
-                        <td align="center" valign="top">
-                            <!-- BEGIN PREHEADER // -->
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
-                                <tr>
-                                    <td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00">
-                                        Use this area to offer a short teaser of your email's content. Text here will show in the preview area of some email clients.
-                                    </td>
-                                    <!-- *|IFNOT:ARCHIVE_PAGE|* -->
-                                    <td valign="top" width="180" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;" mc:edit="preheader_content01">
-                                        Email not displaying correctly?<br /><a href="*|ARCHIVE|*" target="_blank">View it in your browser</a>.
-                                    </td>
-                                    <!-- *|END:IF|* -->
-                                </tr>
-                            </table>
-                            <!-- // END PREHEADER -->
-                        </td>
-                    </tr>
+                <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="max-width:600px!important;">
                     <tr>
                         <td align="center" valign="top">
                             <!-- BEGIN HEADER // -->
@@ -634,25 +723,114 @@
                     <tr>
                         <td align="center" valign="top">
                             <!-- BEGIN BODY // -->
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody" style="background:#E7E7E6;">
                                 <tr>
-                                    <td valign="top" class="bodyContent" mc:edit="body_content">
+                                    <!--
+                                        ********************
+                                        *** Body Content ***
+                                        ********************
+
+                                        >>	this <td> holds the main body of the email, along with
+                                            #templateFooter and #templateHeader to make a complete email
+
+                                        >> 	use double <br> tags where you would use a paragraph, or use h1
+                                            through h6 for headings
+                                    -->
+                                    <td valign="top" class="bodyContent" mc:edit="body_content" style="color:#4A4A4A; font-family:Helvetica; font-size:16px; line-height:150%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:left;">
                                         <h1>Hey there, Riley!</h1>
                                         <h3>Thank you for registering with RentGorilla.ca, the best place to find and rent a property in Canada.</h3>
                                         In order to complete your registration please click the link below. This will then direct you straight into your personal control panel.
                                         <br/>
                                         <br/>
-                                        To show our appreciation, have a look at these great images...
+                                        To show our appreciation, have a look at these great statistics, followed by some images...
+
+                                        <!--
+                                            ***************
+                                            *** Buttons ***
+                                            ***************
+
+                                            >> 	simply using <a class="button" should yield a 100% width button
+                                                but I've included classes for all 3 sizes as well, just in case
+                                         -->
+                                        <!-- <a title="button" class="button small" href="#">Push Me</a>
+                                        <a class="button medium" href="#">Push Me</a> -->
+                                        <a class="button large" href="#" style="max-width: 100%; display: block; box-sizing: border-box; background: #333;     color: #FFF!important; font-weight: bold; margin: 1em auto; text-align: center; text-decoration: none!important;     padding: 1em; transition: .1s;">Push Me</a>
                                     </td>
                                 </tr>
                             </table>
                             <!-- // END BODY -->
                         </td>
                     </tr>
+                    <!--
+                        *************
+                        *** Stats ***
+                        *************
+
+                        >> 	Delete / comment out this entire <tr class="statsRow"> if sending an email that
+                            doesn't need stats. To create additional rows, simply add another
+                            <h3 class="statHeading">, followed by <ul class="stats">
+
+                        >>  this class is designed to have 6 list items to display properly)
+
+                     -->
+                    <tr class="statsRow">
+                        <td align="center" valign="top">
+                            <table class="stats" style="background: #74B164; border-spacing:0px;">
+                                <tr>
+                                    <th valign="middle" style="text-align:left; background:#5B964C; color:white; font-weight:bold;" colspan="6">
+                                        <h3 style="margin-bottom:0;"><a href="#" style="display:block; font-weight:bold; text-decoration:none; padding:10px; color:white;">123 Any Street, Halifax, NS</a></h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  width="16.666667%" style="padding-top:0px; box-sizing:border-box; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">157<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Search Views</span>
+                                    </td>
+                                    <td valign="top" width="16.666667%" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">165<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Property Views</span>
+                                    </td>
+                                    <td valign="top" width="16.666667%" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">12<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Times Favourited</span>
+                                    </td>
+                                    <td valign="top" width="16.666667%;" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">18<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Total Photo Likes</span>
+                                    </td>
+                                    <td valign="top"  width="16.666667%" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">10<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Total Email Clicks</span>
+                                    </td>
+                                    <td valign="top" width="16.666667%" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">25<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Total Phone Calls</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="stats" style="background: #74B164; border-spacing:0px;">
+                                <tr>
+                                    <th valign="middle" style="text-align:left; background:#5B964C; color:white; font-weight:bold;" colspan="6">
+                                        <h3 style="margin-bottom:0;"><a href="#" style="display:block; font-weight:bold; text-decoration:none; padding:10px; color:white;">123 Any Street, Halifax, NS</a></h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  width="16.666667%" style="padding-top:0px; box-sizing:border-box; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">157<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Search Views</span>
+                                    </td>
+                                    <td valign="top" width="16.666667%" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">165<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Property Views</span>
+                                    </td>
+                                    <td valign="top" width="16.666667%" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">12<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Times Favourited</span>
+                                    </td>
+                                    <td valign="top" width="16.666667%;" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">18<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Total Photo Likes</span>
+                                    </td>
+                                    <td valign="top"  width="16.666667%" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">10<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Total Email Clicks</span>
+                                    </td>
+                                    <td valign="top" width="16.666667%" style="padding-top:0; height:90px; color: white; position: relative; font-family: 'Khula', sans-serif; font-size: 2.5em; font-weight: 800; text-align: center;">25<span style="font-size: 0.25em; line-height: 30px; background: #E7E7E6; color:#333; font-weight: 400; font-family:'open_sans_regular', sans-serif; position: absolute; display: inline-block; width: 100%; height: 30px; bottom: 0; left: 0;">Total Phone Calls</span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
                     <tr>
                         <td align="center" valign="top">
                             <!-- BEGIN COLUMNS // -->
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateColumns">
+                                <!--
+                                    ************************
+                                    *** 3 column content ***
+                                    ************************
+
+                                    >> repeat the entire <tr mc:repeatable> tag to add another 3 columns
+                                -->
                                 <tr mc:repeatable>
                                     <td align="center" valign="top" class="templateColumnContainer" style="padding-top:20px;">
                                         <table border="0" cellpadding="20" cellspacing="0" width="100%">
@@ -664,7 +842,7 @@
                                             <tr>
                                                 <td valign="top" class="leftColumnContent" mc:edit="left_column_content">
                                                     <h3>Repeatable Content</h3>
-                                                    <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.
+                                                    <a href="#" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.
                                                     <br />
                                                     <br />
                                                     You can also get a little fancy; repeat blocks and remove all text to make image galleries, or do the opposite and remove images for text-only blocks.
@@ -682,7 +860,7 @@
                                             <tr>
                                                 <td valign="top" class="centerColumnContent" mc:edit="center_column_content">
                                                     <h3>Repeatable Content</h3>
-                                                    <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.
+                                                    <a href="#" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.
                                                     <br />
                                                     <br />
                                                     You can also get a little fancy; repeat blocks and remove all text to make image galleries, or do the opposite and remove images for text-only blocks.
@@ -700,7 +878,7 @@
                                             <tr>
                                                 <td valign="top" class="rightColumnContent" mc:edit="right_column_content">
                                                     <h3>Repeatable Content</h3>
-                                                    <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.
+                                                    <a href="#" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.
                                                     <br />
                                                     <br />
                                                     You can also get a little fancy; repeat blocks and remove all text to make image galleries, or do the opposite and remove images for text-only blocks.
@@ -716,27 +894,31 @@
                     <tr>
                         <td align="center" valign="top">
                             <!-- BEGIN FOOTER // -->
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter" style="background:#74B164;">
                                 <tr>
-                                    <td valign="top" class="footerContent" mc:edit="footer_content00">
-                                        <a href="*|TWITTER:PROFILEURL|*">Follow on Twitter</a>&nbsp;&nbsp;&nbsp;<a href="*|FACEBOOK:PROFILEURL|*">Friend on Facebook</a>&nbsp;&nbsp;&nbsp;<a href="*|FORWARD|*">Forward to Friend</a>&nbsp;
+                                    <td style="color:white; font-family:Helvetica; font-size:10px; line-height:150%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:left;" valign="top" class="footerContent" mc:edit="footer_content00">
+                                        <a href="https://twitter.com/intent/follow?screen_name=wedesignvalue">Follow on Twitter</a>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a href="http://facebook.com/highlandmultimedia">Friend on Facebook</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content01">
-                                        <em>Copyright &copy; *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved.</em>
+                                    <td style="color:white; font-family:Helvetica; font-size:10px; line-height:150%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:left;" valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content01">
+                                        <em>Copyright &copy; 2015 RentGorilla, All rights reserved.</em>
                                         <br />
-                                        *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*
+                                        <a href="#http://rentgorilla.com">http://rentgorilla.com</a> &hellip;move on up.
                                         <br />
                                         <br />
                                         <strong>Our mailing address is:</strong>
                                         <br />
-                                        *|HTML:LIST_ADDRESS_HTML|* *|END:IF|*
+                                        219 Main Street, Suite 206<br/>
+                                        Antigonish, Nova Scotia<br/>
+                                        B2G 1L2
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content02">
-                                        <a href="*|UNSUB|*">unsubscribe from this list</a>&nbsp;&nbsp;&nbsp;<a href="*|UPDATE_PROFILE|*">update subscription preferences</a>&nbsp;
+                                    <td style="color:white; font-family:Helvetica; font-size:10px; line-height:150%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:left;" valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content02">
+                                        <a href="*|UNSUB|*">unsubscribe from this list</a>
                                     </td>
                                 </tr>
                             </table>
