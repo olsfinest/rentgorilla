@@ -12,7 +12,7 @@ class StripeServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$api_key = $_ENV['STRIPE_SECRET_KEY'];
+		$api_key = env('STRIPE_SECRET_KEY');
 		Stripe::setApiKey($api_key);
 	}
 
