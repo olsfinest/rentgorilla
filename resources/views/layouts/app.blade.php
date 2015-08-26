@@ -24,6 +24,7 @@
             <!--jQuery UI-->
             <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
             <script src="/js/auth.js"></script>
+            <script src="/js/notifications.js"></script>
             @yield('footer')
             <script language="JavaScript" type="text/javascript">
                 setInterval(function(){
