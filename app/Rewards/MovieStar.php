@@ -1,5 +1,7 @@
 <?php namespace RentGorilla\Rewards;
 
+use DB;
+
 class MovieStar extends Achievement {
 
     const MIN_LIKES = 20;

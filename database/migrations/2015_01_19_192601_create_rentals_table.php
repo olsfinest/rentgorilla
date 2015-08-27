@@ -31,7 +31,7 @@ class CreateRentalsTable extends Migration {
             $table->integer('price');
             $table->integer('deposit');
             $table->integer('lease');
-            $table->integer('square_footage');
+            $table->integer('square_footage')->nullable();
             $table->enum('laundry', ['none', 'unit_free', 'unit_coin', 'shared_coin', 'shared_free']);
             $table->enum('pets', ['none', 'any', 'cats_dogs', 'cats', 'dogs']);
             $table->enum('parking', ['none', 'driveway', 'underground', 'garage', 'street']);

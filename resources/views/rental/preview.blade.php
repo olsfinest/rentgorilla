@@ -138,12 +138,16 @@
                             @endforeach
                         </table>
                     @endif
+
+                    @if( ! is_null($rental->square_footage))
                     <h3>Property Size</h3>
 
                     <ul class="justified">
                         <li><a href="#">{{ $rental->square_footage }} SqFt</a></li>
                         <li><a href="#">${{ $rental->pricePerSquareFoot() }} / SqFt</a></li>
                     </ul>
+
+                    @endif
 
                     <h3>Description</h3>
 

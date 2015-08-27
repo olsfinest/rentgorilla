@@ -37,7 +37,7 @@ class ModifyRentalRequest extends Request {
             'utilities_included' => 'required|boolean',
             'heat_included' => 'required|boolean',
             'furnished' => 'required|boolean',
-            'square_footage' => 'required|integer',
+            'square_footage' => 'integer',
             'available' => 'required|date_format:m/d/Y',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',

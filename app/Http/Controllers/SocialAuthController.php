@@ -6,6 +6,7 @@ use RentGorilla\User;
 use Validator;
 use Socialite;
 use Auth;
+use Log;
 
 class SocialAuthController extends Controller
 {
@@ -156,6 +157,8 @@ class SocialAuthController extends Controller
         $user->email = $email;
         $user->avatar = $avatar;
         $user->save();
+
+        Log::info('New user created via ' . $provider, ['user_id' => $user->id]);
 
         //sends out welcome email
         event(new UserHasConfirmed($user));

@@ -1,5 +1,7 @@
 <?php namespace RentGorilla\Rewards;
 
+use DB;
+
 class CompleteProfile extends Achievement {
 
 

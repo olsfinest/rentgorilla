@@ -46,7 +46,7 @@ class CreateRentalCommandHandler {
         $rental->utilities_included = $command->utilities_included;
         $rental->heat_included = $command->heat_included;
         $rental->furnished = $command->furnished;
-        $rental->square_footage = $command->square_footage;
+        $rental->square_footage = nullIfEmpty($command->square_footage);
         $rental->available = $command->available;
         $rental->lat = $command->lat;
         $rental->lng = $command->lng;

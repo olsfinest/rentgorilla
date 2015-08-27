@@ -1,8 +1,6 @@
 <?php namespace RentGorilla\Rewards;
 
 use DB;
-use RentGorilla\Repositories\UserRepository;
-use RentGorilla\User;
 
 class PowerPromoter extends Achievement {
 
