@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('head')
+    <link rel="stylesheet" href="/css/form.css">
+@stop
 @section('content')
     @include('partials.header')
 

@@ -16,13 +16,13 @@ class UserEventHandler {
 
     public function onUserHasRegistered(UserHasRegistered $event)
     {
-        Log::info('User has registered but not confirmed', ['user_id' => $event->user->id]);
+        Log::info('User has registered but not confirmed', ['id' => $event->user->id]);
         $this->userMailer->sendConfirmation($event->user);
     }
 
     public function onUserHasConfirmed(UserHasConfirmed $event)
     {
-        Log::info('User has confirmed their email address', ['user_id' => $event->user->id]);
+        Log::info('User has confirmed their email address', ['id' => $event->user->id]);
         $this->userMailer->sendWelcome($event->user);
     }
 

@@ -40,7 +40,11 @@ class AdminNewUserCommandHandler {
         $user->provider = 'email';
         $this->repository->save($user);
 
-        Log::info('New admin created', ['id' => $user->id]);
+        if($user->is_admin) {
+            Log::info('New admin user created by an admin', ['id' => $user->id]);
+        } else {
+            Log::info('New user created by an admin', ['id' => $user->id]);
+        }
 
         return $user;
 	}

@@ -119,3 +119,5 @@ $router->get('favourites', ['as' => 'favourites', 'uses' => 'FavouritesControlle
 
 # Stripe webhook
 $router->post('stripe/webhook', 'StripeWebhookController@handleWebhook');
+$router->get('/{city?}', 'AppController@getCity');
+

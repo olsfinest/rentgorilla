@@ -110,7 +110,7 @@ class PasswordController extends Controller {
 
         switch ($response) {
             case PasswordBroker::PASSWORD_RESET:
-                return redirect($this->redirectPath());
+                return redirect($this->redirectPath())->with('flash:success', 'Your password has been reset!');
 
             default:
                 return redirect()->back()

@@ -98,4 +98,10 @@ class EloquentLocationRepository implements LocationRepository {
 
         }
     }
+
+    public function searchSlugForCity($city)
+    {
+       //return Location::whereRaw("REPLACE( locations.city, ' ', '-' ) = :city", ['city' => $city])->get();
+        return Location::where('slug', 'like', "%$city%")->get();
+    }
 }

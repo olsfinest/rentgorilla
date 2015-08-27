@@ -31,6 +31,25 @@ class AppController extends Controller {
         return view('app.home');
     }
 
+    public function getCity($city = null)
+    {
+        if($city) {
+            if($locations = $this->locationRepository->searchSlugForCity($city)) {
+
+                if(count($locations) === 0) {
+                    return app()->abort(404);
+                }
+
+                if(count($locations) > 1) {
+
+                    return view('app.disambiguation', compact('locations'));
+                }
+
+                return redirect()->route('list', ['slug' => $locations->first()->slug]);
+            }
+        }
+    }
+
 
     public function showList($location = null)
     {

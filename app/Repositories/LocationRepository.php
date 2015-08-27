@@ -6,5 +6,6 @@ interface LocationRepository {
     public function fetchBySlug($slug);
     public function cityIsDuplicate($city, $county, $province);
     public function getLocation($city, $county, $province);
+    public function searchSlugForCity($city);
 
 }
