@@ -1886,7 +1886,6 @@ ul.hits::-webkit-scrollbar {
   text-decoration: none;
 }
 
-
 /* curran wrote this */
 
 #like {
@@ -2061,7 +2060,7 @@ span.eyes.blink .eye {
     color: white;
     font-size: .6em;
     position: relative;
-    top: -5px;
+    /*top: -5px;*/
     text-transform: uppercase; }
 .avatar a span {
     margin-right: 5px; }

@@ -33,8 +33,9 @@
 .gorilla label span.fa-search {
 	font-family:FontAwesome;
 	position:absolute;
-	top:20%;
-	left:16px;
+	top:8px;
+	right:40px;
+	z-index:9999;
 	font-size:2em;
 }
 .gorilla label span.fa-map {
@@ -43,6 +44,19 @@
 	font-size:2em;
 	color:white;
 	float:right;
+}
+.gorilla .select2-container--default {
+	height:40px;
+}
+.gorilla .select2-container--default .select2-selection--single {
+	height:40px;
+}
+.select2-selection__placeholder {
+	line-height:36px;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+	outline:none;
+	border:1px solid #74b164;
 }
 .promofree, .zerorisk, .simple {
 	height:310px;
