@@ -20,6 +20,7 @@
         <a style="color: white;" class="google" href="/login/google"><i class="fa fa-google"></i> Sign up with Google</a>
     </div>
 </section>
+<a class="filter_toggle fa fa-bars"></a>
 <section id="login">
     <h1>Login</h1><br>
     <div id="login_errors"></div><br>

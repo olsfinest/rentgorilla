@@ -76,6 +76,14 @@ $(document).ready(function() {
             }
         }
     });
+  
+  
+    // toggle the filter on mobile
+    $('.filter_toggle').click(function(){
+        $('.filter').slideToggle('fast', function(){
+
+        });
+    });
 });
 
 var count, currentPage, totalPages;
