@@ -1,3 +1,6 @@
+    <label for="available" class="">Date Available
+        {!! Form::text('available', null, ['id' => 'available', 'class' => 'form-control', 'readonly', 'placeholder' => 'MM/DD/YYYY']) !!}
+    </label>
     <label for="street_address" class="">Street Address
          {!! Form::text('street_address', null, ['class' => 'form-control', 'id' => 'street_address', 'placeholder' => '123 Main Street']) !!}
     </label>
@@ -64,9 +67,6 @@
     </label>
     <label for="square_footage" class="">Square Footage
         {!! Form::text('square_footage', null, ['class' => 'form-control', 'placeholder' => '1000']) !!}
-    </label>
-    <label for="available" class="">Date Available
-        {!! Form::text('available', null, ['id' => 'available', 'class' => 'form-control', 'readonly', 'placeholder' => 'MM/DD/YYYY']) !!}
     </label>
     <label for="video" class="">Link to video
         {!! Form::text('video', null, ['class' => 'form-control', 'placeholder' => 'https://www.youtube.com/watch?v=764xqeDO3yk']) !!}
