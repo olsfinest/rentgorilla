@@ -2081,6 +2081,9 @@ ul.hits::-webkit-scrollbar {
     font-size: .6em;
     position: relative;
     text-transform: uppercase; }
+.avatar a:hover {
+    color:#74B164;
+}
 .avatar a span {
     margin-right: 5px; }
 .avatar .user_name {

@@ -60,6 +60,10 @@
         {!! Form::radio('heat_included', 1) !!} Yes {!! Form::radio('heat_included', 0) !!} No
         </span>
     </label>
+    <label for="heats" class="">Heating</label>
+        {!! Form::select('heat_list[]', \RentGorilla\Heat::lists('name', 'id')->all(), null, ['id' => 'heats', 'class' => 'form-control', 'multiple']) !!}
+    <br>
+    <br>
     <label for="furnished" class="">Furnished
         <span>
         {!! Form::radio('furnished', 1) !!} Yes {!! Form::radio('furnished', 0) !!} No
@@ -80,9 +84,7 @@
     <label for="appliances" class="">Appliances</label>
         {!! Form::select('appliance_list[]', \RentGorilla\Appliance::lists('name', 'id')->all(), null, ['id' => 'appliances', 'class' => 'form-control', 'multiple']) !!}
     <br>
-    <label for="heats" class="">Heating</label>
-        {!! Form::select('heat_list[]', \RentGorilla\Heat::lists('name', 'id')->all(), null, ['id' => 'heats', 'class' => 'form-control', 'multiple']) !!}
-    <br>
+    
 
     {!! Form::submit($submitButtonText) !!}
     <a href="{{ route('rental.index') }}" class="button">Cancel</a>

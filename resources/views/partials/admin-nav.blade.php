@@ -29,6 +29,7 @@
                 <li><a href="{{ route('admin.sendActivation') }}">Send Activation Email</a></li>
             </ul>
             </li>
+            <li><a href="{{ route('admin.searchUsers') }}">Search Users</a></li>
         @endif
     </ul>
 </section>
