@@ -34,7 +34,7 @@ class MovieStar extends Achievement {
     public function checkEligibility()
     {
         $usersWithMinLikes = DB::table('video_likes')
-            ->join('rentals', 'favourites.rental_id', '=', 'rentals.id')
+            ->join('rentals', 'video_likes.rental_id', '=', 'rentals.id')
             ->select('rentals.user_id')
             ->where('active', 1)
             ->groupBy('rental_id')

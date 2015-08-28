@@ -2,6 +2,7 @@
 
 use RentGorilla\Events\UserHasConfirmed;
 use RentGorilla\Http\Controllers\Controller;
+use RentGorilla\Mailers\UserMailer;
 use RentGorilla\User;
 use Validator;
 use Socialite;
@@ -11,9 +12,15 @@ use Log;
 class SocialAuthController extends Controller
 {
 
-    public function __construct()
+    /**
+     * @var UserMailer
+     */
+    protected $userMailer;
+
+    public function __construct(UserMailer $userMailer)
     {
         $this->middleware('guest');
+        $this->userMailer = $userMailer;
     }
 
 
@@ -156,12 +163,13 @@ class SocialAuthController extends Controller
         $user->last_name = $lastName;
         $user->email = $email;
         $user->avatar = $avatar;
+        $user->confirmed = 1;
         $user->save();
 
-        Log::info('New user created via ' . $provider, ['user_id' => $user->id]);
+        Log::info('New user created via ' . $provider, ['id' => $user->id]);
 
         //sends out welcome email
-        event(new UserHasConfirmed($user));
+        $this->userMailer->sendWelcome($user);
 
         return $user;
     }
