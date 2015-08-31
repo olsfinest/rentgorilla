@@ -193,7 +193,7 @@
                 <h3>Description</h3>
 
                 <p>
-                    {{ $rental->description }}
+                    {!! nl2br(e($rental->description)) !!}
                 </p>
 
             </section>
