@@ -15,13 +15,16 @@ function isLoggedIn()
 }
 
 function showModal(message){
-    $('<section id="alert"><p>' + message + '</p></section>').dialog({
+   $('<section id="alert"><p>' + message + '</p></section>').dialog({
         modal: true,
         dialogClass: "noTitle",
         draggable: false,
         resizable: false,
         show: "fade",
-        hide: "fade"
+        hide: "fade",
+        open: function(event, ui ) {
+            $('.ui-dialog').css("top","200px");
+        }
     });
 }
 
