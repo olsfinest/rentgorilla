@@ -116,7 +116,10 @@
         </section>
         <!-- sidebar begins -->
         <aside class="my_properties">
-
+            <!-- add a property button - this can be changed to an actual button element if necessary -->
+            <h3>Add New Property</h3>
+            <a class="property-add" href="{{ route('rental.create') }}"><span class="fa fa-plus"></span> Add a New Property</a>
+            
             <!-- Plan overview - shows current plan info to the logged-in user -->
             <h3>Plan Overview </h3>
             <section class="widget">
@@ -210,9 +213,7 @@
                        @endif
                 </table>
             </section>
-            <!-- add a property button - this can be changed to an actual button element if necessary -->
-            <h3>Add New Property</h3>
-            <a class="property-add" href="{{ route('rental.create') }}"><span class="fa fa-plus"></span> Add a New Property</a>
+            
             <!-- achievements / gamification -->
             <h3>Achievements</h3>
             <section class="widget">
