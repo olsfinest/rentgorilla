@@ -74,11 +74,12 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('features', 'FeaturesController');
     Route::resource('heats', 'HeatsController');
-
+    Route::resource('appliances', 'AppliancesController');
 });
 
 $router->get('admin/features/{features}/delete', ['as' => 'admin.features.delete', 'uses' => 'FeaturesController@delete']);
 $router->get('admin/heats/{heats}/delete', ['as' => 'admin.heats.delete', 'uses' => 'HeatsController@delete']);
+$router->get('admin/appliances/{appliances}/delete', ['as' => 'admin.appliances.delete', 'uses' => 'AppliancesController@delete']);
 
 
 /** Application  */

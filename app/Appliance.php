@@ -6,4 +6,6 @@ class Appliance extends Model {
 
     public $timestamps = true;
 
+    public $guarded = ['id'];
+
 }
