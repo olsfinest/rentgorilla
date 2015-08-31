@@ -68,7 +68,29 @@
                     </div>
                 </section>
                 <h3 class="listing_ng_title">The Nitty Gritty</h3>
-                <a href="#" class="fa fa-share-square-o share"><span>Share</span></a>
+           <span id="share" style="width: 150px; float: right;">
+	<i class="fa fa-share-square-o"></i> Share Page
+	<ul>
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('rental.show', $rental->uuid) }}" target="_blank" title="Share on Facebook">
+                <i class="fa fa-facebook"></i>
+                Facebook
+            </a>
+        </li>
+        <li>
+            <a href="http://twitter.com/home?status={{ route('rental.show', $rental->uuid) . ' ' . $rental->getAddress() }}" target="_blank" title="Share on Twitter">
+                <i class="fa fa-twitter"></i>
+                Twitter
+            </a>
+        </li>
+        <li>
+            <a href="mailto:?subject=RentGorilla&amp;body=I thought you might be interested in this Rental listing: {{ route('rental.show', $rental->uuid) . ' ' . $rental->getAddress() }}" target="_blank" title="Share by Email">
+                <i class="fa fa-envelope"></i>
+                Email
+            </a>
+        </li>
+    </ul>
+</span>
                 <span class="cf"></span>
                 <table class="listing_ng">
                     <tr>
@@ -152,7 +174,7 @@
                     <h3>Description</h3>
 
                     <p>
-                        {{ $rental->description }}
+                        {!! nl2br(e($rental->description)) !!}
                     </p>
 
                 </section>

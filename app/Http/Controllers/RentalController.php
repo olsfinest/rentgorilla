@@ -170,6 +170,10 @@ class RentalController extends Controller {
 	{
         $rental = $this->rentalRepository->findByUUID($id);
 
+        if( ! $rental->isActive()) {
+            return redirect()->route('list')->with('flash:success', 'That property is not currently active.');
+        }
+
         if(Auth::check()) {
             $favourites = $userRepository->getFavouriteRentalIdsForUser(Auth::user());
             $likes = $userRepository->getPhotoLikesForUser(Auth::user());
