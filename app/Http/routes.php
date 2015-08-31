@@ -73,10 +73,12 @@ $router->post('admin/redeem', ['as' => 'redeem.create', 'uses' => 'AchievementsC
 Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('features', 'FeaturesController');
+    Route::resource('heats', 'HeatsController');
 
 });
 
 $router->get('admin/features/{features}/delete', ['as' => 'admin.features.delete', 'uses' => 'FeaturesController@delete']);
+$router->get('admin/heats/{heats}/delete', ['as' => 'admin.heats.delete', 'uses' => 'HeatsController@delete']);
 
 
 /** Application  */

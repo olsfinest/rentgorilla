@@ -84,6 +84,12 @@ class AppServiceProvider extends ServiceProvider {
             'RentGorilla\Repositories\FeaturesRepository',
             'RentGorilla\Repositories\EloquentFeaturesRepository'
         );
+
+        $this->app->bind(
+            'RentGorilla\Repositories\HeatsRepository',
+            'RentGorilla\Repositories\EloquentHeatsRepository'
+        );
+
 	}
 
 }

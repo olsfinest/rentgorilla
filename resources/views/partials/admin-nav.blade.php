@@ -28,6 +28,7 @@
                 <li><a href="{{ route('admin.searchUsers') }}">Search Users</a></li>
                 <li><a href="{{ route('admin.sendActivation') }}">Send Activation Email</a></li>
                 <li><a href="{{ route('admin.features.index') }}">Manage Features</a></li>
+                <li><a href="{{ route('admin.heats.index') }}">Manage Heating</a></li>
             </ul>
             </li>
             <li><a href="{{ route('admin.searchUsers') }}">Search Users</a></li>

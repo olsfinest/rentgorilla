@@ -6,4 +6,6 @@ class Heat extends Model {
 
     public $timestamps = true;
 
+    public $guarded = ['id'];
+
 }

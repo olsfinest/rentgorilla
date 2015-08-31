@@ -5,7 +5,7 @@ namespace RentGorilla\Http\Requests;
 use RentGorilla\Http\Requests\Request;
 use Auth;
 
-class ModifyFeaturesRequest extends Request
+class ModifyHeatsRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

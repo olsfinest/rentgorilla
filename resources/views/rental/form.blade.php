@@ -87,7 +87,7 @@
     
 
     {!! Form::submit($submitButtonText) !!}
-    <a href="{{ route('rental.index') }}" class="button">Cancel</a>
+
 
 
 @section('footer')

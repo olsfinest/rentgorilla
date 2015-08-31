@@ -10,5 +10,6 @@
     {!! Form::model($rental = new \RentGorilla\Rental(), ['route' => 'rental.store', 'id' => 'modify_rental_form']) !!}
          @include('rental.form', ['submitButtonText' => 'Create and Add Photos'])
      {!! Form::close() !!}
+        <a href="{{ route('rental.index') }}" class="button">Cancel</a>
     </section>
  @stop
