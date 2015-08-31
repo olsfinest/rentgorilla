@@ -13,7 +13,7 @@
         @include('errors.error-list')
         {!! Form::open(['method' => 'DELETE', 'route' => ['admin.features.destroy', $feature->id]]) !!}
         {!! Form::submit('Yes, Delete it') !!}
-        <a class="button" href="{{ route('admin.features.index') }}">Cancel</a>
         {!! Form::close() !!}
+        <a class="button" href="{{ route('admin.features.index') }}">Cancel</a>
     </section>
 @stop
