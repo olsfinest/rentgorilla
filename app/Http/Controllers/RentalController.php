@@ -289,7 +289,7 @@ class RentalController extends Controller {
         $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $id);
 
         $v = Validator::make($request->all(), [
-            'file' => 'mimes:jpeg,bmp,png,gif|max:3000',
+            'file' => 'mimes:jpeg,bmp,png,gif|max:10000',
         ]);
 
         if ($v->fails())

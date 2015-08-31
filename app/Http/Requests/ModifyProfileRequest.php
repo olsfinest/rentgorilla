@@ -24,7 +24,7 @@ class ModifyProfileRequest extends Request
     {
         return [
             'website' => 'url',
-            'photo' => 'image|max:3000',
+            'photo' => 'image|max:10000',
             'first_name' => 'required',
             'last_name' => 'required',
         ];
