@@ -14,6 +14,10 @@
             <br>
             <img src="{{ $profile->getPhoto() }}">
         @endif
+        <br><small>
+            <strong>Accepted formats:</strong> .gif, .png, .jpg, .bmp<br/>
+            <strong>Maximum filesize:</strong> 10mb
+        </small>
         </label>
             {!! Form::file('photo') !!}
         <br><br>
@@ -24,10 +28,10 @@
             {!! Form::text('last_name', Auth::user()->last_name) !!}
         </label>
         <label>Phone:
-            {!! Form::text('primary_phone', null) !!}
+            {!! Form::text('primary_phone', null, ['placeholder'=> '902-555-5555']) !!}
         </label>
         <label>Website:
-            {!! Form::text('website', null) !!}
+            {!! Form::text('website', null, ['placeholder'=> 'http://rentgorilla.ca']) !!}
         </label>
         <label>Bio:
             {!! Form::textarea('bio', null) !!}
