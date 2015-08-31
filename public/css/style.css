@@ -1419,8 +1419,8 @@ footer .content {
 
 
 .button {
-    display: block;
-    width: 100px;
+    display: inline-block;
+   /* width: 100px; */
     padding: .5em;
     background: #74B164;
     border: 1px solid #5b964c;

@@ -70,6 +70,13 @@ $router->delete('admin/promotions/{rental_id}', ['as' => 'promotions.delete', 'u
 $router->get('admin/redeem', ['as' => 'redeem.show', 'uses' => 'AchievementsController@showRedeemForm']);
 $router->post('admin/redeem', ['as' => 'redeem.create', 'uses' => 'AchievementsController@redeemPoints']);
 
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::resource('features', 'FeaturesController');
+
+});
+
+$router->get('admin/features/{features}/delete', ['as' => 'admin.features.delete', 'uses' => 'FeaturesController@delete']);
 
 
 /** Application  */

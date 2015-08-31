@@ -23,7 +23,8 @@
     <p>{{ $photoCount }} photo{{ $photoCount == 1 ? '' : 's' }}.</p>
 @endif
         <a href="{{ route('rental.index') }}" class="button">Done</a>
-@stop
+    </section>
+@endsection
 
 
 

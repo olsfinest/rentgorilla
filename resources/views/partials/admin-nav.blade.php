@@ -27,6 +27,7 @@
                 <li><a href="{{ route('admin.createNewUser') }}">Create New User</a></li>
                 <li><a href="{{ route('admin.searchUsers') }}">Search Users</a></li>
                 <li><a href="{{ route('admin.sendActivation') }}">Send Activation Email</a></li>
+                <li><a href="{{ route('admin.features.index') }}">Manage Features</a></li>
             </ul>
             </li>
             <li><a href="{{ route('admin.searchUsers') }}">Search Users</a></li>
