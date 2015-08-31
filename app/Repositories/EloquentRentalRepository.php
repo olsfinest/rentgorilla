@@ -45,7 +45,7 @@ class EloquentRentalRepository implements RentalRepository
                     break;
             }
         } else {
-            $query->where('available_at', '<=', Carbon::today());
+          //  $query->where('available_at', '<=', Carbon::today());
         }
 
         if ($beds) {
