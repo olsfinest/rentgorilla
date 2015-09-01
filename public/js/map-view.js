@@ -19,7 +19,7 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
 
     map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: 9,
+        zoom: 12,
         center: new google.maps.LatLng(44.65,-63.6)
     });
 
