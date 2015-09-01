@@ -10,10 +10,10 @@
         <form>
             <label>
                 <ul class='searchMode'>
-                    <li class='selected' title="Show search results in a list">
+                    <li class='selected listMode' title="Show search results in a list">
                         <span class="fa fa-bars"></span>
                     </li>
-                    <li title='Show search results on a map'>
+                    <li class='mapMode' title='Show search results on a map'>
                         <span class="fa fa-map-o"></span>
                     </li>
                 </ul>
