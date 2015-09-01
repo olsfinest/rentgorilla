@@ -124,6 +124,7 @@ article.property {
         text-decoration: none;
         border-radius: 8px; }
         article.property > nav li a:hover {
+          cursor:pointer;
           background: #4A4A4A; }
       article.property > nav li .off {
         background: #9e0f0f; }
