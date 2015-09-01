@@ -9,10 +9,15 @@
         <h1>move on up&hellip;</h1>
         <form>
             <label>
-                <span class="fa fa-search"></span>
-                <select name="location" id="location" style="width: 100%">
-                </select>
-                <span class="fa fa-map"></span>
+                <ul class='searchMode'>
+                    <li class='selected' title="Show search results in a list">
+                        <span class="fa fa-bars"></span>
+                    </li>
+                    <li title='Show search results on a map'>
+                        <span class="fa fa-map-o"></span>
+                    </li>
+                </ul>
+                <select name="location" id="location" style="width: 100%"></select>
             </label>
         </form>
     </section>
@@ -67,6 +72,11 @@
         $('#location').on("change", function(e) {
             window.location.href = '/list/' + $(this).val();
         });
-
+        $(function(){
+            $('.searchMode li').click(function(){
+                $('.searchMode li').removeClass('selected');
+                $(this).addClass('selected');
+            });
+        });
     </script>
 @endsection

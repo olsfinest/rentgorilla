@@ -8,7 +8,7 @@
         <meta name="loggedin" content="{{ Auth::check() ? '1' : '0' }}">
 		<title>@yield('title', 'RentGorilla || Move on up.')</title>
         <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/css/select2.min.css" rel="stylesheet" />
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 		<link rel="stylesheet" type="text/css" href="/css/typography.css">
 		<link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.css">

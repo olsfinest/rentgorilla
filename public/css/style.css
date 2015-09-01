@@ -2048,4 +2048,59 @@ ul.hits::-webkit-scrollbar {
 aside.my_properties a.property-add:hover {
   background: #5b964c; }
 
+.gorilla {
+  background: url(/img/gorilla.jpg);
+  background-size: cover;
+  height: 1000px;
+  width: 100%; }
+  .gorilla h1 {
+    text-align: center;
+    color: white;
+    font-size: 5em;
+    margin: .25em auto 1em auto; }
+  .gorilla label {
+    display: block;
+    background: #74b164;
+    padding: 5px;
+    position: relative;
+    margin: 0 auto;
+    width: 734px;
+    border-radius: 8px; }
+    .gorilla label input[type=text] {
+      display: inline-block;
+      width: 85%;
+      font-size: 1.5em;
+      padding: 8px 8px 8px 55px; }
+      .gorilla label input[type=text]:focus {
+        outline: none; }
+    .gorilla label ul {
+      position: absolute;
+      z-index: 1000;
+      right: 0px;
+      top: 5px;
+      height: 45px;
+      padding: 0;
+      border-radius: 0 8px 8px 0;
+      list-style: none; }
+      .gorilla label ul li {
+        display: none;
+        background: #74B164;
+        text-align: center;
+        width: 50px;
+        color: white;
+        font-size: 1.75em;
+        height: 100%; }
+      .gorilla label ul:hover li {
+        display: list-item; }
+      .gorilla label ul li.selected {
+        display: list-item; }
+    .gorilla label .fa {
+      font-family: FontAwesome; }
+      .gorilla label .fa:hover {
+        cursor: pointer; }
+  .gorilla .select2-container--default {
+    height: 40px; }
+    .gorilla .select2-container--default .select2-selection--single {
+      height: 40px; }
+
 /*# sourceMappingURL=style.css.map */
