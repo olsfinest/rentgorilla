@@ -10,11 +10,11 @@
         <form>
             <label>
                 <ul class='searchMode'>
-                    <li class='selected listMode' title="Show search results in a list">
-                        <span class="fa fa-bars"></span>
-                    </li>
-                    <li class='mapMode' title='Show search results on a map'>
+                    <li class='selected mapMode' title='Show search results on a map'>
                         <span class="fa fa-map-o"></span>
+                    </li>
+                    <li class='listMode' title="Show search results in a list">
+                        <span class="fa fa-bars"></span>
                     </li>
                 </ul>
                 <select name="location" id="location" style="width: 100%"></select>
@@ -70,8 +70,21 @@
         });
 
         $('#location').on("change", function(e) {
-            window.location.href = '/list/' + $(this).val();
+
+            var mapMode = $('.searchMode li.selected').hasClass('mapMode');
+
+            var page;
+
+            if(mapMode) {
+                page = '/map/';
+            } else {
+                page = '/list/';
+            }
+
+            window.location.href = page + $(this).val();
+
         });
+
         $(function(){
             $('.searchMode li').click(function(){
                 $('.searchMode li').removeClass('selected');

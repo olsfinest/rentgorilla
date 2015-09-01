@@ -165,7 +165,7 @@ class RentalController extends Controller {
         ]);
 
         if($rental->active) {
-            return redirect()->route('rental.photos.index', [$rental->uuid])->with('flash:success', 'Your property has been created! Now you may add photos!');
+            return redirect()->route('rental.photos.index', [$rental->uuid])->with('flash:success', 'Your property has been created and activated! Now you may add photos!');
         } else {
             return redirect()->route('rental.photos.index', [$rental->uuid])->with('flash:success', 'Your property has been created! Now you may add photos! Remember to activate your property.');
         }
@@ -176,7 +176,7 @@ class RentalController extends Controller {
         $rental = $this->rentalRepository->findByUUID($id);
 
         if( ! $rental->isActive()) {
-            return redirect()->route('list')->with('flash:success', 'That property is not currently active.');
+            return redirect()->route('list', ['slug' => $rental->location->slug])->with('flash:success', 'That property is not currently active.');
         }
 
         if(Auth::check()) {
