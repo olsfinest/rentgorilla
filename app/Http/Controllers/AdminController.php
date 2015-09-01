@@ -10,15 +10,22 @@ use RentGorilla\Http\Requests\AdminNewUserRequest;
 use Auth;
 use RentGorilla\Http\Requests\LoginAsUserRequest;
 use RentGorilla\Http\Requests\SendActivationRequest;
+use RentGorilla\Repositories\PhotoRepository;
 use RentGorilla\Repositories\UserRepository;
 use Input;
 
 class AdminController extends Controller {
 
 
-    function __construct()
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    function __construct(UserRepository $userRepository)
     {
         $this->middleware('admin');
+        $this->userRepository = $userRepository;
     }
 
     public function showCreateNewUser()
@@ -26,12 +33,12 @@ class AdminController extends Controller {
         return view('admin.create-new-user');
     }
 
-    public function showSearchUsers(UserRepository $userRepository)
+    public function showSearchUsers()
     {
         $sortBy = Input::get('sortBy');
         $direction = Input::get('direction');
 
-        $users = $userRepository->getPaginated(compact('sortBy', 'direction'));
+        $users = $this->userRepository->getPaginated(compact('sortBy', 'direction'));
 
         return view('admin.search-users', compact('users'));
     }
@@ -54,17 +61,17 @@ class AdminController extends Controller {
         return redirect()->back()->with('flash:success', 'New user created!');
     }
 
-    public function searchUsers(UserRepository $userRepository)
+    public function searchUsers()
     {
         $email = Input::get('email');
 
-        return $userRepository->emailSearch($email['term']);
+        return $this->userRepository->emailSearch($email['term']);
     }
 
-    public function loginAsUser(LoginAsUserRequest $request, UserRepository $userRepository)
+    public function loginAsUser(LoginAsUserRequest $request)
     {
 
-        $user = $userRepository->find($request->user_id);
+        $user = $this->userRepository->find($request->user_id);
 
         Auth::loginUsingId($user->id);
 
@@ -77,5 +84,27 @@ class AdminController extends Controller {
        $success = $this->dispatchFrom(SendActivationCommand::class, $request);
 
        return redirect()->back()->with('flash:success', 'Activation email sent');
+    }
+
+    public function showDeleteUser($id)
+    {
+        $user = $this->userRepository->find($id);
+
+        return view('admin.delete-user', compact('user'));
+    }
+
+    public function destroyUser($id, PhotoRepository $photoRepository)
+    {
+
+        $user = $this->userRepository->find($id);
+
+        foreach($user->photos as $photo) {
+            $photo->deleteAllSizes();
+        }
+
+        $this->userRepository->delete($id);
+
+        return redirect()->route('admin.searchUsers')->with('flash:success', 'User deleted.');
+
     }
 }

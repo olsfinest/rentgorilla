@@ -25,6 +25,7 @@
                 <th>{!! sort_users_by('stripe_active', 'Subscribed') !!}</th>
                 <th>{!! sort_users_by('stripe_plan', 'Plan ID') !!}</th>
                 <th>&nbsp;</th>
+                <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                         {!! Form::submit('Become') !!}
                         {!! Form::close() !!}
                     </td>
+                    <td><a class="button" href="{{ route('admin.user.confirmDelete', $user->id) }}">Delete</a></td>
                 </tr>
             @endforeach
             </tbody>

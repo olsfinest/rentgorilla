@@ -14,4 +14,5 @@ interface UserRepository
     public function redeemPoints(User $user);
     public function emailSearch($email);
     public function getPaginated(array $params);
+    public function delete($id);
 }

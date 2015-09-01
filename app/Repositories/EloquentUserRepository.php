@@ -132,4 +132,9 @@ class EloquentUserRepository implements UserRepository
     {
         return $params['sortBy'] && $params['direction'];
     }
+
+    public function delete($id)
+    {
+        return User::where('id', $id)->delete();
+    }
 }

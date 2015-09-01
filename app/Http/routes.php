@@ -36,6 +36,9 @@ $router->post('admin/search-users', ['as' => 'searchUsers', 'uses' => 'AdminCont
 $router->get('admin/send-activation', ['as' => 'admin.sendActivation', 'uses' => 'AdminController@showSendActivation']);
 $router->post('admin/send-activation', ['as' => 'sendActivation', 'uses' => 'AdminController@sendActivation']);
 
+$router->get('admin/user/{id}/delete', ['as' => 'admin.user.confirmDelete', 'uses' => 'AdminController@showDeleteUser']);
+$router->delete('admin/user/{id}', ['as' => 'admin.user.destroy', 'uses' => 'AdminController@destroyUser']);
+
 /** Account settings */
 $router->get('admin/settings', ['as' => 'settings.show', 'uses' => 'SettingsController@showSettings']);
 $router->post('admin/settings', ['as' => 'settings.save', 'uses' => 'SettingsController@saveSettings']);
