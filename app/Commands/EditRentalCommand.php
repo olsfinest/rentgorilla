@@ -32,8 +32,9 @@ class EditRentalCommand extends Command {
     public $appliance_list;
     public $heat_list;
     public $postal_code;
+    public $active;
 
-    function __construct($id, $street_address, $city, $county, $province, $type, $pets, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking, $utilities_included, $heat_included, $furnished, $available, $lat, $lng, $lease, $description, $video, $square_footage = null, $feature_list = null, $appliance_list = null, $heat_list = null, $postal_code = null)
+    function __construct($id, $street_address, $city, $county, $province, $type, $pets, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking, $utilities_included, $heat_included, $furnished, $available, $lat, $lng, $lease, $description, $video, $active = null, $square_footage = null, $feature_list = null, $appliance_list = null, $heat_list = null, $postal_code = null)
     {
         $this->id = $id;
         $this->street_address = $street_address;
@@ -63,6 +64,7 @@ class EditRentalCommand extends Command {
         $this->appliance_list = $appliance_list;
         $this->heat_list = $heat_list;
         $this->postal_code = $postal_code;
+        $this->active = $active;
     }
 
 }

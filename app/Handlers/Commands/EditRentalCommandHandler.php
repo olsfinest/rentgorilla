@@ -30,6 +30,7 @@ class EditRentalCommandHandler {
 
     public function handle(EditRentalCommand $command)
     {
+
         $rental = $this->rentalRepository->findByUUID($command->id);
 
         $rental->street_address = $command->street_address;
@@ -55,6 +56,21 @@ class EditRentalCommandHandler {
         $rental->description = nullIfEmpty($command->description);
         $rental->video = nullIfEmpty($command->video);
 
+
+        //they want to activate it
+        if($command->active) {
+            //if it wasn't already active, check if they are allowed to activate
+            if( ! $rental->isActive()) {
+                if($rental->user->canActivateRental()) {
+                    $rental->active = 1;
+                }
+            }
+            // do nothing since it was already active
+        } else {
+            //they want to deactivate it
+            $rental->active = 0;
+        }
+
         $rental->edited_at = Carbon::now();
 
         $rental->save();
@@ -67,6 +83,9 @@ class EditRentalCommandHandler {
 
         $appliances = is_null($command->appliance_list) ? [] : $command->appliance_list;
         $rental->appliances()->sync($appliances);
+
+
+
 
         Log::info('Rental edited', ['rental_id' => $rental->id]);
 

@@ -8,6 +8,7 @@ use RentGorilla\Rental;
 use RentGorilla\Repositories\LocationRepository;
 use RentGorilla\Repositories\RentalRepository;
 use Log;
+use RentGorilla\Repositories\UserRepository;
 
 class CreateRentalCommandHandler {
 
@@ -20,11 +21,16 @@ class CreateRentalCommandHandler {
      * @var LocationRepository
      */
     private $locationRepository;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
-    function __construct(RentalRepository $rentalRepository, LocationRepository $locationRepository)
+    function __construct(RentalRepository $rentalRepository, LocationRepository $locationRepository, UserRepository $userRepository)
     {
         $this->rentalRepository = $rentalRepository;
         $this->locationRepository = $locationRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function handle(CreateRentalCommand $command)
@@ -53,6 +59,18 @@ class CreateRentalCommandHandler {
         $rental->lease = $command->lease;
         $rental->description = nullIfEmpty($command->description);
         $rental->video = nullIfEmpty($command->video);
+
+        //they want to activate it
+        if($command->active) {
+             $user = $this->userRepository->find($command->user_id);
+            // check if they are allowed to activate
+            if($user->canActivateRental()) {
+                $rental->active = 1;
+            }
+        } else {
+            //they want to deactivate it
+            $rental->active = 0;
+        }
 
         $rental->edited_at = Carbon::now();
 

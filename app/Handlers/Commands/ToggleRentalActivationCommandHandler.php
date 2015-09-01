@@ -37,23 +37,16 @@ class ToggleRentalActivationCommandHandler
 
         } else {
 
-            if ($rental->user->onTrial() || ($this->rentalRepository->getActiveRentalCountForUser($rental->user) === 0 && $rental->user->joinedLessThanOneYearAgo())) {
 
+            if($rental->user->canActivateRental())
+            {
                 $this->rentalRepository->activate($rental);
 
                 return true;
-
-            } else if ($rental->user->subscribed() && ($this->rentalRepository->getActiveRentalCountForUser($rental->user) < Subscription::plan($rental->user->getStripePlan())->maximumListings() || Subscription::plan($rental->user->getStripePlan())->unlimited())) {
-
-                $this->rentalRepository->activate($rental);
-
-                return true;
-
-            } else {
-
-                return self::SUBSCRIPTION_NEEDED;
-
             }
+
+            return self::SUBSCRIPTION_NEEDED;
+
         }
     }
 }

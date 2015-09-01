@@ -6,7 +6,7 @@
 @section('content')
     <section class="content full admin">
         <h1>Photos for {{ $rental->street_address }}</h1>
-        {!! Form::open(['route' => ['rental.photos.store', $rental->uuid], 'class' => 'dropzone']) !!}
+        {!! Form::open(['route' => ['rental.photos.store', $rental->uuid], 'class' => 'dropzone', 'id' => 'myAwesomeDropzone']) !!}
 {!! Form::close() !!}
 @if($photoCount = $rental->photos->count())
     <table>
@@ -25,7 +25,17 @@
         <a href="{{ route('rental.index') }}" class="button">Done</a>
     </section>
 @endsection
-
+@section('footer')
+    <script type="text/javascript" language="javascript">
+        Dropzone.options.myAwesomeDropzone = {
+            init: function() {
+                this.on("queuecomplete", function (file) {
+                    showModal('All photos have finished uploading!', '/rental', 'Go to my Dashboard');
+                });
+            }
+        };
+    </script>
+@endsection
 
 
 

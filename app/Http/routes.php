@@ -126,7 +126,6 @@ $router->post('rental/like-video', 'VideoController@toggleLike');
 $router->post('favourite', 'FavouritesController@toggleFavourite');
 $router->get('favourites', ['as' => 'favourites', 'uses' => 'FavouritesController@showFavourites']);
 
-
 # Stripe webhook
 $router->post('stripe/webhook', 'StripeWebhookController@handleWebhook');
 $router->get('/{city?}', 'AppController@getCity');

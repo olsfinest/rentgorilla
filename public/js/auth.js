@@ -14,8 +14,26 @@ function isLoggedIn()
     return $("meta[name='loggedin']").attr('content') === '1';
 }
 
-function showModal(message){
-   $('<section id="alert"><p>' + message + '</p></section>').dialog({
+function showModal(message, link, text){
+
+    if(link !== undefined) {
+        $('<section id="alert"><p>' + message + '</p><p><a class="button" href="' + link + '">' + text + '</a></p></section>').dialog({
+            modal: true,
+            dialogClass: "noTitle",
+            draggable: false,
+            resizable: false,
+            show: "fade",
+            hide: "fade",
+            open: function(event, ui ) {
+                $('.ui-dialog').css("top","200px");
+            }
+        });
+
+        return;
+    }
+
+
+    $('<section id="alert"><p>' + message + '</p></section>').dialog({
         modal: true,
         dialogClass: "noTitle",
         draggable: false,

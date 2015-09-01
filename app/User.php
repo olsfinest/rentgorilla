@@ -210,4 +210,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         return $this->current_period_end;
     }
+
+    public function canActivateRental()
+    {
+        $rentalRepository = app()->make('RentGorilla\Repositories\RentalRepository');
+
+        if ($this->onTrial() || ($rentalRepository->getActiveRentalCountForUser($this) === 0 && $this->joinedLessThanOneYearAgo())) {
+            return true;
+        } else if ($this->subscribed() && ($rentalRepository->getActiveRentalCountForUser($this) < Subscription::plan($this->getStripePlan())->maximumListings() || Subscription::plan($this->getStripePlan())->unlimited())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

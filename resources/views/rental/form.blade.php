@@ -84,7 +84,9 @@
     <label for="appliances" class="">Appliances</label>
         {!! Form::select('appliance_list[]', \RentGorilla\Appliance::orderBy('name')->lists('name', 'id')->all(), null, ['id' => 'appliances', 'class' => 'form-control', 'multiple']) !!}
     <br>
-    
+
+    <label for="active" class="">Activate Rental</label>
+        {!! Form::checkbox('active') !!}
 
     {!! Form::submit($submitButtonText) !!}
 

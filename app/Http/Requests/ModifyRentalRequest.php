@@ -45,7 +45,8 @@ class ModifyRentalRequest extends Request {
             'baths' => 'required|numeric',
             'lease' => 'required|integer',
             'video' => 'url',
-            'postal_code' => 'max:7'
+            'postal_code' => 'max:7',
+            'active' => 'boolean'
         ];
 
         if($this->request->get('feature_list')) {

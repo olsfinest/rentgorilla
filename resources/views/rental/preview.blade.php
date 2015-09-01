@@ -5,32 +5,8 @@
     <link rel="stylesheet" href="/css/form.css" media="screen" title="no title" charset="utf-8">
 @endsection
 
+
 @section('content')
-    <section class="modalLogin" id="email-manager">
-        {!! Form::open(['route' => 'rental.email', 'id' => 'email-manager-form']) !!}
-        <a class="modalClose" title="Close">x</a>
-        <h1>Email Property Manager</h1>
-        <h4>
-            <strong>{{ $rental->user->getFullName() }}</strong>
-            {{ $rental->getAddress() }}
-        </h4>
-        <div id="email-manager-form-errors"></div><br>
-        <label for="" class="half left">
-            <input type="text" name="fname" placeholder="First Name" tabindex="4">
-        </label>
-        <label for="" class="half right">
-            <input type="text" name="lname" placeholder="Last Name" tabindex="5">
-        </label>
-        <label for="email">
-            <input placeholder="Your email address" type="email" name="email" value="" tabindex="6">
-        </label>
-        <label for="message">
-            <textarea name="message" id="" cols="30" rows="10" placeholder="Your message to the property manager" tabindex="7"></textarea>
-        </label>
-        <input type="hidden" name="rental_id" value="{{ $rental->uuid }}">
-        <input placeholder="" type="submit" name="submit" value="Send" tabindex="8">
-        {!! Form::close() !!}
-    </section>
     <section class="main">
         <section class="content full">
             <section class="listing_meta">
@@ -181,6 +157,31 @@
             </aside>
             <div class="cf"></div>
         </section>
+    </section>
+    <section class="modalLogin" id="email-manager">
+        {!! Form::open(['route' => 'rental.email', 'id' => 'email-manager-form']) !!}
+        <a class="modalClose" title="Close">x</a>
+        <h1>Email Property Manager</h1>
+        <h4>
+            <strong>{{ $rental->user->getFullName() }}</strong>
+            {{ $rental->getAddress() }}
+        </h4>
+        <div id="email-manager-form-errors"></div><br>
+        <label for="" class="half left">
+            <input type="text" name="fname" placeholder="First Name" tabindex="4">
+        </label>
+        <label for="" class="half right">
+            <input type="text" name="lname" placeholder="Last Name" tabindex="5">
+        </label>
+        <label for="email">
+            <input placeholder="Your email address" type="email" name="email" value="" tabindex="6">
+        </label>
+        <label for="message">
+            <textarea name="message" id="" cols="30" rows="10" placeholder="Your message to the property manager" tabindex="7"></textarea>
+        </label>
+        <input type="hidden" name="rental_id" value="{{ $rental->uuid }}">
+        <input placeholder="" type="submit" name="submit" value="Send" tabindex="8">
+        {!! Form::close() !!}
     </section>
 @endsection
 

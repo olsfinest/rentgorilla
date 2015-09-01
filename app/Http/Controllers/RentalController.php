@@ -13,6 +13,7 @@ use RentGorilla\Events\RentalViewed;
 use RentGorilla\Handlers\Commands\ToggleRentalActivationCommandHandler;
 use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
+use RentGorilla\Http\Requests\CheckCanActivateRentalRequest;
 use RentGorilla\Http\Requests\EmailManagerRequest;
 use RentGorilla\Http\Requests\ModifyRentalRequest;
 use RentGorilla\Http\Requests\PromoteRentalRequest;
@@ -163,7 +164,11 @@ class RentalController extends Controller {
             'user_id' => Auth::id()
         ]);
 
-        return redirect()->route('rental.photos.index', [$rental->uuid])->with('flash:success', 'Your property has been created! Now you may add photos!');
+        if($rental->active) {
+            return redirect()->route('rental.photos.index', [$rental->uuid])->with('flash:success', 'Your property has been created! Now you may add photos!');
+        } else {
+            return redirect()->route('rental.photos.index', [$rental->uuid])->with('flash:success', 'Your property has been created! Now you may add photos! Remember to activate your property.');
+        }
 	}
 
 	public function show($id, UserRepository $userRepository)
@@ -248,7 +253,11 @@ class RentalController extends Controller {
             'id' => $rental->uuid
         ]);
 
-        return redirect()->route('rental.index')->with('flash:success', 'Your property has been updated!');
+        if($rental->active) {
+            return redirect()->route('rental.index')->with('flash:success', 'Your property has been updated!');
+        } else {
+            return redirect()->route('rental.index')->with('flash:success', 'Your property has been updated! Remember to activate your property.');
+        }
 
     }
 
