@@ -30,11 +30,15 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-        $schedule->command('rg:clear-promotions-history')
+
+        $schedule->command('rg:award-achievements')
             ->dailyAt('00:00');
 
+        $schedule->command('rg:clear-promotions-history')
+            ->dailyAt('00:05');
+
         $schedule->command('rg:deactivate-rentals')
-            ->dailyAt('00:01');
+            ->dailyAt('00:10');
 
         $schedule->command('rg:process-promotion-queue')
             ->dailyAt('01:00');
