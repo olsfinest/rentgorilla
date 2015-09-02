@@ -43,7 +43,7 @@ class AdminMailer {
         $view = 'emails.admin.support-request';
 
         $data = [
-            'name' => $user->getFullName(),
+            'theName' => $user->getFullName(),
             'email' => $user->email,
             'phone' => $user->phone,
             'question' => $question

@@ -737,7 +737,9 @@
                                             through h6 for headings
                                     -->
                                     <td valign="top" class="bodyContent" mc:edit="body_content" style="color:#4A4A4A; font-family:Helvetica; font-size:16px; line-height:150%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:left;">
-                                        <h1>Hey there, {{ $name or '' }}</h1>
+                                        @if(isset($name))
+                                            <h1>Hey there, {{ $name }}!</h1>
+                                        @endif
                                        @yield('body')
                                     </td>
                                 </tr>
