@@ -1,6 +1,10 @@
 <ul class="hits">
 @foreach($rentals as $rental)
-    <li><a href="{{ route('rental.show', [$rental->uuid]) }}">
+    <li>
+        @if($rental->isPromoted())
+            <span class="promoted-small"></span>
+        @endif
+        <a href="{{ route('rental.show', [$rental->uuid]) }}">
             @if($rental->photos->count())
                 <img class="img-thumbnail pull-left" src="{{ $rental->photos->first()->getSize('small') }}" />
             @else
