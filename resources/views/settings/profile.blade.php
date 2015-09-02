@@ -5,7 +5,7 @@
 @section('content')
     @include('partials.settings-header')
     <section class="content full admin">
-        <h1>Edit Profile</h1>
+        <h1>Edit Profile - {{ Auth::user()->email }}</h1>
         @include('errors.error-list')
         {!! Form::model(is_null($profile) ? new \RentGorilla\Profile() : $profile, ['route' => 'profile.update', 'files' => true]) !!}
         <label>Photo:
@@ -30,8 +30,19 @@
         <label>Phone:
             {!! Form::text('primary_phone', null, ['placeholder'=> '902-555-5555']) !!}
         </label>
+        <label>Alternate Phone:
+            {!! Form::text('alt_phone', null, ['placeholder'=> '902-555-5555']) !!}
+        </label>
+        <label for="accepts_texts" class="">Accepts Text Messages:
+            <span>
+                {!! Form::radio('accepts_texts', 1) !!} Yes {!! Form::radio('accepts_texts', 0) !!} No
+            </span>
+        </label>
+        <label>Company:
+            {!! Form::text('company', null) !!}
+        </label>
         <label>Website:
-            {!! Form::text('website', null, ['placeholder'=> 'http://rentgorilla.ca']) !!}
+            {!! Form::text('website', null, ['placeholder'=> 'https://rentgorilla.ca']) !!}
         </label>
         <label>Bio:
             {!! Form::textarea('bio', null) !!}

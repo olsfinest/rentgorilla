@@ -54,7 +54,7 @@
     <script language="JavaScript" type="text/javascript">
         $('#location').select2({
             placeholder: 'Please enter a city',
-            minimumInputLength: 3,
+            minimumInputLength: 1,
             ajax: {
                 url: '/location-list',
                 dataType: 'json',

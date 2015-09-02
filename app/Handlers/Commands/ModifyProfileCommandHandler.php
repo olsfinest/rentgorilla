@@ -32,6 +32,7 @@ class ModifyProfileCommandHandler
      */
     public function handle(ModifyProfileCommand $command)
     {
+
         $user = $this->userRepository->find($command->user_id);
         $user->first_name = $command->first_name;
         $user->last_name = $command->last_name;
@@ -42,7 +43,14 @@ class ModifyProfileCommandHandler
         $profile->primary_phone = nullIfEmpty($command->primary_phone);
         $profile->website = nullIfEmpty($command->website);
         $profile->bio = nullIfEmpty($command->bio);
+        $profile->company = nullIfEmpty($command->company);
+        $profile->alt_phone = nullIfEmpty($command->alt_phone);
 
+        if(is_null($command->accepts_texts)) {
+            $profile->accepts_texts = 0;
+        } else {
+            $profile->accepts_texts = (int) $command->accepts_texts;
+        }
 
         if($command->photo) {
 

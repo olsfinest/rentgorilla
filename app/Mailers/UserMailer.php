@@ -189,7 +189,7 @@ class UserMailer extends Mailer {
             'total' => $user->points
         ];
 
-        $subject = 'RentGorilla.ca :: Achievement Awarded';
+        $subject = 'RentGorilla.ca :: Achievement Badge Awarded';
 
         return $this->sendTo($user, $subject, $view, $data);
     }

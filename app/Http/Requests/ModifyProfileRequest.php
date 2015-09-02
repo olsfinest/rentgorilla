@@ -27,6 +27,8 @@ class ModifyProfileRequest extends Request
             'photo' => 'image|max:10000',
             'first_name' => 'required',
             'last_name' => 'required',
+            'company' => 'string',
+            'accepts_texts' => 'boolean',
         ];
     }
 }
