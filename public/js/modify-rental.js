@@ -68,9 +68,12 @@ $('#modify_rental_form').submit(function(event) {
                 county_result = 0;
             }
 
+            $('#city').val(city_result);
+
             if(city_result != city) {
 
                 showModal('<strong>We are having trouble finding that location.</strong></p>' +
+                    '<p>We have changed the city to <strong>' + city_result + '<strong></p>' +
                     '<p>How should I format my address to ensure my property address is accepted?</p><ul>' +
                     '<li>Specify addresses in accordance with the format used by Canada Post</li>' +
                     '<li>Ensure that the spelling is correct for Street Address and City</li>' +
@@ -83,6 +86,7 @@ $('#modify_rental_form').submit(function(event) {
                     '<li>If you cannot get your exact position try left clicking on the map at <a href="http://googlemaps.com">googlemaps.com</a> to get the closest possible location.</li></ul><p>');
                 return false;
             }
+
 
             var locationResult = results[0].geometry.location;
 
