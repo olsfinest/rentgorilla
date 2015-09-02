@@ -30,7 +30,7 @@
                                 <img src="{{ getNoPhoto('small') }}" alt="">
                             @endif
                                 <span class="photos-title">
-                                Photos [{{ $rental->photos->count() }}]
+                                Edit Photos [{{ $rental->photos->count() }}]
                             </span>
                         </section>
                     </a>

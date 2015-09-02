@@ -5,7 +5,7 @@
          {!! Form::text('street_address', null, ['class' => 'form-control', 'id' => 'street_address', 'placeholder' => '123 Main Street']) !!}
     </label>
     <label for="city" class="">City
-        {!! Form::text('city', $rental->cityOnly, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Antigonish']) !!}
+        {!! Form::text('city', $rental->cityOnly, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Antigonish (Required)']) !!}
     </label>
     <label for="province" class="">Province
         {!! Form::select('province', Config::get('rentals.provinces'), null, ['id' => 'province', 'class' => 'form-control']) !!}

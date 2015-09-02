@@ -26,7 +26,6 @@ body {
 
 .view_switcher ul li:before {
   font-size: 1em;
-  z-index: 8000;
   display: block;
   margin: 0 auto; }
 
