@@ -28,7 +28,7 @@ class SearchFormComposer {
                 ['' => 'Type',
                     'house' => 'House',
                     'apartment' => 'Apartment',
-                    'room' => 'Room'],
+                    'room' => 'Room(s)'],
 
             'beds' =>
 

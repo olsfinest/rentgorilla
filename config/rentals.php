@@ -18,7 +18,7 @@ return ['provinces' => [
     'type' => [
             'house' => 'House',
             'apartment' => 'Apartment',
-            'room' => 'Room',
+            'room' => 'Room(s)',
             'commercial' => 'Commercial'],
 
     'laundry' => [
