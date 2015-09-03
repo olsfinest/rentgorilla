@@ -19,6 +19,7 @@
                     <br/>
                     However, once your trial ends, your account will be limited to 1 listing. At this point, you can continue on with your free account, or purchase a plan below to suit your needs.
                 </p>
+                <p>Please note that when you purchase a subscription that subscription will begin immediately and your free trial period will end.</p>
                 <p>
                     Thanks for listing with RentGorilla!
                 </p>
