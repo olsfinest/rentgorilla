@@ -221,36 +221,15 @@
                     <tr>
                         <th colspan="2">Completed Badges</th>
                     </tr>
-                    <tr>
-                        <td><span class="fa fa-question-circle" title="Complete 100% of all fields in your property profile, required and optional. This includes a photo and website address. Don't have a website address? Register one with us, or simply enter 'rentgorilla.com'"></span>Complete Profile</td>
-                        <td><span class="fa {{ in_array(\RentGorilla\Rewards\Achievement::COMPLETE_PROFILE, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="fa fa-question-circle" title="Each of your listings has never exceeded 30 days without an update."></span>Current Listings</td>
-                        <td><span class="fa {{ in_array(\RentGorilla\Rewards\Achievement::CURRENT_LISTINGS, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="fa fa-question-circle" title="You maintain at least 10 photos across 2 or more properties."></span>Lots of Photos</td>
-                        <td><span class="fa {{ in_array(\RentGorilla\Rewards\Achievement::LOTS_OF_PHOTOS, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="fa fa-question-circle" title="You have promoted any combination of properties at least twice a month."></span>Power Promoter</td>
-                        <td><span class="fa {{ in_array(\RentGorilla\Rewards\Achievement::POWER_PROMOTER, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="fa fa-question-circle" title="You have an active listing for a total of 365 days. This is easiest to achieve by simply modifying your date of availability."></span>Rent Gorilla</td>
-                        <td><span class="fa {{ in_array(\RentGorilla\Rewards\Achievement::RENT_GORILLA, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="fa fa-question-circle" title="Any combination of photos have received at least 20 likes."></span>Great Photos</td>
-                        <td><span class="fa {{ in_array(\RentGorilla\Rewards\Achievement::GREAT_PHOTOS, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="fa fa-question-circle" title="You have added links to at least two videos for any combination of properties and those videos have received at least 20 likes."></span>Movie Star</td>
-                        <td><span class="fa {{ in_array(\RentGorilla\Rewards\Achievement::MOVIE_STAR, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
-                    </tr>
+                    @foreach(Config::get('rewards') as $reward => $rewardProps)
+                        <tr>
+                            <td><span class="fa fa-question-circle" title="{{ $rewardProps['description'] }} ({{ $rewardProps['points'] . ($rewardProps['monthly'] ? ' points/month' : ' points') }})"></span> {{ $rewardProps['name'] }}</td>
+                            <td><span class="fa {{ in_array($reward, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
+                        </tr>
+                    @endforeach
                 </table>
             </section>
+            <p>Badges are awarded at 12:00AM AT</p>
         </aside>
         <div class="cf"></div>
     </section>

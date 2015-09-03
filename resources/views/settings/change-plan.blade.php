@@ -86,72 +86,22 @@
                 <tr>
                     <td>
                         <ul id="achievements_tabs">
-                            <li><a href="#complete">Complete Profile</a></li>
-                            <li><a href="#current">Current Listings</a></li>
-                            <li><a href="#photos">Lots of Photos</a></li>
-                            <li><a href="#promoted">Power Promoter</a></li>
-                            <li><a href="#rentgorilla">Rent Gorilla</a></li>
-                            <li><a href="#favourites">Lots of Favourites</a></li>
-                            <li><a href="#star">Movie Star</a></li>
+                        @foreach(Config::get('rewards') as $reward => $rewardProps)
+                            <li><a href="#{{ $reward }}">{{ $rewardProps['name'] }}</a></li>
+                        @endforeach
                         </ul>
                     </td>
                     <td>
-                        <div id="complete" class="achievement">
-                            <h1>Complete Profile - 500 Points / Month</h1>
+                    @foreach(Config::get('rewards') as $reward => $rewardProps)
+                        <div id="{{ $reward }}" class="achievement">
+                            <h1>{{ $rewardProps['name'] }} - {{ $rewardProps['points'] . ($rewardProps['monthly'] ? ' points/month' : ' points') }}</h1>
                             <img src="/img/achievements_badge_small.png" alt="">
                             <p>
-                                Complete 100% of all fields in your property profile, required and optional. This includes a photo, website address. Don’t have a website address, register one with us or just leave rentgorilla.com.
+                                {{ $rewardProps['description'] }}
                             </p>
                             <span class="cf"></span>
                         </div>
-                        <div id="current" class="achievement">
-                            <h1>Current Listings - 1000 Points / Month</h1>
-                            <img src="/img/achievements_badge_small.png" alt="">
-                            <p>
-                                Each of your listings has never exceeded 30 days without an update.
-                            </p>
-                            <span class="cf"></span>
-                        </div>
-                        <div id="photos" class="achievement">
-                            <h1>Lots of Photos - 1000 Points / Month</h1>
-                            <img src="/img/achievements_badge_small.png" alt="">
-                            <p>
-                                You maintain at least 10 photos over 2+ properties.
-                            </p>
-                            <span class="cf"></span>
-                        </div>
-                        <div id="promoted" class="achievement">
-                            <h1>Power Promoter - 1000 Points / Month</h1>
-                            <img src="/img/achievements_badge_small.png" alt="">
-                            <p>
-                                You have promoted any combinations of properties at least twice a month.
-                            </p>
-                            <span class="cf"></span>
-                        </div>
-                        <div id="rentgorilla" class="achievement">
-                            <h1>Rent Gorilla - 10,000 Points</h1>
-                            <img src="/img/achievements_badge_small.png" alt="">
-                            <p>
-                                You have an active listing for a total of 365 days. This is easiest to achieve by simply modifying your date of availability.
-                            </p>
-                            <span class="cf"></span>
-                        </div>
-                        <div id="favourites" class="achievement">
-                            <h1>Lots of Favorites - 5000 Points</h1>
-                            <img src="/img/achievements_badge_small.png" alt="">
-                            <p>
-                                Any combination of properties has received at least 20 favorites.
-                            </p>
-                            <span class="cf"></span>
-                        </div>
-                        <div id="star" class="achievement">
-                            <h1>Movie Star - 10,000 Points</h1>
-                            <img src="/img/achievements_badge_small.png" alt="">
-                            <p>
-                                You have added links to at least two videos for any combination of properties and those videos have received at least 20 Likes.
-                            </p>
-                            <span class="cf"></span>
-                        </div>
+                    @endforeach
                     </td>
                 </tr>
             </table>

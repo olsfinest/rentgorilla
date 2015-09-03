@@ -21,28 +21,9 @@ class CompleteProfile extends Achievement {
         }
     }
 
-    public function isMonthly()
-    {
-        return true;
-    }
-
-    public function getName()
-    {
-        return 'Complete Profile';
-    }
-
-    public function getPoints()
-    {
-        return 500;
-    }
-
     public function getClassName()
     {
         return Achievement::COMPLETE_PROFILE;
     }
-
-    public function getDescription()
-    {
-        // TODO: Implement getDescription() method.
-    }
+    
 }

@@ -4,7 +4,7 @@ function startInterval() {
 
         timer1 = setTimeout(function () {
             $('.fadeMe').fadeOut('slow');
-        }, 5000);
+        }, 3000);
 
 }
 

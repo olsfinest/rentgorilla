@@ -22,26 +22,6 @@ class RentGorilla extends Achievement {
         }
     }
 
-    public function getDescription()
-    {
-        // TODO: Implement getDescription() method.
-    }
-
-    public function isMonthly()
-    {
-        return false;
-    }
-
-    public function getName()
-    {
-        return 'Rent Gorilla';
-    }
-
-    public function getPoints()
-    {
-        return 10000;
-    }
-
     public function getClassName()
     {
         return Achievement::RENT_GORILLA;

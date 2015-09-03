@@ -23,26 +23,6 @@ class LotsOfFavourites extends Achievement {
         }
     }
 
-    public function getDescription()
-    {
-        // TODO: Implement getDescription() method.
-    }
-
-    public function isMonthly()
-    {
-        return false;
-    }
-
-    public function getName()
-    {
-        return "Lots O'Favourites";
-    }
-
-    public function getPoints()
-    {
-        return 5000;
-    }
-
     public function getClassName()
     {
         return Achievement::LOTS_OF_FAVOURITES;

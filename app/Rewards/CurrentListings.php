@@ -21,26 +21,6 @@ class CurrentListings extends Achievement {
         }
     }
 
-    public function getDescription()
-    {
-        // TODO: Implement getDescription() method.
-    }
-
-    public function isMonthly()
-    {
-        return true;
-    }
-
-    public function getName()
-    {
-        return 'Current Listings';
-    }
-
-    public function getPoints()
-    {
-        return 1000;
-    }
-
     public function getClassName()
     {
         return Achievement::CURRENT_LISTINGS;

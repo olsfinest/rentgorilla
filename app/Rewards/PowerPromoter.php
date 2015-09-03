@@ -24,26 +24,6 @@ class PowerPromoter extends Achievement {
         }
     }
 
-    public function getDescription()
-    {
-        // TODO: Implement getDescription() method.
-    }
-
-    public function isMonthly()
-    {
-        return true;
-    }
-
-    public function getName()
-    {
-        return 'Power Promoter';
-    }
-
-    public function getPoints()
-    {
-        return 1000;
-    }
-
     public function getClassName()
     {
         return Achievement::POWER_PROMOTER;

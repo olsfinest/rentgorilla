@@ -31,7 +31,7 @@
                         @else
                             <img src="{{ getNoPhoto('medium') }}">
                         @endif
-                        <h3>{{ $rental->beds }} Bedroom / {{ $rental->baths }} Bathroom {{ Config::get('rentals.type.' . $rental->type) }}</h3>
+                        <h3>{{ $rental->beds }} Bedroom / {{ (float) $rental->baths }} Bathroom {{ Config::get('rentals.type.' . $rental->type) }}</h3>
                         <span id="favourite" class="favourite fa {{ in_array($rental->id, $favourites) ? 'fa-heart' : 'fa-heart-o' }}">{{ $rental->favouritedBy()->count() }}</span>
                     </div>
                     <div id="map" style="width:100%; height:468px !important; display: none"></div>

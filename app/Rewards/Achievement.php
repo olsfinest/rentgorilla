@@ -21,11 +21,9 @@ abstract class Achievement {
     const CURRENT_LISTINGS = 'CurrentListings';
     const MOVIE_STAR = 'MovieStar';
 
-    abstract public function getDescription();
-    abstract public function isMonthly();
-    abstract public function getName();
-    abstract public function getPoints();
+
     abstract public function getClassName();
+
     abstract public function checkEligibility();
 
     /**
@@ -93,4 +91,23 @@ abstract class Achievement {
 
     }
 
+    public function getDescription()
+    {
+        return Config::get('rewards.' . $this->getClassName() . '.description');
+    }
+
+    public function isMonthly()
+    {
+        return Config::get('rewards.' . $this->getClassName() . '.monthly');
+    }
+
+    public function getName()
+    {
+        return Config::get('rewards.' . $this->getClassName() . '.name');
+    }
+
+    public function getPoints()
+    {
+        return Config::get('rewards.' . $this->getClassName() . '.points');
+    }
 }
