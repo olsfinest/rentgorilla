@@ -17,7 +17,7 @@
                     <strong>Lucky you! You're on a free trial with RentGorilla.</strong><br/>
                     During your trial period ({{  Auth::user()->getTrialEndDate()->diffInDays() }} days remaining) you can list an unlimited number of properties with us.
                     <br/>
-                    However, once your trial ends, your account will be limited to 1 listing. At this point, you can continue on with your free account, or purchase a plan below to suit your needs.
+                    However, once your trial ends, and you are within a year of joining the site, your account will be limited to 1 listing.
                 </p>
                 <p>Please note that when you purchase a subscription that subscription will begin immediately and your free trial period will end.</p>
                 <p>
