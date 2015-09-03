@@ -34,7 +34,7 @@ class UserMailer extends Mailer {
 
     }
 
-    public function sendSubscriptionBegun(User $user)
+    public function sendSubscriptionBegun(User $user, $isDowngrade = false)
     {
         $plan = Subscription::plan($user->getStripePlan());
 
@@ -43,7 +43,8 @@ class UserMailer extends Mailer {
             'name' => $user->first_name,
             'planName' => $plan->planName(),
             'maxListings' => $plan->maximumListings(),
-            'interval' => $plan->interval()
+            'interval' => $plan->interval(),
+            'isDowngrade' => $isDowngrade
         ];
 
         $subject = 'RentGorilla.ca :: Subscription begun';
@@ -71,7 +72,7 @@ class UserMailer extends Mailer {
 
     }
 
-    public function sendSubscriptionChanged(User $user, $isDownGrade)
+    public function sendSubscriptionChanged(User $user, $isDowngrade = false)
     {
         $plan = Subscription::plan($user->getStripePlan());
 
@@ -82,7 +83,7 @@ class UserMailer extends Mailer {
             'planName' => $plan->planName(),
             'maxListings' => $plan->maximumListings(),
             'interval' => $plan->interval(),
-            'isDowngrade' => $isDownGrade
+            'isDowngrade' => $isDowngrade
         ];
 
         $subject = 'RentGorilla.ca :: Subscription changed';

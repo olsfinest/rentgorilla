@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use RentGorilla\Promotion;
 use RentGorilla\Rental;
 use RentGorilla\User;
+use Log;
 
 class EloquentRentalRepository implements RentalRepository
 {
@@ -262,13 +263,16 @@ class EloquentRentalRepository implements RentalRepository
 
     public function downgradePlanCapacityForUser(User $user, $capacity)
     {
+
+        Log::info('active rentals downgraded to '. $capacity, ['user_id' => $user->id]);
+
         // toggle them all off first ...
         DB::table('rentals')
             ->where('user_id', $user->id)
             ->update(['active' => 0]);
 
         // then activate only up to the new plans capacity
-        return DB::update(DB::raw("UPDATE rentals SET active = 1 WHERE user_id = {$user->id} ORDER BY edited_at LIMIT {$capacity}"));
+        return DB::update(DB::raw("UPDATE rentals SET active = 1 WHERE user_id = {$user->id} ORDER BY edited_at DESC LIMIT {$capacity}"));
     }
 
     public function updateSearchViews($rentalIds)

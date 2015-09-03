@@ -134,11 +134,27 @@ class SubscriptionController extends Controller {
             return redirect()->back()->withErrors($messages);
         }
 
-        $this->mailer->sendSubscriptionBegun(Auth::user());
+        $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser(Auth::user());
+
+        $isDowngrade = false;
+
+        if($activeRentalCount) {
+            if ( ! $plan->unlimited() && $activeRentalCount > $plan->maximumListings()) {
+                $difference = $activeRentalCount - $plan->maximumListings();
+                $isDowngrade = true;
+                $this->rentalRepository->downgradePlanCapacityForUser(Auth::user(), $plan->maximumListings());
+            }
+        }
+
+        $this->mailer->sendSubscriptionBegun(Auth::user(), $isDowngrade);
 
         Log::info('Subscription begun', ['user_id' => Auth::id()]);
 
-        return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun!');
+        if($isDowngrade) {
+            return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $plan->maximumListings());
+        } else {
+            return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun!');
+        }
 
     }
 
@@ -171,16 +187,12 @@ class SubscriptionController extends Controller {
             app()->abort(404);
         }
 
-        $isDownGrade = $this->isDowngrade($plan, $newPlan);
+        $isDowngrade = $this->isDowngrade($plan, $newPlan);
 
         try {
 
             Auth::user()->subscription($plan_id)->swap();
 
-            if($isDownGrade) {
-                $this->rentalRepository->downgradePlanCapacityForUser(Auth::user(), $newPlan->maximumListings());
-                $this->mailer->sendSubscriptionChanged(Auth::user(), $isDownGrade);
-            }
 
         } catch (\Exception $e) {
             $messages = new MessageBag();
@@ -188,9 +200,27 @@ class SubscriptionController extends Controller {
             return redirect()->back()->withErrors($messages);
         }
 
+        if($isDowngrade) {
+
+            $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser(Auth::user());
+
+            if($activeRentalCount) {
+                if ( ! $newPlan->unlimited() && $activeRentalCount > $newPlan->maximumListings()) {
+                    $difference = $activeRentalCount - $newPlan->maximumListings();
+                    $this->rentalRepository->downgradePlanCapacityForUser(Auth::user(), $newPlan->maximumListings());
+                }
+            }
+        }
+
+        $this->mailer->sendSubscriptionChanged(Auth::user(), $isDowngrade);
+
         Log::info('Subscription swapped', ['user_id' => Auth::id(), 'new_plan' => $newPlan->id(), 'old_plan' =>  $plan->id()]);
 
-        return redirect()->route('changePlan')->with('flash:success', 'Your plan has been changed!');
+        if($isDowngrade) {
+            return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription plan has been changed! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $newPlan->maximumListings());
+        } else {
+            return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has been changed!');
+        }
 
     }
 
