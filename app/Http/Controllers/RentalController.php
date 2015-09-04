@@ -61,7 +61,11 @@ class RentalController extends Controller {
     {
         $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $rental_id);
 
-        $queued = $this->promotionManager->getNextAvailablePromotionDate($rental);
+        if($this->promotionManager->wontBeQueued($rental)) {
+            $queued = false;
+        } else {
+            $queued = $this->promotionManager->getNextAvailablePromotionDate($rental);
+        }
 
         $price = number_format(Config::get('promotion.price')/100, 2);
 
@@ -90,6 +94,12 @@ class RentalController extends Controller {
     {
 
         $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $request->rental_id);
+
+       if( ! $rental->isActive()) {
+
+           return redirect()->route('rental.index')->with('flash:success', 'Sorry, your property must be active in order to promote it.');
+       }
+
 
         try {
 

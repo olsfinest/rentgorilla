@@ -50,7 +50,7 @@
                         <tr>
                             <td><span class="fa fa-arrow-up"></span>Promotion</td>
                             @if($rental->isQueued())
-                                <td>Starts in approx {{ $rental->getNextAvailablePromotionDays() }} day(s)</td>
+                                <td>Queued</td>
                             @elseif($rental->isPromoted())
                                 <td>{{ $rental->getPromotedDaysRemaining() }} remaining</td>
                             @else

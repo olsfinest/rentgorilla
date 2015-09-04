@@ -110,17 +110,9 @@ class PromotionManager {
 
             $earliestPromotion = Rental::where(['promoted' => 1, 'location_id' => $rental->location->id])->orderBy('promotion_ends_at')->first();
 
-            if($earliestPromotion) {
+            $dateAvailable = $earliestPromotion->promotion_ends_at;
 
-                $dateAvailable = $earliestPromotion->promotion_ends_at;
-
-                return ['dateAvailable' => $dateAvailable, 'daysRemaining' => $dateAvailable->diffInDays()];
-
-            } else {
-
-                return false;
-            }
-
+            return ['dateAvailable' => $dateAvailable, 'daysRemaining' => $dateAvailable->diffInDays()];
         }
     }
 

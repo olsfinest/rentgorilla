@@ -11,6 +11,9 @@
 
     <h1>Promote {{ $rental->street_address  }}</h1>
 
+    @if( ! $rental->isActive())
+        <p>You must activate your rental in order to promote it.</p>
+    @else
 
     <p><strong>About Property Promotions</strong></p>
 
@@ -18,7 +21,7 @@
 
     @if($queued)
         <p><strong>Please Note:</strong></p>
-        <p>There are already three promotions running for your city, but may still be put on the waiting list for a promotion slot, and your property will approximately be promoted on <strong>{{ $queued['dateAvailable']->format('F jS, Y') }}, ({{ $queued['daysRemaining'] }} days from now)</strong></p>
+        <p>There are already three promotions running for <strong>{{ $rental->location->city }}</strong>, however you may be put on the waiting list for a promotion slot, and your property will approximately be promoted on <strong>{{ $queued['dateAvailable']->format('F jS, Y') }}, ({{ $queued['daysRemaining'] }} days from now)</strong></p>
         <p>Your credit card will only be charged when the promotion starts. You may also cancel at any time before the promotion is scheduled to begin.</p>
     @endif
 
@@ -38,7 +41,9 @@
             <button type="submit" class=""> {{ $queued ? 'Charge my Credit Card $' . $price . ' When My Promotion Starts' : 'Charge my Credit Card ' . $price  }}</button>
         @endif
             {!! Form::close() !!}
+        @endif
     </section>
+
 @stop
 
 @section('footer')

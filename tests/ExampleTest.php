@@ -7,6 +7,8 @@ class ExampleTest extends DbTestCase {
 
     public function testBasicExample()
     {
+       /*
+
         $city = 'New Minas';
         $province = 'NS';
 
@@ -32,7 +34,7 @@ class ExampleTest extends DbTestCase {
 
         $this->assertFalse($this->checkDuplicates($city, $province, $county));
 
-
+*/
 
     }
 
@@ -51,7 +53,7 @@ class ExampleTest extends DbTestCase {
                     ->where('county', '=', $county)
                     ->where('city', '=', $city . ' ' . $county);
             })->count() > 0;
-    */
+
         $differentCounty = DB::table('rentals')
                     ->where('city', $city)
                     ->where('province', $province)
@@ -69,6 +71,8 @@ class ExampleTest extends DbTestCase {
         if($alreadyDuplicate > 0) return true;
 
         return false;
+
+       */
 
     }
 
