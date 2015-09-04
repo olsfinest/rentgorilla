@@ -12,7 +12,7 @@
         <input type="password" id="signup_password_confirmation" name="password_confirmation" placeholder="Confirm">
         <input type="submit" name="signup_submit" value="Create Account">
     {!! Form::close() !!}
-    <p><a href="#">FAQ</a> |
+    <p><a href="/terms">Terms</a> |
         <a class="login" href="#" title="Login with your RentGorilla account">Login</a>
     </p>
     <div>

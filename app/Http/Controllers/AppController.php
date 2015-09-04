@@ -31,6 +31,11 @@ class AppController extends Controller {
         return view('app.home');
     }
 
+    public function showTerms()
+    {
+        return view('app.terms');
+    }
+
     public function getCity($city = null)
     {
         if($city) {

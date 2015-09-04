@@ -15,6 +15,9 @@ $router->get('login', ['as' => 'login', 'uses' => 'SessionController@showLogin']
 $router->post('login', ['as' => 'login', 'uses' => 'SessionController@login']);
 
 
+
+$router->get('terms', ['as' => 'terms', 'uses' => 'AppController@showTerms']);
+
 /** Social Authentication */
 
 $router->get('login/{provider?}', 'SocialAuthController@redirectToProvider');
