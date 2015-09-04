@@ -808,35 +808,41 @@ ul.justified:after {
   float: right;
   border-top: 1px solid #dddddd;
   width: 332px;
-}
-/* line 595, style.scss */
-.listing_sidebar .listing_rent h1 {
-  text-align: center;
-  font-size: 2.25em;
-  margin: 0;
-  border-bottom: 1px solid #dddddd;
-  font-weight: 400;
-}
-/* line 603, style.scss */
-.listing_sidebar .listing_rent h3 a {
-  color: #4a4a4a;
-  text-decoration: none;
-}
-/* line 608, style.scss */
-.listing_sidebar .listing_rent > a {
-  padding: 7px;
-  border-radius: 7px;
-  background: #74b164;
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  display: block;
-  transition: .2s;
-}
-/* line 617, style.scss */
-.listing_sidebar .listing_rent > a:hover {
-  background: #5b964c;
-  transition: .2s;
+  .listing_rent {
+    h1 {
+      text-align: center;
+      font-size: 2.25em;
+      margin: 0;
+      border-bottom: 1px solid #dddddd;
+      font-weight: 400;
+    }
+     h3 {
+        a {
+        color: #4a4a4a;
+        text-decoration: none;
+      }
+    }
+    > a {
+      padding: 7px;
+      border-radius: 7px;
+      background: #74b164;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      display: block;
+      transition: .2s;
+      &:hover {
+        background: #5b964c;
+        transition: .2s;
+        cursor:pointer;
+      }
+    }
+  }
+  a, button {
+    &:hover {
+      cursor:pointer;
+    }
+  }
 }
 /* line 622, style.scss */
 .listing_sidebar .listing_rent ul.listing_contact {
@@ -2245,4 +2251,7 @@ aside.my_properties {
 			text-decoration:none;
 		}
 	}
+}
+#sort-widget-button {
+  float:right;
 }
