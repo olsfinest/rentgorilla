@@ -348,6 +348,8 @@ class RentalController extends Controller {
             $photo->user_id = Auth::user()->id;
             $photo->save();
 
+            $this->rentalRepository->updateEditedAt($rental);
+
             if ($request->ajax()) {
                 return response()->json('success', 200);
             } else {
@@ -408,6 +410,8 @@ class RentalController extends Controller {
         $photo = $this->photoRepository->findPhotoForUser(Auth::user(), $id);
 
         $photo->deleteAllSizes();
+
+        $this->rentalRepository->updateEditedAt($photo->rental);
 
         $this->photoRepository->delete($photo);
 

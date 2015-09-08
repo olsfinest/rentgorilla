@@ -279,4 +279,11 @@ class EloquentRentalRepository implements RentalRepository
     {
         return DB::table('rentals')->whereIn('id', $rentalIds)->increment('search_views');
     }
+
+    public function updateEditedAt(Rental $rental)
+    {
+        $rental->edited_at = Carbon::now();
+
+        return $rental->save();
+    }
 }

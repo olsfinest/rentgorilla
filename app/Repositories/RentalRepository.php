@@ -31,4 +31,5 @@ interface RentalRepository
     public function incrementEmailClick(Rental $rental);
     public function incrementPhoneClick(Rental $rental);
     public function updateSearchViews($rentalIds);
+    public function updateEditedAt(Rental $rental);
 }
