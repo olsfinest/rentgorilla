@@ -2255,3 +2255,31 @@ aside.my_properties {
 #sort-widget-button {
   float:right;
 }
+
+.cycle-prev, .cycle-next {
+  display:block;
+  width:25px;
+  height:25px;
+  background:$green;
+  position:absolute;
+  color:white;
+  z-index:9999;
+  top:calc(50% - 25px);
+  text-align:center;
+  &:hover {
+    background:darken($green, 10%);
+    cursor:pointer;
+  }
+}
+.cycle-prev {
+  left:0;
+  &:after {
+    content:'<';
+  }
+}
+.cycle-next {
+  right:0;
+  &:after {
+    content:'>';
+  }
+}

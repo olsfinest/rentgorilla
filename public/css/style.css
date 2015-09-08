@@ -2104,4 +2104,28 @@ aside.my_properties a.property-add:hover {
 #sort-widget-button {
   float: right; }
 
+.cycle-prev, .cycle-next {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: #74B164;
+  position: absolute;
+  color: white;
+  z-index: 9999;
+  top: calc(50% - 25px);
+  text-align: center; }
+  .cycle-prev:hover, .cycle-next:hover {
+    background: #5b964c;
+    cursor: pointer; }
+
+.cycle-prev {
+  left: 0; }
+  .cycle-prev:after {
+    content: '<'; }
+
+.cycle-next {
+  right: 0; }
+  .cycle-next:after {
+    content: '>'; }
+
 /*# sourceMappingURL=style.css.map */
