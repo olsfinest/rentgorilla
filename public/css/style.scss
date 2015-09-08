@@ -231,9 +231,11 @@ pre {
 }
 /* line 160, style.scss */
 #signupmodal form input[type="text"], #signupmodal form input[type="password"], #login form input[type="text"], #login form input[type="password"] {
-  width: 50%;
+  width: 100%;
   border-top: 1px solid #74b164;
+  border-bottom: 1px solid #74b164;
   float: left;
+  margin-bottom:1em;
 }
 /* line 165, style.scss */
 #signupmodal form input[type="email"], #login form input[type="email"] {
@@ -2168,6 +2170,11 @@ aside.my_properties {
 			background:darken($green, 10%);
 		}
 	}
+  h3 {
+    &:first-child {
+      margin-top:0;
+    }
+  }
 }
 
 
