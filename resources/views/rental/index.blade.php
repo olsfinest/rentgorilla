@@ -125,7 +125,32 @@
             <section class="widget">
                 <table>
 
-                    @if($plan && Auth::user()->subscribed())
+                    @if(Auth::user()->onTrial())
+                        <tr>
+                            <th colspan="2">Free Trial<a href="{{ route('changePlan') }}">Change</a></th>
+                        </tr>
+                        <tr>
+                            <td>Plan Capacity</td>
+                            <td>Unlimited Properties</td>
+                        </tr>
+                        <tr>
+                            <td>Currently Active</td>
+                            <td><span id="activeRentalCount">{{ $activeRentalCount }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Cost Per Month</td>
+                            <td>Free</td>
+                        </tr>
+                        <tr>
+                            <td>Billing Period</td>
+                            <td>n/a</td>
+                        </tr>
+                        <tr>
+                            <td>Plan Expiry:</td>
+                            <td>{{ Auth::user()->trial_ends_at->format('M jS, Y') }}</td>
+                        </tr>
+
+                    @elseif($plan && (Auth::user()->stripeIsActive() || Auth::user()->onGracePeriod()))
                         <tr>
                             <th colspan="2">{{ $plan->planName() }}<a href="{{ route('changePlan') }}">Change</a></th>
                         </tr>
@@ -154,30 +179,6 @@
                             <td>{{ Auth::user()->stripeIsActive() ? 'Yes' : 'No' }}</td>
                         </tr>
 
-                    @elseif(Auth::user()->onTrial())
-                        <tr>
-                            <th colspan="2">Free Trial<a href="{{ route('changePlan') }}">Change</a></th>
-                        </tr>
-                        <tr>
-                            <td>Plan Capacity</td>
-                            <td>Unlimited Properties</td>
-                        </tr>
-                        <tr>
-                            <td>Currently Active</td>
-                            <td><span id="activeRentalCount">{{ $activeRentalCount }}</span></td>
-                        </tr>
-                        <tr>
-                            <td>Cost Per Month</td>
-                            <td>Free</td>
-                        </tr>
-                        <tr>
-                            <td>Billing Period</td>
-                            <td>n/a</td>
-                        </tr>
-                        <tr>
-                            <td>Plan Expiry:</td>
-                            <td>{{ Auth::user()->trial_ends_at->format('M jS, Y') }}</td>
-                        </tr>
 
                     @elseif(Auth::user()->isOnFreePlan())
                         <tr>

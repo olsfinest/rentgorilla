@@ -106,11 +106,13 @@ $router->post('email-search', 'AdminController@searchUsers');
 
 $router->post('like', 'LikesController@toggleLike');
 
+/*
 $router->get('testing', function() {
 
-   app('RentGorilla\Mailers\UserMailer')->sendTest(Auth::user());
-    dd('done');
+// return app('RentGorilla\Tasks\Daily\DeactivateRentals')->checkIfAccountExpired();
 });
+
+*/
 
 $router->resource('rental', 'RentalController');
 $router->get('rental/{rental}/photos', ['as' => 'rental.photos.index', 'uses' => 'RentalController@showPhotos']);

@@ -42,7 +42,7 @@ class DeactivateRentals {
                 $query->whereRaw('DATEDIFF(DATE_ADD(created_at, INTERVAL 1 YEAR), NOW()) <= 0');
                 $query->where('stripe_active', 0);
             })->groupBy('id')
-            ->get();
+            ->lists('id');
 
         if(count($expiredUserIds)) {
 

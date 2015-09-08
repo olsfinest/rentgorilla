@@ -220,7 +220,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         if ($this->onTrial() || ($rentalRepository->getActiveRentalCountForUser($this) === 0 && $this->joinedLessThanOneYearAgo())) {
             return true;
-        } else if ($this->subscribed() && ($rentalRepository->getActiveRentalCountForUser($this) < Subscription::plan($this->getStripePlan())->maximumListings() || Subscription::plan($this->getStripePlan())->unlimited())) {
+        } else if (($this->stripeIsActive() || $this->onGracePeriod()) && (Subscription::plan($this->getStripePlan())->unlimited() || $rentalRepository->getActiveRentalCountForUser($this) < Subscription::plan($this->getStripePlan())->maximumListings())) {
             return true;
         } else {
             return false;
