@@ -13,7 +13,7 @@ class SubscriptionRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return Auth::check() && ! $this->user()->stripeIsActive();
+		return Auth::check() && ! $this->user()->stripeIsActive() && ! $this->user()->onGracePeriod();
 	}
 
 	/**

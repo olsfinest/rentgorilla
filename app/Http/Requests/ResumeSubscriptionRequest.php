@@ -12,7 +12,7 @@ class ResumeSubscriptionRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return Auth::check() && $this->user()->cancelled() && $this->user()->subscribed();
+		return Auth::check() && $this->user()->cancelled() && $this->user()->onGracePeriod();
 	}
 
 	/**

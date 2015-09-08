@@ -125,19 +125,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         $isMonthly = $plan->isMonthly();
 
-        if($this->stripeIsActive()) {
-            if($isCurrentPlan) {
+        if ($this->stripeIsActive()) {
+            if ($isCurrentPlan) {
                 return $this->getLink('CANCEL', $plan_id, $isMonthly);
-            } else {
-                return $this->getLink('SWAP', $plan_id, $isMonthly);
-            }
-        } else {
-            if($isCurrentPlan && ! $this->expired()) {
-                return $this->getLink('RESUME', $plan_id, $isMonthly);
-            } else {
-                return $this->getLink('SIGN UP', $plan_id, $isMonthly);
             }
         }
+
+        if($isCurrentPlan && $this->cancelled() && $this->onGracePeriod()) {
+            return $this->getLink('RESUME', $plan_id, $isMonthly);
+        }
+
+        if ( ! $this->stripeIsActive() && ! $this->onGracePeriod()) {
+            return $this->getLink('SIGN UP', $plan_id, $isMonthly);
+        } else {
+            return $this->getLink('SWAP', $plan_id, $isMonthly);
+        }
+
     }
 
     public function isAdmin()
