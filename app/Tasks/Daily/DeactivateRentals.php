@@ -50,19 +50,27 @@ class DeactivateRentals {
 
                $user = $this->userRepository->find($id);
 
-               if($this->rentalRepository->getActiveRentalCountForUser($user) > 0) {
+               $hasActiveRentals = $this->rentalRepository->getActiveRentalCountForUser($user) > 0;
 
-                   if($user->joinedLessThanOneYearAgo()) {
-                       $this->rentalRepository->downgradePlanCapacityForUser($user, 1);
-                       $this->mailer->sendDowngradedToFreePlan($user);
-                       Log::info('User\'s active rentals downgraded to free plan after trial or subscription ended.', ['user_id' => $user->id ]);
-                   } else {
+               if ($user->joinedLessThanOneYearAgo()) {
+
+                    if($hasActiveRentals) {
+                        $this->rentalRepository->downgradePlanCapacityForUser($user, 1);
+                        Log::info('User\'s active rentals downgraded to free plan after trial or subscription ended.', ['user_id' => $user->id]);
+                    }
+
+                   $this->mailer->sendDowngradedToFreePlan($user);
+
+               } else {
+
+                   if($hasActiveRentals) {
                        DB::table('rentals')->where('user_id', $id)->update('active', 0);
-                       $this->mailer->sendRentalsDeactivated($user);
-                       Log::info('User\'s active rentals deactivated after trial or subscription ended.', ['user_id' => $user->id ]);
+                       Log::info('User\'s active rentals deactivated after trial or subscription ended.', ['user_id' => $user->id]);
                    }
+
+                   $this->mailer->sendRentalsDeactivated($user);
                }
            }
-        }
+       }
     }
 }
