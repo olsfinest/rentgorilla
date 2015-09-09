@@ -171,8 +171,6 @@ pre {
   margin: .5em 0;
   font-family: "open_sans_regular", sans-serif;
 }
-
-/* line 116, style.scss */
 #signupmodal, #login {
   display: none;
   width: 500px;
@@ -181,43 +179,35 @@ pre {
   position: relative;
   height: 100%;
   overflow: visible;
-}
-/* line 124, style.scss */
-#signupmodal p, #login p {
-  text-align: center;
-  font-size: .8em;
-}
-/* line 127, style.scss */
-#signupmodal p a, #login p a {
-  text-decoration: underline;
-}
-/* line 131, style.scss */
-#signupmodal img, #login img {
-  display: block;
-  margin: 1em auto;
-}
-/* line 135, style.scss */
-#signupmodal form, #login form {
-  width: 100%;
-}
-/* line 137, style.scss */
-#signupmodal form input, #login form input {
-  height: 55px;
-  border: none;
-  font-size: 1em;
-  padding: 1em;
-}
-/* line 142, style.scss */
-#signupmodal form input:first-child, #login form input:first-child {
-  border-right: 1px solid #74b164;
-}
-/* line 145, style.scss */
-#signupmodal form input:focus, #login form input:focus {
-  outline: none;
-}
-/* line 149, style.scss */
-#signupmodal form input.firstpass, #login form input.firstpass {
-  border-right: 1px solid #74b164;
+  p {
+    text-align: center;
+    font-size: .8em;
+    a {
+      text-decoration: underline;
+    }
+  }
+  img {
+    display: block;
+    margin: 1em auto;
+  }
+  form {
+    width: 100%;
+    input {
+      height: 55px;
+      border: none;
+      font-size: 1em;
+      padding: 1em;
+      &:first-child {
+        border-right: 1px solid #74b164;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    input.firstpass {
+      border-right: 1px solid #74b164;
+    }
+  }
 }
 /* line 152, style.scss */
 #signupmodal form input[type="text"], #signupmodal form input[type="password"], #signupmodal form input[type="email"], #login form input[type="text"], #login form input[type="password"], #login form input[type="email"] {

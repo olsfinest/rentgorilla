@@ -24,7 +24,7 @@
 </section>
 <section class="main promofree">
     <section class="content full">
-        <h1>Ad Free</h1>
+        <h1>Ad Free<small>Browsing</small></h1>
         <p>At RentGorilla we believe that your space is sacred. If there is a way for us to reduce the clutter, it's gone. That means we only show you what you care about, nothing else, ever.</p>
         <div class="cf"></div>
     </section>

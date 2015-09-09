@@ -29,14 +29,30 @@
 	margin:0;
 	color:white;
 }
+.promofree h1 {
+	margin-top:-.25em;
+	position:relative;
+}
+.promofree h1 small {
+	display:block;
+	position:absolute;
+	top:1.5em;
+	font-size:.5em;
+}
 .promofree h1, .simple h1 {
 	float:left;
 	text-align:left;
 	width:470px;
 }
 .promofree p, .simple p {
-	/*float:right;*/
+	float:right;
 	text-align: left;
+}
+.promofree p {
+	margin-top:2.5em;
+}
+.simple p {
+	margin-top:3.25em;
 }
 .zerorisk p {
 	/*float:left;*/
