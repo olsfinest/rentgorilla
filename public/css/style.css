@@ -777,7 +777,6 @@ ul.justified:after {
 .listing_sidebar .listing_rent ul.listing_contact li:first-child {
   margin-top: 0; }
 
-/* line 631, style.scss */
 .listing_sidebar .listing_rent ul.listing_contact li a {
   display: block;
   padding: 7px;
@@ -788,35 +787,29 @@ ul.justified:after {
   text-align: center;
   text-decoration: none; }
 
-/* line 640, style.scss */
 .listing_sidebar .listing_rent ul.listing_contact li a:hover {
   background: #5b964c;
   transition: .2s; }
 
-/* line 647, style.scss */
 .listing_sidebar .listing_rent table.listing_features {
   width: 100%;
   background: white;
   color: white;
   border-spacing: 1px; }
 
-/* line 653, style.scss */
 .listing_sidebar .listing_rent table.listing_features tr td {
   background: #7a694b;
   width: 50%; }
 
-/* line 659, style.scss */
 .listing_sidebar .listing_rent ul.justified {
   margin: 0;
   padding: 0; }
 
-/* line 662, style.scss */
 .listing_sidebar .listing_rent ul.justified li {
   width: 48%;
   margin: 0;
   text-align: center; }
 
-/* line 666, style.scss */
 .listing_sidebar .listing_rent ul.justified li a {
   display: block;
   padding: 7px;
@@ -826,114 +819,90 @@ ul.justified:after {
   color: white;
   text-decoration: none; }
 
-/* line 674, style.scss */
 .listing_sidebar .listing_rent ul.justified li a:hover {
   background: #5b964c;
   transition: .2s; }
 
-/* line 683, style.scss */
 .filter_toggle {
   display: none; }
 
-/* line 686, style.scss */
 .filter {
   height: 46px;
   width: 100%;
   position: relative;
   background: #74b164; }
+  .filter form {
+    width: 995px;
+    display: block;
+    font-family: "open_sans_regular", sans-serif;
+    margin: 0 auto;
+    height: 46px;
+    line-height: 40px;
+    position: relative; }
+  .filter input, .filter select, .filter textarea, .filter .ui-selectmenu-button {
+    padding: .5em;
+    font-size: .8em;
+    font-family: "open_sans_regular", sans-serif;
+    display: block; }
+  .filter select, .filter .ui-selectmenu-button {
+    padding-right: 15px;
+    background-image: url(/rg/img/select_arrow.png);
+    background-position: right .5em center;
+    background-repeat: no-repeat;
+    background-color: white;
+    position: relative;
+    appearance: none; }
+  .filter .ui-selectmenu-button {
+    background-image: none; }
+    .filter .ui-selectmenu-button span.ui-selectmenu-text {
+      padding: 0; }
+  .filter button {
+    padding: .475em;
+    position: relative;
+    top: 1px; }
+  .filter .ui-selectmenu-button.ui-state-focus, .filter .ui-selectmenu-button.ui-state-hover {
+    outline: none; }
+  .filter label .select2-selection--single {
+    height: 33px; }
+  .filter ul.ui-menu, .filter .ui-front {
+    border: none !important;
+    z-index: 9999 !important; }
 
-/* line 691, style.scss */
-.filter form {
-  width: 995px;
-  display: block;
-  font-family: "open_sans_regular", sans-serif;
-  margin: 0 auto;
-  height: 46px;
-  line-height: 40px;
-  position: relative; }
-
-/* line 701, style.scss */
-.filter input, .filter select, .filter textarea, .filter .ui-selectmenu-button {
-  padding: .5em;
-  font-size: .8em;
-  font-family: "open_sans_regular", sans-serif;
-  display: block; }
-
-/* line 707, style.scss */
-.filter select, .filter .ui-selectmenu-button {
-  padding-right: 15px;
-  background-image: url(/rg/img/select_arrow.png);
-  background-position: right .5em center;
-  background-repeat: no-repeat;
-  background-color: white;
-  position: relative;
-  appearance: none; }
-
-/* line 716, style.scss */
-.filter .ui-selectmenu-button {
-  background-image: none; }
-
-/* line 721, style.scss */
-.filter .ui-selectmenu-button span.ui-selectmenu-text {
-  padding: 0; }
-
-/* line 725, style.scss */
-.filter .ui-selectmenu-button.ui-state-focus, .filter .ui-selectmenu-button.ui-state-hover {
-  outline: none; }
-
-/* line 729, style.scss */
-.filter label .select2-selection--single {
-  height: 33px; }
-
-/* line 733, style.scss */
 .filter label .select2-container .select2-choice .select2-arrow {
   background: url("http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/images/ui-icons_888888_256x240.png"); }
 
-/* line 737, style.scss */
-.filter ul.ui-menu, .filter .ui-front {
-  border: none !important;
-  z-index: 9999 !important; }
-
-/* line 740, style.scss */
 .filter ul.ui-menu .ui-menu-item, .filter .ui-front .ui-menu-item {
   background-image: none; }
 
-/* line 742, style.scss */
 .filter ul.ui-menu .ui-menu-item:hover, .filter ul.ui-menu .ui-menu-item:focus, .filter .ui-front .ui-menu-item:hover, .filter .ui-front .ui-menu-item:focus {
   background: #333333;
   outline: none;
   color: white;
   background-image: none; }
 
-/* line 749, style.scss */
 .filter ul.ui-menu .ui-state-focus, .filter .ui-front .ui-state-focus {
   background: #333333;
   outline: none;
   color: white;
   background-image: none; }
 
-/* line 755, style.scss */
 .filter ul.ui-menu li, .filter .ui-front li {
   font-size: .8em; }
 
-/* line 759, style.scss */
 .filter label {
   position: relative;
   height: 70%;
   display: inline-block;
   vertical-align: middle; }
 
-/* line 765, style.scss */
 .filter label[for="view_button-button"] {
   float: right;
   position: relative;
   top: 15%; }
 
-/* line 769, style.scss */
 .filter label[for="view_button-button"] .ui-selectmenu-button {
   display: inline-block; }
 
-/* line 772, style.scss */
 .filter label[for="view_button-button"]:before {
   float: left;
   margin-right: 10px;
@@ -942,7 +911,6 @@ ul.justified:after {
   color: white;
   font-weight: 700; }
 
-/* line 782, style.scss */
 .filter .view_selector {
   position: relative;
   width: 200px;
@@ -952,11 +920,9 @@ ul.justified:after {
   top: 0px;
   right: 0; }
 
-/* line 790, style.scss */
 .filter .view_selector .ui-selectmenu-button {
   display: inline-block; }
 
-/* line 795, style.scss */
 .locale {
   display: none;
   position: absolute;
