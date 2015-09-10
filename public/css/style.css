@@ -2077,8 +2077,7 @@ aside.my_properties h3:first-child {
     .gorilla .select2-container--default .select2-selection--single {
       height: 40px; }
 
-.landing
-#rental-list li > a {
+#rental-list a {
   color: inherit;
   text-decoration: none; }
 

@@ -2231,21 +2231,15 @@ aside.my_properties {
 		}
 	}
 }
-.landing
-
-
 #rental-list {
-	li {
-		> a {
-			color:inherit;
-			text-decoration:none;
-		}
+	a {
+		color:inherit;
+		text-decoration:none;
 	}
 }
 #sort-widget-button {
   float:right;
 }
-
 .cycle-prev, .cycle-next {
   display:block;
   width:25px;
@@ -2273,8 +2267,6 @@ aside.my_properties {
     content:'>';
   }
 }
-
-
 // Landing Pages 
 .sidebar {
   float: right;
