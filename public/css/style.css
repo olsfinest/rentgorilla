@@ -106,7 +106,6 @@ table tr td {
 table tr:first-child td {
   border-top: none; }
 
-/* line 92, style.scss */
 table.stats {
   background: white;
   width: 100%;
@@ -114,20 +113,13 @@ table.stats {
   border-spacing: 1px;
   border: none;
   color: white; }
+  table.stats tr {
+    background: #7a694b; }
+  table.stats td {
+    border: none; }
+  table.stats .even {
+    background: #333333; }
 
-/* line 99, style.scss */
-table.stats tr {
-  background: #7a694b; }
-
-/* line 102, style.scss */
-table.stats td {
-  border: none; }
-
-/* line 106, style.scss */
-table.stats .even {
-  background: #333333; }
-
-/* line 110, style.scss */
 pre {
   white-space: normal;
   margin: .5em 0;
@@ -2085,6 +2077,7 @@ aside.my_properties h3:first-child {
     .gorilla .select2-container--default .select2-selection--single {
       height: 40px; }
 
+.landing
 #rental-list li > a {
   color: inherit;
   text-decoration: none; }
@@ -2115,5 +2108,75 @@ aside.my_properties h3:first-child {
   right: 0; }
   .cycle-next:after {
     content: '>'; }
+
+.sidebar {
+  float: right;
+  width: 332px; }
+
+.landingContent {
+  float: left;
+  width: 630px; }
+
+.landingHeader {
+  width: 100%;
+  height: 520px;
+  background-position: center;
+  background-image: url("/img/locale_antigonish.jpg");
+  background-size: cover;
+  padding: 200px 0; }
+  .landingHeader h1 {
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 10px black; }
+  .landingHeader form {
+    width: 995px;
+    margin: 0 auto;
+    height: 120px; }
+    .landingHeader form label {
+      display: block;
+      background: #74b164;
+      padding: 5px;
+      position: relative;
+      margin: 0 auto;
+      width: 734px;
+      border-radius: 8px; }
+      .landingHeader form label input[type=text] {
+        display: inline-block;
+        width: 85%;
+        font-size: 1.5em;
+        padding: 8px 8px 8px 55px; }
+        .landingHeader form label input[type=text]:focus {
+          outline: none; }
+      .landingHeader form label ul {
+        position: absolute;
+        z-index: 1000;
+        right: 0px;
+        top: 5px;
+        height: 45px;
+        padding: 0;
+        border-radius: 0 8px 8px 0;
+        list-style: none; }
+        .landingHeader form label ul li {
+          display: none;
+          background: #74B164;
+          text-align: center;
+          width: 50px;
+          color: white;
+          font-size: 1.75em;
+          height: 100%; }
+        .landingHeader form label ul:hover li {
+          display: list-item; }
+        .landingHeader form label ul li.selected {
+          display: list-item; }
+      .landingHeader form label .fa {
+        font-family: FontAwesome; }
+        .landingHeader form label .fa:hover {
+          cursor: pointer; }
+    .landingHeader form .select2-container--default {
+      height: 40px; }
+      .landingHeader form .select2-container--default .select2-selection--single {
+        height: 40px; }
 
 /*# sourceMappingURL=style.css.map */

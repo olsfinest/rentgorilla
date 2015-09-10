@@ -143,7 +143,6 @@ table tr:first-child td {
   border-top: none;
 }
 
-/* line 92, style.scss */
 table.stats {
   background: white;
   width: 100%;
@@ -151,21 +150,16 @@ table.stats {
   border-spacing: 1px;
   border: none;
   color: white;
+  tr {
+    background: #7a694b;
+  }
+  td {
+    border: none;
+  }
+  .even {
+    background: #333333;
+  }
 }
-/* line 99, style.scss */
-table.stats tr {
-  background: #7a694b;
-}
-/* line 102, style.scss */
-table.stats td {
-  border: none;
-}
-/* line 106, style.scss */
-table.stats .even {
-  background: #333333;
-}
-
-/* line 110, style.scss */
 pre {
   white-space: normal;
   margin: .5em 0;
@@ -2240,6 +2234,7 @@ aside.my_properties {
 		}
 	}
 }
+.landing
 
 
 #rental-list {
@@ -2279,5 +2274,92 @@ aside.my_properties {
   right:0;
   &:after {
     content:'>';
+  }
+}
+
+
+// Landing Pages 
+.sidebar {
+  float: right;
+  width: 332px;
+}
+.landingContent {
+  float:left;
+  width:630px;
+}
+.landingHeader {
+  width:100%; 
+  height:520px; 
+  background-position:center; 
+  background-image:url('/img/locale_antigonish.jpg'); background-size:cover;
+  padding:200px 0;
+  h1 {
+    font-size:3em;
+    font-weight:bold;
+    text-align:center;
+    color:white;
+    text-shadow:0 0 10px black;
+  }
+  form {
+    width:$container;
+    margin:0 auto;
+    height:120px;
+      label  {
+      display:block;
+      background:#74b164;
+      padding:5px;
+      position:relative;
+      margin:0 auto;
+      width:734px;
+      border-radius:8px;
+      input[type=text] {
+        display:inline-block;
+        width:85%;
+        font-size:1.5em;
+        padding:8px 8px 8px 55px;
+        &:focus {
+          outline:none;
+        }
+      }
+      ul {
+        position:absolute;
+        z-index:1000;
+        right:0px;
+        top:5px;
+        height:45px;
+        padding:0;
+        border-radius:0 8px 8px 0;
+        list-style:none;
+        li {
+          display:none;
+          background:$green;
+          text-align:center;
+          width:50px;
+          color:white;
+          font-size:1.75em;
+          height:100%;
+        }
+        &:hover {
+          li {
+            display:list-item;
+          }
+        }
+        li.selected {
+          display:list-item;
+        }
+      }
+      .fa {
+        font-family:FontAwesome;
+        &:hover {
+          cursor:pointer;
+        }
+      }
+    }
+    .select2-container--default {
+      height:40px;
+        .select2-selection--single {
+        height:40px;
+      }
+    }
   }
 }
