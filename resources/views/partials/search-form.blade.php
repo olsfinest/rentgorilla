@@ -17,8 +17,8 @@
     <img id="spinner" src="/img/ajax-loader.gif">
     <div class="view_switcher">
         <ul>
-            <li class="fa fa-list"><a href="/list">List</a></li>
-            <li class="fa fa-map-marker"><a href="/map">Map</a></li>
+            <li><a href="/list"><i class="fa fa-list"></i> List</a></li>
+            <li><a href="/map"><i class="fa fa-map-marker"></i> Map</a></li>
         </ul>
     </div>
 {!! Form::close() !!}

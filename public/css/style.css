@@ -26,13 +26,13 @@ body {
 
 .view_switcher ul li:before {
   font-size: 1em;
-  display: block;
   margin: 0 auto; }
 
 .view_switcher a {
-  font-size: 0;
   z-index: 9000;
   text-align: center; }
+  .view_switcher a:hover {
+    color: #47743b; }
 
 body {
   font-family: "open_sans_regular", sans-serif;

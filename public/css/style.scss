@@ -44,17 +44,14 @@ body {
 }
 .view_switcher ul li:before {
   font-size:1em;
-  // z-index:8000;
-  display:block;
   margin:0 auto;
 }
 .view_switcher a {
-  font-size:0;
   z-index:9000;
   text-align: center;
-}
-.view_switcher a:before {
-  
+  &:hover {
+    color:darken($green, 20%);
+  }
 }
 body {
   font-family: "open_sans_regular", sans-serif;
