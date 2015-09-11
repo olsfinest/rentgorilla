@@ -1939,6 +1939,9 @@ ul.hits::-webkit-scrollbar {
   position: relative;
   color: black; }
 
+section.my_properties {
+  max-width: 100%; }
+
 aside.my_properties a.property-add:hover {
   background: #5b964c; }
 aside.my_properties h3:first-child {

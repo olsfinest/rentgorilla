@@ -2106,7 +2106,10 @@ ul.hits::-webkit-scrollbar {
 	color:black;
 }
 
-
+// Admin Property View
+section.my_properties {
+  max-width:100%;
+}
 // Admin Sidebar
 aside.my_properties {
 	a.property-add {

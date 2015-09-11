@@ -224,7 +224,7 @@
                     </tr>
                     @foreach(Config::get('rewards') as $reward => $rewardProps)
                         <tr>
-                            <td><span class="fa fa-question-circle" title="{{ $rewardProps['description'] }} ({{ $rewardProps['points'] . ($rewardProps['monthly'] ? ' points/month' : ' points') }})"></span> {{ $rewardProps['name'] }}</td>
+                            <td class="fa fa-question-circle" title="{{ $rewardProps['description'] }} ({{ $rewardProps['points'] . ($rewardProps['monthly'] ? ' points/month' : ' points') }})"><span></span> {{ $rewardProps['name'] }}</td>
                             <td><span class="fa {{ in_array($reward, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
                         </tr>
                     @endforeach
