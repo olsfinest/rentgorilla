@@ -12,7 +12,7 @@
 @if($photoCount = $rental->photos->count())
             <h1>Drag and drop photos to reorder</h1>
             <p>The order goes from left to right, with the top left being the first. Remember to save when you are finished reordering.</p>
-    <ul class="justified" id="items">
+    <ul id="items">
         @foreach($rental->photos as $photo)
             <li data-id="{{ $photo->name }}"><img src="{{ $photo->getSize('small') }}">
                 {!! Form::open(['method' => 'DELETE', 'route' => ['photos.delete', $photo->name]]) !!}
@@ -22,9 +22,9 @@
         @endforeach
     </ul>
     <p>{{ $photoCount }} photo{{ $photoCount == 1 ? '' : 's' }}.</p>
+    <a id="saveOrderBtn" class="button">Save Photo Order</a>
 @endif
-        <a id="saveOrderBtn" class="button">Save Photo Order</a>
-       <br><a href="{{ route('rental.index') }}" class="button">Back to Dashboard</a>
+    <br><a href="{{ route('rental.index') }}" class="button">Back to Dashboard</a>
     </section>
 @endsection
 @section('footer')
