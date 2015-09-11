@@ -1485,6 +1485,11 @@ span.eyes.blink .eye {
   .admin_nav {
     ul {
       max-width:100%;
+      text-align:center;
+      li {
+        display:inline-block;
+        float:none;
+      }
     }
   }
   /* line 1086, style.scss */
@@ -1559,62 +1564,45 @@ span.eyes.blink .eye {
   }
 }
 @media only screen and (max-width: 57.94em) {
-  /* line 1133, style.scss */
   #map-canvas, #chart {
     display: none;
   }
-
-  /* line 1139, style.scss */
   .filter form {
     height: auto;
   }
-  /* line 1142, style.scss */
   .filter label[for="view_button-button"] {
     margin-top: .5em;
     clear: both;
     height: auto;
   }
-
-  /* line 1148, style.scss */
   .listings {
     overflow-y: visible;
     display: block;
   }
-
-  /* line 1154, style.scss */
   .listing_nav .main {
     width: 90%;
   }
-
-
-  /* line 1158, style.scss */
   .content.full {
     width: 90%;
     margin: 0 auto;
   }
-  /* line 1161, style.scss */
   .content.full .listing_details {
     float: none;
     width: 100%;
     margin: 0 auto 1em auto;
   }
-  /* line 1165, style.scss */
   .content.full .listing_details .listing_overview {
     margin: 0 auto 1em auto;
   }
-  /* line 1169, style.scss */
   .content.full .listing_sidebar {
     margin: 0 auto 1em auto;
     width: 100%;
   }
 }
 @media only screen and (max-width: 772px) {
-  /* line 1176, style.scss */
   body {
     overflow-y: auto;
   }
-
-  /* line 1179, style.scss */
   .filter_toggle {
     display: inline-block;
     position: absolute;
@@ -1627,19 +1615,14 @@ span.eyes.blink .eye {
     background: #74b164;
     left: 270px;
   }
-
-  /* line 1191, style.scss */
   .filter_toggle.active {
     background: #74b164;
     color: white;
   }
-
-  /* line 1195, style.scss */
   .filter {
     display: none;
     height: auto;
   }
-  /* line 1198, style.scss */
   .filter label[for="location"] {
     display: block;
     width:96%;
@@ -1648,7 +1631,6 @@ span.eyes.blink .eye {
     margin:0 auto;
     padding-bottom: .5em;
   }
-  /* line 1203, style.scss */
   .filter label[for="location"] input {
     border: none;
     width: 100%;
@@ -1661,7 +1643,6 @@ span.eyes.blink .eye {
     float:none;
     clear:both;
   }
-  /* line 1209, style.scss */
   .filter label.arrows {
     width: 50%;
     float: left;
@@ -1670,86 +1651,66 @@ span.eyes.blink .eye {
   .filter #location {
     vertical-align: top;
   }
-  /* line 1213, style.scss */
   .filter label.arrows .ui-selectmenu-button {
     width: 100%!important;
   }
-  /* line 1217, style.scss */
   .filter label[for="view_button-button"] {
     display: none;
   }
-
-  /* line 1221, style.scss */
   header {
     padding: .5em;
     height: auto;
   }
-  /* line 1224, style.scss */
   header .home {
     display: inline-block;
     max-height: 100%;
     top: 0;
     position: relative;
   }
-  /* line 1231, style.scss */
   header .main {
     height: auto;
     max-height: 100%;
   }
-  /* line 1235, style.scss */
   header .user_actions {
     float: right;
     display: block;
   }
-  /* line 1238, style.scss */
   header .user_actions select, header .user_actions .ui-selectmenu-button {
     display: none;
   }
-
-  /* line 1245, style.scss */
   .listings > ul > li {
     width: 30%;
     margin: .5em;
   }
-  /* line 1248, style.scss */
   .listings > ul > li:nth-child(4n) {
     margin: .5em;
   }
-
-  /* line 1254, style.scss */
   .listing_overview {
     max-width: 90%;
     margin: 0 auto 1em auto;
-      position: relative;
-
+    position: relative;
   }
-  /* line 1257, style.scss */
   .listing_overview img {
     max-width: 100%;
   }
-
-  /* line 1261, style.scss */
   .listing_meta {
     height: auto;
   }
-  /* line 1263, style.scss */
   .listing_meta h1 {
     font-size: 1.3em;
   }
 }
+.admin_nav_toggle {
+    display:none;
+}
 @media only screen and (max-width: 576px) {
-  /* line 1272, style.scss */
   #ui-id-7-button {
     display: none;
   }
-
-  /* line 1276, style.scss */
   header .home {
     transition: width .2s;
     width: 60px;
   }
-
-  /* line 1283, style.scss */
   .listings > ul > li {
     width: 45%;
     margin: .5em;
@@ -1768,6 +1729,54 @@ span.eyes.blink .eye {
   .filter_toggle {
     left: 68px;
     right: 0;
+  }
+  .admin_nav_toggle {
+    display:block;
+    width:30px;
+    height:30px;
+    text-align: center;
+    line-height:30px;
+    color:white;
+    background:$green;
+    position:absolute;
+    top:22px;
+    left:70px;
+    text-decoration:none;
+    transition:.1s;
+    &:hover {
+      background:darken($green, 20%);
+      transition:.1s;
+    }
+    i {
+      display:block;
+      width:100%;
+      height:100%;
+      line-height:30px;
+    }
+  }
+  .admin_nav {
+    > ul {
+      display:none;
+      text-align:left;
+      background:$green;
+      z-index:9990;
+      position:absolute!important;
+      height:auto!important;
+      li {
+        display:block!important;
+        height:auto!important;
+        float:none;
+        width:100%;
+        &:hover {
+          ul {
+            display:block!important;
+            position:relative;
+            text-align:left;
+            z-index:9999;
+          }
+        }
+      }
+    }
   }
 }
 @media only screen and (max-width: 568px) {

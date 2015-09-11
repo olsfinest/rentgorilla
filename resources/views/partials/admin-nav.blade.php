@@ -1,4 +1,5 @@
 <section class="admin_nav">
+    <a title="Show / Hide Menu" href="#" onclick="return false;" class="admin_nav_toggle"><i class="fa fa-bars"></i></a>
     <ul>
         <li class="fa fa-dashboard"><a href={{ route('rental.index') }}>Dashboard</a></li>
         <li class="fa fa-heart"><a href="{{ route('favourites') }}">Favourites</a></li>

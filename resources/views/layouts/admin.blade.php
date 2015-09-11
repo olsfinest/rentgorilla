@@ -58,6 +58,12 @@
                 $('.eyes').toggleClass('blink')
             }, 200);
         }, 5000);
+        // show / hide the admin navigation with a button
+        $('.admin_nav_toggle').click(function(){
+            $('.admin_nav ul').slideToggle({
+                
+            });
+        });
     </script>
     @yield('footer')
 </footer>
