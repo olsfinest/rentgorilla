@@ -7,5 +7,6 @@ interface PhotoRepository {
 
     public function findPhotoForUser(User $user, $filename);
     public function delete(Photo $photo);
+    public function updatePhotoOrder($user_id, $name, $order);
 
 }

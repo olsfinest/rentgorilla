@@ -14,4 +14,11 @@ class EloquentPhotoRepository implements PhotoRepository {
     {
         return $photo->delete();
     }
+
+    public function updatePhotoOrder($user_id, $name, $order)
+    {
+        return Photo::where('user_id', $user_id)
+            ->where('name', $name)
+            ->update(['order' => $order]);
+    }
 }

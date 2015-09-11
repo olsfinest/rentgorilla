@@ -106,13 +106,13 @@ $router->post('email-search', 'AdminController@searchUsers');
 
 $router->post('like', 'LikesController@toggleLike');
 
-/*
+
 $router->get('testing', function() {
 
-// return app('RentGorilla\Tasks\Daily\DeactivateRentals')->checkIfAccountExpired();
+    dd(session('foo'));
 });
 
-*/
+
 
 $router->resource('rental', 'RentalController');
 $router->get('rental/{rental}/photos', ['as' => 'rental.photos.index', 'uses' => 'RentalController@showPhotos']);
@@ -123,6 +123,7 @@ $router->post('rental/phone', ['as' => 'rental.phone', 'uses' => 'RentalControll
 $router->post('rental/email-manager', ['as' => 'rental.email', 'uses' => 'RentalController@sendManagerMail']);
 $router->post('rental/show-video', ['as' => 'rental.video.show', 'uses' => 'VideoController@getEmbeddedVideo']);
 $router->get('rental/{id}/delete', ['as' => 'rental.delete', 'uses' => 'RentalController@showDelete']);
+$router->post('rental/save-photo-order', ['as' => 'rental.photoOrder', 'uses' => 'RentalController@savePhotoOrder']);
 
 $router->get('preview/{id}', ['as' => 'rental.preview', 'uses' => 'RentalController@showPreview']);
 

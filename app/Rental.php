@@ -47,7 +47,7 @@ class Rental extends Model {
     }
     public function photos()
     {
-        return $this->hasMany('RentGorilla\Photo');
+        return $this->hasMany('RentGorilla\Photo')->orderBy('order', 'DESC');
     }
 
     public function favouritedBy()

@@ -29,6 +29,7 @@ use RentGorilla\Repositories\RentalRepository;
 use Config;
 use Image;
 use Subscription;
+use Log;
 
 class RentalController extends Controller {
 
@@ -198,7 +199,7 @@ class RentalController extends Controller {
         }
 
         if(Session::has('location')) {
-            $location = Session::get('location');
+            $location = session('location');
             $city = getCity($location);
             $province = getProvince($location);
         } else {
@@ -206,7 +207,7 @@ class RentalController extends Controller {
             $province = null;
         }
 
-        $search = $this->rentalRepository->uuids($rental->location->id, Session::get('type'), Session::get('availability'), Session::get('beds'), Session::get('price'));
+        $search = $this->rentalRepository->uuids($rental->location->id, session('type'), session('availability'), session('beds'), session('price'), session('sort'));
 
         $index = array_search($id, $search);
 
@@ -416,6 +417,28 @@ class RentalController extends Controller {
         $this->photoRepository->delete($photo);
 
         return redirect()->back();
+    }
+
+    public function savePhotoOrder()
+    {
+        $photoIds = Input::get('photoIds');
+
+        if( ! $photoIds)
+        {
+            return response()->json(['message' => 'No input given'], 422);
+
+        } else {
+
+            $i = count($photoIds);
+            foreach($photoIds as $id)
+            {
+                $this->photoRepository->updatePhotoOrder(Auth::id(), $id, $i);
+                $i--;
+            }
+
+            return response()->json(['message' => 'Success'], 200);
+        }
+
     }
 
 }
