@@ -46,10 +46,12 @@ function  sort_users_by($column, $body)
 
 function getSortComponents($sort)
 {
-    $sortArray = array_keys(Config::get('sort'));
+    $sortArray = Config::get('sort');
 
-   if( ! in_array($sort, $sortArray)) {
-        $sort = $sortArray[0];
+    //sanitize the sort input
+   if( ! array_key_exists($sort, $sortArray)) {
+       reset($sortArray);
+       $sort = key($sortArray);
    }
 
    return explode('-', $sort);

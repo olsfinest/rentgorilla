@@ -10,11 +10,11 @@
         <form>
             <label>
                 <ul class='searchMode'>
-                    <li class='selected mapMode' title='Show search results on a map'>
-                        <span class="fa fa-map-o"></span>
-                    </li>
-                    <li class='listMode' title="Show search results in a list">
+                    <li class='selected listMode' title="Show search results in a list">
                         <span class="fa fa-bars"></span>
+                    </li>
+                    <li class='mapMode' title='Show search results on a map'>
+                        <span class="fa fa-map-o"></span>
                     </li>
                 </ul>
                 <select name="location" id="location" style="width: 100%"></select>
