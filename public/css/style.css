@@ -16,7 +16,7 @@ html {
   min-height: 100%; }
 
 body {
-  margin: 0 0 100px; }
+  margin: 0 0 415px; }
 
 .select2-container {
   vertical-align: top; }
@@ -42,47 +42,44 @@ body {
 body.home {
   overflow-y: hidden; }
 
-/* line 41, style.scss */
 h1, h2, h3, h4, h5, h6 {
   margin: .5em auto; }
 
-/* line 44, style.scss */
 hr {
   margin: .5em auto;
   height: 1px;
   background: #646464;
   border: none; }
 
-/* line 50, style.scss */
 p {
   margin: .5em 0; }
 
-/* line 53, style.scss */
 ul {
   padding-left: 17px; }
 
-/* line 56, style.scss */
 ol {
   padding-left: 20px; }
 
-/* line 59, style.scss */
 button {
   padding: .5em;
   font-family: "open_sans_regular", sans-serif;
   border-radius: 8px;
   border: none; }
 
-/* line 64, style.scss */
 button:hover {
   cursor: pointer; }
 
-/* line 68, style.scss */
 fieldset {
   padding: 1em; }
 
-/* line 71, style.scss */
 table {
   background: #ececec; }
+  table th, table td {
+    padding: .5em; }
+  table th {
+    border-bottom: 1px solid #4a4a4a; }
+  table tr td {
+    border-top: 1px solid lightgrey; }
 
 table.users tr:nth-child(even) {
   background-color: white; }
@@ -90,19 +87,6 @@ table.users tr:nth-child(even) {
 table.users tr:nth-child(odd) {
   background-color: #ececec; }
 
-/* line 73, style.scss */
-table th, table td {
-  padding: .5em; }
-
-/* line 76, style.scss */
-table th {
-  border-bottom: 1px solid #4a4a4a; }
-
-/* line 80, style.scss */
-table tr td {
-  border-top: 1px solid lightgrey; }
-
-/* line 84, style.scss */
 table tr:first-child td {
   border-top: none; }
 
@@ -162,7 +146,6 @@ pre {
   background: #efefef;
   transition: .1s; }
 
-/* line 160, style.scss */
 #signupmodal form input[type="text"], #signupmodal form input[type="password"], #login form input[type="text"], #login form input[type="password"] {
   width: 100%;
   border-top: 1px solid #74b164;
@@ -170,14 +153,12 @@ pre {
   float: left;
   margin-bottom: 1em; }
 
-/* line 165, style.scss */
 #signupmodal form input[type="email"], #login form input[type="email"] {
   border-top: 1px solid #74b164;
   display: block;
   clear: both;
   width: 100%; }
 
-/* line 171, style.scss */
 #signupmodal form input[type="submit"], #login form input[type="submit"] {
   padding: 0 .75em;
   line-height: 1em;
@@ -191,13 +172,11 @@ pre {
   border-radius: 8px;
   transition: .1s; }
 
-/* line 182, style.scss */
 #signupmodal form input[type="submit"]:hover, #login form input[type="submit"]:hover {
   background: #5b964c;
   transition: .1s;
   cursor: pointer; }
 
-/* line 190, style.scss */
 .ui-dialog.noTitle {
   font-family: "open_sans_regular", sans-serif !important;
   width: 456px !important;
@@ -1123,31 +1102,12 @@ img {
 .favourite:hover {
   cursor: pointer; }
 
-/* line 1042, style.scss */
-footer {
-  height: 100px;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  margin: 0 auto;
-  position: absolute;
-  border-top: 6px solid #7a694b;
-  background: #333333; }
-
-/* line 1050, style.scss */
-footer .content {
-  width: 995px;
-  margin: 0 auto; }
-
-/* line 1056, style.scss */
 .contact footer {
   display: block; }
 
-/* line 1060, style.scss */
 .active {
   display: block !important; }
 
-/* line 1063, style.scss */
 #map-canvas {
   width: 100%;
   display: block !important;
@@ -2102,5 +2062,75 @@ aside.my_properties h3:first-child {
       height: 40px; }
       .landingHeader form .select2-container--default .select2-selection--single {
         height: 40px; }
+
+footer {
+  height: 415px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  border-top: 6px solid #7a694b;
+  background: #333333; }
+  footer .content {
+    width: 995px;
+    margin: 0 auto; }
+  footer .main .content.full {
+    color: #a4a4a4; }
+    footer .main .content.full nav {
+      border-top: 1px solid #575757;
+      border-bottom: 1px solid #575757; }
+      footer .main .content.full nav > ul {
+        padding: 2em 0;
+        list-style: none;
+        width: 100%;
+        color: white; }
+        footer .main .content.full nav > ul > li {
+          width: 25%;
+          padding: 0 10px;
+          float: left; }
+        footer .main .content.full nav > ul:after {
+          content: ' ';
+          display: block;
+          clear: both; }
+      footer .main .content.full nav ul {
+        list-style: none;
+        padding-left: 0; }
+        footer .main .content.full nav ul i {
+          display: inline-block;
+          width: 22px;
+          margin-right: 1px;
+          text-align: center; }
+        footer .main .content.full nav ul li {
+          margin-bottom: .5em;
+          font-size: 1em; }
+          footer .main .content.full nav ul li h3 {
+            font-weight: 400; }
+  footer .main a {
+    color: #a4a4a4;
+    text-decoration: none; }
+    footer .main a:hover {
+      color: #74B164; }
+  footer .social {
+    padding: 1em 0; }
+    footer .social ul {
+      list-style: none;
+      padding: 0; }
+      footer .social ul li {
+        display: inline-block;
+        margin-right: 10px; }
+      footer .social ul li.right {
+        float: right; }
+  footer .help {
+    padding: 1em 0; }
+    footer .help ul {
+      list-style: none;
+      padding: 0; }
+      footer .help ul li {
+        display: inline-block;
+        margin-right: 1em; }
+      footer .help ul li.right {
+        float: right;
+        margin-right: 0; }
 
 /*# sourceMappingURL=style.css.map */

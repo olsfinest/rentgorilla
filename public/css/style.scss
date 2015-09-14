@@ -11,21 +11,29 @@
   display: block;
   clear: both;
 }
-// Variables
+
+///////////////
+// Variables //
+///////////////
+
 // Fonts
 $sans:'open_sans_regular', sans-serif;
 $serif:serif;
 $fa:FontAwesome;
+
 // Colors
 $darkbrown:#333333;
 $green:#74B164;
 $brown:#7A694B;
 $darkgray:#4A4A4A; 
+
 // Weights & Measures
 $container:995px;
 $button_radius:8px;
 $listing_width:237px;
 $listing_height:257px;
+$footerHeight:415px; // useful because we need this value in 2 spots, it's easily broken if only one of them gets changed
+
 // HTML Entities
 $arrow_down:"\25bc";
 $checkmark:\2713;
@@ -34,7 +42,7 @@ html {
   min-height: 100%;
 }
 body {
-  margin: 0 0 100px;
+  margin: 0 0 $footerHeight;
 }
 .select2-container {
   vertical-align: top;
@@ -61,85 +69,57 @@ body {
 body.home {
   overflow-y: hidden;
 }
-
-/* line 41, style.scss */
 h1, h2, h3, h4, h5, h6 {
   margin: .5em auto;
 }
-
-/* line 44, style.scss */
 hr {
   margin: .5em auto;
   height: 1px;
   background: #646464;
   border: none;
 }
-
-/* line 50, style.scss */
 p {
   margin: .5em 0;
 }
-
-/* line 53, style.scss */
 ul {
   padding-left: 17px;
 }
-
-/* line 56, style.scss */
 ol {
   padding-left: 20px;
 }
-
-/* line 59, style.scss */
 button {
   padding: .5em;
   font-family: "open_sans_regular", sans-serif;
   border-radius: 8px;
   border: none;
 }
-/* line 64, style.scss */
 button:hover {
   cursor: pointer;
 }
-
-/* line 68, style.scss */
 fieldset {
   padding: 1em;
 }
-
-/* line 71, style.scss */
 table {
   background: #ececec;
+  th, td {
+    padding: .5em;
+  }
+  th {
+    border-bottom: 1px solid #4a4a4a;
+  }
+  tr td {
+    border-top: 1px solid lightgrey;
+  }
 }
-
 table.users tr:nth-child(even) {
     background-color: white;
 }
-
-
 table.users tr:nth-child(odd) {
     background-color: #ececec;
 }
-
-
-
-/* line 73, style.scss */
-table th, table td {
-  padding: .5em;
-}
-/* line 76, style.scss */
-table th {
-  border-bottom: 1px solid #4a4a4a;
-}
-/* line 80, style.scss */
-table tr td {
-  border-top: 1px solid lightgrey;
-}
-/* line 84, style.scss */
 table tr:first-child td {
   border-top: none;
 }
-
 table.stats {
   background: white;
   width: 100%;
@@ -208,7 +188,6 @@ pre {
   background: #efefef;
   transition: .1s;
 }
-/* line 160, style.scss */
 #signupmodal form input[type="text"], #signupmodal form input[type="password"], #login form input[type="text"], #login form input[type="password"] {
   width: 100%;
   border-top: 1px solid #74b164;
@@ -216,14 +195,12 @@ pre {
   float: left;
   margin-bottom:1em;
 }
-/* line 165, style.scss */
 #signupmodal form input[type="email"], #login form input[type="email"] {
   border-top: 1px solid #74b164;
   display: block;
   clear: both;
   width: 100%;
 }
-/* line 171, style.scss */
 #signupmodal form input[type="submit"], #login form input[type="submit"] {
   padding: 0 .75em;
   line-height:1em;
@@ -237,14 +214,11 @@ pre {
   border-radius: 8px;
   transition: .1s;
 }
-/* line 182, style.scss */
 #signupmodal form input[type="submit"]:hover, #login form input[type="submit"]:hover {
   background: #5b964c;
   transition: .1s;
   cursor: pointer;
 }
-
-/* line 190, style.scss */
 .ui-dialog.noTitle {
   font-family: "open_sans_regular", sans-serif !important;
   width: 456px!important;
@@ -1239,35 +1213,12 @@ img {
 .favourite:hover {
   cursor: pointer;
 }
-
-/* line 1042, style.scss */
-footer {
-  height: 100px;
-  width: 100%;
-  bottom:0;
-  left:0;
-  margin: 0 auto;
-  position: absolute;
-  border-top: 6px solid #7a694b;
-  background: #333333;
-}
-/* line 1050, style.scss */
-footer .content {
-  width: 995px;
-  margin: 0 auto;
-}
-
-/* line 1056, style.scss */
 .contact footer {
   display: block;
 }
-
-/* line 1060, style.scss */
 .active {
   display: block!important;
 }
-
-/* line 1063, style.scss */
 #map-canvas {
   width: 100%;
   display: block!important;
@@ -1443,7 +1394,6 @@ span.eyes.blink .eye {
     color: #47743b;
     transition: .1s;
 }
-
 .toastError {
     background: #9e0f0f;
     border: 1px solid #6f0b0b;
@@ -1458,7 +1408,6 @@ span.eyes.blink .eye {
 .toastError:hover .fa-close {
     color: #410606;
 }
-
 .toastWarning {
     background: #E5B92E;
     border: 1px solid #c79d19;
@@ -2313,6 +2262,103 @@ aside.my_properties {
       height:40px;
         .select2-selection--single {
         height:40px;
+      }
+    }
+  }
+}
+
+
+
+footer {
+  height:$footerHeight;
+  width: 100%;
+  bottom:0;
+  left:0;
+  margin: 0 auto;
+  position: absolute;
+  border-top: 6px solid #7a694b;
+  background: #333333;
+  .content {
+    width: 995px;
+    margin: 0 auto;
+  }
+  .main {
+    .content.full {
+      color:#a4a4a4;
+      nav {
+        border-top:1px solid lighten($darkgray, 5%);
+        border-bottom:1px solid lighten($darkgray, 5%);
+        > ul {
+          padding:2em 0;
+          list-style:none;
+          width:100%;
+          color:white;
+          > li {
+            width:25%;
+            padding:0 10px;
+            float:left;
+            &:last-child {
+            }
+          }
+          &:after {
+            content:' ';
+            display:block;
+            clear:both;
+          }
+        }
+        ul {
+          list-style:none;
+          padding-left:0;
+          i {
+            display:inline-block;
+            width:22px;
+            margin-right:1px;
+            text-align:center;
+          }
+          li {
+            margin-bottom:.5em;
+            font-size:1em;
+            h3 {
+              font-weight:400;
+            }
+          }
+        }
+      }
+    }
+    a {
+      color:#a4a4a4;
+      text-decoration:none;
+      &:hover {
+        color:$green;
+      }
+    }
+  }
+  .social {
+    padding:1em 0;
+    ul {
+      list-style:none;
+      padding:0;
+      li {
+        display:inline-block;
+        margin-right:10px;
+      }
+      li.right {
+        float:right;
+      }
+    }
+  }
+  .help {
+    padding:1em 0;
+    ul {
+      list-style:none;
+      padding:0;
+      li {
+        display:inline-block;
+        margin-right:1em;
+      }
+      li.right {
+        float:right;
+        margin-right:0;
       }
     }
   }
