@@ -66,6 +66,7 @@
         });
     </script>
     @yield('footer')
+    @include('partials.footer')
 </footer>
 </body>
 </html>

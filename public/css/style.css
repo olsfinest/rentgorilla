@@ -1969,6 +1969,10 @@ aside.my_properties h3:first-child {
 #sort-widget-button {
   float: right; }
 
+#sort-widget-menu .ui-state-focus {
+  background: #333333;
+  color: white; }
+
 .cycle-prev, .cycle-next {
   display: block;
   width: 25px;
@@ -2132,5 +2136,50 @@ footer {
       footer .help ul li.right {
         float: right;
         margin-right: 0; }
+
+#list-canvas {
+  padding: 0; }
+  #list-canvas select, #list-canvas .ui-selectmenu-button, #list-canvas .ui-selectmenu {
+    background: none;
+    -webkit-appearance: none;
+    width: 250px;
+    background-image: url(/rg/img/select_arrow.png);
+    background-color: none;
+    border: none;
+    padding-left: 25px;
+    font-family: "open_sans_regular", sans-serif;
+    color: #74b164;
+    display: inline-block;
+    height: 70%;
+    vertical-align: middle;
+    font-weight: 700;
+    background-position: left .5em center;
+    background-repeat: no-repeat; }
+    #list-canvas select:focus, #list-canvas .ui-selectmenu-button:focus, #list-canvas .ui-selectmenu:focus {
+      outline: none; }
+    #list-canvas select .ui-state-focus, #list-canvas .ui-selectmenu-button .ui-state-focus, #list-canvas .ui-selectmenu .ui-state-focus {
+      background: #333333;
+      color: white; }
+  #list-canvas .ui-menu-item {
+    background: none !important;
+    outline: none;
+    color: white;
+    background-image: none; }
+    #list-canvas .ui-menu-item:focus, #list-canvas .ui-menu-item:hover {
+      background: #333333 !important;
+      outline: none;
+      color: white;
+      background-image: none; }
+  #list-canvas select, #list-canvas button {
+    vertical-align: middle;
+    position: relative;
+    height: 70%;
+    display: inline-block; }
+  #list-canvas button {
+    color: white;
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-left: 10px;
+    line-height: 100%; }
 
 /*# sourceMappingURL=style.css.map */

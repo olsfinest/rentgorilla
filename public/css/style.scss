@@ -2154,6 +2154,12 @@ aside.my_properties {
 #sort-widget-button {
   float:right;
 }
+#sort-widget-menu {
+  .ui-state-focus {
+    background:#333333;
+    color:white;
+  }
+}
 .cycle-prev, .cycle-next {
   display:block;
   width:25px;
@@ -2361,5 +2367,57 @@ footer {
         margin-right:0;
       }
     }
+  }
+}
+#list-canvas {
+  padding:0;
+  select, .ui-selectmenu-button, .ui-selectmenu {
+    background: none;
+    -webkit-appearance: none;
+    width:250px;
+    background-image: url(/rg/img/select_arrow.png);
+    background-color: none;
+    border: none;
+    padding-left: 25px;
+    font-family: "open_sans_regular", sans-serif;
+    color: #74b164;
+    display: inline-block;
+    height: 70%;
+    vertical-align: middle;
+    font-weight: 700;
+    background-position: left .5em center;
+    background-repeat: no-repeat;
+    &:focus {
+      outline: none;
+    }
+    .ui-state-focus {
+      background:#333333;
+      color:white;
+    }
+  }
+  .ui-menu-item {
+    background:none!important;
+    outline: none;
+    color: white;
+    background-image: none;
+    &:focus, &:hover {
+      background: #333333!important;
+      outline: none;
+      color: white;
+      background-image: none;
+    }
+  }
+  select, button {
+    vertical-align: middle;
+    position: relative;
+    height: 70%;
+    display: inline-block;
+  }
+  button {
+    color: white;
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-left: 10px;
+    line-height: 100%;
   }
 }

@@ -44,6 +44,7 @@
                     }, 200);
                 }, 5000);
             </script>
+            @include('partials.footer')
         </footer>
 	</body>
 </html>
