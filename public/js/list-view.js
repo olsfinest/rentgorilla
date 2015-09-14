@@ -90,6 +90,8 @@ var count, currentPage, totalPages;
 
 function loadRentals(paginate, page) {
 
+
+
     $('#spinner').show();
 
     if(page === undefined) {
@@ -101,6 +103,7 @@ function loadRentals(paginate, page) {
     var data = $('#search').serializeArray();
     data.push({name: 'page', value: page});
     data.push({name: 'paginate', value: paginate});
+    data.push({name: 'sort', value: $("#sort-widget").val()});
 
     console.log(data);
 
@@ -113,6 +116,11 @@ function loadRentals(paginate, page) {
         } else {
             $('#list-canvas').html(data.rentals);
         }
+
+        $(".sort").selectmenu({
+            change: function( event, ui ) {
+               loadRentals();
+        }});
 
         count = data.count;
         currentPage = data.page;

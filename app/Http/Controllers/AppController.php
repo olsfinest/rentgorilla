@@ -11,6 +11,7 @@ use RentGorilla\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use RentGorilla\Repositories\RentalRepository;
+use Log;
 
 class AppController extends Controller {
 
@@ -94,6 +95,10 @@ class AppController extends Controller {
             Session::put($key, $value);
         }
 
+        if(Input::get('sort')) {
+            Session::put('sort', Input::get('sort'));
+        }
+
         $page = (int) Input::get('page', 1);
 
         $paginate = (boolean) Input::get('paginate');
@@ -102,7 +107,7 @@ class AppController extends Controller {
 
         $location = $this->locationRepository->fetchBySlug($location);
 
-        $rentals = $this->rentalRepository->search($page, $paginate, $location->id, $type, $availability, $beds, $price);
+        $rentals = $this->rentalRepository->search($page, $paginate, $location->id, $type, $availability, $beds, $price, session('sort'));
 
         if( $rentals['results']->count()) {
             event(new SearchWasInitiated( $rentals['results']->lists('id')->all()));
@@ -138,6 +143,7 @@ class AppController extends Controller {
         Session::forget('availability');
         Session::forget('beds');
         Session::forget('price');
+        Session::forget('sort');
 
         return redirect()->back();
     }

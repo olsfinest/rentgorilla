@@ -148,7 +148,7 @@ class SubscriptionController extends Controller {
 
         $this->mailer->sendSubscriptionBegun(Auth::user(), $isDowngrade);
 
-        Log::info('Subscription begun', ['user_id' => Auth::id()]);
+        Log::info('Subscription begun', ['user_id' => Auth::id(), 'plan' => $plan_id]);
 
         if($isDowngrade) {
             return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $plan->maximumListings());

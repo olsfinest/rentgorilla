@@ -81,13 +81,18 @@ class EloquentRentalRepository implements RentalRepository
 
     }
 
-    public function search($page = 1, $paginate = false, $location_id = null, $type = null, $availability = null, $beds = null, $price = null)
+    public function search($page = 1, $paginate = false, $location_id = null, $type = null, $availability = null, $beds = null, $price = null, $sort = null)
     {
         $count = $this->baseSearch(false, $location_id, $type, $availability, $beds, $price)->count();
 
         $totalPages = ceil($count / Rental::RESULTS_PER_PAGE);
 
-        $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy('available_at');
+        if($sort) {
+            $sort = getSortComponents($sort);
+            $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy($sort[0], $sort[1]);
+        } else {
+            $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy('available_at');
+        }
 
         if($paginate) {
             $offset = ($page - 1) * Rental::RESULTS_PER_PAGE;
@@ -105,11 +110,16 @@ class EloquentRentalRepository implements RentalRepository
         return compact('count', 'results', 'page', 'totalPages');
     }
 
-    public function uuids($location_id = null, $type = null, $availability = null, $beds = null, $price = null)
+    public function uuids($location_id = null, $type = null, $availability = null, $beds = null, $price = null, $sort = null)
     {
         $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price);
 
-        $query->orderBy('promoted', 'desc')->orderBy('available_at');
+        if($sort) {
+            $sort = getSortComponents($sort);
+            $query->orderBy('promoted', 'desc')->orderBy($sort[0], $sort[1]);
+        } else {
+            $query->orderBy('promoted', 'desc')->orderBy('available_at');
+        }
 
         return $query->lists('uuid')->all();
     }

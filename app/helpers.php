@@ -43,3 +43,14 @@ function  sort_users_by($column, $body)
     return $link . $icon;
 
 }
+
+function getSortComponents($sort)
+{
+    $sortArray = array_keys(Config::get('sort'));
+
+   if( ! in_array($sort, $sortArray)) {
+        $sort = $sortArray[0];
+   }
+
+   return explode('-', $sort);
+}

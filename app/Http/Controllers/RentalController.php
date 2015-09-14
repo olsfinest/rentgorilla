@@ -423,7 +423,7 @@ class RentalController extends Controller {
     {
         $photoIds = Input::get('photoIds');
 
-        if( ! $photoIds)
+        if(empty($photoIds))
         {
             return response()->json(['message' => 'No input given'], 422);
 

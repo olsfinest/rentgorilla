@@ -5,8 +5,8 @@ use RentGorilla\User;
 
 interface RentalRepository
 {
-    public function search($page, $paginate, $location_id, $type, $availability, $beds, $price);
-    public function uuids($location_id, $type, $availability, $beds, $price);
+    public function search($page, $paginate, $location_id, $type, $availability, $beds, $price, $sort);
+    public function uuids($location_id, $type, $availability, $beds, $price, $sort);
     public function geographicSearch($north, $south, $west, $east, $type = null, $availability = null, $beds = null, $price = null);
     public function getRentalsByIds(array $ids);
     public function getRentalsForUser(User $user);
