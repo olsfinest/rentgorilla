@@ -873,6 +873,7 @@ ul#items {
   ul.ui-menu, .ui-front {
     border: none!important;
     z-index: 9999!important;
+    // width:100%;
   }
 }
 .filter label .select2-container .select2-choice .select2-arrow {
@@ -1236,49 +1237,55 @@ img {
 .view_switcher {
   float: right;
   position: absolute;
-  top: 6px;
+  top: 0px;
   right: 0;
   height: 46px;
+  line-height: 46px;
+  color:white;
   z-index: 9000;
-  line-height: 32px;
+  ul {
+    height: 100%;
+    text-align: center;
+    width: 250px;
+    padding: 0;
+    list-style: none;
+    li {
+      display: inline-block;
+      width: calc(50% - 10px);
+      margin: 0 0 0 5px;
+      position:relative;
+      height: 70%;
+      font-family: FontAwesome;
+      &:before {
+        position: absolute;
+        top: 9px;
+        left: 53%;
+        margin-left:-.5em;
+      }
+      a {
+        display: block;
+        font-family: "open_sans_regular", sans-serif;
+        border-radius: 8px;
+        height: 100%;
+        background: white;
+        color: #74b164;
+        text-decoration: none;
+      }
+    }
+  }
+  .ui-selectmenu-button {
+    background:$brown;
+    border:none;
+    position:relative;
+    top:7px;
+    float:right;
+    margin-left:10px;
+    color:white;
+  }
 }
-/* line 1548, style.scss */
-.view_switcher ul {
-  height: 100%;
-  text-align: center;
-  width: 250px;
-  padding: 0;
-  list-style: none;
+.ui-state-default .ui-icon-white {
+  background-image:url(../img/ui-icons_ffffff_256x240.png);
 }
-/* line 1554, style.scss */
-.view_switcher ul li {
-  display: inline-block;
-  width: calc(50% - 10px);
-  margin: 0 0 0 5px;
-  position:relative;
-  height: 70%;
-  font-family: FontAwesome;
-}
-/* line 1560, style.scss */
-.view_switcher ul li:before {
-  /*float: left;*/
-  position: absolute;
-  top: 9px;
-  left: 53%;
-  margin-left:-.5em;
-  /*margin: 5px 0 0 5px;*/
-}
-/* line 1565, style.scss */
-.view_switcher ul li a {
-  display: block;
-  font-family: "open_sans_regular", sans-serif;
-  border-radius: 8px;
-  height: 100%;
-  background: white;
-  color: #74b164;
-  text-decoration: none;
-}
-
 /* curran wrote this */
 
 #like {
@@ -2151,8 +2158,16 @@ aside.my_properties {
 		text-decoration:none;
 	}
 }
-#sort-widget-button {
-  float:right;
+#list-canvas {
+  #sort-widget-button {
+    float:right;
+    padding:0;
+    margin:0;
+    text-align:right;
+    background:$green;
+    color:white;
+  }
+  
 }
 #sort-widget-menu {
   .ui-state-focus {

@@ -43,6 +43,9 @@
                         $('.eyes').toggleClass('blink')
                     }, 200);
                 }, 5000);
+                $(window).load(function(){
+                    $('.view_switcher span.ui-icon.ui-icon-arrowthick-1-s').addClass('ui-icon-white');
+                });
             </script>
             @include('partials.footer')
         </footer>

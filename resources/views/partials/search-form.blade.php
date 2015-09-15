@@ -16,9 +16,10 @@
     <button type="submit">Clear All</button>
     <img id="spinner" src="/img/ajax-loader.gif">
     <div class="view_switcher">
-        <ul>
-            <li><a href="/list"><i class="fa fa-list"></i> List</a></li>
-            <li><a href="/map"><i class="fa fa-map-marker"></i> Map</a></li>
-        </ul>
+        View 
+        <select class="selectmenu" name="" id="" onchange="if (this.value) window.location.href=this.value">
+            <option value="/list">List</option>
+            <option value="/map">Map</option>
+        </select>
     </div>
 {!! Form::close() !!}

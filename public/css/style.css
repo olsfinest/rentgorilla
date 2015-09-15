@@ -1124,47 +1124,49 @@ img {
 .view_switcher {
   float: right;
   position: absolute;
-  top: 6px;
+  top: 0px;
   right: 0;
   height: 46px;
-  z-index: 9000;
-  line-height: 32px; }
+  line-height: 46px;
+  color: white;
+  z-index: 9000; }
+  .view_switcher ul {
+    height: 100%;
+    text-align: center;
+    width: 250px;
+    padding: 0;
+    list-style: none; }
+    .view_switcher ul li {
+      display: inline-block;
+      width: calc(50% - 10px);
+      margin: 0 0 0 5px;
+      position: relative;
+      height: 70%;
+      font-family: FontAwesome; }
+      .view_switcher ul li:before {
+        position: absolute;
+        top: 9px;
+        left: 53%;
+        margin-left: -.5em; }
+      .view_switcher ul li a {
+        display: block;
+        font-family: "open_sans_regular", sans-serif;
+        border-radius: 8px;
+        height: 100%;
+        background: white;
+        color: #74b164;
+        text-decoration: none; }
+  .view_switcher .ui-selectmenu-button {
+    background: #7A694B;
+    border: none;
+    position: relative;
+    top: 7px;
+    float: right;
+    margin-left: 10px;
+    color: white; }
 
-/* line 1548, style.scss */
-.view_switcher ul {
-  height: 100%;
-  text-align: center;
-  width: 250px;
-  padding: 0;
-  list-style: none; }
-
-/* line 1554, style.scss */
-.view_switcher ul li {
-  display: inline-block;
-  width: calc(50% - 10px);
-  margin: 0 0 0 5px;
-  position: relative;
-  height: 70%;
-  font-family: FontAwesome; }
-
-/* line 1560, style.scss */
-.view_switcher ul li:before {
-  /*float: left;*/
-  position: absolute;
-  top: 9px;
-  left: 53%;
-  margin-left: -.5em;
-  /*margin: 5px 0 0 5px;*/ }
-
-/* line 1565, style.scss */
-.view_switcher ul li a {
-  display: block;
-  font-family: "open_sans_regular", sans-serif;
-  border-radius: 8px;
-  height: 100%;
-  background: white;
-  color: #74b164;
-  text-decoration: none; }
+.ui-state-default .ui-icon-white {
+  background-image: url(../img/ui-icons_ffffff_256x240.png); }
 
 /* curran wrote this */
 #like {
@@ -1966,8 +1968,13 @@ aside.my_properties h3:first-child {
   color: inherit;
   text-decoration: none; }
 
-#sort-widget-button {
-  float: right; }
+#list-canvas #sort-widget-button {
+  float: right;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+  background: #74B164;
+  color: white; }
 
 #sort-widget-menu .ui-state-focus {
   background: #333333;

@@ -165,29 +165,27 @@ function loadRentals() {
 }
 
 $(document).ready(function() {
- // TODO: Talk to Matt about this
+    // TODO: Talk to Matt about this
     // if larger than the 772px breakpoint, set map to 100% of viewport, minus the height of the header
-   if ($(window).width() > 772) {
+    if ($(window).width() > 772) {
         resizeMap();
-   }
+    }
     window.onresize = function(event) {
-      resizeMap();
+        resizeMap();
     }    
     function resizeMap() {
-      vpw = $(window).width();
-      vph = $(window).height() - 111;
-      $('#map-canvas').css({'height': vph + 'px'});
+        vpw = $(window).width();
+        vph = $(window).height() - 111;
+        $('#map-canvas').css({'height': vph + 'px'});
     }
-
-   $('#spinner').hide();
-
+    $('#spinner').hide();
     $(".selectmenu").selectmenu({
         change: function( event, ui ) {
             loadRentals();
         },
         appendTo:".filter",
-        icons:{button:"ui-icon-arrowthick-1-s"}});
-
+        icons:{button:"ui-icon-arrowthick-1-s"}}
+    );
     $('#location').select2({
         placeholder: 'City',
         minimumInputLength: 3,
