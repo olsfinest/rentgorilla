@@ -15,11 +15,11 @@
     @endforeach
     <button type="submit">Clear All</button>
     <img id="spinner" src="/img/ajax-loader.gif">
+{!! Form::close() !!}
     <div class="view_switcher">
         View 
-        <select class="selectmenu" name="" id="" onchange="if (this.value) window.location.href=this.value">
-            <option value="/list">List</option>
-            <option value="/map">Map</option>
+        <select class="options" name="" id="">
+            <option value="/list" {{ (Request::is('list') || Request::is('list/*')) ? 'selected' : '' }}>List</option>
+            <option value="/map" {{ (Request::is('map') || Request::is('map/*')) ? 'selected' : '' }}>Map</option>
         </select>
     </div>
-{!! Form::close() !!}

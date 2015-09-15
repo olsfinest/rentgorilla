@@ -15,5 +15,5 @@
         <script type="text/javascript" src="/js/infobox.js"></script>
         <script type="text/javascript" src="/js/markerclusterer.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
-        <script type="text/javascript" src="/js/map-view.js"></script>
+        <script type="text/javascript" src="/js/map-view.js?v=1"></script>
 @endsection

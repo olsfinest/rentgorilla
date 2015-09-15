@@ -46,6 +46,12 @@ $(document).ready(function() {
         appendTo:".filter",
         icons:{button:"ui-icon-arrowthick-1-s"}});
 
+    $('.options').selectmenu({
+        change: function (event, ui) {
+            window.location.href = ui.item.value;
+        }
+    });
+
 
     $('#location').select2({
         placeholder: 'City',

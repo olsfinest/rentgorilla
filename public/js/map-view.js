@@ -211,6 +211,12 @@ $(document).ready(function() {
     initialize();
     map.set('disableDoubleClickZoom', true);
 
+    $('.options').selectmenu({
+        change: function (event, ui) {
+            window.location.href = ui.item.value;
+        }
+    });
+
 });
 // Disable mousewheel and dragging while mousing over the infowindow
 $(document).on("mouseenter", ".hits", function(){
