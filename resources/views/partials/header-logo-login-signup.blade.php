@@ -1,6 +1,6 @@
 <header>
     <section class="main">
-        <a title="RentGorilla... move on up." class="home" href="/">RentGorilla<small>Move on up</small>
+        <a title="RentGorilla... move on up." class="home" href="/">RentGorilla
             <span class="eyes" title="Did you know that gorillas blink approximately 30 times per minute? That's once every 2 seconds!">
                 <span class="eye left"></span>
                 <span class="eye right"></span>

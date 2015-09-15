@@ -2,8 +2,12 @@
 @section('content')
         @include('partials.header')
         <section class="filter">
-            @include('partials.search-form')
-            <div class="cf"></div>
+            <section class="main">
+                <section class="content full">
+                    @include('partials.search-form')
+                    <div class="cf"></div>
+                </section>
+            </section>
         </section>
         <section class="main">
 	        <div id="map-canvas" class="view active"></div>
