@@ -5,7 +5,8 @@
 @stop
 @section('content')
     <section class="content full admin">
-        <h1>Search Users</h1>
+
+        <h1>Search By Email</h1>
         <p>Use this form to search for a user by email. Submitting the form will log you into that account.</p>
         @include('errors.error-list')
         {!! Form::open() !!}
@@ -13,7 +14,17 @@
         {!! Form::submit('Become') !!}
         {!! Form::close() !!}
 
-<hr>
+        <hr>
+        <h1>Search By Address</h1>
+        <p>Use this form to search for a user by property address. Submitting the form will log you into that account.</p>
+        @include('errors.error-list')
+        {!! Form::open() !!}
+        <select name="user_id" id="address" style=""></select>
+        {!! Form::submit('Become') !!}
+        {!! Form::close() !!}
+
+        <hr>
+
         <h1>All Users ({{ $users->total() }})</h1>
         <table class="users" width="100%">
             <thead>
@@ -57,6 +68,26 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
 <script language="JavaScript" type="text/javascript">
+
+    $('#address').select2({
+        minimumInputLength: 3,
+        placeholder: 'Address',
+        ajax: {
+            type: 'POST',
+            url: '/address-search',
+            dataType: 'json',
+            data: function (term, page) {
+                return {
+                    address: term
+                };
+            },
+            processResults: function (data, page) {
+                return {results: data};
+            }
+        }
+    });
+
+
     $('#user_id').select2({
         minimumInputLength: 3,
         placeholder: 'Email',
@@ -74,5 +105,6 @@
             }
         }
     });
+
 </script>
 @stop

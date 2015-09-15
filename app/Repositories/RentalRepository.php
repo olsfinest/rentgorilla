@@ -32,4 +32,5 @@ interface RentalRepository
     public function incrementPhoneClick(Rental $rental);
     public function updateSearchViews($rentalIds);
     public function updateEditedAt(Rental $rental);
+    public function addressSearch($address);
 }

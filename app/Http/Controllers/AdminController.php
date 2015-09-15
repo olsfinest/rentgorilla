@@ -11,6 +11,7 @@ use Auth;
 use RentGorilla\Http\Requests\LoginAsUserRequest;
 use RentGorilla\Http\Requests\SendActivationRequest;
 use RentGorilla\Repositories\PhotoRepository;
+use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Repositories\UserRepository;
 use Input;
 
@@ -21,11 +22,16 @@ class AdminController extends Controller {
      * @var UserRepository
      */
     protected $userRepository;
+    /**
+     * @var RentalRepository
+     */
+    protected $rentalRepository;
 
-    function __construct(UserRepository $userRepository)
+    function __construct(UserRepository $userRepository, RentalRepository $rentalRepository)
     {
         $this->middleware('admin');
         $this->userRepository = $userRepository;
+        $this->rentalRepository = $rentalRepository;
     }
 
     public function showCreateNewUser()
@@ -66,6 +72,13 @@ class AdminController extends Controller {
         $email = Input::get('email');
 
         return $this->userRepository->emailSearch($email['term']);
+    }
+
+    public function searchAddress()
+    {
+        $address = Input::get('address');
+
+        return $this->rentalRepository->addressSearch($address['term']);
     }
 
     public function loginAsUser(LoginAsUserRequest $request)

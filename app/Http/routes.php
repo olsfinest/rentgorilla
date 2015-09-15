@@ -103,6 +103,7 @@ $router->get('map-list', 'AppController@getRentalListForMap');
 $router->get('location-list', 'AppController@getLocations');
 
 $router->post('email-search', 'AdminController@searchUsers');
+$router->post('address-search', 'AdminController@searchAddress');
 
 $router->post('like', 'LikesController@toggleLike');
 

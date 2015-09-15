@@ -296,4 +296,12 @@ class EloquentRentalRepository implements RentalRepository
 
         return $rental->save();
     }
+
+    public function addressSearch($address)
+    {
+        return Rental::join('locations', 'locations.id', '=', 'rentals.location_id')
+            ->select([ DB::raw('concat(street_address, " (", city, ")") as text'), DB::raw('user_id as id')])
+            ->where('street_address', 'like', "%$address%")
+            ->get();
+    }
 }
