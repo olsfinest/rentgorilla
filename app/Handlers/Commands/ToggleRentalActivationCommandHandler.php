@@ -44,7 +44,7 @@ class ToggleRentalActivationCommandHandler
             if($rental->user->canActivateRental())
             {
                 $this->rentalRepository->activate($rental);
-                Log::info('activated rental in repo');
+                Log::info('activated rental in toggleRentalActive repo id ' . $rental->id);
                 return true;
             }
 

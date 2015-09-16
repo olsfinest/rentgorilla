@@ -169,6 +169,8 @@ class EloquentRentalRepository implements RentalRepository
         $rental->active = 1;
         $rental->activated_at = Carbon::now();
 
+        Log::info('activating ' . $rental->id . ' in repo');
+
         return $rental->save();
     }
 
