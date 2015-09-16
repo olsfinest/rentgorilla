@@ -17,9 +17,8 @@
     <img id="spinner" src="/img/ajax-loader.gif">
 {!! Form::close() !!}
     <div class="view_switcher">
-        View 
         <select class="options" name="" id="">
-            <option value="/list" {{ (Request::is('list') || Request::is('list/*')) ? 'selected' : '' }}>List</option>
-            <option value="/map" {{ (Request::is('map') || Request::is('map/*')) ? 'selected' : '' }}>Map</option>
+            <option value="/list" {{ (Request::is('list') || Request::is('list/*')) ? 'selected' : '' }}>List View</option>
+            <option value="/map" {{ (Request::is('map') || Request::is('map/*')) ? 'selected' : '' }}>Map View</option>
         </select>
     </div>

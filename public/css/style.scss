@@ -1247,14 +1247,16 @@ img {
 }
 .view_switcher {
   float: right;
-  // position: absolute;
   top: 0px;
+  // width:240px;
   right: 0;
-  text-align:right;
+  // text-align:right;
   height: 46px;
   line-height: 46px;
+  vertical-align: top;
   color:white;
   z-index: 9000;
+  // white-space:nowrap;
   ul {
     height: 100%;
     text-align: center;
@@ -1285,12 +1287,16 @@ img {
       }
     }
   }
+  select {
+    visibility:hidden;
+  }
   .ui-selectmenu-button {
     background:$brown;
     border:none;
+    display:inline;
     position:relative;
     top:7px;
-    width:80px!important;
+    width:120px!important;
     font-weight:bold;
     padding:4px 8px 4px 4px;
     font-size:1em;
@@ -1444,6 +1450,16 @@ span.eyes.blink .eye {
 .toastWarning:hover .fa-close {
     color: #9a7913;
 }
+#list-canvas {
+  #sort-widget-button {
+    float:right;
+    padding:0;
+    margin:0;
+    text-align:right;
+    background:$green;
+    color:white;
+  }
+}
 @media only screen and (max-width: 65.5625em) {
   header {
     padding: 0 1em;
@@ -1521,6 +1537,11 @@ span.eyes.blink .eye {
       &:nth-child(4n+4) {
         margin:10px;
       }
+    }
+  }
+  #list-canvas {
+    #sort-widget-button {
+      margin:1em;
     }
   }
 }
@@ -2154,16 +2175,7 @@ aside.my_properties {
 		text-decoration:none;
 	}
 }
-#list-canvas {
-  #sort-widget-button {
-    float:right;
-    padding:0;
-    margin:0;
-    text-align:right;
-    background:$green;
-    color:white;
-  }
-}
+
 #sort-widget-menu {
   li.ui-state-focus {
     background:#333333;
