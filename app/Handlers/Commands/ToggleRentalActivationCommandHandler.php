@@ -4,6 +4,7 @@ use RentGorilla\Commands\ToggleRentalActivationCommand;
 use Illuminate\Queue\InteractsWithQueue;
 use Subscription;
 use RentGorilla\Repositories\RentalRepository;
+use Log;
 
 class ToggleRentalActivationCommandHandler
 {
@@ -33,6 +34,8 @@ class ToggleRentalActivationCommandHandler
 
             $this->rentalRepository->deactivate($rental);
 
+            Log::info('deactivated rental in repo');
+
             return false;
 
         } else {
@@ -41,9 +44,11 @@ class ToggleRentalActivationCommandHandler
             if($rental->user->canActivateRental())
             {
                 $this->rentalRepository->activate($rental);
-
+                Log::info('activated rental in repo');
                 return true;
             }
+
+            Log::info('sub needed');
 
             return self::SUBSCRIPTION_NEEDED;
 
