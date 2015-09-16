@@ -34,8 +34,6 @@ class ToggleRentalActivationCommandHandler
 
             $this->rentalRepository->deactivate($rental);
 
-            Log::info('deactivated rental in repo');
-
             return false;
 
         } else {
@@ -44,11 +42,8 @@ class ToggleRentalActivationCommandHandler
             if($rental->user->canActivateRental())
             {
                 $this->rentalRepository->activate($rental);
-                Log::info('activated rental in toggleRentalActive repo id ' . $rental->id);
                 return true;
             }
-
-            Log::info('sub needed');
 
             return self::SUBSCRIPTION_NEEDED;
 

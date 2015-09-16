@@ -155,7 +155,7 @@ class EloquentRentalRepository implements RentalRepository
 
     public function findByUUID($id)
     {
-        return Rental::where('uuid', $id)->firstOrFail();
+        return Rental::where(DB::raw('BINARY `uuid`'), $id)->firstOrFail();
     }
 
     public function findRentalForUser(User $user, $id)
@@ -165,11 +165,8 @@ class EloquentRentalRepository implements RentalRepository
 
     public function activate(Rental $rental)
     {
-
         $rental->active = 1;
         $rental->activated_at = Carbon::now();
-
-        Log::info('activating ' . $rental->id . ' in repo');
 
         return $rental->save();
     }
