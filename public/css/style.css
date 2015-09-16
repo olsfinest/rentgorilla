@@ -917,7 +917,8 @@ img {
 /* line 864, style.scss */
 .main .full {
   width: 995px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  max-width: 100%; }
 
 /* line 868, style.scss */
 .main form.contact {
@@ -969,7 +970,6 @@ img {
   font-weight: bold;
   transition: .1s; }
 
-/* line 908, style.scss */
 .main form.contact input[type="submit"]:hover {
   cursor: pointer;
   background: #7a694b;
@@ -988,6 +988,10 @@ img {
   margin: 0 auto;
   width: 995px;
   padding: .5em 0; }
+
+.listings h1.resultsNum {
+  float: left;
+  width: auto; }
 
 /* line 927, style.scss */
 .listings > ul {
@@ -1222,7 +1226,7 @@ span.eyes .eye {
   width: 4px;
   height: 4px;
   border-radius: 4px;
-  background: black;
+  background: #333;
   position: relative; }
 
 span.eyes .left {
@@ -1308,11 +1312,9 @@ span.eyes.blink .eye {
   color: #9a7913; }
 
 @media only screen and (max-width: 65.5625em) {
-  /* line 1080, style.scss */
   header {
     padding: 0 1em; }
 
-  /* line 1082, style.scss */
   header .main {
     width: 100%; }
 
@@ -1323,51 +1325,43 @@ span.eyes.blink .eye {
       display: inline-block;
       float: none; }
 
-  /* line 1086, style.scss */
   .filter {
     padding: 0 1em; }
+    .filter .main {
+      width: auto; }
+      .filter .main .full {
+        max-width: 100%; }
+    .filter form {
+      width: auto; }
 
-  /* line 1088, style.scss */
-  .filter form, .filter .main {
-    width: 100%; }
-
-  /* line 1092, style.scss */
   .listings {
     width: 100%;
     padding: 0; }
 
-  /* line 1095, style.scss */
   .listings h1 {
     width: 100%;
     padding: 0 1em;
-    text-align: center;
     margin: 1em 0; }
 
-  /* line 1101, style.scss */
   .listings > ul {
     text-align: center;
     width: 100%; }
 
-  /* line 1104, style.scss */
   .listings > ul > li {
     display: inline-block;
     float: none;
     width: 28%;
     margin: .5em; }
 
-  /* line 1110, style.scss */
   .listings > ul > li:nth-child(4n) {
     margin: .5em; }
 
-  /* line 1115, style.scss */
   .listings .images img {
     width: 100%; }
 
-  /* line 1120, style.scss */
   .locale {
     left: 0; }
 
-  /* line 1124, style.scss */
   .main > form {
     width: 90%;
     margin: 0 auto; }
@@ -1747,7 +1741,6 @@ div.pagination .previous:after {
   float: left;
   font-size: .7em; }
 
-/* line 1483, style.scss */
 ul.hits {
   list-style: none;
   margin: 0;
@@ -1758,58 +1751,45 @@ ul.hits {
   padding: 0;
   box-shadow: 0 0 20px dimGray;
   z-index: 9999; }
+  ul.hits li {
+    clear: left;
+    border-bottom: 1px solid #4a4a4a;
+    padding: 0;
+    height: 100px;
+    display: block;
+    position: relative;
+    margin: 0 !important;
+    width: 100%; }
+    ul.hits li:last-child {
+      border-bottom: none; }
+    ul.hits li:hover {
+      background: #f1f1f1; }
+    ul.hits li img {
+      margin-right: 20px;
+      height: 100%;
+      width: 150px; }
+    ul.hits li i {
+      color: #a1a1a1;
+      display: block;
+      font-style: normal;
+      font-size: 12px; }
+    ul.hits li a {
+      font-weight: 500;
+      text-decoration: none;
+      width: 100%;
+      margin: 0 !important;
+      display: inline-block;
+      padding: 0 !important;
+      color: #464646; }
+      ul.hits li a:hover {
+        text-decoration: none;
+        color: #464646; }
+    ul.hits li span {
+      font-size: 12px; }
 
-/* line 1493, style.scss */
-ul.hits li {
-  clear: left;
-  border-bottom: 1px solid #4a4a4a;
-  padding: 0;
-  height: 100px;
-  display: block;
-  position: relative;
-  width: 100%; }
-
-/* line 1501, style.scss */
-ul.hits li:last-child {
-  border-bottom: none; }
-
-/* line 1504, style.scss */
-ul.hits li:hover {
-  background: #f1f1f1; }
-
-/* line 1507, style.scss */
-ul.hits li img {
-  margin-right: 20px;
-  height: 100%;
-  width: auto; }
-
-/* line 1516, style.scss */
-ul.hits li i {
-  color: #a1a1a1;
-  display: block;
-  font-style: normal;
-  font-size: 12px; }
-
-/* line 1522, style.scss */
-ul.hits li a {
-  font-weight: 500;
-  text-decoration: none;
-  color: #464646; }
-
-/* line 1526, style.scss */
-ul.hits li a:hover {
-  text-decoration: none;
-  color: #464646; }
-
-/* line 1531, style.scss */
-ul.hits li span {
-  font-size: 12px; }
-
-/* line 1536, style.scss */
 ul.hits::-webkit-scrollbar {
   display: none; }
 
-/* line 1539, style.scss */
 @media screen and (max-width: 900px) {
   .toaster {
     left: 50%;
