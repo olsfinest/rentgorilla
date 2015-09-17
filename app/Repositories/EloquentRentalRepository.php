@@ -140,7 +140,7 @@ class EloquentRentalRepository implements RentalRepository
 
     public function getRentalsByIds(array $ids)
     {
-        return Rental::with('photos')->whereIn('uuid', $ids)->get();
+        return Rental::with('photos')->whereIn(DB::raw('BINARY `uuid`'), $ids)->get();
     }
 
     public function getRentalsForUser(User $user)
@@ -160,7 +160,7 @@ class EloquentRentalRepository implements RentalRepository
 
     public function findRentalForUser(User $user, $id)
     {
-        return Rental::where(['user_id' => $user->id, 'uuid' => $id])->firstOrFail();
+        return Rental::where(DB::raw('BINARY `uuid`'), $id)->where('user_id' , $user->id)->firstOrFail();
     }
 
     public function activate(Rental $rental)
