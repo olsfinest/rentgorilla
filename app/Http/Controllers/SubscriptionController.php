@@ -150,7 +150,7 @@ class SubscriptionController extends Controller {
 
         Log::info('Subscription begun', ['user_id' => Auth::id(), 'plan' => $plan_id]);
 
-        if($isDowngrade && $difference) {
+        if($isDowngrade && ! empty($difference)) {
             return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $plan->maximumListings());
         } else {
             return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun!');
@@ -216,7 +216,7 @@ class SubscriptionController extends Controller {
 
         Log::info('Subscription swapped', ['user_id' => Auth::id(), 'new_plan' => $newPlan->id(), 'old_plan' =>  $plan->id()]);
 
-        if($isDowngrade && $difference) {
+        if($isDowngrade && ! empty($difference)) {
             return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription plan has been changed! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $newPlan->maximumListings());
         } else {
             return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has been changed!');

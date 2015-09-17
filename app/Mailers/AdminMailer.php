@@ -1,7 +1,6 @@
 <?php namespace RentGorilla\Mailers;
 
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Mail\Mailer;
 use RentGorilla\User;
 
 class AdminMailer {
@@ -10,10 +9,9 @@ class AdminMailer {
 
     protected $mailer;
 
-    public function __construct(Repository $config, Mailer $mailer)
+    public function __construct(Repository $config)
     {
         $this->adminEmail = $config->get('mail.admin');
-        $this->mailer = $mailer;
     }
 
 
@@ -21,7 +19,7 @@ class AdminMailer {
     {
         $to = $this->adminEmail;
 
-        $this->mailer->queue($view, $data, function($message) use ($to, $subject)
+        \Mail::queue($view, $data, function($message) use ($to, $subject)
         {
             $message->to($to)->subject($subject);
         });
@@ -31,7 +29,7 @@ class AdminMailer {
     {
         $to = $this->adminEmail;
 
-        $this->mailer->queue($view, $data, function($message) use ($to, $subject, $email, $name)
+        \Mail::queue($view, $data, function($message) use ($to, $subject, $email, $name)
         {
             $message->to($to)->subject($subject)->replyTo($email, $name);
         });
