@@ -2193,6 +2193,6 @@ footer {
   max-width: 680px; }
 
 .select2-container .select2-selection--single {
-  height: auto; }
+  height: auto !important; }
 
 /*# sourceMappingURL=style.css.map */
