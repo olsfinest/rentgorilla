@@ -2455,6 +2455,6 @@ footer {
   max-width:680px;
 }
 // adjusting the height of the inputs on the search users page (admin facing)
-.select2-container .select2-selection--single {
-  height:auto!important;
+.admin .select2-container .select2-selection--single {
+  // height:auto!important;
 }
