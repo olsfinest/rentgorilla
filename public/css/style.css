@@ -2192,4 +2192,7 @@ footer {
   margin-top: -38px;
   max-width: 680px; }
 
+.admin .select2-container .select2-selection--single {
+  height: auto !important; }
+
 /*# sourceMappingURL=style.css.map */
