@@ -37,7 +37,7 @@
         </p>
         <div class="cf"></div>
     </section>
-</section>
+</section> 
 <section class="main simple">
     <section class="content full">
         <h1>Simple</h1>
@@ -90,6 +90,9 @@
                 $('.searchMode li').removeClass('selected');
                 $(this).addClass('selected');
             });
+        });
+        $(window).load(function(){
+            $('body').addClass('home');
         });
     </script>
 @endsection

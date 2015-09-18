@@ -762,6 +762,8 @@ ul#items {
     background-image: none; }
     .filter .ui-selectmenu-button span.ui-selectmenu-text {
       padding: 0; }
+  .filter .select2-dropdown {
+    z-index: 9999; }
   .filter button {
     padding: .475em;
     position: relative;
@@ -1967,9 +1969,11 @@ aside.my_properties h3:first-child {
   color: inherit;
   text-decoration: none; }
 
-#sort-widget-menu li.ui-state-focus {
-  background: #333333;
-  color: white; }
+#sort-widget-menu {
+  z-index: 9999; }
+  #sort-widget-menu li.ui-state-focus {
+    background: #333333;
+    color: white; }
 
 li.ui-state-focus {
   background: #333333 !important;
@@ -2183,5 +2187,9 @@ footer {
     font-size: 1.1em;
     margin-left: 10px;
     line-height: 100%; }
+
+.home span.select2-dropdown {
+  margin-top: -38px;
+  max-width: 680px; }
 
 /*# sourceMappingURL=style.css.map */
