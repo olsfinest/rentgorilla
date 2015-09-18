@@ -2449,7 +2449,12 @@ footer {
     line-height: 100%;
   }
 }
+// moving the city search box on home page
 .home span.select2-dropdown {
   margin-top:-38px;
   max-width:680px;
+}
+// adjusting the height of the inputs on the search users page (admin facing)
+.select2-container .select2-selection--single {
+  height:auto;
 }
