@@ -1,0 +1,151 @@
+// 772px
+body {
+    overflow-y: auto;
+  }
+  .filter_toggle {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    width: 32px;
+    height: 32px;
+    padding: .5em;
+    text-align: center;
+    color: #333333;
+    background: #74b164;
+    left: 270px;
+  }
+  .filter_toggle.active {
+    background: #74b164;
+    color: white;
+  }
+  .filter {
+    display: none;
+    height: auto;
+    .main {
+      padding-bottom:1em;
+    }
+  }
+  .filter label[for="location"] {
+    display: block;
+    width:96%;
+    position:relative;
+    top:10px;
+    margin:0 auto;
+    padding-bottom: .5em;
+  }
+  .filter label[for="location"] input {
+    border: none;
+    width: 100%;
+    border-radius: 4px;
+  }
+  .filter button[type="submit"] {
+    width:96%;
+    margin:.5em auto 0 auto;
+    display:block;
+    float:none;
+    clear:both;
+  }
+  .filter label.arrows {
+    width: 50%;
+    float: left;
+    padding: .5em;
+  }
+  .filter #location {
+    vertical-align: top;
+  }
+  .filter label.arrows .ui-selectmenu-button {
+    width: 100%!important;
+  }
+  .filter label[for="view_button-button"] {
+    display: none;
+  }
+  header {
+    padding: .5em;
+    height: auto;
+  }
+  header .home {
+    display: inline-block;
+    max-height: 100%;
+    top: 0;
+    position: relative;
+  }
+  header .main {
+    height: auto;
+    max-height: 100%;
+  }
+  header .user_actions {
+    float: right;
+    display: block;
+  }
+  header .user_actions select, header .user_actions .ui-selectmenu-button {
+    display: none;
+  }
+  .listings > ul > li {
+    width: 30%;
+    margin: .5em;
+  }
+  .listings > ul > li:nth-child(4n) {
+    margin: .5em;
+  }
+  .listing_overview {
+    max-width: 90%;
+    margin: 0 auto 1em auto;
+    position: relative;
+  }
+  .listing_overview img {
+    max-width: 100%;
+  }
+  .listing_meta {
+    height: auto;
+  }
+  .listing_meta h1 {
+    font-size: 1.3em;
+  }
+  .gorilla {
+    form, label {
+      max-width: 100%;
+    }
+  }
+  .home {
+    .select2-dropdown {
+      // width:calc(100% - 40px)!important;
+    }
+  }
+  .promofree, .zerorisk, .simple {
+    height:auto!important;
+    .content.full {
+      height:auto!important;
+      h1, p {
+        float:none;
+        text-align:center;
+        display:block;
+        width:100%;
+        max-width:100%;
+        margin:0;
+      }
+      h1 {
+        line-height:1.2;
+        height:auto;
+        small {
+          position:relative;
+          top:0;
+          text-align:center;
+          display:block;
+        }
+      }
+      p {
+        margin-bottom:1em;
+      }
+    }
+  }
+  .promofree {
+
+  }
+  .zerorisk {
+
+  }
+  .simple {
+
+  }
+  .select2-container {
+  }

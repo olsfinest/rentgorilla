@@ -1,0 +1,35 @@
+// 927px
+#map-canvas, #chart {
+  display: none;
+}
+.filter form {
+  height: auto;
+}
+.filter label[for="view_button-button"] {
+  margin-top: .5em;
+  clear: both;
+  height: auto;
+}
+.listings {
+  overflow-y: visible;
+  display: block;
+}
+.listing_nav .main {
+  width: 90%;
+}
+.content.full {
+  width: 90%;
+  margin: 0 auto;
+}
+.content.full .listing_details {
+  float: none;
+  width: 100%;
+  margin: 0 auto 1em auto;
+}
+.content.full .listing_details .listing_overview {
+  margin: 0 auto 1em auto;
+}
+.content.full .listing_sidebar {
+  margin: 0 auto 1em auto;
+  width: 100%;
+}

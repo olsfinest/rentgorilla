@@ -1,0 +1,84 @@
+// 1049px
+header {
+    padding: 0 1em;
+  }
+  header .main {
+    width: 100%;
+  }
+  .admin_nav {
+    ul {
+      max-width:100%;
+      text-align:center;
+      li {
+        display:inline-block;
+        float:none;
+      }
+    }
+  }
+  .filter {
+    padding:0 1em;
+    .main {
+      width:auto;
+      .full {
+        max-width:100%;
+      }
+    }
+    form {
+      width:auto;
+    }
+  }
+  .listings {
+    width: 100%;
+    padding: 0;
+  }
+  .listings h1 {
+    width: 100%;
+    padding: 0 1em;
+    // text-align: center;
+    margin: 1em 0;
+  }
+  .listings > ul {
+    text-align: center;
+    width: 100%;
+  }
+  .listings > ul > li {
+    display: inline-block;
+    float: none;
+    width: 28%;
+    margin: .5em;
+  }
+  .listings > ul > li:nth-child(4n) {
+    margin: .5em;
+  }
+  .listings .images img {
+    width: 100%;
+  }
+  .locale {
+    left: 0;
+  }
+  .main > form {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .dropzone {
+    max-width:100%;
+  }
+  ul#items {
+    max-width:100%;
+    margin:0;
+    padding:0;
+    text-align:center;
+    li {
+      display:inline-block;
+      float:none;
+      margin:10px;
+      &:nth-child(4n+4) {
+        margin:10px;
+      }
+    }
+  }
+  #list-canvas {
+    #sort-widget-button {
+      margin:1em;
+    }
+  }

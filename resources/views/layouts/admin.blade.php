@@ -51,7 +51,6 @@
         jQuery('.fa-question-circle').tooltip({
             position: { my: "bottom", at: "left center" }
         });
-
         setInterval(function(){
             $('.eyes').toggleClass('blink');
             setTimeout(function(){

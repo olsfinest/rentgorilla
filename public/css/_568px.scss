@@ -1,0 +1,27 @@
+// 568px
+header .home {
+    display: inline-block;
+    width: 60px;
+  }
+  header .user_actions {
+    float: right;
+    width: 66%;
+    height: 100%;
+    button, .list_property, .login, .sign_up {
+      float: right;
+      top: 12px;
+      margin-right: 10px;
+    }
+  }
+  header .user_actions:after {
+    content: ' ';
+    display: block;
+    width: 100%;
+    height: 0;
+    clear: both;
+  }
+  #map-canvas {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+  }
