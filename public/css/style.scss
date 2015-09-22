@@ -1136,6 +1136,7 @@ ul#items {
   height: 158px;
   width: 100%;
   overflow: hidden;
+  z-index:5000;
 }
 .listings .images img {
   min-height: 100%;
@@ -1735,6 +1736,7 @@ aside.my_properties {
 #rental-list {
 	a {
 		color:inherit;
+    z-index:9999;
     display:block;
 		text-decoration:none;
 	}

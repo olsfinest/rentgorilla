@@ -1001,7 +1001,8 @@ ul#items {
   margin-bottom: 0;
   height: 158px;
   width: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: 5000; }
 
 .listings .images img {
   min-height: 100%; }
@@ -1897,6 +1898,7 @@ aside.my_properties h3:first-child {
 
 #rental-list a {
   color: inherit;
+  z-index: 9999;
   display: block;
   text-decoration: none; }
 
