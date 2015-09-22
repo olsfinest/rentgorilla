@@ -32,4 +32,7 @@
         			<!-- Custom JavaScript -->
         			<!-- <script type="text/javascript" src="/js/min/custom.min.js"></script> -->
         			<script type="text/javascript" src="/js/list-view.js?v=2"></script>
+                    <script>
+                        $(".images").prop("disabled", true);
+                    </script>
 @endsection
