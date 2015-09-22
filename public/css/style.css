@@ -1438,7 +1438,8 @@ span.eyes.blink .eye {
     text-align: center;
     color: #333333;
     background: #74b164;
-    left: 270px; }
+    left: 270px;
+    z-index: 9000; }
 
   .filter_toggle.active {
     background: #74b164;
