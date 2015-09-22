@@ -1897,6 +1897,7 @@ aside.my_properties h3:first-child {
 
 #rental-list a {
   color: inherit;
+  display: block;
   text-decoration: none; }
 
 #sort-widget-menu {
