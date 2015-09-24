@@ -13,9 +13,9 @@ class MailChimpMailingList implements MailingList
      */
     protected $mailchimp;
 
-    public function __construct(Mailchimp $mailchimp)
+    public function __construct()
     {
-        $this->mailchimp = $mailchimp;
+        $this->mailchimp = new Mailchimp(config('mailchimp.apikey'));
     }
 
     public function addUserToList(User $user)
