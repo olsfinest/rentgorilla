@@ -1,6 +1,7 @@
 <?php namespace RentGorilla\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use RentGorilla\Events\UserHasConfirmed;
 use RentGorilla\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Contracts\Auth\Guard;
@@ -102,8 +103,14 @@ class PasswordController extends Controller {
 
         $response = Password::reset($credentials, function ($user, $password) {
             $user->password = bcrypt($password);
-            $user->confirmed = 1;
             $user->save();
+
+            //confirm unconfirmed user
+            if( ! $user->confirmed) {
+                $user->confirmed = 1;
+                $user->save();
+                event(new UserHasConfirmed($user));
+            }
 
             Auth::login($user);
         });

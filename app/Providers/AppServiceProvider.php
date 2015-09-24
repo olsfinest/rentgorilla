@@ -95,6 +95,18 @@ class AppServiceProvider extends ServiceProvider {
             'RentGorilla\Repositories\EloquentAppliancesRepository'
         );
 
+        $this->app->bind(
+            'RentGorilla\MailingList\MailingList',
+            'RentGorilla\MailingList\MailChimpMailingList'
+        );
+
+        $this->app->bind('Mailchimp\Mailchimp', function ($app) {
+
+            $config = $app['config']['mailchimp'];
+
+            return new \Mailchimp\Mailchimp($config['apikey']);
+        });
+
 	}
 
 }

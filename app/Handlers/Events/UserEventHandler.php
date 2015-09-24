@@ -1,17 +1,24 @@
 <?php namespace RentGorilla\Handlers\Events;
 
+use RentGorilla\Events\UserHasBeenDeleted;
 use RentGorilla\Events\UserHasConfirmed;
 use RentGorilla\Events\UserHasRegistered;
 use RentGorilla\Mailers\UserMailer;
 use Log;
+use RentGorilla\MailingList\MailingList;
 
 class UserEventHandler {
 
     protected $userMailer;
+    /**
+     * @var MailingList
+     */
+    protected $mailingList;
 
-    function __construct(UserMailer $userMailer)
+    function __construct(UserMailer $userMailer, MailingList $mailingList)
     {
         $this->userMailer = $userMailer;
+        $this->mailingList = $mailingList;
     }
 
     public function onUserHasRegistered(UserHasRegistered $event)
@@ -24,13 +31,19 @@ class UserEventHandler {
     {
         Log::info('User has confirmed their email address', ['id' => $event->user->id]);
         $this->userMailer->sendWelcome($event->user);
+        $this->mailingList->addUserToList($event->user);
+    }
+
+    public function onUserHasBeenDeleted(UserHasBeenDeleted $event)
+    {
+        $this->mailingList->removeUserFromList($event->user);
     }
 
     public function subscribe($events)
     {
         $events->listen(UserHasRegistered::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserHasRegistered');
         $events->listen(UserHasConfirmed::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserHasConfirmed');
-
+        $events->listen(UserHasBeenDeleted::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserHasBeenDeleted');
     }
 
 }

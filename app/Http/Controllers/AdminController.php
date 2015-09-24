@@ -2,6 +2,7 @@
 
 use RentGorilla\Commands\AdminNewUserCommand;
 use RentGorilla\Commands\SendActivationCommand;
+use RentGorilla\Events\UserHasBeenDeleted;
 use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
 
@@ -114,6 +115,8 @@ class AdminController extends Controller {
         foreach($user->photos as $photo) {
             $photo->deleteAllSizes();
         }
+
+        event(new UserHasBeenDeleted($user));
 
         $this->userRepository->delete($id);
 
