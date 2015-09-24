@@ -79,7 +79,7 @@
                         <td class="listing_ng_label">Deposit</td>
                         <td>{{ $rental->deposit ? '$' . $rental->deposit : 'No' }}</td>
                         <td class="listing_ng_label">Utilities</td>
-                        <td>{{ $rental->utilites_included ? 'Included' : 'Not included' }}</td>
+                        <td>{{ $rental->utilities_included ? 'Included' : 'Not included' }}</td>
                     </tr>
                     <tr>
                         <td class="listing_ng_label">Pets</td>
