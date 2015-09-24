@@ -82,3 +82,6 @@
 .simple {
 	background:#796a4d;
 }
+#rental-list a {
+	z-index:9995!important;
+}
