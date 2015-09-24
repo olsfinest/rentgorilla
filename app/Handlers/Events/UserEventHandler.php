@@ -5,7 +5,7 @@ use RentGorilla\Events\UserHasConfirmed;
 use RentGorilla\Events\UserHasRegistered;
 use RentGorilla\Mailers\UserMailer;
 use Log;
-use RentGorilla\MailingList\MailingList;
+use RentGorilla\MailingList\MailChimpMailingList;
 
 class UserEventHandler {
 
@@ -15,7 +15,7 @@ class UserEventHandler {
      */
     protected $mailingList;
 
-    function __construct(UserMailer $userMailer, MailingList $mailingList)
+    function __construct(UserMailer $userMailer, MailChimpMailingList $mailingList)
     {
         $this->userMailer = $userMailer;
         $this->mailingList = $mailingList;
