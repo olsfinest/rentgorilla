@@ -43,3 +43,9 @@
 	    font-weight: normal;
 	    font-style: normal;
 	}
+	#rental-list a {
+		z-index:9995!important;
+	}
+	.listings .images {
+		z-index:1!important;
+	}
