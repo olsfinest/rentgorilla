@@ -73,3 +73,18 @@
       }
     }
   }
+footer {
+  .main {
+    .content.full {
+      nav {
+        ul {
+          li {
+            width:50%;
+            display:block;
+            // float:none;
+          }
+        }
+      }
+    }
+  }
+}

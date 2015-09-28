@@ -33,3 +33,13 @@
   margin: 0 auto 1em auto;
   width: 100%;
 }
+.view_switcher {
+  position:absolute;
+  top:-58px;
+  left:290px;
+  float:none;
+  .ui-selectmenu-button {
+    float:none;
+    display:block;
+  }
+}

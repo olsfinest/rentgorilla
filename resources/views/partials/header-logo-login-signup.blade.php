@@ -19,7 +19,7 @@
                         <img src="/img/user.jpg" alt="">
                     @endif
                     <div class="avatar_actions">
-                        <span class="user_name">{{ Auth::user()->getFullName() }}</span>
+                        <span class="user_name">{{ Auth::user()->getFullName() }} | {{ Auth::user()->points }} Points</span>
                         <a href="{{ route('rental.index') }}"><span class="fa fa-dashboard"></span>My Dashboard</a>
                         <a href="{{ route('profile') }}" class="edit_profile"><span class="fa fa-user"></span>Edit Profile</a>
                         <a href="/logout" class="logout"><span class="fa fa-close"></span>Logout</a>

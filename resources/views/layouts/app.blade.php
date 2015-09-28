@@ -6,7 +6,8 @@
 		<meta name="viewport" content="initial-scale=1">
 		<meta name="token" content="{{ csrf_token() }}">
         <meta name="loggedin" content="{{ Auth::check() ? '1' : '0' }}">
-		<title>@yield('title', 'RentGorilla || Move on up.')</title>
+		<title>@yield('title', 'RentGorilla | Find & Rent Your Next Home')</title>
+        <meta name="description" content="Discover rental listings from all over Nova Scotia. Add your rental property for free.">
         <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/css/select2.min.css" rel="stylesheet" />
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
@@ -45,6 +46,16 @@
                 }, 5000);
                 $(window).load(function(){
                     $('.view_switcher span.ui-icon.ui-icon-arrowthick-1-s').addClass('ui-icon-white');
+                });
+                $(window).scroll(function() {    
+                    var scroll = $(window).scrollTop();
+
+                    if (scroll >= 95) {
+                        $("body").addClass("fixed");
+                    }
+                    if (scroll <= 95) {
+                        $("body").removeClass("fixed");
+                    }
                 });
             </script>
             @include('partials.footer')

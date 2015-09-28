@@ -285,7 +285,7 @@ blockquote {
 
 header {
   background: #333333;
-  height: 65px;
+  padding: 7px 0;
   border-bottom: 6px solid #7a694b; }
 
 header .home {
@@ -776,6 +776,15 @@ ul#items {
     .filter .main .content.full {
       padding: 0; }
 
+.fixed .filter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  box-shadow: 0 0 10px dimGray; }
+.fixed .select2-container {
+  z-index: 9999; }
+
 .filter label .select2-container .select2-choice .select2-arrow {
   background: url("http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/images/ui-icons_888888_256x240.png"); }
 
@@ -1001,8 +1010,7 @@ ul#items {
   margin-bottom: 0;
   height: 158px;
   width: 100%;
-  overflow: hidden;
-  z-index: 5000; }
+  overflow: hidden; }
 
 .listings .images img {
   min-height: 100%; }
@@ -1262,7 +1270,7 @@ span.eyes.blink .eye {
 .avatar {
   float: right;
   margin-left: 2em;
-  padding-top: 8px;
+  padding-top: 4px;
   z-index: 9999;
   position: relative; }
   .avatar > img {
@@ -1313,6 +1321,76 @@ span.eyes.blink .eye {
           background: #74B164; }
     .avatar:hover > img {
       border: 2px solid #74B164; }
+
+footer {
+  height: 415px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  border-top: 6px solid #7a694b;
+  background: #333333; }
+  footer .content {
+    width: 995px;
+    margin: 0 auto; }
+  footer .main .content.full {
+    color: #a4a4a4; }
+    footer .main .content.full nav {
+      border-top: 1px solid #575757;
+      border-bottom: 1px solid #575757; }
+      footer .main .content.full nav > ul {
+        padding: 2em 0;
+        list-style: none;
+        width: 100%;
+        color: white; }
+        footer .main .content.full nav > ul > li {
+          width: 25%;
+          padding: 0 10px;
+          float: left; }
+        footer .main .content.full nav > ul:after {
+          content: ' ';
+          display: block;
+          clear: both; }
+      footer .main .content.full nav ul {
+        list-style: none;
+        padding-left: 0; }
+        footer .main .content.full nav ul i {
+          display: inline-block;
+          width: 22px;
+          margin-right: 1px;
+          text-align: center; }
+        footer .main .content.full nav ul li {
+          margin-bottom: .5em;
+          font-size: 1em; }
+          footer .main .content.full nav ul li h3 {
+            font-weight: 400; }
+  footer .main a {
+    color: #a4a4a4;
+    text-decoration: none; }
+    footer .main a:hover {
+      color: #74B164; }
+  footer .social {
+    padding: 1em 0; }
+    footer .social ul {
+      list-style: none;
+      padding: 0; }
+      footer .social ul li {
+        display: inline-block;
+        margin-right: 10px; }
+      footer .social ul li.right {
+        float: right; }
+  footer .help {
+    padding: 1em 0; }
+    footer .help ul {
+      list-style: none;
+      padding: 0; }
+      footer .help ul li {
+        display: inline-block;
+        margin-right: 1em; }
+      footer .help ul li.right {
+        float: right;
+        margin-right: 0; }
 
 @media only screen and (max-width: 1049px) {
   header {
@@ -1386,6 +1464,11 @@ span.eyes.blink .eye {
 
   #list-canvas #sort-widget-button {
     margin: 1em; } }
+@media only screen and (max-width: 1013px) {
+  .my_properties {
+    float: none;
+    width: 100%;
+    padding: 1em; } }
 @media only screen and (max-width: 927px) {
   #map-canvas, #chart {
     display: none; }
@@ -1419,11 +1502,27 @@ span.eyes.blink .eye {
 
   .content.full .listing_sidebar {
     margin: 0 auto 1em auto;
-    width: 100%; } }
+    width: 100%; }
+
+  .view_switcher {
+    position: absolute;
+    top: -58px;
+    left: 290px;
+    float: none; }
+    .view_switcher .ui-selectmenu-button {
+      float: none;
+      display: block; } }
 @media screen and (max-width: 900px) {
   .toaster {
     left: 50%;
-    margin-left: -175px; } }
+    margin-left: -175px; }
+
+  body {
+    margin: 0; }
+
+  footer {
+    position: relative;
+    height: auto; } }
 @media only screen and (max-width: 772px) {
   body {
     overflow-y: auto; }
@@ -1615,7 +1714,11 @@ span.eyes.blink .eye {
         display: block !important;
         position: relative;
         text-align: left;
-        z-index: 9999; } }
+        z-index: 9999; }
+
+  footer .main .content.full nav ul li {
+    width: 50%;
+    display: block; } }
 @media only screen and (max-width: 568px) {
   header .home {
     display: inline-block;
@@ -1899,7 +2002,6 @@ aside.my_properties h3:first-child {
 
 #rental-list a {
   color: inherit;
-  z-index: 9999;
   display: block;
   text-decoration: none; }
 
@@ -2006,76 +2108,6 @@ li.ui-state-focus {
       height: 40px; }
       .landingHeader form .select2-container--default .select2-selection--single {
         height: 40px; }
-
-footer {
-  height: 415px;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  margin: 0 auto;
-  position: absolute;
-  border-top: 6px solid #7a694b;
-  background: #333333; }
-  footer .content {
-    width: 995px;
-    margin: 0 auto; }
-  footer .main .content.full {
-    color: #a4a4a4; }
-    footer .main .content.full nav {
-      border-top: 1px solid #575757;
-      border-bottom: 1px solid #575757; }
-      footer .main .content.full nav > ul {
-        padding: 2em 0;
-        list-style: none;
-        width: 100%;
-        color: white; }
-        footer .main .content.full nav > ul > li {
-          width: 25%;
-          padding: 0 10px;
-          float: left; }
-        footer .main .content.full nav > ul:after {
-          content: ' ';
-          display: block;
-          clear: both; }
-      footer .main .content.full nav ul {
-        list-style: none;
-        padding-left: 0; }
-        footer .main .content.full nav ul i {
-          display: inline-block;
-          width: 22px;
-          margin-right: 1px;
-          text-align: center; }
-        footer .main .content.full nav ul li {
-          margin-bottom: .5em;
-          font-size: 1em; }
-          footer .main .content.full nav ul li h3 {
-            font-weight: 400; }
-  footer .main a {
-    color: #a4a4a4;
-    text-decoration: none; }
-    footer .main a:hover {
-      color: #74B164; }
-  footer .social {
-    padding: 1em 0; }
-    footer .social ul {
-      list-style: none;
-      padding: 0; }
-      footer .social ul li {
-        display: inline-block;
-        margin-right: 10px; }
-      footer .social ul li.right {
-        float: right; }
-  footer .help {
-    padding: 1em 0; }
-    footer .help ul {
-      list-style: none;
-      padding: 0; }
-      footer .help ul li {
-        display: inline-block;
-        margin-right: 1em; }
-      footer .help ul li.right {
-        float: right;
-        margin-right: 0; }
 
 #list-canvas {
   padding: 0; }
