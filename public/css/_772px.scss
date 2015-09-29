@@ -150,3 +150,37 @@ body {
   }
   .select2-container {
   }
+
+body {
+  article.property {
+    .overview {
+      .btn {
+
+      }
+      table {
+        margin:1em auto;
+      }
+      .controls {
+        display:block;
+        float:none;
+        width:100%;
+        text-align:center;
+        margin:0 auto;
+        clear:both;
+        li {
+          float:none;
+          display:inline-block;
+
+        }
+      }
+      .stats {
+
+      }
+      .photos {
+        float:none;
+        width:100%;
+        margin:0;
+      }
+    }
+  }
+}

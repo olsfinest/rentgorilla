@@ -324,13 +324,13 @@ pre {
   background: #4a4a4a !important;
 }
 blockquote {
-  padding: 1em;
-  font-size: 2em;
-  margin: 1em 0;
-  background: #efefef;
+  padding:1em;
+  font-size:2em;
+  margin:1em 0;
+  background:#efefef;
 }
 header {
-  background: #333333;
+  background:#333333;
   padding:7px 0;
   border-bottom: 6px solid #7a694b;
 }
@@ -1444,23 +1444,30 @@ span.eyes.blink .eye {
     float: left;
     margin: 0 1em;
     text-align: right; 
-  }
-  a {
-    color: white;
-    font-size: .6em;
-    position: relative;
-    text-transform: uppercase; 
-    &:hover {
-      color:#74B164;
-    }
-    span {
-      margin-right: 5px; 
+    > a {
+      color: white;
+      font-size: .6em;
+      position: relative;
+      text-transform: uppercase; 
+      &:hover {
+        color:#74B164;
+      }
+      span {
+        margin-right: 5px; 
+      }
     }
   }
   .user_name {
     color: white;
     display: block;
     font-size: 1.1em; 
+    a {
+      color:white;
+      text-decoration:none;
+      &:hover {
+        color:$green;
+      }
+    }
   }
   .menu {
     background: #333333;

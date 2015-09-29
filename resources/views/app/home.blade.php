@@ -6,7 +6,7 @@
     @include('partials.header')
 <section class="main gorilla">
     <section class="content full">
-        <h1>move on up&hellip;</h1>
+        <h1>find your way home&hellip;</h1>
         <form>
             <label>
                 <ul class='searchMode'>
@@ -25,7 +25,9 @@
 <section class="main promofree">
     <section class="content full">
         <h1>Ad Free<small>Browsing</small></h1>
-        <p>At RentGorilla we believe that your space is sacred. If there is a way for us to reduce the clutter, it's gone. That means we only show you what you care about, nothing else, ever.</p>
+        <p>
+            At RentGorilla we believe that your space is sacred. If there is a way for us to reduce the clutter, it's gone. That means we only show you what you care about, nothing else, ever.
+        </p>
         <div class="cf"></div>
     </section>
 </section>

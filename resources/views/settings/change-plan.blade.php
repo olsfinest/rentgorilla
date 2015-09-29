@@ -75,7 +75,7 @@
     <section class="content full pricing">
         <img src="/img/achievements_large.png" alt="" class="align-left">
         <div class="achievements_container">
-            <h2>Earn Credit With RentGorilla Achievements</h2>
+            <h2><a name="points"></a>Earn Credit With RentGorilla Achievements</h2>
             <p>
                 Earn credit towards your plan with RentGorilla achievements. Each achievement earns you points that you can {!! link_to_route('redeem.show', 'redeem') !!}
             </p>

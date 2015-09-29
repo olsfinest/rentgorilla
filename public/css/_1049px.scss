@@ -6,12 +6,15 @@ header {
     width: 100%;
   }
   .admin_nav {
-    ul {
+    > ul {
       max-width:100%;
       text-align:center;
       li {
         display:inline-block;
         float:none;
+        > ul {
+          text-align:left;
+        }
       }
     }
   }

@@ -1,12 +1,14 @@
 // 1013px
-.my_properties {
-	float:none;
-	width:100%;
-	padding:1em;
+.content.rentals {
+	section.my_properties, aside.my_properties {
+		float:none;
+		width:100%;
+		padding:1em;
+	}
 }
 section.my_properties {
-
+	
 }
 aside.my_properties {
-
+	
 }

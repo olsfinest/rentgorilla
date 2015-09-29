@@ -1283,19 +1283,24 @@ span.eyes.blink .eye {
     float: left;
     margin: 0 1em;
     text-align: right; }
-  .avatar a {
-    color: white;
-    font-size: .6em;
-    position: relative;
-    text-transform: uppercase; }
-    .avatar a:hover {
-      color: #74B164; }
-    .avatar a span {
-      margin-right: 5px; }
+    .avatar .avatar_actions > a {
+      color: white;
+      font-size: .6em;
+      position: relative;
+      text-transform: uppercase; }
+      .avatar .avatar_actions > a:hover {
+        color: #74B164; }
+      .avatar .avatar_actions > a span {
+        margin-right: 5px; }
   .avatar .user_name {
     color: white;
     display: block;
     font-size: 1.1em; }
+    .avatar .user_name a {
+      color: white;
+      text-decoration: none; }
+      .avatar .user_name a:hover {
+        color: #74B164; }
   .avatar .menu {
     background: #333333;
     padding: 0;
@@ -1399,12 +1404,14 @@ footer {
   header .main {
     width: 100%; }
 
-  .admin_nav ul {
+  .admin_nav > ul {
     max-width: 100%;
     text-align: center; }
-    .admin_nav ul li {
+    .admin_nav > ul li {
       display: inline-block;
       float: none; }
+      .admin_nav > ul li > ul {
+        text-align: left; }
 
   .filter {
     padding: 0 1em; }
@@ -1465,7 +1472,7 @@ footer {
   #list-canvas #sort-widget-button {
     margin: 1em; } }
 @media only screen and (max-width: 1013px) {
-  .my_properties {
+  .content.rentals section.my_properties, .content.rentals aside.my_properties {
     float: none;
     width: 100%;
     padding: 1em; } }
@@ -1649,7 +1656,24 @@ footer {
           text-align: center;
           display: block; }
       .promofree .content.full p, .zerorisk .content.full p, .simple .content.full p {
-        margin-bottom: 1em; } }
+        margin-bottom: 1em; }
+
+  body article.property .overview table {
+    margin: 1em auto; }
+  body article.property .overview .controls {
+    display: block;
+    float: none;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    clear: both; }
+    body article.property .overview .controls li {
+      float: none;
+      display: inline-block; }
+  body article.property .overview .photos {
+    float: none;
+    width: 100%;
+    margin: 0; } }
 @media only screen and (max-width: 576px) {
   #ui-id-7-button {
     display: none; }
