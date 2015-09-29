@@ -75,6 +75,7 @@ $(document).ready(function() {
         window.location.href = '/list/' + $(this).val();
     });
 
+    /*
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
             if(currentPage < totalPages) {
@@ -82,8 +83,14 @@ $(document).ready(function() {
             }
         }
     });
-  
-  
+
+    */
+
+
+    $('#nextPageBtn').on('click', function() {
+        loadRentals(1, currentPage + 1);
+    });
+
     // toggle the filter on mobile
     $('.filter_toggle').click(function(){
         $('.filter').slideToggle('fast', function(){
@@ -92,11 +99,30 @@ $(document).ready(function() {
     });
 });
 
+function disableNextPageBtn() {
+    var $btn = $('#nextPageBtn');
+
+    $btn.prop('disabled', true);
+    $btn.html('Loading...');
+}
+
+function enableNextPageBtn() {
+    var $btn = $('#nextPageBtn');
+
+    if(currentPage == totalPages) {
+        $btn.hide();
+    } else {
+        $btn.html('Load More Results');
+        $btn.prop('disabled', false);
+        $btn.show();
+    }
+}
+
 var count, currentPage, totalPages;
 
 function loadRentals(paginate, page) {
 
-
+    disableNextPageBtn();
 
     $('#spinner').show();
 
@@ -173,5 +199,8 @@ function loadRentals(paginate, page) {
                 i.on("cycle-initialized cycle-after",this,function(t,o){i.is(".cycle-paused",this)||e.animate({width:"100%"},o.timeout,"linear")});
                 i.on("cycle-paused",this,function(){e.stop()});
                 i.on("cycle-resumed",this,function(i,t,o){e.animate({width:"100%"},o,"linear")})});
+
+        enableNextPageBtn();
+
     });
 }

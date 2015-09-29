@@ -15,6 +15,9 @@
 			<div id="list-canvas" class="listings view">
 
 			</div>
+            <div style="text-align: center">
+                <button style="display: none; margin-bottom: 20px;" class="button" id="nextPageBtn">Load More Results</button>
+            </div>
 		</section>
 @endsection
 @section('footer')
@@ -29,5 +32,5 @@
             <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
 			<!-- Custom JavaScript -->
 			<!-- <script type="text/javascript" src="/js/min/custom.min.js"></script> -->
-			<script type="text/javascript" src="/js/list-view.js?v=2"></script>
+			<script type="text/javascript" src="/js/list-view.js?v=3"></script>
 @endsection
