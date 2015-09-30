@@ -112,7 +112,7 @@ function enableNextPageBtn() {
     if(currentPage == totalPages) {
         $btn.hide();
     } else {
-        $btn.html('Load More Results');
+        $btn.html('Load page ' + (currentPage + 1) + ' of ' + totalPages);
         $btn.prop('disabled', false);
         $btn.show();
     }
