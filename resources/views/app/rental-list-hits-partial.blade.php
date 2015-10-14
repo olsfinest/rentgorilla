@@ -8,10 +8,10 @@
         <div class="images cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="1000">
             @if($rental->photos->count())
                 @foreach($rental->photos as $photo)
-                    <img src="{{ $photo->getSize('small') }}" alt="listing_image">
+                    <img width="237" height="158" src="{{ $photo->getSize('small') }}" alt="{{ $rental->street_address }}">
                 @endforeach
             @else
-                <img src="{{ getNoPhoto('small') }}" alt="listing_image">
+                <img src="{{ getNoPhoto('small') }}" alt="Sorry, no image available">
             @endif
         </div>
         <span class="progress"></span>

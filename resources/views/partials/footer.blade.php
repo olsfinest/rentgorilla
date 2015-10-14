@@ -17,8 +17,8 @@
                 <li>
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="/list/antigonish-ns?page=1" title="View listings from Antigonish, Nova Scotia, in a list"><i class="fa fa-bars"></i> Antigonish Listings</a></li>
-                        <li><a href="/map/antigonish-ns" title="View listings from Antigonish, Nova Scotia, in a map"><i class="fa fa-map-o"></i> Antigonish Listings</a></li>
+                        <li><a href="/list/antigonish-ns?page=1" title="View listings from Antigonish, Nova Scotia, in a list"><i class="fa fa-bars"></i> Antigonish Rentals</a></li>
+                        <li><a href="/map/antigonish-ns" title="View listings from Antigonish, Nova Scotia, in a map"><i class="fa fa-map-o"></i> Antigonish Rentals</a></li>
                         <li><a href="/rental"><i class="fa fa-user"></i> My Rentals</a></li>
                         <li><a href="/favourites"><i class="fa fa-star-o"></i> Favourites</a></li>
                         <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>

@@ -2,7 +2,7 @@
 <section id="signupmodal">
     <h1>Move on up.</h1>
     <h2>It's really easy.</h2>
-    <img src="/img/escalator.png" alt="">
+    <img src="/img/escalator.png" alt="Escalator" width="42" height="34">
     <div id="signup_errors"></div><br>
     {!! Form::open(['route' => 'register', 'id' => 'signup_form']) !!}
         <input type="text" id="signup_first_name" name="first_name" placeholder="First Name" class="">

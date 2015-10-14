@@ -73,7 +73,7 @@
         </ul>
     </section>
     <section class="content full pricing">
-        <img src="/img/achievements_large.png" alt="" class="align-left">
+        <img alt="Achievements Badge" src="/img/achievements_large.png" alt="" class="align-left">
         <div class="achievements_container">
             <h2><a name="points"></a>Earn Credit With RentGorilla Achievements</h2>
             <p>
