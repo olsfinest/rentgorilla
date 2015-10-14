@@ -1765,10 +1765,28 @@ footer {
     height: 0;
     clear: both; }
 
+  .filter label {
+    width: 100%; }
+    .filter label span.select2-container {
+      width: 100% !important; }
+  .filter form#search {
+    width: 100%; }
+
   #map-canvas {
     width: 80%;
     margin: 0 auto;
-    position: relative; } }
+    position: relative; }
+
+  .listings h1.resultsNum {
+    float: none;
+    text-align: center;
+    display: block; }
+
+  #list-canvas #sort-widget-button {
+    margin: .5em auto;
+    width: 100% !important;
+    float: none;
+    display: block; } }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .listings > ul > li {
     margin: .5em 0;
@@ -1888,6 +1906,15 @@ div.pagination {
     content: 'Previous ';
     float: left;
     font-size: .7em; }
+
+div.infoBox {
+  width: 310px !important; }
+  div.infoBox > img {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    top: 0px;
+    right: -20px; }
 
 ul.hits {
   list-style: none;

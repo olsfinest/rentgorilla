@@ -1637,29 +1637,29 @@ footer {
 div.pagination {
   margin: 0 auto 1em auto;
   position: relative;
-  width: 100% !important;
+  width:100%!important;
   ul {
-    clear: both;
-    padding: 0;
-    position: relative;
-    text-align: left;
+    clear:both;
+    padding:0;
+    position:relative;
+    text-align:left;
     li {
-      display: inline-block;
-      margin: 0 2px;
+      display:inline-block;
+      margin:0 2px;
       a {
-        display: block;
-        height: 17px;
-        width: 17px;
-        text-decoration: none;
-        font-size: .7em;
-        line-height: 17px;
-        text-align: center;
-        background: #333333;
-        transition: .1s;
+        display:block;
+        height:17px;
+        width:17px;
+        text-decoration:none;
+        font-size:.7em;
+        line-height:17px;
+        text-align:center;
+        background:#333333;
+        transition:.1s;
         color: white;
         &:hover {
-          transition: .1s;
-          background: #74b164;
+          transition:.1s;
+          background:#74b164;
           color: white;
         }
       }
@@ -1686,6 +1686,16 @@ div.pagination {
       float: left;
       font-size: .7em;
     }
+  }
+}
+div.infoBox {
+  width:310px!important;
+  > img {
+    width:20px;
+    height:20px;
+    margin:0;
+    top:0px;
+    right:-20px;
   }
 }
 ul.hits {

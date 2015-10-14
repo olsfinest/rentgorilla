@@ -1,27 +1,53 @@
 // 568px
 header .home {
-    display: inline-block;
-    width: 60px;
-  }
-  header .user_actions {
+  display: inline-block;
+  width: 60px;
+}
+header .user_actions {
+  float: right;
+  width: 66%;
+  height: 100%;
+  button, .list_property, .login, .sign_up {
     float: right;
-    width: 66%;
-    height: 100%;
-    button, .list_property, .login, .sign_up {
-      float: right;
-      top: 12px;
-      margin-right: 10px;
+    top: 12px;
+    margin-right: 10px;
+  }
+}
+header .user_actions:after {
+  content: ' ';
+  display: block;
+  width: 100%;
+  height: 0;
+  clear: both;
+}
+.filter {
+  label {
+    width:100%;
+    span.select2-container {
+      width:100%!important;
     }
   }
-  header .user_actions:after {
-    content: ' ';
-    display: block;
-    width: 100%;
-    height: 0;
-    clear: both;
+  form#search {
+    width:100%;
   }
-  #map-canvas {
-    width: 80%;
-    margin: 0 auto;
-    position: relative;
+}
+#map-canvas {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+.listings {
+  h1.resultsNum {
+    float:none;
+    text-align:center;
+    display:block;
   }
+}
+#list-canvas {
+  #sort-widget-button {
+    margin:.5em auto;
+    width:100%!important;
+    float:none;
+    display:block;
+  }
+}
