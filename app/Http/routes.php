@@ -1,6 +1,6 @@
 <?php
 
-$router->get('sitemap.xml', 'FeedsController@sitemap');
+//$router->get('sitemap.xml', 'FeedsController@sitemap');
 
 $router->get('/', ['as' => 'home', 'uses' => 'AppController@showHome']);
 
