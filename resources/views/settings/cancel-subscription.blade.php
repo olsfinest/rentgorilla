@@ -8,6 +8,7 @@
         @if(Auth::user()->stripeIsActive())
             <p>Are you really sure that you want to cancel your subscription?</p>
             <p>If you decide to cancel, your subscription will stay active for the time for which you have paid. (Until {{ Auth::user()->getCurrentPeriodEnd()->format('F jS, Y') }}).</p>
+            @include('errors.error-list')
             {!! Form::open(['route' => 'subscription.cancelSubscription']) !!}
             {!! Form::submit('Cancel Subscription', ['class' => 'btn btn-primary btn-danger']) !!}
             {!! Form::close() !!}

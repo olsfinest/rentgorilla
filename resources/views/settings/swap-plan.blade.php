@@ -25,6 +25,8 @@
             <p>Please note any active listings that exceed your new plan's capacity will be deactivated based on the date you last edited the listing(s).</p>
         @endif
         <p>
+            @include('errors.error-list')
+
             {!! Form::open(['route' => ['subscription.swapSubscription', $newPlan->id()]]) !!}
             {!! Form::submit('Swap Plan to ' . $newPlan->planName()) !!}
             {!! Form::close() !!}

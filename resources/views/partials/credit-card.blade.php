@@ -13,5 +13,6 @@
 <label for="cvv" class="" for="cc-cvv">CVV Number:
     <input type="text" id="cvv" placeholder="" class="form-control" data-stripe="cvc" required>
 </label>
+<br>
+<button type="submit" class="button">{{ $submitButtonText }}</button>
 
-<button type="submit" class="">{{ $submitButtonText }}</button>

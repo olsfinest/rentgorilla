@@ -8,6 +8,7 @@
         <p>You have previously cancelled your subscription to the <strong>{{ $plan }}</strong> plan.</p>
         <p>You have the option to resume it, and you will simply be billed on the original billing cycle.</p>
         <p>
+            @include('errors.error-list')
             {!! Form::open(['route' => 'subscription.resumeSubscription']) !!}
             {!! Form::submit('Resume Subscription', ['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}

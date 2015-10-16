@@ -17,17 +17,20 @@
             <li>If you have a coupon, please enter it in the box below.</li>
         </ul>
         <br>
+            @include('errors.credit-card-errors')
+            @include('errors.error-list')
             {!! Form::open(['route' => ['subscribe', $plan->id()], 'id' => 'cc-form']) !!}
 
-            <div class="form-group row">
-                <label for="coupon_code">Have a Coupon?</label>
-
-                <div class="col-md-3">
+                <label for="coupon_code">Have a Coupon?
                     <input type="text" id="coupon_code" name="coupon_code" placeholder="" class="">
-                </div>
-            </div>
+                </label>
+
+
             @if( ! Auth::user()->readyForBilling())
                 @include('partials.credit-card',  ['submitButtonText' => 'Start Subscription'])
+            @else
+                <br>
+                <button type="submit" class="button">Start Subscription</button>
             @endif
             {!! Form::close() !!}
     </section>

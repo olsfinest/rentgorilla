@@ -12,8 +12,9 @@
             @if(Auth::user()->readyForBilling())
 <p class="breather">Want to update the credit card that we have on file? Provide the new details here.</p>
 
-            <div class="payment-errors alert alert-danger" style="display: none"></div>
+            @include('errors.credit-card-errors')
             @include('errors.error-list')
+
             {!! Form::open(['route' => 'subscription.updateCard', 'id' => 'cc-form']) !!}
 
         @include('partials.credit-card', ['submitButtonText' => 'Update Credit Card'])
