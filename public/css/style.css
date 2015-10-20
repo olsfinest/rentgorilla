@@ -942,6 +942,8 @@ ul#items {
         cursor: pointer;
         background: #7a694b;
         transition: .1s; }
+  .main input[type="text"], .main textarea, .main input[type="email"], .main input[type="number"], .main label[for="accepts_texts"] span {
+    background: #efefef; }
 
 .listings {
   width: 100%;
@@ -1842,6 +1844,9 @@ footer {
     left: 0;
     top: 0; }
 
+  .main .content h1 {
+    word-wrap: break-word; }
+
   .gorilla {
     max-height: 400px; }
     .gorilla .content h1 {
@@ -2217,5 +2222,50 @@ body.map {
   margin: 0; }
   body.map footer {
     display: none; }
+
+.promotedCta {
+  padding: .25em;
+  background: #7A694B;
+  color: white;
+  display: none; }
+  .promotedCta:hover {
+    background: #5a4e38; }
+  .promotedCta .content {
+    padding: 0;
+    font-size: .8em; }
+    .promotedCta .content:hover {
+      cursor: pointer; }
+  .promotedCta .closer {
+    z-index: 9999; }
+  .promotedCta span.fa {
+    float: right;
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 10px; }
+    .promotedCta span.fa:hover {
+      cursor: pointer; }
+
+@keyframes hiliter {
+  0% {
+    top: 6px; }
+  25% {
+    top: 3px; }
+  50% {
+    top: 0px; }
+  75% {
+    top: -3px; }
+  100% {
+    top: -6px; } }
+.property .controls .promote.hilite {
+  background: #5b964c; }
+.property .controls .promote.hilite .fa {
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  position: relative;
+  display: inline-block;
+  animation-name: hiliter;
+  animation-duration: 0.75s; }
 
 /*# sourceMappingURL=style.css.map */

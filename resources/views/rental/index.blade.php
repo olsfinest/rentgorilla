@@ -1,5 +1,13 @@
 @extends('layouts.admin')
 @section('content')
+    <section class="promotedCta">
+        <section class="content full closer">
+            <span class="fa fa-close" title="Close this notification"></span>
+        </section>
+        <section class="content full">
+            <p>There are currently 2 promoted property slots available in your area. <span style="text-decoration:underline;">Promote Your Property Below.</span></p>
+        </section>
+    </section>
     <section class="content full admin rentals">
         <section class="my_properties">
             <div class="heading">
@@ -238,8 +246,16 @@
 @section('footer')
 <script src="/js/settings-rental-list.js"></script>
 <script src="/js/cycle.js"></script>
+<script>
+    $('.fa-close').click(function(){
+        // close the nearest instance of .promotedCta when clicking on the close button
+        $(this).closest('.promotedCta').hide();
+        // also remove the hilite class from the promote buttons
+        $('.promote').removeClass('hilite');
+    });
+    $('.promotedCta .content p').click(function(){
+        // add a class to the promote buttons to animate the arrow and darken the background
+        $('.promote').addClass('hilite');
+    });
+</script>
 @stop
-
-
-
-

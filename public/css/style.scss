@@ -1073,40 +1073,43 @@ ul#items {
       }
     }
   }
+  input[type="text"], textarea, input[type="email"], input[type="number"], label[for="accepts_texts"] span {
+    background:#efefef;
+  }
 }
 .listings {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  padding-left: 18px;
-  overflow-y: auto;
+  width:100%;
+  margin:0 auto;
+  position:relative;
+  padding-left:18px;
+  overflow-y:auto;
   h1 {
-    margin: 0 auto;
-    width: 995px;
-    padding: .5em 0;
+    margin:0 auto;
+    width:995px;
+    padding:.5em 0;
   }
   h1.resultsNum {
     float: left; 
     width: auto;
   }
   > ul {
-    width: 995px;
-    margin: 0 auto;
-    list-style: none;
-    padding: 0;
+    width:995px;
+    margin:0 auto;
+    list-style:none;
+    padding:0;
     > li {
-      position: relative;
-      height: 257px;
-      width: 237px;
-      float: left;
-      border: 1px solid #333333;
-      margin: 0 15px 15px 0;
+      position:relative;
+      height:257px;
+      width:237px;
+      float:left;
+      border:1px solid #333333;
+      margin:0 15px 15px 0;
     }
     > li:nth-child(4n + 1) {
-      clear: left;
+      clear:left;
     }
     > li:nth-child(4n) {
-      margin: 0 0 15px 0;
+      margin:0 0 15px 0;
     }
   }
 }
@@ -1334,11 +1337,9 @@ span.eyes .eye {
     background: #333;
     position: relative;
 }
-
 span.eyes .left {
     margin-right: 7px;
 }
-
 span.eyes.blink .eye {
     height: 1px;
     top: 2px;
@@ -1998,7 +1999,6 @@ li.ui-state-focus {
     }
   }
 }
-
 #list-canvas {
   padding:0;
   select, .ui-selectmenu-button, .ui-selectmenu {
@@ -2062,5 +2062,59 @@ body.map {
   margin:0;
   footer {
     display:none;
+  }
+}
+.promotedCta {
+  padding:.25em;
+  background:$brown;
+  color:white;
+  display:none; // Curran - remove this rule for production once this feature is finished
+  &:hover {
+    background:darken($brown, 10%);
+  }
+  .content {
+    padding:0;
+    font-size:.8em;
+    &:hover {
+      cursor:pointer;
+    }
+  }
+  .closer {
+    z-index:9999;
+    // height:30px;
+    // position:
+  }
+  span.fa {
+    float:right;
+    display:block;
+    width:30px;
+    height:30px;
+    position:relative;
+    top:10px;
+    &:hover {
+      cursor:pointer;
+    }
+  }
+}
+@keyframes hiliter {
+  0% { top:6px; }
+  25% { top:3px; }
+  50% { top:0px; }
+  75% { top:-3px; }
+  100% { top:-6px; }
+}
+.property {
+  .controls {
+    .promote.hilite {
+      background:darken($green, 10%);
+    }
+    .promote.hilite .fa {
+      animation-iteration-count: infinite;
+      animation-timing-function:ease-in-out;
+      position:relative;
+      display:inline-block;
+      animation-name:hiliter;
+      animation-duration:0.75s;
+    }
   }
 }

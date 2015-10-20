@@ -59,6 +59,13 @@ header {
   left: 0;
   top: 0;
 }
+.main {
+  .content {
+    h1 {
+      word-wrap:break-word;
+    }
+  }
+}
 .gorilla {
   max-height:400px;
   .content {
