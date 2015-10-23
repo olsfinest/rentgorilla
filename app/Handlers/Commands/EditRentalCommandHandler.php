@@ -38,6 +38,7 @@ class EditRentalCommandHandler {
         $rental->postal_code = nullIfEmpty($command->postal_code);
         $rental->type = $command->type;
         $rental->pets = $command->pets;
+        $rental->parking = $command->parking;
         $rental->baths = $command->baths;
         $rental->beds = $command->beds;
         $rental->price = $command->price;
