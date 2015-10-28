@@ -5,5 +5,5 @@
     <p>(You may simply reply to this email to respond.)</p>
     <p>Name: {{ $the_name }}</p>
     <p>Email: {{ $the_email }}</p>
-    <p>Message: {{ nl2br($the_message) }}</p>
+    <p>Message:  {!! nl2br(e($the_message)) !!}</p>
 @stop

@@ -17,7 +17,7 @@ class SearchFormComposer {
 
             'availability' =>
 
-                ['' => 'Availability',
+                ['' => 'Any Availability ',
                     '0-2' => 'Now - ' . $this->addMonths(2),
                     '2-4' => $this->addMonths(2) . ' - ' . $this->addMonths(4),
                     '4-6' => $this->addMonths(4) . ' - ' . $this->addMonths(6),
@@ -25,14 +25,14 @@ class SearchFormComposer {
 
             'type' =>
 
-                ['' => 'Type',
+                ['' => 'Any Type',
                     'house' => 'House',
                     'apartment' => 'Apartment',
                     'room' => 'Room(s)'],
 
             'beds' =>
 
-                ['' => 'Beds',
+                ['' => 'Any Beds',
                     '1' => '1 Bedroom',
                     '2' => '2 Bedroom',
                     '3' => '3 Bedroom',
@@ -41,7 +41,7 @@ class SearchFormComposer {
 
             'price' =>
 
-                ['' => 'Price',
+                ['' => 'Any Price',
                     'tier1' => '$0 - $299',
                     'tier2' => '$300 - $699',
                     'tier3' => '$700 - $999',
