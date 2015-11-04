@@ -8,18 +8,20 @@
         <h1><strong>Edit Profile</strong>: {{ Auth::user()->email }}</h1>
         @include('errors.error-list')
         {!! Form::model(is_null($profile) ? new \RentGorilla\Profile() : $profile, ['route' => 'profile.update', 'files' => true]) !!}
-        <label>Photo:
+        <fieldset>
+            <label>Photo:
 
-        @if( ! is_null($profile) && ! is_null($profile->photo))
-            <br>
-            <img src="{{ $profile->getPhoto() }}">
-        @endif
-        <br><small>
-            <strong>Accepted formats:</strong> .gif, .png, .jpg, .bmp<br/>
-            <strong>Maximum filesize:</strong> 10mb
-        </small>
-        </label>
-            {!! Form::file('photo') !!}
+            @if( ! is_null($profile) && ! is_null($profile->photo))
+                <br>
+                <img src="{{ $profile->getPhoto() }}">
+            @endif
+            <br><small>
+                <strong>Accepted formats:</strong> .gif, .png, .jpg, .bmp<br/>
+                <strong>Maximum filesize:</strong> 10mb
+            </small>
+            </label>
+                {!! Form::file('photo') !!}
+        </fieldset>
         <br><br>
         <label class="half left">First Name:
             {!! Form::text('first_name', Auth::user()->first_name) !!}

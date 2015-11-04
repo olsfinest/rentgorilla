@@ -135,7 +135,7 @@
 
                     @if(Auth::user()->onTrial())
                         <tr>
-                            <th colspan="2">Free Trial<a href="{{ route('changePlan') }}">Change</a></th>
+                            <th colspan="2">Free Trial<a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
                         </tr>
                         <tr>
                             <td>Plan Capacity</td>
@@ -160,7 +160,7 @@
 
                     @elseif($plan && (Auth::user()->stripeIsActive() || Auth::user()->onGracePeriod()))
                         <tr>
-                            <th colspan="2">{{ $plan->planName() }}<a href="{{ route('changePlan') }}">Change</a></th>
+                            <th colspan="2">{{ $plan->planName() }}<a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
                         </tr>
                         <tr>
                             <td>Plan Capacity</td>
@@ -190,7 +190,7 @@
 
                     @elseif(Auth::user()->isOnFreePlan())
                         <tr>
-                            <th colspan="2">Free Plan<a href="{{ route('changePlan') }}">Change</a></th>
+                            <th colspan="2">Free Plan<a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
                         </tr>
                         <tr>
                             <td>Plan Capacity</td>
@@ -226,13 +226,13 @@
             <!-- achievements / gamification -->
             <h3>Achievements</h3>
             <section class="widget">
-                <table>
+                <table class="achievementsTable">
                     <tr>
                         <th colspan="2">Completed Badges</th>
                     </tr>
                     @foreach(Config::get('rewards') as $reward => $rewardProps)
                         <tr>
-                            <td class="fa fa-question-circle" title="{{ $rewardProps['description'] }} ({{ $rewardProps['points'] . ($rewardProps['monthly'] ? ' points/month' : ' points') }})"><span></span> {{ $rewardProps['name'] }}</td>
+                            <td title="{{ $rewardProps['description'] }} ({{ $rewardProps['points'] . ($rewardProps['monthly'] ? ' points/month' : ' points') }})"><span class="fa fa-question-circle"></span> {{ $rewardProps['name'] }}</td>
                             <td><span class="fa {{ in_array($reward, $rewards) ? 'fa-star' : 'fa-star-o' }}"></span></td>
                         </tr>
                     @endforeach

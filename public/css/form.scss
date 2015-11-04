@@ -1,0 +1,84 @@
+@import url(http://fonts.googleapis.com/css?family=Khula:400,800);
+form {
+  border: none; }
+  form fieldset {
+    border: 1px solid silver; }
+    form fieldset legend {
+      padding: .5em;
+      font-size: 1.5em;
+      font-weight: 800;
+      border: 1px solid silver; }
+  form label {
+    display: block;
+    clear: both;
+    margin-bottom: 1em;
+    font-weight: bold; }
+    form label:last-of-type {
+      margin-bottom: 0; }
+    form label :only-child {
+      margin-bottom:1em!important;
+    }
+    form label span {
+      font-weight: normal; }
+  form label.half {
+    display: block;
+    width: 48%;
+    clear: none; }
+    form label.half input {
+      max-width: 100%; }
+  form .half.left {
+    float: left; }
+  form .half.right {
+    float: right; }
+  form input[type="text"],
+  form input[type="tel"],
+  form input[type="email"],
+  form input[type="number"],
+  form input[type="username"],
+  form input[type="password"],
+  form select,
+  form label span,
+  form textarea {
+    display: block;
+    width: 100%;
+    padding: .75em;
+    border: 1px solid silver;
+    background: white; }
+    form input[type="text"]:focus,
+    form input[type="tel"]:focus,
+    form input[type="email"]:focus,
+    form input[type="number"]:focus,
+    form input[type="username"]:focus,
+    form input[type="password"]:focus,
+    form select:focus,
+    form label span:focus,
+    form textarea:focus {
+      outline: none;
+      border: 1px solid #4A4A4A; }
+  form input[type="submit"], form .button {
+    display: block;
+    padding: .5em;
+    background: #74B164;
+    border: 1px solid #5b964c;
+    color: white;
+    margin: .5em 0;
+    transition: .1s; }
+    form input[type="submit"]:hover, form .button:hover {
+      cursor: pointer;
+      background: #5b964c;
+      border: 1px solid #47743b;
+      transition: .1s; }
+  form input[type="button"] {
+    display: block;
+    padding: .5em;
+    background: #4A4A4A;
+    color: white;
+    border: 1px solid #313131; }
+    form input[type="button"]:hover {
+      cursor: pointer;
+      background: #313131;
+      border: 1px solid #171717; }
+
+@media screen and (max-width: 1010px) {
+  .admin_nav > ul {
+    max-width: 100%; } }

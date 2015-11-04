@@ -305,12 +305,13 @@ header .home {
 header .home:hover {
   background-position: 0 -52px; }
 
-/* line 324, style.scss */
 header .main {
   height: 59px;
   position: relative;
   margin: 0 auto;
   width: 995px; }
+  header .main h1 strong {
+    font-weight: 300 !important; }
 
 header .user_actions {
   float: right;
@@ -942,7 +943,7 @@ ul#items {
         cursor: pointer;
         background: #7a694b;
         transition: .1s; }
-  .main input[type="text"], .main textarea, .main input[type="email"], .main input[type="number"], .main label[for="accepts_texts"] span {
+  .main input[type="text"], .main textarea, .main input[type="email"], .main input[type="number"], .main label[for="accepts_texts"] span, .main fieldset {
     background: #efefef; }
 
 .listings {
@@ -1788,7 +1789,27 @@ footer {
     margin: .5em auto;
     width: 100% !important;
     float: none;
-    display: block; } }
+    display: block; }
+
+  article.property > h1, article.property > nav {
+    float: none;
+    width: 100%;
+    text-align: left; }
+  article.property > nav ul {
+    text-align: left !important;
+    padding-left: 0;
+    margin-bottom: 1em; }
+  article.property ul.controls li {
+    width: 30%; }
+    article.property ul.controls li a {
+      max-width: 100%;
+      font-size: .8em; }
+  article.property .stats li {
+    font-size: 1.5em !important; }
+    article.property .stats li span {
+      font-size: 0.3em !important;
+      line-height: 1em !important;
+      padding-top: 1em; } }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .listings > ul > li {
     margin: .5em 0;
@@ -1863,11 +1884,68 @@ footer {
   .avatar {
     width: 243px;
     margin: 0; }
+    .avatar img {
+      display: none; }
     .avatar .avatar_actions {
       width: 195px;
+      float: right;
       margin: 0; }
       .avatar .avatar_actions a {
-        font-size: .5em; } }
+        font-size: .5em; }
+
+  .half.left, .half.right {
+    float: none;
+    width: 100%;
+    margin-bottom: 1em; }
+
+  .admin_nav_toggle {
+    display: block !important;
+    z-index: 9999 !important;
+    position: absolute;
+    right: 1em;
+    left: auto;
+    top: 80px; }
+
+  .admin .showing {
+    float: none;
+    text-align: left;
+    display: block;
+    width: 100%;
+    margin-bottom: 1em; }
+
+  article.property ul.controls {
+    text-align: center; }
+    article.property ul.controls li {
+      width: 80%;
+      display: block;
+      margin: .25em auto; }
+      article.property ul.controls li a {
+        display: block;
+        width: 100%; }
+  article.property .overview table tr td {
+    width: 50%;
+    padding: 5px;
+    font-size: 0.9em; }
+    article.property .overview table tr td span.fa {
+      margin-right: 3px; }
+  article.property ul.stats {
+    height: 180px; }
+    article.property ul.stats li {
+      height: 90px;
+      width: 33.33333%;
+      border-left: none;
+      font-size: 2.5em !important; }
+      article.property ul.stats li:nth-child(2), article.property ul.stats li:nth-child(3), article.property ul.stats li:nth-child(5), article.property ul.stats li:nth-child(6) {
+        border-left: 1px solid #5a4e38; }
+      article.property ul.stats li span {
+        font-size: 0.2em !important; }
+
+  footer .main .content.full nav ul li {
+    width: 100%; }
+  footer .main .content.full nav ul > li {
+    width: 100%; }
+  footer .social ul li.right, footer .help ul li.right {
+    float: none; } }
 .admin_nav_toggle {
   display: none; }
 
@@ -2267,5 +2345,28 @@ body.map {
   display: inline-block;
   animation-name: hiliter;
   animation-duration: 0.75s; }
+
+.filter .ui-selectmenu-button[aria-labelledby^="ui"] {
+  background: #efefef;
+  font-weight: bold; }
+
+.widget .achievementsTable td {
+  position: relative; }
+  .widget .achievementsTable td:first-child span.fa:before {
+    position: absolute;
+    top: 11px;
+    left: 6px;
+    width: 100%;
+    height: 100%;
+    display: block; }
+
+a.planChange {
+  padding: 5px;
+  background: #7A694B;
+  text-decoration: none !important;
+  transition: .1s; }
+  a.planChange:hover {
+    background: #5a4e38;
+    transition: .1s; }
 
 /*# sourceMappingURL=style.css.map */

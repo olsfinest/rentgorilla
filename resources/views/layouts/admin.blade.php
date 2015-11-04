@@ -22,10 +22,8 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
     ga('create', 'UA-67070500-1', 'auto');
     ga('send', 'pageview');
-
 </script>
 @include('partials.header-logo-login-signup')
 <!-- new stylesheet for logged-in users -->
@@ -47,7 +45,6 @@
     <script src="/js/auth.js"></script>
     <script src="/js/notifications.js"></script>
     <script language="JavaScript" type="text/javascript">
-
         jQuery('.fa-question-circle').tooltip({
             position: { my: "bottom", at: "left center" }
         });
@@ -57,7 +54,6 @@
                 $('.eyes').toggleClass('blink')
             }, 200);
         }, 5000);
-        // show / hide the admin navigation with a button
         $('.admin_nav_toggle').click(function(){
             $('.admin_nav ul').slideToggle({
                 

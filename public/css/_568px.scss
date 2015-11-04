@@ -51,3 +51,36 @@ header .user_actions:after {
     display:block;
   }
 }
+article.property {
+  > h1, > nav {
+    float:none;
+    width:100%;
+    text-align:left;
+  }
+  > nav {
+    ul {
+      text-align:left!important;
+      padding-left:0;
+      margin-bottom:1em;
+    }
+  }
+  ul.controls {
+    li {
+      width:30%;
+      a {
+        max-width:100%;
+        font-size:.8em;
+      }
+    }
+  }
+  .stats {
+    li {
+      font-size:1.5em!important;
+      span {
+        font-size:.3em!important;
+        line-height:1em!important;
+        padding-top:1em;
+      }
+    }
+  }
+}
