@@ -2346,10 +2346,6 @@ body.map {
   animation-name: hiliter;
   animation-duration: 0.75s; }
 
-.filter .ui-selectmenu-button[aria-labelledby^="ui"] {
-  background: #efefef;
-  font-weight: bold; }
-
 .widget .achievementsTable td {
   position: relative; }
   .widget .achievementsTable td:first-child span.fa:before {
