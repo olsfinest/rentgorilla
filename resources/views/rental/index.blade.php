@@ -147,21 +147,21 @@
                     <td>
                         Free Trial Listings Capacity
                         <div class="planStats">
-                            <!-- {{ $plan->maximumListings() }} -->
+                            &infin;
                         </div>
                     </td>
                     <td>
                         Currently Active Listings
                         <div class="planStats">
-                            <!-- <span id="activeRentalCount">{{ $activeRentalCount }}</span> -->
+                            <span id="activeRentalCount">{{ $activeRentalCount }}</span>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Cost Per {{ $plan->intervalSuffix() }}
+                        Cost
                         <div class="planStats">
-                            {{ $plan->getPriceWithTax(true) }}<small>00</small>
+                            Free
                         </div>
                     </td>
                     <td class="planDateMonth">
