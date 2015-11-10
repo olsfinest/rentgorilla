@@ -147,13 +147,13 @@
                     <td>
                         Free Trial Listings Capacity
                         <div class="planStats">
-                            {{ $plan->maximumListings() }}
+                            <!-- {{ $plan->maximumListings() }} -->
                         </div>
                     </td>
                     <td>
                         Currently Active Listings
                         <div class="planStats">
-                            <span id="activeRentalCount">{{ $activeRentalCount }}</span>
+                            <!-- <span id="activeRentalCount">{{ $activeRentalCount }}</span> -->
                         </div>
                     </td>
                 </tr>
