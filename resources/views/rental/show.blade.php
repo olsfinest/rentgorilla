@@ -55,7 +55,7 @@
 				<h2>{{ $rental->location->city . ', ' . Config::get('rentals.provinces.' . $rental->location->province) }}</h2>
 			</span>
 			<span class="listing_availability">
-				<h1>Available {{ $rental->available_at->format('F j, Y') }}</h1>
+				<h1>{{ $rental->available_at->format('F j, Y') }} <i class="fa fa-calendar"></i></h1>
 				<h2>Last updated: {{ $rental->edited_at->diffForHumans() }}</h2>
 			</span>
             <div class="cf"></div>
@@ -88,7 +88,7 @@
                     </ul>
                 </div>
             </section>
-            <h3 class="listing_ng_title">The Nitty Gritty</h3>
+            <h3 class="listing_ng_title">Property Details</h3>
            <span id="share" style="width: 150px; float: right;">
 	<i class="fa fa-share-square-o"></i> Share Page
 	<ul>
@@ -115,39 +115,76 @@
             <span class="cf"></span>
             <table class="listing_ng">
                 <tr>
-                    <td class="listing_ng_label">Lease</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-file-text-o"></i>
+                        Lease
+                    </td>
                     <td>{{ $rental->lease ? 'Yes, ' . $rental->lease . ' months' : 'No' }}</td>
-                    <td class="listing_ng_label">Smoking</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-fire"></i>
+                        Smoking
+                    </td>
                     <td>{{ $rental->smoking ? 'Yes' : 'No' }}</td>
                 </tr>
                 <tr>
-                    <td class="listing_ng_label">Deposit</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-dollar"></i>
+                        Deposit
+                    </td>
                     <td>{{ $rental->deposit ? '$' . $rental->deposit : 'No' }}</td>
-                    <td class="listing_ng_label">Utilities</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-lightbulb-o"></i>
+                        Utilities
+                    </td>
                     <td>{{ $rental->utilities_included ? 'Included' : 'Not included' }}</td>
                 </tr>
                 <tr>
-                    <td class="listing_ng_label">Pets</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-paw"></i>
+                        Pets
+                    </td>
                     <td>{{ Config::get('rentals.pets.' . $rental->pets) }}
-                    <td class="listing_ng_label">Furnished</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-bed"></i>
+                        Furnished
+                    </td>
                     <td>{{ $rental->furnished ? 'Yes' : 'No' }}</td>
                 </tr>
                 <tr>
-                    <td class="listing_ng_label">Parking</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-car"></i>
+                        Parking
+                    </td>
                     <td>{{ Config::get('rentals.parking.' . $rental->parking) }}</td>
-                    <td class="listing_ng_label">Appliances</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-television"></i>
+                        Appliances
+                    </td>
                     <td class="tooltipable" title="{{ $appliances = implode(', ', $rental->appliances()->lists('name')->all()) }}">{{ str_limit($appliances, 17) }}</td>
                 </tr>
                 <tr>
-                    <td class="listing_ng_label">Laundry</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-refresh"></i>
+                        Laundry
+                    </td>
                     <td>{{ Config::get('rentals.laundry.' . $rental->laundry) }}</td>
-                    <td class="listing_ng_label">Heat Type</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-fire"></i>
+                        Heat Type
+                    </td>
                     <td class="tooltipable" title="{{ $heat = implode(', ', $rental->heat()->lists('name')->all()) }}">{{ str_limit($heat, 17) }}</td>
                 </tr>
                 <tr>
-                    <td class="listing_ng_label">Disability Access</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-wheelchair"></i>
+                        <!-- Disability Access -->
+                        Accesible
+                    </td>
                     <td>{{ $rental->disability_access ? 'Yes' : 'No' }}</td>
-                    <td class="listing_ng_label">Heat Included</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-question-circle"></i>
+                        Heat Included
+                    </td>
                     <td>{{ $rental->heat_included ? 'Yes' : 'No' }}</td>
                 </tr>
             </table>

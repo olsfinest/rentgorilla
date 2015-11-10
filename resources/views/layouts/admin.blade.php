@@ -45,7 +45,7 @@
     <script src="/js/auth.js"></script>
     <script src="/js/notifications.js"></script>
     <script language="JavaScript" type="text/javascript">
-        jQuery('.fa-question-circle').tooltip({
+        jQuery('.fa-question-circle, .fa-info-circle').tooltip({
             position: { my: "bottom", at: "left center" }
         });
         setInterval(function(){

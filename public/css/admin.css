@@ -158,7 +158,7 @@ article.property {
         height: auto; }
       article.property .overview .photos > span {
         position: absolute;
-        z-index: 9999;
+        z-index: 9989;
         width: 100%;
         line-height: 37px;
         bottom: 0;
@@ -265,18 +265,32 @@ aside.my_properties {
         background: #e3efe0; }
   aside.my_properties .property-add {
     width: 100%;
-    height: 38px;
-    line-height: 38px;
+    height: 120px;
+    /*line-height: 38px;*/
     display: block;
+    position:relative;
     text-align: center;
     color: white;
+    padding:60px 10px 10px 10px;
     text-decoration: none;
     background: #74B164;
     border-radius: 8px; }
+    .property-add i {
+      font-size:4em;
+      top:10px;
+      position:absolute;
+      width:100px;
+      text-align:center;
+      left:50%;
+      margin-left:-50px;
+      transition:.1s;
+    }
+    .property-add:hover i {
+      font-size:4.5em!important;
+      transition:.1s;
+    }
   aside.my_properties .fa-question-circle {
     margin-right: 10px; }
   aside.my_properties .fa-star {
     color: gold;
     text-shadow: 0 0 5px dimGray; }
-
-/*# sourceMappingURL=admin.css.map */

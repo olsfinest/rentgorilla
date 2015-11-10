@@ -82,11 +82,13 @@ body.home {
   }
   .filter_toggle {
     display:none!important;
+    z-index:9999!important;
   }
 }
 .avatar {
   width:243px;
   margin:0;
+  z-index:8999!important;
   img {
     display:none;
   }
@@ -178,7 +180,9 @@ footer {
           > li {
             width:100%;
             > ul {
-              li {}
+              li {
+                
+              }
             }
           }
         }
@@ -190,6 +194,19 @@ footer {
       li.right {
         float:none;
       }
+    }
+  }
+}
+ul#items {
+  li {
+    margin:0;
+    padding:10px;
+    width:45%;
+    img {
+      max-width:100%;
+    }
+    &:nth-child(4n+4) {
+      margin:0;
     }
   }
 }

@@ -125,11 +125,131 @@
         <!-- sidebar begins -->
         <aside class="my_properties">
             <!-- add a property button - this can be changed to an actual button element if necessary -->
-            <h3>Add New Property</h3>
-            <a class="property-add" href="{{ route('rental.create') }}"><span class="fa fa-plus"></span> Add a New Property</a>
+            <h3><i title="Adding a property does not cost you anything. Only upgrading your subscription or promoting a property incurs a bill." class="fa fa-info-circle"></i> Add New Property</h3>
+            <a class="property-add" href="{{ route('rental.create') }}">
+                <i class="fa fa-home"></i><br/>
+                <span class="fa fa-plus"></span> Add a New Property
+            </a>
+            <p>
+                <small></small>
+            </p>
             
             <!-- Plan overview - shows current plan info to the logged-in user -->
             <h3>Plan Overview </h3>
+
+            <section class="widget plan">
+            <table>
+            @if(Auth::user()->onTrial())
+                <tr>
+                    <th colspan="2">Free Trial<a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
+                </tr>
+                <tr>
+                    <td>
+                        Personal Plan Listings Capacity
+                        <div class="planStats">
+                            {{ $plan->maximumListings() }}
+                        </div>
+                    </td>
+                    <td>
+                        Currently Active Listings
+                        <div class="planStats">
+                            <span id="activeRentalCount">{{ $activeRentalCount }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cost Per {{ $plan->intervalSuffix() }}
+                        <div class="planStats">
+                            {{ $plan->getPriceWithTax(true) }}<small>00</small>
+                        </div>
+                    </td>
+                    <td class="planDateMonth">
+                        Plan Expiry
+                        <div class="planStats">
+                            {{ Auth::user()->trial_ends_at->format('M jS, Y') }}
+                            <!-- <span class="month">December</span><span class="day">12</span> -->
+                        </div>
+                    </td>
+                </tr>
+            @elseif($plan && (Auth::user()->stripeIsActive() || Auth::user()->onGracePeriod()))
+                <tr>
+                    <th colspan="2">{{ $plan->planName() }}<a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
+                </tr>
+                <tr>
+                    <td>
+                        Personal Plan Listings Capacity
+                        <div class="planStats">
+                            {{ $plan->maximumListings() }}
+                        </div>
+                    </td>
+                    <td>
+                        Currently Active Listings
+                        <div class="planStats">
+                            <span id="activeRentalCount">{{ $activeRentalCount }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cost Per {{ $plan->intervalSuffix() }}
+                        <div class="planStats">
+                            {{ $plan->getPriceWithTax(true) }}.<small>00</small>
+                        </div>
+                    </td>
+                    <td class="planDateMonth">
+                        Plan Expiry
+                        <div class="planStats">
+                            {{ Auth::user()->getCurrentPeriodEnd()->format('M jS, Y') }}
+                            <!-- <span class="month">December</span><span class="day">12</span> -->
+                        </div>
+                    </td>
+                </tr>
+            @elseif(Auth::user()->isOnFreePlan())
+                <tr>
+                    <th colspan="2">Free Plan<a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
+                </tr>
+                <tr>
+                    <td>
+                        Personal Plan Listings Capacity
+                        <div class="planStats">
+                            1
+                        </div>
+                    </td>
+                    <td>
+                        Currently Active Listings
+                        <div class="planStats">
+                            <span id="activeRentalCount">{{ $activeRentalCount }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cost Per Month
+                        <div class="planStats">
+                            $0
+                        </div>
+                    </td>
+                    <td class="planDateMonth">
+                        Plan Expiry
+                        <div class="planStats">
+                            <!-- {{ Auth::user()->getFreePlanExpiryDate()->format('M jS, Y') }} -->
+                            <span class="month">{{ Auth::user()->getFreePlanExpiryDate()->format('F') }}</span><span class="day">{{ Auth::user()->getFreePlanExpiryDate()->format('jS') }}</span>
+                        </div>
+                    </td>
+                </tr>
+
+            @else
+                 <tr>
+                   <p>You are currently not on any plan.</p>
+                </tr>
+                <tr>
+                    <a class="property-add" href="{{ route('changePlan') }}"><span class="fa fa-plus"></span> Sign Up</a>
+                </tr>
+            @endif
+            </table>
+            </section>
+            <!--
             <section class="widget">
                 <table>
 
@@ -176,7 +296,7 @@
                         </tr>
                         <tr>
                             <td>Billing Period</td>
-                            <td>{{ $plan->intervalSuffix() }}</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Plan Expiry:</td>
@@ -218,11 +338,11 @@
                         </tr>
                         <tr>
                             <a class="property-add" href="{{ route('changePlan') }}"><span class="fa fa-plus"></span> Sign Up</a>
-                    </tr>
+                        </tr>
                        @endif
                 </table>
             </section>
-            
+            -->
             <!-- achievements / gamification -->
             <h3>Achievements</h3>
             <section class="widget">
