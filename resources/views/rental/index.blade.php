@@ -173,7 +173,7 @@
                 </tr>
             @elseif($plan && (Auth::user()->stripeIsActive() || Auth::user()->onGracePeriod()))
                 <tr>
-                    <th colspan="2">{{ $plan->planName() }}<a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
+                    <th colspan="2"><span class="truncate" title="{{ $plan->planName() }}">{{ $plan->planName() }}</span><a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
                 </tr>
                 <tr>
                     <td>
@@ -205,11 +205,11 @@
                 </tr>
             @elseif(Auth::user()->isOnFreePlan())
                 <tr>
-                    <th colspan="2">Free Plan<a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
+                    <th colspan="2"><span class="truncate" title="Free Plan">Free Plan</span><a class="planChange" href="{{ route('changePlan') }}">Change</a></th>
                 </tr>
                 <tr>
                     <td>
-                        Free Plan Listings Capacity
+                        Professional Yearly Listings Capacity
                         <div class="planStats">
                             1
                         </div>

@@ -2399,8 +2399,14 @@ body.map {
 
 .plan td {
   width: 50%;
-  font-size: 0.9em;
+  font-size: 0.8em;
   text-align: center; }
+.plan .truncate {
+  display: inline-block;
+  width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 a.planChange {
   padding: 5px;
