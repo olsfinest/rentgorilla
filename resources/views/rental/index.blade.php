@@ -167,8 +167,7 @@
                     <td class="planDateMonth">
                         Plan Expiry
                         <div class="planStats">
-                            {{ Auth::user()->trial_ends_at->format('M jS, Y') }}
-                            <!-- <span class="month">December</span><span class="day">12</span> -->
+                            <span class="month">{{ Auth::user()->trial_ends_at->format('F') }}</span><span class="day">{{ Auth::user()->trial_ends_at->format('jS') }}</span>
                         </div>
                     </td>
                 </tr>
@@ -200,8 +199,7 @@
                     <td class="planDateMonth">
                         Plan Expiry
                         <div class="planStats">
-                            {{ Auth::user()->getCurrentPeriodEnd()->format('M jS, Y') }}
-                            <!-- <span class="month">December</span><span class="day">12</span> -->
+                            <span class="month">{{ Auth::user()->getCurrentPeriodEnd()->format('F') }}</span><span class="day">{{ Auth::user()->getCurrentPeriodEnd()->format('jS') }}</span>
                         </div>
                     </td>
                 </tr>
@@ -233,7 +231,6 @@
                     <td class="planDateMonth">
                         Plan Expiry
                         <div class="planStats">
-                            <!-- {{ Auth::user()->getFreePlanExpiryDate()->format('M jS, Y') }} -->
                             <span class="month">{{ Auth::user()->getFreePlanExpiryDate()->format('F') }}</span><span class="day">{{ Auth::user()->getFreePlanExpiryDate()->format('jS') }}</span>
                         </div>
                     </td>
