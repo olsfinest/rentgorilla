@@ -191,9 +191,9 @@
                 </tr>
                 <tr>
                     <td>
-                        Cost Per {{ $plan->intervalSuffix() }}
+                        Cost {{ $plan->intervalSuffix() }}
                         <div class="planStats">
-                            {{ $plan->getPriceWithTax(true) }}.<small>00</small>
+                            {{ $plan->getPriceWithTax(true) }}
                         </div>
                     </td>
                     <td class="planDateMonth">
@@ -223,7 +223,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Cost Per Month
+                        Cost
                         <div class="planStats">
                             $0
                         </div>
