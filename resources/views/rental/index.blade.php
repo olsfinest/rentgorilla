@@ -145,7 +145,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Personal Plan Listings Capacity
+                        Free Trial Listings Capacity
                         <div class="planStats">
                             {{ $plan->maximumListings() }}
                         </div>
@@ -178,7 +178,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Personal Plan Listings Capacity
+                        {{ $plan->planName() }} Listings Capacity
                         <div class="planStats">
                             {{ $plan->maximumListings() }}
                         </div>
@@ -211,7 +211,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Personal Plan Listings Capacity
+                        Free Plan Listings Capacity
                         <div class="planStats">
                             1
                         </div>
