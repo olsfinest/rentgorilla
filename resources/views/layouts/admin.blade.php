@@ -35,6 +35,7 @@
 </section>
 @include('partials.notifications')
 <footer>
+    @include('partials.footer')
     <!--jQuery-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -61,7 +62,6 @@
         });
     </script>
     @yield('footer')
-    @include('partials.footer')
 </footer>
 </body>
 </html>

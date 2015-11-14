@@ -67,7 +67,7 @@
                         <span class="promoted"></span>
                     @endif
                     <span id="like" class="fa fa-thumbs-o-up"></span>
-                    @if($hasPhotos = count($rental->photos))
+                    @if($hasPhotos = $rental->photos()->count())
                         @foreach($rental->photos as $photo)
                             <img id="{{ $photo->id }}" class="{{ in_array($photo->id, $likes) ? 'liked' : '' }}" src="{{ $photo->getSize('medium') }}">
                         @endforeach
@@ -206,7 +206,7 @@
                 </ul>
                 @endif
 
-            @if(count($rental->features))
+            @if($rental->features()->count())
                     <h3>Best Features</h3>
                     <table class="listing_features">
                         @foreach(array_chunk($rental->features->all(), 2) as $column)

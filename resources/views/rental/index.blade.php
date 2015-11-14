@@ -209,7 +209,7 @@
                 </tr>
                 <tr>
                     <td>
-                        Professional Yearly Listings Capacity
+                        Free Plan Listings Capacity
                         <div class="planStats">
                             1
                         </div>
