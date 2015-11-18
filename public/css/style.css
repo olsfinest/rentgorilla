@@ -928,11 +928,11 @@ ul#items {
       .main form.contact label[for="message"] textarea {
         width: 100%;
         display: block; }
-    .main form.contact input, .main form.contact textarea {
+    .main form.contact input, .main form.contact textarea, .main form.contact .select2-container--default {
       padding: 1em;
       margin-top: 1em;
       border: 1px solid #74b164; }
-      .main form.contact input:focus, .main form.contact textarea:focus {
+      .main form.contact input:focus, .main form.contact textarea:focus, .main form.contact .select2-container--default:focus {
         outline: none;
         border: 1px solid #333333; }
     .main form.contact input[type="submit"] {
@@ -948,7 +948,7 @@ ul#items {
         cursor: pointer;
         background: #7a694b;
         transition: .1s; }
-  .main input[type="text"], .main textarea, .main input[type="email"], .main input[type="number"], .main label[for="accepts_texts"] span, .main fieldset {
+  .main input[type="text"], .main textarea, .main input[type="email"], .main input[type="number"], .main label[for="accepts_texts"] span, .main select, .main span.labelSpan, .main .select2-container--default {
     background: #efefef; }
 
 .listings {
@@ -976,7 +976,7 @@ ul#items {
       float: left;
       border: 1px solid #333333;
       margin: 0 15px 15px 0; }
-    .listings > ul > li:nth-child(4n + 1) {
+    .listings > ul > li:nth-child(4n+1) {
       clear: left; }
     .listings > ul > li:nth-child(4n) {
       margin: 0 0 15px 0; }

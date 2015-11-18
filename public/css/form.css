@@ -1,27 +1,26 @@
 @import url(http://fonts.googleapis.com/css?family=Khula:400,800);
 form {
   border: none; }
-
-form fieldset {
-  border: 1px solid silver; }
-
-form fieldset legend {
-  padding: .5em;
-  font-size: 1.5em;
-  font-weight: 800;
-  border: 1px solid silver; }
-
-form label {
-  display: block;
-  clear: both;
-  margin-bottom: 1em;
-  font-weight: bold; }
-
-form label:last-of-type {
-  margin-bottom: 0; }
-
-form label :only-child {
-  margin-bottom: 1em !important; }
+  form fieldset {
+    border: 1px solid silver;
+    background: white;
+    margin-bottom: 1em; }
+    form fieldset legend {
+      padding: .5em;
+      font-size: 1em;
+      font-weight: 800;
+      border: 1px solid silver; }
+  form label {
+    display: block;
+    clear: both;
+    margin-bottom: 1em;
+    font-weight: bold; }
+    form label:last-of-type {
+      margin-bottom: 0; }
+    form label:only-child {
+      margin-bottom: 1em !important; }
+    form label i.fa {
+      font-size: 1.5em; }
 
 form label span {
   font-weight: normal; }
@@ -35,7 +34,8 @@ form label.half input {
   max-width: 100%; }
 
 form .half.left {
-  float: left; }
+  float: left;
+  clear: left; }
 
 form .half.right {
   float: right; }
@@ -99,5 +99,11 @@ form input[type="button"]:hover {
 @media screen and (max-width: 1010px) {
   .admin_nav > ul {
     max-width: 100%; } }
+#modify_rental_form span.select2 {
+  margin-bottom: .5em;
+  display: block; }
+#modify_rental_form .select2-container--default .select2-selection--multiple {
+  background: #efefef;
+  border-radius: 0px; }
 
 /*# sourceMappingURL=form.css.map */

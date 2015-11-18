@@ -603,20 +603,21 @@ header .user_actions .list_property {
   }
   tr:nth-child(odd) {
     td {
+
     }
   }
 }
 .promoted, .promoted-small {
   background: url(../img/promoted_large.png);
-  background-size: 100% 100%;
-  color: white;
-  display: block;
-  height: 129px;
-  left: 0px;
-  position: absolute;
-  top: 0px;
-  width: 129px;
-  z-index: 9990; 
+  background-size:100% 100%;
+  color:white;
+  display:block;
+  height:129px;
+  left:0px;
+  position:absolute;
+  top:0px;
+  width:129px;
+  z-index:9990; 
 }
 .promoted-small {
   width: 100px;
@@ -1066,7 +1067,7 @@ ul#items {
         display: block;
       }
     }
-    input, textarea {
+    input, textarea, .select2-container--default {
       padding: 1em;
       margin-top: 1em;
       border: 1px solid #74b164;
@@ -1076,14 +1077,14 @@ ul#items {
       }
     }
     input[type="submit"] {
-      margin: 1%;
+      margin:1%;
       font-family: "open_sans_regular", sans-serif;
       background: #5b964c;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius:8px;
       font-weight: bold;
-      transition: .1s;
+      transition:.1s;
       &:hover {
         cursor: pointer;
         background: #7a694b;
@@ -1091,7 +1092,7 @@ ul#items {
       }
     }
   }
-  input[type="text"], textarea, input[type="email"], input[type="number"], label[for="accepts_texts"] span, fieldset {
+  input[type="text"], textarea, input[type="email"], input[type="number"], label[for="accepts_texts"] span, select, span.labelSpan, .select2-container--default {
     background:#efefef;
   }
 }
@@ -1123,7 +1124,7 @@ ul#items {
       border:1px solid #333333;
       margin:0 15px 15px 0;
     }
-    > li:nth-child(4n + 1) {
+    > li:nth-child(4n+1) {
       clear:left;
     }
     > li:nth-child(4n) {
