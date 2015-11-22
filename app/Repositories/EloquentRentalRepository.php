@@ -218,6 +218,9 @@ class EloquentRentalRepository implements RentalRepository
     {
         $rental->promoted = 0;
         $rental->promotion_ends_at = null;
+        $rental->free_promotion = 0;
+        $rental->queued = 0;
+        $rental->queued_at = null;
 
         return $rental->save();
     }
@@ -301,6 +304,23 @@ class EloquentRentalRepository implements RentalRepository
         return Rental::join('locations', 'locations.id', '=', 'rentals.location_id')
             ->select([ DB::raw('concat(street_address, " (", city, ")") as text'), DB::raw('user_id as id')])
             ->where('street_address', 'like', "%$address%")
+            ->get();
+    }
+
+    public function freePromotion(Rental $rental)
+    {
+        $rental->free_promotion = 1;
+
+        return $rental->save();
+    }
+
+    public function freePromotionAddressSearch($address, $locationId)
+    {
+        return Rental::select([ DB::raw('street_address as text'), DB::raw('uuid as id')])
+            ->where('street_address', 'like', "%$address%")
+            ->where('location_id', $locationId)
+            ->where('promoted', 0)
+            ->where('queued', 0)
             ->get();
     }
 }

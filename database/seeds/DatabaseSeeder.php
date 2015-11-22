@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder {
             'slug' => 'halifax-ns'
         ]);
 
-        $user = Factory::create('RentGorilla\User', ['email' => 'test@test.com', 'password' => bcrypt('password')]);
+        $user = Factory::create('RentGorilla\User', ['email' => 'test@test.com', 'password' => bcrypt('password'), 'is_admin' => 1]);
 
 		//create TOTAL_USERS users
 		$users = Factory::times(self::TOTAL_USERS - 1)->create('RentGorilla\User');

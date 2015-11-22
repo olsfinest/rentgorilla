@@ -57,19 +57,18 @@ class EloquentLocationRepository implements LocationRepository {
 
     public function getLocation($city, $county, $province)
     {
-
-        if($county && $this->cityIsDuplicate($city, $county, $province)) {
+        if ($county && $this->cityIsDuplicate($city, $county, $province)) {
 
             $location = Location::where([
-                'slug' => Str::slug($city . '-' . $province)
+                'city' => $city . ', ' . $county,
+                'province' => $province,
+                'county' => $county
             ])->first();
 
-
-            if($location) {
+            if ($location) {
                 return $location->id;
             } else {
-
-               $location = new Location();
+                $location = new Location();
                 $location->city = $city . ', ' . $county;
                 $location->county = $county;
                 $location->province = $province;
@@ -84,7 +83,7 @@ class EloquentLocationRepository implements LocationRepository {
             'slug' => Str::slug($city . '-' . $province)
         ])->first();
 
-        if($location) {
+        if ($location) {
             return $location->id;
         } else {
             $location = new Location();
@@ -103,5 +102,20 @@ class EloquentLocationRepository implements LocationRepository {
     {
        //return Location::whereRaw("REPLACE( locations.city, ' ', '-' ) = :city", ['city' => $city])->get();
         return Location::where('slug', 'like', "%$city%")->get();
+    }
+
+    public function getAllPaginated($perPage)
+    {
+        return Location::orderBy('city')->paginate($perPage);
+    }
+
+    public function fetchById($id)
+    {
+        return Location::findOrFail($id);
+    }
+
+    public function getAll()
+    {
+        return Location::orderBy('city')->get();
     }
 }

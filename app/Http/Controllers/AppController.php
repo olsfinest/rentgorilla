@@ -12,6 +12,8 @@ use RentGorilla\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use RentGorilla\Repositories\RentalRepository;
 use Log;
+use Cookie;
+use Response;
 
 class AppController extends Controller {
 
@@ -57,26 +59,46 @@ class AppController extends Controller {
     }
 
 
-    public function showList($location = null)
+    public function showList($location = null, Request $request)
     {
+        $showLandingPage = true;
 
         if($location) {
 
-            $check = $this->locationRepository->fetchBySlug($location);
+            $loc = $this->locationRepository->fetchBySlug($location);
+
+            if(is_null($loc)) return redirect()->route('home');
+
+            $showLandingPage = ! $request->hasCookie($location);
+
+        } else {
+            return redirect()->route('home');
         }
 
-        return view('app.list', compact('location'));
-
+        return view('app.list', compact('location', 'loc', 'showLandingPage'));
 	}
 
+    public function setLandingPageCookie(){
+        if($cookieName = session('location')) {
+            Cookie::queue($cookieName, false, 60 * 24);
+        }
+        //note we just need to return any response to set the cookie
+        return Response::make('test');
+    }
 
     public function showMap($location = null)
     {
         if($location) {
-            $check = $this->locationRepository->fetchBySlug($location);
+
+            $loc = $this->locationRepository->fetchBySlug($location);
+
+            if(is_null($loc)) return redirect()->route('home');
+
+        } else {
+            return redirect()->route('home');
         }
 
-        return view('app.map', compact('location'));
+        return view('app.map', compact('location', 'loc'));
     }
 
 
@@ -89,14 +111,14 @@ class AppController extends Controller {
     public function getRentalList(UserRepository $userRepository)
 	{
 
-        $search = Input::only('location', 'type', 'availability', 'beds', 'price');
+        $search = Input::only('type', 'availability', 'beds', 'price');
 
         foreach ($search as $key => $value) {
-            Session::put($key, $value);
+            session([$key => $value]);
         }
 
         if(Input::get('sort')) {
-            Session::put('sort', Input::get('sort'));
+           session(['sort' => Input::get('sort')]);
         }
 
         $page = (int) Input::get('page', 1);
@@ -105,12 +127,16 @@ class AppController extends Controller {
 
         extract($search);
 
-        $location = $this->locationRepository->fetchBySlug($location);
+        $locationSlug = Input::get('location');
+
+        $location = $this->locationRepository->fetchBySlug($locationSlug);
+
+        if($location) session(['location' => $locationSlug]);
 
         $rentals = $this->rentalRepository->search($page, $paginate, $location->id, $type, $availability, $beds, $price, session('sort'));
 
         if( $rentals['results']->count()) {
-            event(new SearchWasInitiated( $rentals['results']->lists('id')->all()));
+            event(new SearchWasInitiated( $rentals['results']->lists('id')->all(), $location->id));
         }
 
         if(Auth::check()) {

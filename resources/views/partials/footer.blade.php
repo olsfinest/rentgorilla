@@ -49,10 +49,3 @@
         </section>
     </section>
 </section>
-<script>
-    $('.adminNavToggle').click(function(){
-        $('.admin_nav ul').slideToggle('fast', function(){
-
-        });
-    });
-</script>

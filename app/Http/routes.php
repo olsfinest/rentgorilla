@@ -73,6 +73,13 @@ $router->get('admin/promotions/{rental_id}', ['as' => 'promotions', 'uses' => 'R
 $router->get('admin/promotions/{rental_id}/cancel', ['as' => 'promotions.cancel', 'uses' => 'RentalController@showCancelPromotion']);
 $router->delete('admin/promotions/{rental_id}', ['as' => 'promotions.delete', 'uses' => 'RentalController@cancelPromotion']);
 
+$router->get('admin/free-promotions/{rental_id}/cancel', ['as' => 'admin.free-promotions.confirm', 'uses' => 'AdminPromotionsController@confirmCancel']);
+$router->post('admin/free-promotions/{rental_id}/cancel', ['as' => 'admin.free-promotions.cancel', 'uses' => 'AdminPromotionsController@cancel']);
+$router->get('admin/free-promotions/{locationSlug?}', ['as' => 'admin.free-promotions.index', 'uses' => 'AdminPromotionsController@index']);
+$router->post('admin/free-promotions', ['as' => 'admin.free-promotions.store', 'uses' => 'AdminPromotionsController@store']);
+$router->post('admin/free-promotions/location/change', ['as' => 'admin.free-promotions.location', 'uses' => 'AdminPromotionsController@changeLocation']);
+$router->post('admin/free-promotions/address-search/{locationSlug?}', ['as' => 'admin.free-promotions.location.search', 'uses' => 'AdminPromotionsController@searchAddress']);
+
 $router->get('admin/redeem', ['as' => 'redeem.show', 'uses' => 'AchievementsController@showRedeemForm']);
 $router->post('admin/redeem', ['as' => 'redeem.create', 'uses' => 'AchievementsController@redeemPoints']);
 
@@ -81,7 +88,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('features', 'FeaturesController');
     Route::resource('heats', 'HeatsController');
     Route::resource('appliances', 'AppliancesController');
+    Route::delete('locations/{locations}/landing-page/{landing_page}/slides/{name}', ['as' => 'admin.locations.landing-page.slides.destroy', 'uses' =>'LandingPageController@removeSlide']);;
+    Route::get('locations/{locations}/landing-page/{landing_page}/slides', ['as' => 'admin.locations.landing-page.slides', 'uses' =>'LandingPageController@slides']);
+    Route::post('locations/{locations}/landing-page/{landing_page}/slides', ['as' => 'admin.locations.landing-page.slides.create', 'uses' =>'LandingPageController@addSlide']);
+    Route::resource('locations.landing-page', 'LandingPageController');
+    Route::resource('locations', 'LocationsController');
 });
+
+$router->post('admin/slides/save-photo-order', ['as' => 'slide.photoOrder', 'uses' => 'LandingPageController@savePhotoOrder']);
+$router->get('admin/slides/{slide_id}', ['as' => 'slide.edit', 'uses' => 'LandingPageController@editSlide']);
+$router->get('admin/slides/{slide_id}/delete', ['as' => 'slide.confirm-delete', 'uses' => 'LandingPageController@confirmDeleteSlide']);
+$router->patch('admin/slides/{slide_id}', ['as' => 'slide.update', 'uses' => 'LandingPageController@updateSlide']);
 
 $router->get('admin/features/{features}/delete', ['as' => 'admin.features.delete', 'uses' => 'FeaturesController@delete']);
 $router->get('admin/heats/{heats}/delete', ['as' => 'admin.heats.delete', 'uses' => 'HeatsController@delete']);
@@ -107,15 +124,15 @@ $router->post('address-search', 'AdminController@searchAddress');
 
 $router->post('like', 'LikesController@toggleLike');
 
+$router->post('landing-page/hide', 'AppController@setLandingPageCookie');
 
 $router->get('testing', function() {
 
-    dd(session('foo'));
+ //   dd(session('foo'));
 });
 
 
 
-$router->resource('rental', 'RentalController');
 $router->get('rental/{rental}/photos', ['as' => 'rental.photos.index', 'uses' => 'RentalController@showPhotos']);
 $router->post('rental/{rental}/photos', ['as' => 'rental.photos.store', 'uses' => 'RentalController@addPhoto']);
 $router->post('activate', ['as' => 'rental.activate', 'uses' => 'RentalController@toggleActivate']);
@@ -125,12 +142,13 @@ $router->post('rental/email-manager', ['as' => 'rental.email', 'uses' => 'Rental
 $router->post('rental/show-video', ['as' => 'rental.video.show', 'uses' => 'VideoController@getEmbeddedVideo']);
 $router->get('rental/{id}/delete', ['as' => 'rental.delete', 'uses' => 'RentalController@showDelete']);
 $router->post('rental/save-photo-order', ['as' => 'rental.photoOrder', 'uses' => 'RentalController@savePhotoOrder']);
+$router->post('rental/like-video', 'VideoController@toggleLike');
+$router->resource('rental', 'RentalController');
 
 $router->get('preview/{id}', ['as' => 'rental.preview', 'uses' => 'RentalController@showPreview']);
 
 $router->delete('photo/{id}', ['as' => 'photos.delete', 'uses' => 'RentalController@deletePhoto']);
 
-$router->post('rental/like-video', 'VideoController@toggleLike');
 
 
 $router->post('favourite', 'FavouritesController@toggleFavourite');

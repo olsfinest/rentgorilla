@@ -10,6 +10,11 @@ class Rental extends Model {
 
     const RESULTS_PER_PAGE = 12;
 
+    const HOUSE = 'house';
+    const APARTMENT = 'apartment';
+    const ROOM = 'room';
+    const COMMERCIAL = 'commercial';
+
     protected $with = ['location'];
 
     protected $guarded = ['id'];
@@ -45,6 +50,7 @@ class Rental extends Model {
     {
         return number_format($this->price / $this->square_footage, 2);
     }
+
     public function photos()
     {
         return $this->hasMany('RentGorilla\Photo')->orderBy('order', 'DESC');
@@ -156,6 +162,11 @@ class Rental extends Model {
         } else {
             return $nextAvailableDate['daysRemaining'];
         }
+    }
+
+    public function isNotFreePromotion()
+    {
+        return $this->free_promotion === 0;
     }
 
 }

@@ -1,4 +1,6 @@
 @extends('layouts.app')
+
+
 @section('content')
         @include('partials.header')
         <section class="filter">
@@ -19,7 +21,14 @@
         <script type="text/javascript" src="/js/infobox.js"></script>
         <script type="text/javascript" src="/js/markerclusterer.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
-        <script type="text/javascript" src="/js/map-view.js?v=1"></script>
+        <script>
+           @if($loc->zoom)
+                var zoom = {{ $loc->zoom }};
+            @else
+                var zoom = 12;
+            @endif
+        </script>
+        <script type="text/javascript" src="/js/map-view.js?v=2"></script>
         <script>
             $(window).load(function(){
                 $('body').addClass('map');

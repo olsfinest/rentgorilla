@@ -19,7 +19,7 @@ function initialize() {
     geocoder = new google.maps.Geocoder();
 
     map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: 12,
+        zoom: zoom,
         center: new google.maps.LatLng(44.65,-63.6)
     });
 
@@ -204,7 +204,7 @@ $(document).ready(function() {
     });
 
     $('#location').on("change", function(e) {
-        codeAddress();
+        window.location.href = '/map/' + $(this).val();
     });
 
 

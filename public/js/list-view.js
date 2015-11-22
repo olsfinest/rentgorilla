@@ -31,9 +31,35 @@ function addURLSearchParams(params) {
     }
 }
 
+function resizeLocale() {
+    vpw = $(window).width();
+    vph = $(window).height() - 111;
+    $('.locale').css({'height': vph + 'px'});
+}
+
 
 $(document).ready(function() {
 
+
+    resizeLocale();
+
+    window.onresize = function(event) {
+        resizeLocale();
+    };
+
+    $(document).on('click','.close_box',function(){
+
+        $.ajax({
+            type: 'POST',
+            url: '/landing-page/hide'
+        });
+
+        $(this).parent().fadeTo(300,0,function(){
+            $(this).remove();
+        });
+    });
+
+    $(".locale").show();
 
     $('#spinner').hide();
 

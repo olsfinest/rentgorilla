@@ -9,7 +9,7 @@
         <p>You may drag and drop photos in the box below, or simply click within the box to choose photos to upload.</p>
         {!! Form::open(['route' => ['rental.photos.store', $rental->uuid], 'class' => 'dropzone', 'id' => 'myAwesomeDropzone']) !!}
 {!! Form::close() !!}
-@if($photoCount = $rental->photos->count())
+@if($photoCount = $rental->photos()->count())
             <h1>Drag and drop photos to reorder</h1>
             <p>The order goes from left to right, with the top left being the first. Remember to save when you are finished reordering.</p>
     <ul id="items">

@@ -48,17 +48,21 @@ class PromotionManager {
 
                    $user = $this->getUser($queued);
 
-                   if ($user->charge(Config::get('promotion.price'), ['description' => 'Promotion for ' . $queued->street_address])) {
-                       $this->rentalRepository->promoteRental($queued);
-                       $this->mailer->sendPromotionStart($user, $queued);
-                       Log::info('Queued promotion started', ['rental_id' => $queued->id]);
-                   } else {
-                       Log::info('Charge failed for queued rental', ['user_id' => $user->id]);
-                       $this->rentalRepository->unqueueRental($queued);
-                       $this->mailer->sendPromotionChargeFailed($user, $queued);
-                       //TODO::send email to admin that the charge failed?
-                   }
+                   if($queued->isNotFreePromotion()) {
+
+                       if ($user->charge(Config::get('promotion.price'), ['description' => 'Promotion for ' . $queued->street_address])) {
+                           $this->rentalRepository->promoteRental($queued);
+                           $this->mailer->sendPromotionStart($user, $queued);
+                           Log::info('Queued promotion started', ['rental_id' => $queued->id]);
+                       } else {
+                           Log::info('Charge failed for queued rental', ['user_id' => $user->id]);
+                           $this->rentalRepository->unqueueRental($queued);
+                           $this->mailer->sendPromotionChargeFailed($user, $queued);
+                           //TODO::send email to admin that the charge failed?
+                       }
+                    }
                }
+
 
                $this->rentalRepository->unpromoteRental($rental);
                $this->mailer->sendPromotionEnded($this->getUser($rental), $rental);

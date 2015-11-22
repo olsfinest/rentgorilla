@@ -3,6 +3,6 @@
 return [
 
     'price' => 1150,
-    'max' => 3,
+    'max' => 4,
     'days' => 7
 ];

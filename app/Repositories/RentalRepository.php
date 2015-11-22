@@ -33,4 +33,6 @@ interface RentalRepository
     public function updateSearchViews($rentalIds);
     public function updateEditedAt(Rental $rental);
     public function addressSearch($address);
+    public function freePromotion(Rental $rental);
+    public function freePromotionAddressSearch($address, $locationId);
 }
