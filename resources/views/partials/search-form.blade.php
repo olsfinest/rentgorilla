@@ -18,7 +18,7 @@
 {!! Form::close() !!}
     <div class="view_switcher">
         <select class="options" name="" id="">
-            <option value="/list" {{ (Request::is('list') || Request::is('list/*')) ? 'selected' : '' }}>List View</option>
-            <option value="/map" {{ (Request::is('map') || Request::is('map/*')) ? 'selected' : '' }}>Map View</option>
+            <option value="/list/{{$location}}" {{ (Request::is('list') || Request::is('list/*')) ? 'selected' : '' }}>List View</option>
+            <option value="/map/{{$location}}" {{ (Request::is('map') || Request::is('map/*')) ? 'selected' : '' }}>Map View</option>
         </select>
     </div>

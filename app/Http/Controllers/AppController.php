@@ -59,7 +59,7 @@ class AppController extends Controller {
     }
 
 
-    public function showList($location = null, Request $request)
+    public function showList(Request $request = null, $location = null)
     {
         $showLandingPage = true;
 
@@ -86,19 +86,23 @@ class AppController extends Controller {
         return Response::make('test');
     }
 
-    public function showMap($location = null)
+    public function showMap(Request $request = null, $location = null)
     {
+        $showLandingPage = true;
+
         if($location) {
 
             $loc = $this->locationRepository->fetchBySlug($location);
 
             if(is_null($loc)) return redirect()->route('home');
 
+            $showLandingPage = ! $request->hasCookie($location);
+
         } else {
             return redirect()->route('home');
         }
 
-        return view('app.map', compact('location', 'loc'));
+        return view('app.map', compact('location', 'loc', 'showLandingPage'));
     }
 
 
