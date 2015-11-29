@@ -33,6 +33,8 @@ class ResendConfirmationCommandHandler
     {
         $user = $this->repository->getUserByAttribute('email', $command->email);
 
+        $user = $this->repository->reconfirm($user);
+
         $this->mailer->sendConfirmation($user);
 
         return $user;

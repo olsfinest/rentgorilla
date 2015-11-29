@@ -31,7 +31,10 @@ class UserEventHandler {
     {
         Log::info('User has confirmed their email address', ['id' => $event->user->id]);
         $this->userMailer->sendWelcome($event->user);
-        $this->mailingList->addUserToList($event->user);
+
+        if(app()->environment() !== 'local') {
+            $this->mailingList->addUserToList($event->user);
+        }
     }
 
     public function onUserHasBeenDeleted(UserHasBeenDeleted $event)

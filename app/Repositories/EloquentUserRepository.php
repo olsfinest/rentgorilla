@@ -62,6 +62,8 @@ class EloquentUserRepository implements UserRepository
     {
         $user->confirmed = 1;
 
+        $user->confirmation = null;
+
         $user->save();
 
         return $user;
@@ -136,5 +138,14 @@ class EloquentUserRepository implements UserRepository
     public function delete($id)
     {
         return User::where('id', $id)->delete();
+    }
+
+    public function reconfirm(User $user)
+    {
+        $user->confirmation = str_random(40);
+
+        $user->save();
+
+        return $user;
     }
 }

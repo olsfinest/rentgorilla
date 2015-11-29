@@ -9,6 +9,7 @@ interface UserRepository
     public function getFavouriteRentalIdsForUser(User $user);
     public function getUserByAttribute($attribute, $searchTerm);
     public function confirm(User $user);
+    public function reconfirm(User $user);
     public function getPhotoLikesForUser(User $user);
     public function awardPoints(User $user, $points);
     public function redeemPoints(User $user);
