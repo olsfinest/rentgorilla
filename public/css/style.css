@@ -2320,8 +2320,7 @@ body.map {
 .promotedCta {
   padding: .25em;
   background: #7A694B;
-  color: white;
-  display: none; }
+  color: white; }
   .promotedCta:hover {
     background: #5a4e38; }
   .promotedCta .content {

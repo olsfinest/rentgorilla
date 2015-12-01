@@ -2087,7 +2087,6 @@ body.map {
   padding:.25em;
   background:$brown;
   color:white;
-  display:none; // Curran - remove this rule for production once this feature is finished
   &:hover {
     background:darken($brown, 10%);
   }
