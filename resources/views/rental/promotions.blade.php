@@ -21,7 +21,7 @@
 
     @if($queued)
         <p><strong>Please Note:</strong></p>
-        <p>There are already three promotions running for <strong>{{ $rental->location->city }}</strong>, however you may be put on the waiting list for a promotion slot, and your property will approximately be promoted on <strong>{{ $queued['dateAvailable']->format('F jS, Y') }}, ({{ $queued['daysRemaining'] }} days from now)</strong></p>
+        <p>There are already {{ config('promotion.max') }} promotions running for <strong>{{ $rental->location->city }}</strong>, however you may be put on the waiting list for a promotion slot, and your property will approximately be promoted on <strong>{{ $queued['dateAvailable']->format('F jS, Y') }}, ({{ $queued['daysRemaining'] }} days from now)</strong></p>
         <p>Your credit card will only be charged when the promotion starts. You may also cancel at any time before the promotion is scheduled to begin.</p>
     @endif
 

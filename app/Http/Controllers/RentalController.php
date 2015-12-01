@@ -159,7 +159,9 @@ class RentalController extends Controller {
 
         $plan = Subscription::plan(Auth::user()->getStripePlan());
 
-        return view('rental.index', compact('rentals', 'rewards', 'plan', 'activeRentalCount'));
+        $availablePromotions = $this->rentalRepository->getAvailablePromotionSlotsForUser(Auth::user());
+
+        return view('rental.index', compact('rentals', 'rewards', 'plan', 'activeRentalCount', 'availablePromotions'));
 	}
 
 

@@ -323,4 +323,36 @@ class EloquentRentalRepository implements RentalRepository
             ->where('queued', 0)
             ->get();
     }
+
+    public function getAvailablePromotionSlotsForUser(User $user)
+    {
+        $locationIds =  $user->rentals()->where('active', 1)->groupBy('location_id')->lists('location_id');
+
+        if ( ! $locationIds ) return null;
+
+        return $this->getAvailablePromotionSlots($locationIds);
+
+    }
+
+    public function getAvailablePromotionSlots($locationIds = [])
+    {
+        $maxPromotions = config('promotion.max');
+
+        if($locationIds) {
+             return DB::table('rentals')->join('locations', 'locations.id', '=', 'rentals.location_id')
+                ->select(['city', DB::raw('sum(rentals.promoted = 1) as currentlyPromoted'), DB::raw($maxPromotions . ' - sum(rentals.promoted = 1) as remaining')])
+                ->whereIn('location_id', $locationIds)
+                ->groupBy('location_id')
+                ->having('remaining', '>', 0)
+                ->orderBy('city')
+                ->get();
+        } else {
+            return DB::table('rentals')->join('locations', 'locations.id', '=', 'rentals.location_id')
+                ->select(['city', DB::raw('sum(rentals.promoted = 1) as currentlyPromoted'), DB::raw($maxPromotions . ' - sum(rentals.promoted = 1) as remaining')])
+                ->groupBy('location_id')
+                ->having('remaining', '>', 0)
+                ->orderBy('city')
+                ->get();
+        }
+    }
 }

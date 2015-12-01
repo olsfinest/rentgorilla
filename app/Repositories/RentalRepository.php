@@ -35,4 +35,6 @@ interface RentalRepository
     public function addressSearch($address);
     public function freePromotion(Rental $rental);
     public function freePromotionAddressSearch($address, $locationId);
+    public function getAvailablePromotionSlots($locationIds = null);
+    public function getAvailablePromotionSlotsForUser(User $user);
 }

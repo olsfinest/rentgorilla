@@ -1,13 +1,32 @@
 @extends('layouts.admin')
 @section('content')
+    @if($availablePromotionCount = count($availablePromotions))
     <section class="promotedCta">
         <section class="content full closer">
             <span class="fa fa-close" title="Close this notification"></span>
         </section>
         <section class="content full">
-            <p>There are currently 2 promoted property slots available in your area. <span style="text-decoration:underline;">Promote Your Property Below.</span></p>
+            <?php
+            $message = '';
+
+            for($i = 0; $i < $availablePromotionCount; $i++) {
+                if($i == 0) {
+                    if(intval($availablePromotions[$i]->remaining) == 1) {
+                        $message .= sprintf('There is currently %s promoted %s available in %s', $availablePromotions[$i]->remaining, str_plural('slot', intval($availablePromotions[$i]->remaining)), $availablePromotions[$i]->city);
+                    } else {
+                        $message .= sprintf('There are currently %s promoted %s available in %s', $availablePromotions[$i]->remaining, str_plural('slot', intval($availablePromotions[$i]->remaining)), $availablePromotions[$i]->city);
+                    }
+                } else if($i == $availablePromotionCount - 1) {
+                    $message .= sprintf(', and %s in %s.', $availablePromotions[$i]->remaining, $availablePromotions[$i]->city);
+                } else {
+                    $message .= sprintf(', %s in %s', $availablePromotions[$i]->remaining, $availablePromotions[$i]->city);
+                }
+            }
+            ?>
+            <p>{{ $message }} <span style="text-decoration:underline;">Promote Your Property Below.</span></p>
         </section>
     </section>
+    @endif
     <section class="content full admin rentals">
         <section class="my_properties">
             <div class="heading">
