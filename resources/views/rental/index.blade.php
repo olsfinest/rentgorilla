@@ -10,20 +10,31 @@
             $message = '';
 
             for($i = 0; $i < $availablePromotionCount; $i++) {
-                if($i == 0) {
-                    if(intval($availablePromotions[$i]->remaining) == 1) {
-                        $message .= sprintf('There is currently %s promoted %s available in %s', $availablePromotions[$i]->remaining, str_plural('slot', intval($availablePromotions[$i]->remaining)), $availablePromotions[$i]->city);
+
+                $remaining = (int) $availablePromotions[$i]->remaining;
+                $city = $availablePromotions[$i]->city;
+
+                if($i === 0) {
+                    if($remaining === 1) {
+                        $message .= sprintf('There is currently 1 promoted slot available in %s',
+                                $city);
                     } else {
-                        $message .= sprintf('There are currently %s promoted %s available in %s', $availablePromotions[$i]->remaining, str_plural('slot', intval($availablePromotions[$i]->remaining)), $availablePromotions[$i]->city);
+                        $message .= sprintf('There are currently %s promoted slots available in %s',
+                                $remaining,
+                                $city);
                     }
-                } else if($i == $availablePromotionCount - 1) {
-                    $message .= sprintf(', and %s in %s.', $availablePromotions[$i]->remaining, $availablePromotions[$i]->city);
+                } else if($i === $availablePromotionCount - 1) {
+                    $message .= sprintf(', and %s in %s',
+                            $remaining,
+                            $city);
                 } else {
-                    $message .= sprintf(', %s in %s', $availablePromotions[$i]->remaining, $availablePromotions[$i]->city);
+                    $message .= sprintf(', %s in %s',
+                            $remaining,
+                            $city);
                 }
             }
             ?>
-            <p>{{ $message }} <span style="text-decoration:underline;">Promote Your Property Below.</span></p>
+            <p>{{ $message }}. <span style="text-decoration:underline;">Promote Your Property Below.</span></p>
         </section>
     </section>
     @endif
