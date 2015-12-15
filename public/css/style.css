@@ -2416,4 +2416,103 @@ a.planChange {
     background: #5a4e38;
     transition: .1s; }
 
+.localeNew {
+  margin-top: 0; }
+  .localeNew .content {
+    background: #ececec;
+    border: 1px solid #a0a0a0;
+    padding: .1em;
+    position: relative; }
+  .localeNew h2 {
+    font-size: 1em;
+    text-align: center;
+    text-transform: uppercase; }
+    .localeNew h2 a {
+      color: #74B164;
+      text-decoration: none; }
+  .localeNew #closeMe {
+    position: absolute;
+    top: 0px;
+    right: 10px; }
+  .localeNew .showButton {
+    height: 22px;
+    color: #74B164;
+    transition: .1s; }
+    .localeNew .showButton:hover {
+      cursor: pointer;
+      transition: .1s;
+      color: #5b964c; }
+  .localeNew .showMe {
+    position: relative;
+    transition: 1s;
+    height: 411px;
+    display: none; }
+    .localeNew .showMe .left, .localeNew .showMe .right {
+      display: block;
+      padding: 1em; }
+      .localeNew .showMe .left h1, .localeNew .showMe .left h2, .localeNew .showMe .right h1, .localeNew .showMe .right h2 {
+        color: #4A4A4A;
+        text-align: left; }
+    .localeNew .showMe .left {
+      width: 50%;
+      float: left; }
+      .localeNew .showMe .left h1 {
+        font-size: 3em;
+        letter-spacing: -1px;
+        padding: 0;
+        float: left;
+        max-width: 395px; }
+        .localeNew .showMe .left h1 span {
+          float: right;
+          text-align: right;
+          vertical-align: middle;
+          display: inline-block;
+          font-size: .35em;
+          margin-top: 22px;
+          position: relative;
+          right: 0px; }
+      .localeNew .showMe .left img.flag {
+        float: right;
+        position: relative;
+        top: 20px; }
+      .localeNew .showMe .left p {
+        clear: both;
+        font-size: .9em; }
+      .localeNew .showMe .left img.glmr {
+        width: 100%; }
+    .localeNew .showMe .right {
+      width: 50%;
+      float: right; }
+      .localeNew .showMe .right h2 {
+        text-transform: none;
+        font-size: 1.3em; }
+      .localeNew .showMe .right h2.divider {
+        border-bottom: 2px solid #4A4A4A; }
+      .localeNew .showMe .right ul {
+        width: 100%;
+        list-style: disc;
+        margin-bottom: 2em; }
+        .localeNew .showMe .right ul li {
+          float: left;
+          margin-bottom: .5em;
+          width: 50%; }
+          .localeNew .showMe .right ul li a {
+            color: #74B164;
+            text-decoration: none;
+            font-size: .9em; }
+      .localeNew .showMe .right table {
+        border-spacing: 1px;
+        background: white;
+        width: 100%; }
+        .localeNew .showMe .right table td {
+          color: white;
+          background: #7A694B; }
+    .localeNew .showMe .fa-close {
+      color: #74B164; }
+      .localeNew .showMe .fa-close:hover {
+        cursor: pointer; }
+
+.localeNew.open {
+  margin-top: 10px; }
+
 /*# sourceMappingURL=style.css.map */
