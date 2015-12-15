@@ -78,9 +78,23 @@ class AppController extends Controller {
         return view('app.list', compact('location', 'loc', 'showLandingPage'));
 	}
 
-    public function setLandingPageCookie(){
-        if($cookieName = session('location')) {
-            Cookie::queue($cookieName, false, 60 * 24);
+
+    public function setLandingPageCookie(Request $request){
+
+        if($cookieName = $request->session()->get('location')) {
+            // 4 days
+            Cookie::queue($cookieName, false, 60 * 24 * 4);
+        }
+        //note we just need to return any response to set the cookie
+        return Response::make('test');
+    }
+
+    public function deleteLandingPageCookie(Request $request){
+
+        if($request->session()->get('location') && $request->hasCookie($request->session()->get('location')))
+        {
+            $cookie = Cookie::forget($request->session()->get('location'));
+            Cookie::queue($cookie);
         }
         //note we just need to return any response to set the cookie
         return Response::make('test');
@@ -112,7 +126,7 @@ class AppController extends Controller {
      * @param UserRepository $userRepository
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getRentalList(UserRepository $userRepository)
+    public function getRentalList(UserRepository $userRepository, Request $request)
 	{
 
         $search = Input::only('type', 'availability', 'beds', 'price');
@@ -137,6 +151,8 @@ class AppController extends Controller {
 
         if($location) session(['location' => $locationSlug]);
 
+        $showLandingPage = ! $request->hasCookie($locationSlug);
+
         $rentals = $this->rentalRepository->search($page, $paginate, $location->id, $type, $availability, $beds, $price, session('sort'));
 
         if( $rentals['results']->count()) {
@@ -150,9 +166,9 @@ class AppController extends Controller {
 		}
 
         if($paginate) {
-            $html = view('app.rental-list-hits-paginated')->with('rentals', $rentals['results'])->with('favourites', $favourites)->render();
+            $html = view('app.rental-list-hits-paginated')->with('loc', $location)->with('showLandingPage', $showLandingPage)->with('rentals', $rentals['results'])->with('favourites', $favourites)->render();
         } else {
-            $html = view('app.rental-list-hits')->with('rentals', $rentals['results'])->with('favourites', $favourites)->with('total', $rentals['count'])->render();
+            $html = view('app.rental-list-hits')->with('loc', $location)->with('showLandingPage', $showLandingPage)->with('rentals', $rentals['results'])->with('favourites', $favourites)->with('total', $rentals['count'])->render();
         }
 
 		return response()->json(['rentals' => $html,

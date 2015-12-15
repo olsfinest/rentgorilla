@@ -124,11 +124,14 @@ $router->post('address-search', 'AdminController@searchAddress');
 
 $router->post('like', 'LikesController@toggleLike');
 
-$router->post('landing-page/hide', 'AppController@setLandingPageCookie');
+$router->post('landing-page/set-cookie', 'AppController@setLandingPageCookie');
+$router->post('landing-page/delete-cookie', 'AppController@deleteLandingPageCookie');
 
 $router->get('testing', function() {
 
- //   dd(session('foo'));
+  $repo = app( 'RentGorilla\Repositories\EloquentRentalRepository');
+
+    return $repo->getAvailablePromotionSlots();
 });
 
 

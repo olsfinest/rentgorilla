@@ -47,18 +47,6 @@ $(document).ready(function() {
         resizeLocale();
     };
 
-    $(document).on('click','.close_box',function(){
-
-        $.ajax({
-            type: 'POST',
-            url: '/landing-page/hide'
-        });
-
-        $(this).parent().fadeTo(300,0,function(){
-            $(this).remove();
-        });
-    });
-
     $(".locale").show();
 
     $('#spinner').hide();

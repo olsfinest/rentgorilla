@@ -1,17 +1,21 @@
 
 @if($rentals->count())
-	<section class="localeNew open">
+	@if($loc && $loc->landingPage)
+	<section class="localeNew {{ $showLandingPage ? 'open' : 'closed' }}">
 		<section class="content full">
 			<h2 class="showButton">View Community Profile, Links &amp; Statistics</h2>
-
 			<div class="showMe">
 				<div class="left">
-					<h1>Antigonish <span>{{ $total }} Listings</span></h1>
-					<img class="flag" src="/img/flags/NS.jpg" alt="">
+					<h1>{{ $loc->landingPage->name }} <span>{{ $loc->rentals()->count() }} Listings</span></h1>
+					<img class="flag" src="/img/flags/{{ $loc->province }}.jpg" alt="">
 					<p>
-						Antigonish (Scottish Gaelic: Am Baile Mor) is a Canadian town in Antigonish County, Nova Scotia. The Town is home to St. Francis Xavier University and the oldest continuous Highland Games outside of Scotland. It is approximately one hundred miles (161km) northeast of Halifax.
+						{{ $loc->landingPage->description }}
 					</p>
-                	<img class="glmr" src="https://rentgorilla.ca/img/slides/rD4yjOqCW0Kd.jpeg" alt="">
+					<div class="images cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="1000">
+						@foreach($loc->landingPage->slides as $slide)
+							<img class="glmr" src="/img/slides/{{ $slide->name }}" alt="{{ $slide->alt }}">
+						@endforeach
+					</div>
 				</div>
 				<div class="right">
 					<h2 class="divider">Local Websites</h2>
@@ -25,23 +29,32 @@
 						<div class="cf"></div>
 					</ul>
 					<h2>Statistics</h2>
-					<table>
-						<tr>
-							<td>Avg. House Rental Cost</td>
-							<td>$1408.00</td>
-						</tr>
-						<tr>
-							<td>Avg. Apartment Cost</td>
-							<td>$906.17</td>
-						</tr>
-						<tr>
-							<td>Avg. Room Cost</td>
-							<td>$856.75</td>
-						</tr>
-						<tr>
-							<td>Searches for November</td>
-							<td>570</td>
-						</tr>
+					<table class="stats">
+						@if($housePrice = $loc->averagePrice(\RentGorilla\Rental::HOUSE))
+							<tr>
+								<td>Avg. House Rental Cost</td>
+								<td>${{ $housePrice  }}</td>
+							</tr>
+						@endif
+						@if($apartmentPrice = $loc->averagePrice(\RentGorilla\Rental::APARTMENT))
+							<tr>
+								<td>Avg. Apartment Cost</td>
+								<td>${{ $apartmentPrice  }}</td>
+							</tr>
+						@endif
+						@if($roomPrice = $loc->averagePrice(\RentGorilla\Rental::ROOM))
+							<tr>
+								<td>Avg. Room Cost</td>
+								<td>${{ $roomPrice }}</td>
+							</tr>
+						@endif
+
+						@if($monthlySearches = $loc->getMonthlySearches())
+							<tr>
+								<td>Searches for {{ date('F') }}</td>
+								<td>{{ $monthlySearches }}</td>
+							</tr>
+						@endif
 					</table>
 				</div>
 				<span id="closeMe"><i class="fa fa-close"></i></span>
@@ -49,6 +62,7 @@
 			<span class="cf"></span>
 		</section>
 	</section>
+	@endif
     <section class="content full">
         <h1 class="resultsNum">{{ $total }} {{ $total == 1 ? 'result' : 'results' }}</h1>
             {!! Form::select('sort', Config::get('sort'), Session::get('sort') ?: 'available_at-ASC', ['class' => 'sort', 'id' => 'sort-widget', 'title' => 'Sort your results']) !!}
@@ -56,12 +70,24 @@
     </section>
     <script>
     	$(".showButton").click(function(){
-    		$('.showMe').fadeIn(50, "swing");
-    		$(this).fadeOut(50, "swing");
+
+			$.ajax({
+				type: 'POST',
+				url: '/landing-page/delete-cookie'
+			});
+
+			$('.localeNew').toggleClass('open');
+			$('.localeNew').toggleClass('closed');
     	});
     	$("#closeMe").click(function(){
-    		$('.showMe').fadeOut(50, "swing");
-    		$('.showButton').fadeIn(50, "swing");
+
+			$.ajax({
+				type: 'POST',
+				url: '/landing-page/set-cookie'
+			});
+
+			$('.localeNew').toggleClass('open');
+			$('.localeNew').toggleClass('closed');
     	});
     </script>
     <ul id="rental-list">
