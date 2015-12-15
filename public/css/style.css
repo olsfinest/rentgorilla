@@ -2514,5 +2514,16 @@ a.planChange {
 
 .localeNew.open {
   margin-top: 10px; }
+  .localeNew.open .showMe {
+    display: block !important; }
+  .localeNew.open .showButton {
+    display: none; }
+
+.localeNew.closed {
+  margin-top: 10px; }
+  .localeNew.closed .showMe {
+    display: none; }
+    .localeNew.closed .showMe .showButton {
+      display: block; }
 
 /*# sourceMappingURL=style.css.map */

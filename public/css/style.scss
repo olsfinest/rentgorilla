@@ -2345,4 +2345,19 @@ a.planChange {
 }
 .localeNew.open {
   margin-top:10px;
+  .showMe {
+    display:block!important;
+  }
+  .showButton {
+    display:none;
+  }
+}
+.localeNew.closed {
+  margin-top:10px;
+  .showMe {
+    display:none;
+    .showButton {
+      display:block;
+    }
+  }
 }
