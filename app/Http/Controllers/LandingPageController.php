@@ -2,6 +2,7 @@
 
 namespace RentGorilla\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use RentGorilla\Http\Requests;
@@ -9,11 +10,13 @@ use RentGorilla\Http\Controllers\Controller;
 use RentGorilla\Http\Requests\ModifyLandingPageRequest;
 use RentGorilla\Http\Requests\ModifySlideRequest;
 use RentGorilla\LandingPage;
+use RentGorilla\Link;
 use RentGorilla\Repositories\LocationRepository;
 use RentGorilla\Slide;
 use Validator;
 use Input;
 use Image;
+use DB;
 
 class LandingPageController extends Controller
 {
@@ -63,6 +66,20 @@ class LandingPageController extends Controller
 
         $location->save();
 
+        if($request->has('hrefs') && $request->has('titles')) {
+
+            $inserts = [];
+
+            $hrefs = $request->input('hrefs');
+            $titles = $request->input('titles');
+
+            for ($i = 0; $i < count($hrefs); $i++) {
+                $inserts[] = ['href' => $hrefs[$i], 'title' => $titles[$i], 'landing_page_id' => $lp->id, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+            }
+
+            Link::insert($inserts);
+        }
+
         return redirect()->route('admin.locations.index')->with('flash:success', 'Landing Page created!');
 
     }
@@ -89,7 +106,8 @@ class LandingPageController extends Controller
 
     public function update(ModifyLandingPageRequest $request, $locationId)
     {
-       $location = $this->locationRepository->fetchById($locationId);
+
+        $location = $this->locationRepository->fetchById($locationId);
 
         $lp = $location->landingPage;
 
@@ -97,6 +115,22 @@ class LandingPageController extends Controller
         $lp->description = $request->description;
 
         $lp->save();
+
+        $lp->links()->delete();
+
+        if($request->has('hrefs') && $request->has('titles')) {
+
+            $inserts = [];
+
+            $hrefs = $request->input('hrefs');
+            $titles = $request->input('titles');
+
+            for ($i = 0; $i < count($hrefs); $i++) {
+                $inserts[] = ['href' => $hrefs[$i], 'title' => $titles[$i], 'landing_page_id' => $lp->id, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()];
+            }
+
+            Link::insert($inserts);
+        }
 
         return redirect()->route('admin.locations.index')->with('flash:success', 'Landing Page updated!');
 

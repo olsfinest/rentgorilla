@@ -17,4 +17,9 @@ class LandingPage extends Model
     {
         return $this->hasMany('RentGorilla\Slide')->orderBy('order', 'DESC');
     }
+
+    public function links()
+    {
+        return $this->hasMany('RentGorilla\Link');
+    }
 }

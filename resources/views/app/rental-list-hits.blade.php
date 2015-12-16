@@ -11,7 +11,7 @@
 					<p>
 						{{ $loc->landingPage->description }}
 					</p>
-					<div class="images cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="1000">
+					<div class="cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="1000">
 						@foreach($loc->landingPage->slides as $slide)
 							<img class="glmr" src="/img/slides/{{ $slide->name }}" alt="{{ $slide->alt }}">
 						@endforeach
@@ -20,12 +20,9 @@
 				<div class="right">
 					<h2 class="divider">Local Websites</h2>
 					<ul>
-						<li><a href="http://stfx.ca">St. Francis Xavier University</a></li>
-						<li><a href="#">Theatre Antigonish</a></li>
-						<li><a href="#">The Town of Antigonish</a></li>
-						<li><a href="#">The County of Antigonish</a></li>
-						<li><a href="#">Antigonish Mall</a></li>
-						<li><a href="#">Awesome Antigonish</a></li>
+						@foreach($loc->landingPage->links as $link)
+							<li><a target="_blank" href="{{ $link->href }}">{{ $link->title }}</a></li>
+						@endforeach
 						<div class="cf"></div>
 					</ul>
 					<h2>Statistics</h2>
