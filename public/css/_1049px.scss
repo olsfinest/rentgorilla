@@ -85,3 +85,22 @@ header {
       margin:1em;
     }
   }
+
+.localeNew {
+  .showMe {
+    .left {
+      h1 {
+        margin:0;
+      }
+    }
+    .right {
+      ul {
+        li {
+          float:none;
+          display:list-item;
+          width:100%;
+        }
+      }
+    }
+  }
+}

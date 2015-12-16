@@ -2320,6 +2320,8 @@ a.planChange {
           width:50%;
           a {
             color:$green;
+            word-wrap:break-word;
+            white-space: pre-wrap;
             text-decoration: none;
             font-size:.9em;
           }

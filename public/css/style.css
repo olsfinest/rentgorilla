@@ -1479,7 +1479,14 @@ footer {
         margin: 10px; }
 
   #list-canvas #sort-widget-button {
-    margin: 1em; } }
+    margin: 1em; }
+
+  .localeNew .showMe .left h1 {
+    margin: 0; }
+  .localeNew .showMe .right ul li {
+    float: none;
+    display: list-item;
+    width: 100%; } }
 @media only screen and (max-width: 1013px) {
   .content.rentals section.my_properties, .content.rentals aside.my_properties {
     float: none;
@@ -1682,7 +1689,11 @@ footer {
   body article.property .overview .photos {
     float: none;
     width: 100%;
-    margin: 0; } }
+    margin: 0; }
+
+  .localeNew .showMe .right ul li {
+    float: none !important;
+    width: 100% !important; } }
 @media only screen and (max-width: 576px) {
   #ui-id-7-button {
     display: none; }
@@ -1814,7 +1825,13 @@ footer {
     article.property .stats li span {
       font-size: 0.3em !important;
       line-height: 1em !important;
-      padding-top: 1em; } }
+      padding-top: 1em; }
+
+  .localeNew .showMe {
+    height: auto !important; }
+    .localeNew .showMe .left, .localeNew .showMe .right {
+      float: none !important;
+      width: 100% !important; } }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .listings > ul > li {
     margin: .5em 0;
@@ -2498,6 +2515,8 @@ a.planChange {
           width: 50%; }
           .localeNew .showMe .right ul li a {
             color: #74B164;
+            word-wrap: break-word;
+            white-space: pre-wrap;
             text-decoration: none;
             font-size: .9em; }
       .localeNew .showMe .right table {

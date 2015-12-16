@@ -84,3 +84,12 @@ article.property {
     }
   }
 }
+.localeNew {
+  .showMe {
+    height:auto!important;
+    .left, .right {
+      float:none!important;
+      width:100%!important;
+    }
+  }
+}

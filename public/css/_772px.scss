@@ -184,3 +184,19 @@ body {
     }
   }
 }
+.localeNew {
+  .showMe {
+    .left {
+
+    }
+    .right {
+      ul {
+        li { 
+          float:none!important;
+          width:100%!important;
+          // display:block;
+        }
+      }
+    }
+  }
+}
