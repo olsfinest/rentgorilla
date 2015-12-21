@@ -18,41 +18,45 @@
 					</div>
 				</div>
 				<div class="right">
-					<h2 class="divider">Local Websites</h2>
-					<ul>
-						@foreach($loc->landingPage->links as $link)
-							<li><a target="_blank" href="{{ $link->href }}">{{ $link->title }}</a></li>
-						@endforeach
-						<div class="cf"></div>
-					</ul>
-					<h2>Statistics</h2>
-					<table class="stats">
-						@if($housePrice = $loc->averagePrice(\RentGorilla\Rental::HOUSE))
-							<tr>
-								<td>Avg. House Rental Cost</td>
-								<td>${{ $housePrice  }}</td>
-							</tr>
-						@endif
-						@if($apartmentPrice = $loc->averagePrice(\RentGorilla\Rental::APARTMENT))
-							<tr>
-								<td>Avg. Apartment Cost</td>
-								<td>${{ $apartmentPrice  }}</td>
-							</tr>
-						@endif
-						@if($roomPrice = $loc->averagePrice(\RentGorilla\Rental::ROOM))
-							<tr>
-								<td>Avg. Room Cost</td>
-								<td>${{ $roomPrice }}</td>
-							</tr>
-						@endif
+					<div class="linksHolder">
+						<h2 class="divider">Local Websites</h2>
+						<ul>
+							@foreach($loc->landingPage->links as $link)
+								<li><a target="_blank" href="{{ $link->href }}">{{ $link->title }}</a></li>
+							@endforeach
+							<div class="cf"></div>
+						</ul>
+					</div>
+					<div class="statsHolder">
+						<h2>Statistics</h2>
+						<table class="stats">
+							@if($housePrice = $loc->averagePrice(\RentGorilla\Rental::HOUSE))
+								<tr>
+									<td>Avg. House Rental Cost</td>
+									<td>${{ $housePrice  }}</td>
+								</tr>
+							@endif
+							@if($apartmentPrice = $loc->averagePrice(\RentGorilla\Rental::APARTMENT))
+								<tr>
+									<td>Avg. Apartment Cost</td>
+									<td>${{ $apartmentPrice  }}</td>
+								</tr>
+							@endif
+							@if($roomPrice = $loc->averagePrice(\RentGorilla\Rental::ROOM))
+								<tr>
+									<td>Avg. Room Cost</td>
+									<td>${{ $roomPrice }}</td>
+								</tr>
+							@endif
 
-						@if($monthlySearches = $loc->getMonthlySearches())
-							<tr>
-								<td>Searches for {{ date('F') }}</td>
-								<td>{{ $monthlySearches }}</td>
-							</tr>
-						@endif
-					</table>
+							@if($monthlySearches = $loc->getMonthlySearches())
+								<tr>
+									<td>Searches for {{ date('F') }}</td>
+									<td>{{ $monthlySearches }}</td>
+								</tr>
+							@endif
+						</table>
+					</div>
 				</div>
 				<span id="closeMe"><i class="fa fa-close"></i></span>
 			</div>

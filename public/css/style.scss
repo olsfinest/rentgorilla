@@ -1638,6 +1638,15 @@ footer {
       position:relative;
       height:auto;
     }
+    .localeNew {
+      .showMe {
+        .left {
+          h1 {
+            max-width:300px!important;
+          }
+        }
+      }
+    }
 }
 @media only screen and (max-width: 772px) {
   @import '772px';

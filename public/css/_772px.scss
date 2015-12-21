@@ -186,15 +186,39 @@ body {
 }
 .localeNew {
   .showMe {
+    height:auto!important;
+    .left, .right {
+      float:none!important;
+      height:auto!important;
+      width:100%!important;
+    }
     .left {
 
     }
     .right {
+      vertical-align: top;
+      * {
+        vertical-align: top!important;
+      }
       ul {
         li { 
           float:none!important;
           width:100%!important;
-          // display:block;
+          // display:block;z
+        }
+      }
+      .linksHolder {
+        float:left;
+        width:47%;
+      }
+      .statsHolder {
+        h2 {
+          border-bottom: 2px solid #4A4A4A;
+        }
+        float:right;
+        width:47%;
+        table {
+          font-size:.9em;
         }
       }
     }

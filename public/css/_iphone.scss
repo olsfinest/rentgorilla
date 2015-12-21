@@ -210,3 +210,16 @@ ul#items {
     }
   }
 }
+.localeNew {
+  .statsHolder, .linksHolder {
+    float:none!important;
+    width:100%!important;
+  }
+  .showMe {
+    .left {
+      img.flag {
+        top:0!important;
+      }
+    }
+  }
+}

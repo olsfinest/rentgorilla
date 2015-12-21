@@ -13,7 +13,7 @@
             {!! Form::select($name, $list, Session::get($name), ['class' => 'selectmenu']) !!}
         </label>
     @endforeach
-    <button type="submit">Clear All</button>
+    <button type="submit">Clear</button>
     <img id="spinner" src="/img/ajax-loader.gif">
 {!! Form::close() !!}
     <div class="view_switcher">

@@ -43,3 +43,20 @@
     display:block;
   }
 }
+.localeNew {
+  .showMe {
+    .left {
+      h1 {
+        max-width:315px!important;
+        font-size:2em!important;
+        span {
+          margin-top:15px!important;
+          font-size:.5em;
+        }
+      }
+      img.flag {
+        top:10px!important;
+      }
+    }
+  }
+}
