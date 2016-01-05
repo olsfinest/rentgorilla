@@ -66,7 +66,7 @@
 	@endif
     <section class="content full">
         <h1 class="resultsNum">{{ $total }} {{ $total == 1 ? 'result' : 'results' }}</h1>
-            {!! Form::select('sort', Config::get('sort'), Session::get('sort') ?: 'available_at-ASC', ['class' => 'sort', 'id' => 'sort-widget', 'title' => 'Sort your results']) !!}
+            {!! Form::select('sort', Config::get('sort'), Session::get('sort') ?: 'edited_at-DESC', ['class' => 'sort', 'id' => 'sort-widget', 'title' => 'Sort your results']) !!}
      <div class="cf"></div>
     </section>
     <script>

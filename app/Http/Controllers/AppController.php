@@ -135,8 +135,13 @@ class AppController extends Controller {
             session([$key => $value]);
         }
 
-        if(Input::get('sort')) {
-           session(['sort' => Input::get('sort')]);
+        if($request->has('sort')) {
+            $sort = $request->get('sort');
+            //bug fix, default edited_at should be in descending order
+            if($sort == 'edited_at-ASC') {
+                $sort = 'edited_at-DESC';
+            }
+            session(['sort' => $sort]);
         }
 
         $page = (int) Input::get('page', 1);
