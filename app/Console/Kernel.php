@@ -46,6 +46,9 @@ class Kernel extends ConsoleKernel {
         $schedule->command('rg:award-achievements')
             ->dailyAt('02:00');
 
+        $schedule->command('auth:clear-resets')
+            ->dailyAt('02:30');
+
         $schedule->command('rg:backup-db')
             ->dailyAt('03:00');
 
