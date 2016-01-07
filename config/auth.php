@@ -58,10 +58,12 @@ return [
 	|
 	*/
 
+	// changed from 60 to 1440 (24 hours)
+
 	'password' => [
 		'email' => 'emails.password',
 		'table' => 'password_resets',
-		'expire' => 60,
+		'expire' => 1140,
 	],
 
 ];
