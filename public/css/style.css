@@ -2415,6 +2415,8 @@ body.map {
   display: inline-block;
   animation-name: hiliter;
   animation-duration: 0.75s; }
+.property .controls a.promote {
+  background: #47743b; }
 
 .widget .achievementsTable td {
   position: relative; }

@@ -2143,6 +2143,10 @@ body.map {
       animation-name:hiliter;
       animation-duration:0.75s;
     }
+    a.promote {
+      background:darken($green, 20%);
+      // background:$brown;
+    }
   }
 }
 .filter {

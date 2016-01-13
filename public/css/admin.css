@@ -223,7 +223,7 @@ article.property {
       article.property .stats li:hover {
         background: #4A4A4A;
         cursor: default; }
-      article.property .stats li span {
+      article.property .stats li span.label {
         font-size: 0.25em;
         line-height: 30px;
         background: #333333;

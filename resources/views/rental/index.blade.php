@@ -109,38 +109,38 @@
                     </ul>
                     <ul class="stats">
                         <li>
-                            {{ $rental->search_views }}
-							<span>
+                            <span class="count">{{ $rental->search_views }}</span>
+							<span class="label">
 								Search Views
 							</span>
                         </li>
                         <li>
-                            {{ $rental->views }}
-							<span>
+                            <span class="count">{{ $rental->views }}</span>
+							<span class="label">
 								Property Views
 							</span>
                         </li>
                         <li>
-                            {{ $rental->favouritedBy->count() }}
-							<span>
+                            <span class="count">{{ $rental->favouritedBy->count() }}</span>
+							<span class="label">
 								Times Favourited
 							</span>
                         </li>
                         <li>
-                            {{ $rental->likes->count() }}
-							<span>
+                            <span class="count">{{ $rental->likes->count() }}</span>
+							<span class="label">
 								Total Photo Likes
 							</span>
                         </li>
                         <li>
-                            {{ $rental->email_click }}
-							<span>
+                            <span class="count">{{ $rental->email_click }}</span>
+							<span class="label">
 								Total Email Clicks
 							</span>
                         </li>
                         <li>
-                            {{ $rental->phone_click }}
-                            <span>
+                            <span class="count">{{ $rental->phone_click }}</span>
+                            <span class="label">
 								Total Phone Calls
 							</span>
                         </li>
@@ -403,6 +403,20 @@
     $('.promotedCta .content p').click(function(){
         // add a class to the promote buttons to animate the arrow and darken the background
         $('.promote').addClass('hilite');
+    });
+    // spin the numbers
+    $(document).ready(function(){
+        $('.count').each(function () {
+            $(this).prop('Counter',0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 2500,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
     });
 </script>
 @stop
