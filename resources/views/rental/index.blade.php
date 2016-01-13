@@ -101,7 +101,7 @@
                         @if($rental->isQueued())
                             <li><a class="promote" href="{{ route('promotions.cancel', $rental->uuid) }}"><span class="fa fa-arrow-up"></span>Cancel</a></li>
                         @elseif($rental->isPromoted())
-                            <li><a class="promote" href="#"><span class="fa fa-arrow-up"></span>Promoted</a></li>
+                            <li><a class="promote yes" href="#"><span class="fa fa-arrow-up"></span>Promoted</a></li>
                         @else
                             <li><a class="promote" href="{{ route('promotions', $rental->uuid) }}"><span class="fa fa-arrow-up"></span>Promote</a></li>
                         @endif
