@@ -140,6 +140,7 @@ $router->get('rental/{rental}/photos', ['as' => 'rental.photos.index', 'uses' =>
 $router->post('rental/{rental}/photos', ['as' => 'rental.photos.store', 'uses' => 'RentalController@addPhoto']);
 $router->post('activate', ['as' => 'rental.activate', 'uses' => 'RentalController@toggleActivate']);
 $router->post('rental/promote', ['as' => 'rental.promote', 'uses' => 'RentalController@promoteRental']);
+$router->post('rental/promote/points/{rental}', ['as' => 'rental.promote.points', 'uses' => 'RentalController@promoteRentalWithPoints']);
 $router->post('rental/phone', ['as' => 'rental.phone', 'uses' => 'RentalController@showPhone']);
 $router->post('rental/email-manager', ['as' => 'rental.email', 'uses' => 'RentalController@sendManagerMail']);
 $router->post('rental/show-video', ['as' => 'rental.video.show', 'uses' => 'VideoController@getEmbeddedVideo']);

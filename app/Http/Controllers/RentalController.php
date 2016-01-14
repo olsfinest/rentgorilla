@@ -142,7 +142,33 @@ class RentalController extends Controller {
         return redirect()->route('rental.index')->with('flash:success', $message);
     }
 
+    public function promoteRentalWithPoints($rental_id)
+    {
+        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $rental_id);
 
+        if( ! $rental->isActive()) {
+            return redirect()->route('rental.index')->with('flash:success', 'Sorry, your property must be active in order to promote it.');
+        }
+
+        if(Auth::user()->points < config('promotion.points')) {
+            return abort(404);
+        }
+
+        Auth::user()->decrement('points', config('promotion.points'));
+
+        $this->rentalRepository->freePromotion($rental);
+
+        $promotedNow = $this->promotionManager->promoteRental($rental);
+
+        if($promotedNow) {
+            $message = 'Your property has been promoted!';
+        } else {
+            $message = 'Your promotion has been queued!';
+        }
+
+        return redirect()->route('rental.index')->with('flash:success', $message);
+
+    }
 
     /**
 	 * Display a listing of the resource.
