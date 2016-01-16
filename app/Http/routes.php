@@ -82,9 +82,9 @@ $router->post('admin/free-promotions/address-search/{locationSlug?}', ['as' => '
 
 $router->get('admin/redeem', ['as' => 'redeem.show', 'uses' => 'AchievementsController@showRedeemForm']);
 $router->post('admin/redeem', ['as' => 'redeem.create', 'uses' => 'AchievementsController@redeemPoints']);
+$router->get('admin/revenue', ['as' => 'admin.revenue', 'uses' => 'AdminController@revenue']);
 
 Route::group(['prefix' => 'admin'], function () {
-
     Route::resource('features', 'FeaturesController');
     Route::resource('heats', 'HeatsController');
     Route::resource('appliances', 'AppliancesController');

@@ -11,10 +11,12 @@ use RentGorilla\Http\Requests\AdminNewUserRequest;
 use Auth;
 use RentGorilla\Http\Requests\LoginAsUserRequest;
 use RentGorilla\Http\Requests\SendActivationRequest;
+use Subscription;
 use RentGorilla\Repositories\PhotoRepository;
 use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Repositories\UserRepository;
 use Input;
+use RentGorilla\User;
 
 class AdminController extends Controller {
 
@@ -122,5 +124,41 @@ class AdminController extends Controller {
 
         return redirect()->route('admin.searchUsers')->with('flash:success', 'User deleted.');
 
+    }
+
+    public function revenue()
+    {
+        $query = User::selectRaw('stripe_plan as plan, count(*) as count')
+            ->where('stripe_active', 1)
+            ->groupBy('stripe_plan')
+            ->get()
+            ->keyBy('plan')
+            ->toArray();
+
+        $revenue = [];
+        $revenue['monthly_recurring'] = 0;
+        $revenue['yearly_recurring'] = 0;
+
+        $plans = config('plans');
+        //remove free plan
+        unset($plans['Free']);
+
+        foreach($plans as $planId => $properties) {
+            $plan = Subscription::plan($planId);
+            $revenue['plans'][$planId]['count'] = isset($query[$planId]) ? $query[$planId]['count'] : 0;
+            if($plan->isMonthly()) {
+                $revenue['plans'][$planId]['price'] = $plan->monthlyBilledPrice() / 100;
+                $revenue['plans'][$planId]['recurring'] = ($revenue['plans'][$planId]['count'] * $revenue['plans'][$planId]['price']);
+                $revenue['monthly_recurring'] += $revenue['plans'][$planId]['recurring'];
+            } else {
+                $revenue['plans'][$planId]['price'] = $plan->totalYearlyCost() / 100;
+                $revenue['plans'][$planId]['recurring'] = ($revenue['plans'][$planId]['count'] * $revenue['plans'][$planId]['price']);
+                $revenue['yearly_recurring'] += $revenue['plans'][$planId]['recurring'];
+            }
+        }
+
+        $revenue['total_yearly_recurring'] = ($revenue['monthly_recurring'] * 12) + $revenue['yearly_recurring'];
+
+        return view('admin.revenue', compact('revenue'));
     }
 }
