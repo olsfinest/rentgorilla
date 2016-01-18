@@ -205,7 +205,7 @@ function loadRentals(paginate, page) {
         });
 
         $(".cycle-slideshow").cycle();
-        $(".cycle-slideshow").cycle("pause"),$(".cycle-slideshow").hover(function(){$(this).cycle("resume")},function(){$(this).cycle("pause")});
+        $("#rental-list .cycle-slideshow").cycle("pause"),$(".cycle-slideshow").hover(function(){$(this).cycle("resume")},function(){$(this).cycle("pause")});
 
             $(".listings > ul > li").mouseenter(function(){
             var e=$(".progress",this),i=$(".cycle-slideshow",this);
@@ -213,8 +213,6 @@ function loadRentals(paginate, page) {
                 i.on("cycle-initialized cycle-after",this,function(t,o){i.is(".cycle-paused",this)||e.animate({width:"100%"},o.timeout,"linear")});
                 i.on("cycle-paused",this,function(){e.stop()});
                 i.on("cycle-resumed",this,function(i,t,o){e.animate({width:"100%"},o,"linear")})});
-
         enableNextPageBtn();
-
     });
 }

@@ -8,6 +8,7 @@
         <h1><strong>Edit Profile</strong>: {{ Auth::user()->email }}</h1>
         @include('errors.error-list')
         {!! Form::model(is_null($profile) ? new \RentGorilla\Profile() : $profile, ['route' => 'profile.update', 'files' => true]) !!}
+        <p><strong>Change Password:</strong> click <a href="/password/email"><strong>this link</strong></a>, and then enter your email address and a reset link will be sent to you.</p>
         <fieldset>
             <label>Photo:
 

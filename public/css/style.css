@@ -78,6 +78,11 @@ table {
   table tr td {
     border-top: 1px solid lightgrey; }
 
+table.users th {
+  text-align: left; }
+  table.users th a {
+    margin-right: 5px; }
+
 table.users tr:nth-child(even) {
   background-color: white; }
 
@@ -2060,6 +2065,10 @@ div.pagination {
     content: 'Previous ';
     float: left;
     font-size: .7em; }
+  div.pagination .active {
+    display: inline-block !important;
+    font-size: .7em;
+    font-weight: bold !important; }
 
 div.infoBox {
   width: 310px !important; }

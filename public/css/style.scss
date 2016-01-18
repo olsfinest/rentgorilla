@@ -11,11 +11,9 @@
   display: block;
   clear: both;
 }
-
 ///////////////
 // Variables //
 ///////////////
-
 // Fonts
 $sans:'open_sans_regular', sans-serif;
 $serif:serif;
@@ -106,6 +104,14 @@ table {
   }
   tr td {
     border-top: 1px solid lightgrey;
+  }
+}
+table.users {
+  th {
+    text-align: left;
+    a {
+      margin-right:5px;
+    }
   }
 }
 table.users tr:nth-child(even) {
@@ -1716,6 +1722,11 @@ div.pagination {
       font-size: .7em;
     }
   }
+  .active {
+    display:inline-block!important;
+    font-size:.7em;
+    font-weight:bold!important;
+  }
 }
 div.infoBox {
   width:310px!important;
@@ -2145,7 +2156,6 @@ body.map {
     }
     a.promote.yes {
       background:darken($green, 20%);
-      // background:$brown;
     }
   }
 }
