@@ -35,7 +35,7 @@
             <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
             <!--jQuery UI-->
             <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-            <script src="/js/auth.js"></script>
+            <script src="/js/auth.js?v=1"></script>
             <script src="/js/notifications.js"></script>
             @yield('footer')
             <script language="JavaScript" type="text/javascript">

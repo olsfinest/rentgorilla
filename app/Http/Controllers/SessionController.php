@@ -30,13 +30,14 @@ class SessionController extends Controller {
 
     public function login(LoginRequest $request)
     {
-
         $user = User::where('email', $request->email)->first();
 
         if($user && ($user->provider !== 'email')) {
-
-            return Socialite::driver($user->provider)->redirect();
-            
+            if($request->ajax()) {
+                return response()->json(['redirect_url' => '/login/' . $user->provider], 401);
+            } else {
+                return Socialite::driver($user->provider)->redirect();
+            }
         }
 
         $credentials = [
@@ -50,7 +51,7 @@ class SessionController extends Controller {
             if($request->ajax()) {
                 return response()->json(['success' => true]);
             } else {
-                return redirect()->intended(route('rental.index'));
+                return redirect()->route('rental.index');
             }
         }
 

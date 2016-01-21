@@ -43,7 +43,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <!--Maps-->
     <section class="content"></section>
-    <script src="/js/auth.js"></script>
+    <script src="/js/auth.js?v=1"></script>
     <script src="/js/notifications.js"></script>
     <script language="JavaScript" type="text/javascript">
         jQuery('.fa-question-circle, .fa-info-circle').tooltip({

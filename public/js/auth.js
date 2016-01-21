@@ -107,12 +107,17 @@ $('#login_form').submit(function( event ) {
         url: '/login',
         data: $(this).serialize(),
         success: function (data, textStatus, jqXHR) {
-            //window.location.href = '/rental';
-            window.location.reload();
+            window.location.href = '/rental';
+            return;
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var errors = jqXHR.responseJSON;
             var html = "<ul>";
+
+            if(errors.hasOwnProperty('redirect_url')) {
+                window.location.href = errors.redirect_url;
+                return;
+            }
 
             if(errors.message === 'unconfirmed') {
                 $('#login').html(errors.html);

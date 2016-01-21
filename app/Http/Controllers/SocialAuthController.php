@@ -83,7 +83,7 @@ class SocialAuthController extends Controller
         }
 
         // email wasn't in the system. They could have an existing social account though.
-        // we have to test both facebook and twitter as they are both numerical ids.
+        // we have to test both facebook and google as they are both numerical ids.
         // Extremely rare that they would have the same id! But hey, we'll test it anyway!
 
         $user = User::where(['provider_id' => $socialite->getId(), 'provider' => 'facebook'])->first();
@@ -131,9 +131,9 @@ class SocialAuthController extends Controller
 
         Auth::login($user, true);
 
-        if($message) return redirect('/')->with('flash:success', $message);
+        if($message) return redirect()->route('rental.index')->with('flash:success', $message);
 
-        return redirect('/');
+        return redirect()->route('rental.index');
     }
 
     private function updateSocialUser($user, $firstName, $lastName, $email, $avatar)
