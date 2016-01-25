@@ -11,7 +11,7 @@
 					<p>
 						{{ $loc->landingPage->description }}
 					</p>
-					<div class="cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="1000">
+					<div class="cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-speed="600" data-cycle-delay="0" data-cycle-timeout="4000">
 						@foreach($loc->landingPage->slides as $slide)
 							<img class="glmr" src="/img/slides/{{ $slide->name }}" alt="{{ $slide->alt }}">
 						@endforeach

@@ -623,7 +623,7 @@ header .user_actions .list_property {
   position:absolute;
   top:0px;
   width:129px;
-  z-index:9990; 
+  z-index:5; 
 }
 .promoted-small {
   width: 100px;
@@ -2385,4 +2385,47 @@ a.planChange {
       display:block;
     }
   }
+}
+
+
+.profileForm {
+  margin-top:1em;
+  .settingsPanel {
+    padding-bottom:1em;
+    margin-bottom:1em;
+    border-bottom:1px solid #c0c0c0;
+  }
+  .settingsLabel, .settingsContent {
+    display:block;
+    p {
+      margin:0;
+    }
+  }
+  .settingsLabel {
+    float:left;
+    width:30%;
+    clear:both;
+    i {
+      font-size:1em;
+    }
+  }
+  .settingsContent {
+    float:right;
+    width:60%;
+    padding:1em;
+    background:#ececec;
+    input, textarea, label span {
+      background:white;
+    }
+  }
+}
+.editProfileTitle.stickyTitle {
+  position:fixed;
+  max-width:90%;
+  top:0;
+  background:white;
+  border-bottom:1px solid #c0c0c0;
+  margin:0;
+  padding:.5em 0;
+  width:995px;
 }

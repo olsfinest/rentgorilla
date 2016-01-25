@@ -205,7 +205,7 @@ function loadRentals(paginate, page) {
         });
 
         $(".cycle-slideshow").cycle();
-        $("#rental-list .cycle-slideshow").cycle("pause"),$(".cycle-slideshow").hover(function(){$(this).cycle("resume")},function(){$(this).cycle("pause")});
+        $("#rental-list .cycle-slideshow").cycle("pause"),$("#rental-list .cycle-slideshow").hover(function(){$(this).cycle("resume")},function(){$(this).cycle("pause")});
 
             $(".listings > ul > li").mouseenter(function(){
             var e=$(".progress",this),i=$(".cycle-slideshow",this);

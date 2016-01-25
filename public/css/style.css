@@ -540,7 +540,7 @@ header .user_actions .list_property {
   position: absolute;
   top: 0px;
   width: 129px;
-  z-index: 9990; }
+  z-index: 5; }
 
 .promoted-small {
   width: 100px;
@@ -1728,9 +1728,7 @@ footer {
         float: right;
         width: 47%; }
         .localeNew .showMe .right .statsHolder h2 {
-          border-bottom: 2px solid #4A4A4A; }
-        .localeNew .showMe .right .statsHolder table {
-          font-size: .9em; } }
+          border-bottom: 2px solid #4A4A4A; } }
 @media only screen and (max-width: 576px) {
   #ui-id-7-button {
     display: none; }
@@ -1758,7 +1756,7 @@ footer {
     right: 0; }
 
   .admin_nav_toggle {
-    display: block;
+    display: block !important;
     width: 30px;
     height: 30px;
     text-align: center;
@@ -1868,7 +1866,13 @@ footer {
     height: auto !important; }
     .localeNew .showMe .left, .localeNew .showMe .right {
       float: none !important;
-      width: 100% !important; } }
+      width: 100% !important; }
+
+  .profileForm .settingsPanel .settingsLabel, .profileForm .settingsPanel .settingsContent {
+    float: none;
+    width: 100%; }
+  .profileForm .settingsPanel .settingsContent {
+    clear: left; } }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .listings > ul > li {
     margin: .5em 0;
@@ -2593,5 +2597,39 @@ a.planChange {
     display: none; }
     .localeNew.closed .showMe .showButton {
       display: block; }
+
+.profileForm {
+  margin-top: 1em; }
+  .profileForm .settingsPanel {
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #c0c0c0; }
+  .profileForm .settingsLabel, .profileForm .settingsContent {
+    display: block; }
+    .profileForm .settingsLabel p, .profileForm .settingsContent p {
+      margin: 0; }
+  .profileForm .settingsLabel {
+    float: left;
+    width: 30%;
+    clear: both; }
+    .profileForm .settingsLabel i {
+      font-size: 1em; }
+  .profileForm .settingsContent {
+    float: right;
+    width: 60%;
+    padding: 1em;
+    background: #ececec; }
+    .profileForm .settingsContent input, .profileForm .settingsContent textarea, .profileForm .settingsContent label span {
+      background: white; }
+
+.editProfileTitle.stickyTitle {
+  position: fixed;
+  max-width: 90%;
+  top: 0;
+  background: white;
+  border-bottom: 1px solid #c0c0c0;
+  margin: 0;
+  padding: .5em 0;
+  width: 995px; }
 
 /*# sourceMappingURL=style.css.map */

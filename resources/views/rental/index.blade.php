@@ -165,7 +165,7 @@
             </p>
             
             <!-- Plan overview - shows current plan info to the logged-in user -->
-            <h3>Plan Overview </h3>
+            <h3><i title="View details about your plan including expiration date, cost per billing cycle, and available property listings." class="fa fa-line-chart"></i> Plan Overview</h3>
 
             <section class="widget plan">
             <table>
@@ -277,7 +277,7 @@
             </table>
             </section>
             <!-- achievements / gamification -->
-            <h3>Achievements</h3>
+            <h3><i title="Completing achievements will award you points which you can redeem for promotions." class="fa fa-star-o"></i> Achievements</h3>
             <section class="widget">
                 <table class="achievementsTable">
                     <tr>

@@ -60,6 +60,16 @@
                 
             });
         });
+
+        $(window).scroll(function() {    
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 132) {
+                $(".editProfileTitle").addClass("stickyTitle");
+            } else {
+                $(".editProfileTitle").removeClass("stickyTitle");
+            }
+        });
     </script>
     @yield('footer')
 </footer>

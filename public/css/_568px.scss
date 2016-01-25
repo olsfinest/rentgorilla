@@ -93,3 +93,17 @@ article.property {
     }
   }
 }
+.profileForm {
+  .settingsPanel {
+    .settingsLabel, .settingsContent {
+      float:none;
+      width:100%;
+    }
+    .settingsLabel {
+
+    }
+    .settingsContent {
+      clear:left;
+    }
+  }
+}
