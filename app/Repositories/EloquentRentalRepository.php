@@ -91,7 +91,7 @@ class EloquentRentalRepository implements RentalRepository
             $sort = getSortComponents($sort);
             $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy($sort[0], $sort[1]);
         } else {
-            $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy('available_at');
+            $query = $this->baseSearch(true, $location_id, $type, $availability, $beds, $price)->orderBy('promoted', 'desc')->orderBy('edited_at', 'desc');
         }
 
         if($paginate) {

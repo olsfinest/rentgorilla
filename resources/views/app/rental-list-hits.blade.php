@@ -6,7 +6,7 @@
 			<h2 class="showButton">View Community Profile, Links &amp; Statistics</h2>
 			<div class="showMe">
 				<div class="left">
-					<h1>{{ $loc->landingPage->name }} <span>{{ $loc->rentals()->count() }} Listings</span></h1>
+					<h1>{{ $loc->landingPage->name }} <span>{{ $loc->rentals()->where('active', 1)->count() }} Listings</span></h1>
 					<img class="flag" src="/img/flags/{{ $loc->province }}.jpg" alt="">
 					<p>
 						{{ $loc->landingPage->description }}
