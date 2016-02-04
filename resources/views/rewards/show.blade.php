@@ -22,4 +22,28 @@
         <p>As points are redeemed in {{ \RentGorilla\User::POINT_REDEMPTION_THRESHOLD  }} point increments, you do not have enough points to redeem at this time.</p>
     @endif
 </section>
+<section class="content full admin">
+    <h1>Earn Credit With RentGorilla Achievements</h1>
+    <div class="achievements_container">
+        <p>
+            Earn credit towards your plan with RentGorilla achievements. Each achievement earns you points that you can redeem. Some achievements are even awarded monthly!
+        </p>
+        @foreach(Config::get('rewards') as $reward => $rewardProps)
+            <section id="{{ $reward }}" class="settingsPanel">
+                <section class="settingsLabel">
+                    <strong>{{ $rewardProps['name'] }}</strong>
+                    <p>
+                        {{ $rewardProps['points'] . ($rewardProps['monthly'] ? ' points / month' : ' points') }}
+                    </p>
+                </section>
+                <section class="settingsContent">
+                    <p>
+                        {{ $rewardProps['description'] }}
+                    </p>
+                </section>
+                <span class="cf"></span>
+            </section>
+        @endforeach
+    </div>
+</section>
 @stop

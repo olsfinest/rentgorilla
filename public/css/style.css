@@ -1289,10 +1289,10 @@ span.eyes.blink .eye {
   position: relative; }
   .avatar > img {
     width: 40px;
-    height: 40px;
-    border-radius: 40px;
+    height: 37px;
     float: right;
-    border: 2px solid white; }
+    position: relative;
+    top: 7px; }
   .avatar .avatar_actions {
     float: left;
     margin: 0 1em;
@@ -1338,8 +1338,6 @@ span.eyes.blink .eye {
         width: 100%; }
         .avatar:hover .menu a:hover {
           background: #74B164; }
-    .avatar:hover > img {
-      border: 2px solid #74B164; }
 
 footer {
   height: 415px;
@@ -2600,27 +2598,37 @@ a.planChange {
 
 .profileForm {
   margin-top: 1em; }
-  .profileForm .settingsPanel {
-    padding-bottom: 1em;
-    margin-bottom: 1em;
-    border-bottom: 1px solid #c0c0c0; }
-  .profileForm .settingsLabel, .profileForm .settingsContent {
-    display: block; }
-    .profileForm .settingsLabel p, .profileForm .settingsContent p {
-      margin: 0; }
-  .profileForm .settingsLabel {
-    float: left;
-    width: 30%;
-    clear: both; }
-    .profileForm .settingsLabel i {
-      font-size: 1em; }
-  .profileForm .settingsContent {
-    float: right;
-    width: 60%;
-    padding: 1em;
-    background: #ececec; }
-    .profileForm .settingsContent input, .profileForm .settingsContent textarea, .profileForm .settingsContent label span {
-      background: white; }
+
+.settingsPanel {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #c0c0c0; }
+
+.settingsLabel, .settingsContent {
+  display: block; }
+  .settingsLabel p, .settingsContent p {
+    margin: 0; }
+
+.settingsLabel {
+  float: left;
+  width: 30%;
+  clear: both; }
+  .settingsLabel i {
+    font-size: 1em; }
+
+.settingsContent {
+  float: right;
+  width: 60%;
+  padding: 1em;
+  background: #ececec; }
+  .settingsContent input, .settingsContent textarea, .settingsContent label span {
+    background: white; }
+
+.settingsPhoto {
+  float: right; }
+
+.editProfileTitle {
+  font-size: 1.5em; }
 
 .editProfileTitle.stickyTitle {
   position: fixed;

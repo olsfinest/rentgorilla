@@ -192,7 +192,7 @@
         <aside class="listing_sidebar">
             <section class="listing_rent">
                 <h1>${{ $rental->price }} per month</h1>
-
+                
                 <h3><a href="#">Contact Now</a></h3>
 
                 <ul class="listing_contact">
@@ -234,6 +234,12 @@
                     {!! nl2br(e($rental->description)) !!}
                 </p>
 
+            <!-- 
+                <h3>Property Manager Profile</h3>
+                <p>
+                    <strong>Name:</strong> {{$rental->user->getFullName()}} 
+                </p>
+            -->
             </section>
         </aside>
         <div class="cf"></div>

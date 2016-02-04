@@ -623,7 +623,7 @@ header .user_actions .list_property {
   position:absolute;
   top:0px;
   width:129px;
-  z-index:5; 
+  z-index:5;
 }
 .promoted-small {
   width: 100px;
@@ -1462,10 +1462,12 @@ span.eyes.blink .eye {
   position:relative; 
   > img {
     width: 40px;
-    height: 40px;
-    border-radius: 40px;
+    height: 37px;
+    // border-radius: 40px;
     float: right;
-    border: 2px solid white; 
+    position:relative;
+    top:7px;
+    // border: 2px solid white; 
   }
   .avatar_actions {
     float: left;
@@ -1489,7 +1491,7 @@ span.eyes.blink .eye {
     display: block;
     font-size: 1.1em; 
     a {
-      color:white;
+      color:white; 
       text-decoration:none;
       &:hover {
         color:$green;
@@ -1525,7 +1527,6 @@ span.eyes.blink .eye {
       }
     }
     > img {
-      border: 2px solid #74B164; 
     }
   }
 }
@@ -2386,38 +2387,42 @@ a.planChange {
     }
   }
 }
-
-
 .profileForm {
   margin-top:1em;
-  .settingsPanel {
-    padding-bottom:1em;
-    margin-bottom:1em;
-    border-bottom:1px solid #c0c0c0;
+}
+.settingsPanel {
+  padding-bottom:1em;
+  margin-bottom:1em;
+  border-bottom:1px solid #c0c0c0;
+}
+.settingsLabel, .settingsContent {
+  display:block;
+  p {
+    margin:0;
   }
-  .settingsLabel, .settingsContent {
-    display:block;
-    p {
-      margin:0;
-    }
+}
+.settingsLabel {
+  float:left;
+  width:30%;
+  clear:both;
+  i {
+    font-size:1em;
   }
-  .settingsLabel {
-    float:left;
-    width:30%;
-    clear:both;
-    i {
-      font-size:1em;
-    }
+}
+.settingsContent {
+  float:right;
+  width:60%;
+  padding:1em;
+  background:#ececec;
+  input, textarea, label span {
+    background:white;
   }
-  .settingsContent {
-    float:right;
-    width:60%;
-    padding:1em;
-    background:#ececec;
-    input, textarea, label span {
-      background:white;
-    }
-  }
+}
+.settingsPhoto {
+  float:right;
+}
+.editProfileTitle {
+  font-size:1.5em;
 }
 .editProfileTitle.stickyTitle {
   position:fixed;

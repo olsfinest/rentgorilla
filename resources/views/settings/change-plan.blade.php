@@ -111,11 +111,11 @@
 @endsection
 @section('footer')
     <script>
-    jQuery(document).ready(function($){
-        $('.fa-question-circle').tooltip({
-            position: { my: "bottom", at: "left center" }
+        jQuery(document).ready(function($){
+            $('.fa-question-circle').tooltip({
+                position: { my: "bottom", at: "left center" }
+            });
+            $('.achievements_overview').tabs();
         });
-        $('.achievements_overview').tabs();
-    });
-</script>
+    </script>
 @endsection
