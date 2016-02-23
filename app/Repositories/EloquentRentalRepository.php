@@ -118,7 +118,7 @@ class EloquentRentalRepository implements RentalRepository
             $sort = getSortComponents($sort);
             $query->orderBy('promoted', 'desc')->orderBy($sort[0], $sort[1]);
         } else {
-            $query->orderBy('promoted', 'desc')->orderBy('available_at');
+            $query->orderBy('promoted', 'desc')->orderBy('edited_at', 'desc');
         }
 
         return $query->lists('uuid')->all();
@@ -145,7 +145,7 @@ class EloquentRentalRepository implements RentalRepository
 
     public function getRentalsForUser(User $user)
     {
-        return $user->rentals;
+        return $user->rentals()->orderBy('promoted', 'desc')->orderBy('edited_at', 'desc')->get();
     }
 
     public function find($id)
