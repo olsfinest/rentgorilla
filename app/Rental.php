@@ -8,7 +8,7 @@ class Rental extends Model {
 
     public $timestamps = true;
 
-    const RESULTS_PER_PAGE = 12;
+    const RESULTS_PER_PAGE = 20;
 
     const HOUSE = 'house';
     const APARTMENT = 'apartment';
