@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Input;
+use RentGorilla\Rental;
 use Session;
 use DB;
 
@@ -21,9 +22,14 @@ class SearchFormComposer {
             ->skip(0)->take(self::DROP_DOWN_MAX_MONTHS + 1)
             ->get();
 
+        $currentCount = Rental::where('available_at', '<=', Carbon::today())
+            ->where('location_id', session('location_id'))
+            ->where('active', 1)
+            ->count();
+
         $availability = [];
         $availability[''] = 'Any Availability';
-        $availability['current'] = 'Currently Available';
+        $availability['current'] = sprintf('Today (%s)', $currentCount);
 
         foreach ($query as $index => $column) {
             if($index === self::DROP_DOWN_MAX_MONTHS) {
