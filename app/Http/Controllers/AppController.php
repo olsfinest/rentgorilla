@@ -49,9 +49,10 @@ class AppController extends Controller {
                 }
 
                 if(count($locations) > 1) {
-
                     return view('app.disambiguation', compact('locations'));
                 }
+
+                session(['location_id' => $locations->first()->id]);
 
                 return redirect()->route('list', ['slug' => $locations->first()->slug]);
             }
@@ -70,6 +71,8 @@ class AppController extends Controller {
             if(is_null($loc)) return redirect()->route('home');
 
             $showLandingPage = ! $request->hasCookie($location);
+
+            session(['location_id' => $loc->id]);
 
         } else {
             return redirect()->route('home');
@@ -111,6 +114,8 @@ class AppController extends Controller {
             if(is_null($loc)) return redirect()->route('home');
 
             $showLandingPage = ! $request->hasCookie($location);
+
+            session(['location_id' => $loc->id]);
 
         } else {
             return redirect()->route('home');
@@ -154,7 +159,10 @@ class AppController extends Controller {
 
         $location = $this->locationRepository->fetchBySlug($locationSlug);
 
-        if($location) session(['location' => $locationSlug]);
+        if($location) {
+            session(['location' => $locationSlug]);
+            session(['location_id' => $location->id]);
+        }
 
         $showLandingPage = ! $request->hasCookie($locationSlug);
 

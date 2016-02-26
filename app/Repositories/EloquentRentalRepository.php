@@ -31,22 +31,44 @@ class EloquentRentalRepository implements RentalRepository
         }
 
         if ($availability) {
-            switch($availability) {
-                case '0-2':
-                    $query->where('available_at', '<=', Carbon::today()->addMonths(2));
-                    break;
-                case '2-4':
-                    $query->whereBetween('available_at', [Carbon::today()->addMonths(2), Carbon::today()->addMonths(4)]);
-                    break;
-                case '4-6':
-                    $query->whereBetween('available_at', [Carbon::today()->addMonths(4), Carbon::today()->addMonths(6)]);
-                    break;
-                case '6plus':
-                    $query->where('available_at', '>', Carbon::today()->addMonths(6));
-                    break;
+
+            if($availability === 'current') {
+
+                $query->where('available_at', '<=', Carbon::today());
+
+            } elseif ($availability === '0-2') {
+
+                //TODO: legacy -> remove once sessions expire
+                $query->where('available_at', '<=', Carbon::today()->addMonths(2));
+
+            } elseif ($availability === '2-4') {
+
+                //TODO: legacy -> remove once sessions expire
+                $query->whereBetween('available_at', [Carbon::today()->addMonths(2), Carbon::today()->addMonths(4)]);
+
+            } elseif ($availability === '4-6') {
+
+                //TODO: legacy -> remove once sessions expire
+                $query->whereBetween('available_at', [Carbon::today()->addMonths(4), Carbon::today()->addMonths(6)]);
+
+            } elseif ($availability === '6plus') {
+
+                //TODO: legacy -> remove once sessions expire
+                $query->where('available_at', '>', Carbon::today()->addMonths(6));
+
+            } elseif (strpos($availability, '+') !== FALSE) {
+
+                $availability = str_replace('+', '', $availability);
+                list($month, $year) = explode('-', $availability);
+                $available_at = sprintf('%s-%s-1', $year, $month);
+                $query->where('available_at', '>=', $available_at);
+
+            } else {
+
+                list($month, $year) = explode('-', $availability);
+                $query->where(DB::raw('MONTH(rentals.available_at)'), $month)->where(DB::raw('YEAR(rentals.available_at)'), $year);
+
             }
-        } else {
-          //  $query->where('available_at', '<=', Carbon::today());
         }
 
         if ($beds) {

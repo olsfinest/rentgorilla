@@ -3,25 +3,47 @@
 use Carbon\Carbon;
 use Input;
 use Session;
+use DB;
 
 class SearchFormComposer {
 
-    private function addMonths($monthsToAdd)
+    //availability drop down shows max months that have active rentals in them
+    const DROP_DOWN_MAX_MONTHS = 12;
+
+    protected function getAvailability()
     {
-        return Carbon::today()->addMonths($monthsToAdd)->format('M d');
+        $query = DB::table('rentals')
+            ->select(DB::raw('YEAR(available_at) as year, MONTH(available_at) as month_num, DATE_FORMAT(available_at, \'%b\') as month, count(*) as total'))
+            ->where('active', 1)
+            ->whereRaw('available_at >= DATE_FORMAT(NOW(), \'%Y-%m-01\')')
+            ->where('location_id', session('location_id'))
+            ->groupBy(DB::raw('YEAR(available_at), MONTH(available_at)'))
+            ->skip(0)->take(self::DROP_DOWN_MAX_MONTHS + 1)
+            ->get();
+
+        $availability = [];
+        $availability[''] = 'Any Availability';
+        $availability['current'] = 'Currently Available';
+
+        foreach ($query as $index => $column) {
+            if($index === self::DROP_DOWN_MAX_MONTHS) {
+                $key = sprintf('%s-%s+', $column->month_num, $column->year);
+                $value = sprintf('%s %s +', $column->month, $column->year, $column->total);
+            } else {
+                $key = sprintf('%s-%s', $column->month_num, $column->year);
+                $value = sprintf('%s %s (%s)', $column->month, $column->year, $column->total);
+            }
+            $availability[$key] = $value;
+        }
+
+        return $availability;
     }
 
     public function compose($view)
     {
         $searchOptions = [
 
-            'availability' =>
-
-                ['' => 'Any Availability ',
-                    '0-2' => 'Now - ' . $this->addMonths(2),
-                    '2-4' => $this->addMonths(2) . ' - ' . $this->addMonths(4),
-                    '4-6' => $this->addMonths(4) . ' - ' . $this->addMonths(6),
-                    '6plus' => $this->addMonths(6) . ' +'],
+            'availability' => $this->getAvailability(),
 
             'type' =>
 
