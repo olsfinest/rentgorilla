@@ -109,7 +109,7 @@ class SubscriptionController extends Controller {
 
             if(Auth::user()->readyForBilling()) {
 
-                $customer = Auth::subscription()->getStripeCustomer();
+                $customer = Auth::user()->subscription()->getStripeCustomer();
 
                 if ($request->coupon_code) {
                     Auth::user()->setTrialEndDate(null)->subscription($plan_id)->withCoupon($request->coupon_code)->create(null, [], $customer);

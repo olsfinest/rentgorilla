@@ -19,12 +19,16 @@
         <br>
             @include('errors.credit-card-errors')
             @include('errors.error-list')
-            {!! Form::open(['route' => ['subscribe', $plan->id()], 'id' => 'cc-form']) !!}
+
+            @if( Auth::user()->readyForBilling())
+                {!! Form::open(['route' => ['subscribe', $plan->id()]]) !!}
+            @else
+                {!! Form::open(['route' => ['subscribe', $plan->id()], 'id' => 'cc-form']) !!}
+            @endif
 
                 <label for="coupon_code">Have a Coupon?
                     <input type="text" id="coupon_code" name="coupon_code" placeholder="" class="">
                 </label>
-
 
             @if( ! Auth::user()->readyForBilling())
                 @include('partials.credit-card',  ['submitButtonText' => 'Start Subscription'])
