@@ -32,26 +32,26 @@
 						<table class="stats">
 							@if($housePrice = $loc->averagePrice(\RentGorilla\Rental::HOUSE))
 								<tr>
-									<td>Avg. House Rental Cost</td>
+									<td><i class="fa fa-bar-chart"></i> Avg. House Rental Cost</td>
 									<td>${{ $housePrice  }}</td>
 								</tr>
 							@endif
 							@if($apartmentPrice = $loc->averagePrice(\RentGorilla\Rental::APARTMENT))
 								<tr>
-									<td>Avg. Apartment Cost</td>
+									<td><i class="fa fa-area-chart"></i> Avg. Apartment Cost</td>
 									<td>${{ $apartmentPrice  }}</td>
 								</tr>
 							@endif
 							@if($roomPrice = $loc->averagePrice(\RentGorilla\Rental::ROOM))
 								<tr>
-									<td>Avg. Room Cost</td>
+									<td><i class="fa fa-line-chart"></i> Avg. Room Cost</td>
 									<td>${{ $roomPrice }}</td>
 								</tr>
 							@endif
 
 							@if($monthlySearches = $loc->getMonthlySearches())
 								<tr>
-									<td>Searches for {{ date('F') }}</td>
+									<td><i class="fa fa-pie-chart"></i> Searches for {{ date('F') }}</td>
 									<td>{{ $monthlySearches }}</td>
 								</tr>
 							@endif
