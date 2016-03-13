@@ -1292,7 +1292,8 @@ span.eyes.blink .eye {
     height: 37px;
     float: right;
     position: relative;
-    top: 7px; }
+    top: 7px;
+    border: 2px solid white; }
   .avatar .avatar_actions {
     float: left;
     margin: 0 1em;
@@ -2438,6 +2439,8 @@ body.map {
     width: 100%;
     height: 100%;
     display: block; }
+.widget .achievementsTable tr:hover span.fa-star-o {
+  color: gold; }
 .widget .planStats {
   background: #74B164;
   color: white;
@@ -2639,5 +2642,46 @@ a.planChange {
   margin: 0;
   padding: .5em 0;
   width: 995px; }
+
+.pmp table {
+  width: 100%; }
+  .pmp table thead:hover {
+    cursor: pointer; }
+  .pmp table tr th {
+    border-bottom: none;
+    text-align: left; }
+    .pmp table tr th span {
+      float: right; }
+  .pmp table tr td[colspan="2"] {
+    width: 100%; }
+  .pmp table tr td {
+    font-size: .9em;
+    padding: .5em;
+    vertical-align: top; }
+    .pmp table tr td img {
+      float: right; }
+    .pmp table tr td:first-child {
+      width: 2%;
+      font-weight: bold; }
+    .pmp table tr td:last-child {
+      width: 66%; }
+    .pmp table tr td ul {
+      list-style: none;
+      padding: 0;
+      margin: 1em 0 0 0; }
+      .pmp table tr td ul li {
+        margin-bottom: .5em; }
+        .pmp table tr td ul li:last-child {
+          margin-bottom: 0; }
+        .pmp table tr td ul li a {
+          text-decoration: none;
+          font-size: .8em;
+          display: block;
+          background: #74B164;
+          color: white;
+          padding: .5em; }
+          .pmp table tr td ul li a:hover {
+            background: #5b964c;
+            padding-left: 1em; }
 
 /*# sourceMappingURL=style.css.map */

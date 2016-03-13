@@ -1463,11 +1463,10 @@ span.eyes.blink .eye {
   > img {
     width: 40px;
     height: 37px;
-    // border-radius: 40px;
     float: right;
     position:relative;
     top:7px;
-    // border: 2px solid white; 
+    border: 2px solid white; 
   }
   .avatar_actions {
     float: left;
@@ -2184,6 +2183,13 @@ body.map {
         }
       }
     }
+    tr {
+      &:hover {
+        span.fa-star-o {
+          color:gold;
+        }
+      }
+    }
   }
   .planDateMonth{
     .planStats {
@@ -2433,4 +2439,65 @@ a.planChange {
   margin:0;
   padding:.5em 0;
   width:995px;
+}
+// property manager profile
+.pmp {
+  table {
+    width:100%;
+    thead {
+      &:hover {
+        cursor:pointer;
+      }
+    }
+    tr {
+      th {
+        border-bottom:none;
+        text-align:left;
+        span {
+          float:right;
+        }
+      }
+      td[colspan="2"] {
+        width:100%;
+      }
+      td {
+        font-size:.9em;
+        padding:.5em;
+        vertical-align: top;
+        img {
+          float:right;
+        }
+        &:first-child {
+          width:2%;
+          font-weight:bold;
+        }
+        &:last-child {
+          width:66%;
+        }
+        ul {
+          list-style:none;
+          padding:0;
+          margin:1em 0 0 0;
+          li {
+            margin-bottom:.5em;
+            &:last-child {
+              margin-bottom:0;
+            }
+            a {
+              text-decoration:none;
+              font-size:.8em;
+              display:block;
+              background:$green;
+              color:white;
+              padding:.5em;
+              &:hover {
+                background:darken($green, 10%);
+                padding-left:1em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

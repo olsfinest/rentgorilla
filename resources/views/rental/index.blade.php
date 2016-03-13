@@ -324,5 +324,9 @@
             });
         });
     });
+    $('.achievementsTable tr').hover(function(){
+        $('td:last-child span.fa', this).toggleClass('fa-star-o');
+        $('td:last-child span.fa', this).toggleClass('fa-star');
+    });
 </script>
 @stop

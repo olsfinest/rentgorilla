@@ -89,29 +89,29 @@
                 </div>
             </section>
             <h3 class="listing_ng_title">Property Details</h3>
-           <span id="share" style="width: 150px; float: right;">
-	<i class="fa fa-share-square-o"></i> Share Page
-	<ul>
-        <li>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('rental.show', $rental->uuid) }}" target="_blank" title="Share on Facebook">
-                <i class="fa fa-facebook"></i>
-                Facebook
-            </a>
-        </li>
-        <li>
-            <a href="http://twitter.com/home?status={{ route('rental.show', $rental->uuid) . ' ' . $rental->getAddress() }}" target="_blank" title="Share on Twitter">
-                <i class="fa fa-twitter"></i>
-                Twitter
-            </a>
-        </li>
-        <li>
-            <a href="mailto:?subject=RentGorilla&amp;body=I thought you might be interested in this Rental listing: {{ route('rental.show', $rental->uuid) . ' ' . $rental->getAddress() }}" target="_blank" title="Share by Email">
-                <i class="fa fa-envelope"></i>
-                Email
-            </a>
-        </li>
-    </ul>
-</span>
+            <span id="share" style="width: 150px; float: right;">
+                <i class="fa fa-share-square-o"></i> Share Page
+            	<ul>
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('rental.show', $rental->uuid) }}" target="_blank" title="Share on Facebook">
+                            <i class="fa fa-facebook"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://twitter.com/home?status={{ route('rental.show', $rental->uuid) . ' ' . $rental->getAddress() }}" target="_blank" title="Share on Twitter">
+                            <i class="fa fa-twitter"></i>
+                            Twitter
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:?subject=RentGorilla&amp;body=I thought you might be interested in this Rental listing: {{ route('rental.show', $rental->uuid) . ' ' . $rental->getAddress() }}" target="_blank" title="Share by Email">
+                            <i class="fa fa-envelope"></i>
+                            Email
+                        </a>
+                    </li>
+                </ul>
+            </span>
             <span class="cf"></span>
             <table class="listing_ng">
                 <tr>
@@ -233,13 +233,43 @@
                 <p>
                     {!! nl2br(e($rental->description)) !!}
                 </p>
-
-            <!-- 
-                <h3>Property Manager Profile</h3>
-                <p>
-                    <strong>Name:</strong> {{$rental->user->getFullName()}} 
-                </p>
-            -->
+                
+                <section class="pmp">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="2">Property Manager Profile <span class="toggle"><i class="fa fa-minus"></i></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fa fa-user"></i></td>
+                                <td>
+                                    Gerry Doucet
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-globe"></i></td>
+                                <td><a href="http://xoff.ca/">http://xoff.ca</a></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-envelope"></i></td>
+                                <td><a href="mailto:gerry@xoff.ca">Email this property manager</a></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <i class="fa fa-list"></i> Other rentals
+                                    <ul>
+                                        <li><a href="#">123 My Street, Antigonish</a></li>
+                                        <li><a href="#">3 Any Avenue, Halifax</a></li>
+                                        <li><a href="#">42 Bridget Boulevard, Sydney</a></li>
+                                        <li><a href="#">314159 Yonge Street, Toronto</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
             </section>
         </aside>
         <div class="cf"></div>
@@ -359,6 +389,11 @@
                 $dialog.dialog('close');
             });
 
+            $('.pmp thead').click(function(){
+                $('.pmp tbody').toggle("fast", function(){});;
+                $('th span i').toggleClass('fa-minus');
+                $('th span i').toggleClass('fa-plus');
+            });
         });
 
 
