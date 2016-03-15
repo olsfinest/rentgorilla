@@ -149,7 +149,27 @@
             </article><!-- end individual property -->
             @endforeach
             @else
-                <p>You have no properties at this time.</p>
+                <p>
+                  You have no properties at this time.
+                </p>
+                <p>If you're looking for your next home instead, we have some resources that you may find helpful below.</p>
+                <ul class="resources">
+                  <li class="tenancies">
+                    <h3>Residential Tenancies Act</h3>
+                    <a title="Alberta" href="http://www.qp.alberta.ca/documents/Acts/R17P1.pdf">AB</a>
+                    <a title="British Columbia" href="http://www2.gov.bc.ca/gov/content/housing-tenancy/residential-tenancies">BC</a>
+                    <a title="Manitoba" href="http://www.gov.mb.ca/cca/rtb/">MB</a>
+                    <a title="New Brunswick" href="http://laws.gnb.ca/en/showdoc/cs/r-10.2">NB</a>
+                    <a title="Newfoundland" href="http://www.servicenl.gov.nl.ca/landlord/residential_tenancies.html">NL</a>
+                    <a title="Nova Scotia" href="http://nslegislature.ca/legc/statutes/residential%20tenancies.pdf">NS</a>
+                    <a title="Nunavut" href="http://tenantrights.ca/facts/nunavut">NU</a>
+                    <a title="Ontario" href="https://www.ontario.ca/laws/statute/06r17">ON</a>
+                    <a title="Prince Edward Island" href="http://www.irac.pe.ca/rental/">PE</a>
+                    <a title="Quebec" href="http://www.rdl.gouv.qc.ca/en/droits/droits.asp">QC</a>
+                    <a title="Saskatchewan" href="http://www.qp.gov.sk.ca/documents/english/Statutes/Statutes/R22-0001.pdf">SK</a>
+                    <a title="Yukon" href="http://www.community.gov.yk.ca/new_rlta.html">YT</a>
+                  </li>
+                </ul>
             @endif
         </section>
         <!-- sidebar begins -->
@@ -163,7 +183,7 @@
             <p>
                 <small></small>
             </p>
-            
+
             <!-- Plan overview - shows current plan info to the logged-in user -->
             <h3><i title="View details about your plan including expiration date, cost per billing cycle, and available property listings." class="fa fa-line-chart"></i> Plan Overview</h3>
 

@@ -522,7 +522,7 @@ header .user_actions .list_property {
         font-size: 1em;
         width: 20px;
         height: 20px;
-        z-index: 9999;
+        z-index: 9997;
         position: relative;
         text-align: center;
         line-height: 20px; }
@@ -2240,7 +2240,7 @@ li.ui-state-focus {
   background: #74B164;
   position: absolute;
   color: white;
-  z-index: 9999;
+  z-index: 9997;
   top: calc(50% - 25px);
   text-align: center; }
   .cycle-prev:hover, .cycle-next:hover {
@@ -2683,5 +2683,25 @@ a.planChange {
           .pmp table tr td ul li a:hover {
             background: #5b964c;
             padding-left: 1em; }
+
+.resources {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .resources li {
+    background: #ececec;
+    padding: 1em; }
+    .resources li h3 {
+      margin-top: 0; }
+
+.tenancies a {
+  background: #74B164;
+  padding: .25em;
+  color: white;
+  transition: .1s;
+  text-decoration: none; }
+  .tenancies a:hover {
+    background: #5b964c;
+    transition: .1s; }
 
 /*# sourceMappingURL=style.css.map */

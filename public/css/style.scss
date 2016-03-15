@@ -7,7 +7,7 @@
 }
 .cf {
   width: 100%;
-  height: 0;  
+  height: 0;
   display: block;
   clear: both;
 }
@@ -23,7 +23,7 @@ $fa:FontAwesome;
 $darkbrown:#333333;
 $green:#74B164;
 $brown:#7A694B;
-$darkgray:#4A4A4A; 
+$darkgray:#4A4A4A;
 
 // Weights & Measures
 $container:995px;
@@ -596,7 +596,7 @@ header .user_actions .list_property {
         font-size:1em;
         width:20px;
         height:20px;
-        z-index:9999;
+        z-index:9997;
         position:relative;
         text-align:center;
         line-height:20px;
@@ -627,7 +627,7 @@ header .user_actions .list_property {
 }
 .promoted-small {
   width: 100px;
-  height: 100px; 
+  height: 100px;
 }
 #share {
   height:30px;
@@ -635,7 +635,7 @@ header .user_actions .list_property {
   display: block;
   padding: 5px;
   background: #74B164;
-  color: white; 
+  color: white;
   ul {
     background: #74B164;
     top: 30px;
@@ -643,19 +643,19 @@ header .user_actions .list_property {
     width: 100%;
     z-index: 9999;
     position: absolute;
-    display: none; 
+    display: none;
   }
   &:hover {
     ul {
       display: block;
       list-style: none;
-      padding: 0; 
+      padding: 0;
       li {
         i {
           display: inline-block;
           width: 15px;
           margin-right: 5px;
-          text-align: center; 
+          text-align: center;
         }
       }
     }
@@ -677,14 +677,14 @@ header .user_actions .list_property {
 .errors {
   list-style: none;
   padding: 0;
-  margin: 0 0 1em 0; 
+  margin: 0 0 1em 0;
   li {
     border: 1px solid #6f0b0b;
     display: block;
     width: 100%;
     padding: 0.5em;
     color: white;
-    background: #9e0f0f; 
+    background: #9e0f0f;
   }
 }
 ul.justified {
@@ -1114,7 +1114,7 @@ ul#items {
     padding:.5em 0;
   }
   h1.resultsNum {
-    float: left; 
+    float: left;
     width: auto;
   }
   > ul {
@@ -1459,38 +1459,38 @@ span.eyes.blink .eye {
   margin-left:2em;
   padding-top:4px;
   z-index:9999;
-  position:relative; 
+  position:relative;
   > img {
     width: 40px;
     height: 37px;
     float: right;
     position:relative;
     top:7px;
-    border: 2px solid white; 
+    border: 2px solid white;
   }
   .avatar_actions {
     float: left;
     margin: 0 1em;
-    text-align: right; 
+    text-align: right;
     > a {
       color: white;
       font-size: .6em;
       position: relative;
-      text-transform: uppercase; 
+      text-transform: uppercase;
       &:hover {
         color:#74B164;
       }
       span {
-        margin-right: 5px; 
+        margin-right: 5px;
       }
     }
   }
   .user_name {
     color: white;
     display: block;
-    font-size: 1.1em; 
+    font-size: 1.1em;
     a {
-      color:white; 
+      color:white;
       text-decoration:none;
       &:hover {
         color:$green;
@@ -1504,24 +1504,24 @@ span.eyes.blink .eye {
     width: 100%;
     clear: both;
     display: none;
-    list-style: none; 
+    list-style: none;
   }
   &:hover {
-    cursor: pointer; 
+    cursor: pointer;
     .menu {
       padding-top: 8px;
-      display: block; 
+      display: block;
       li {
-        display: block; 
+        display: block;
       }
       a {
         box-sizing: border-box;
         display: inline-block;
         padding: 4px 4px 4px 15px;
         text-decoration: none;
-        width: 100%; 
+        width: 100%;
         &:hover {
-          background: #74B164; 
+          background: #74B164;
         }
       }
     }
@@ -1933,7 +1933,7 @@ li.ui-state-focus {
   background:$green;
   position:absolute;
   color:white;
-  z-index:9999;
+  z-index:9997;
   top:calc(50% - 25px);
   text-align:center;
   &:hover {
@@ -1953,7 +1953,7 @@ li.ui-state-focus {
     content:'>';
   }
 }
-// Landing Pages 
+// Landing Pages
 .sidebar {
   float: right;
   width: 332px;
@@ -1963,9 +1963,9 @@ li.ui-state-focus {
   width:630px;
 }
 .landingHeader {
-  width:100%; 
-  height:520px; 
-  background-position:center; 
+  width:100%;
+  height:520px;
+  background-position:center;
   background-image:url('/img/locale_antigonish.jpg'); background-size:cover;
   padding:200px 0;
   h1 {
@@ -2193,7 +2193,7 @@ body.map {
   }
   .planDateMonth{
     .planStats {
-      
+
     }
   }
   .planStats {
@@ -2219,7 +2219,7 @@ body.map {
       border-radius:$button_radius $button_radius 0 0;
       left:0;
       padding:2px 10px;
-    } 
+    }
     span.day {
       position:relative;
       top:8px;
@@ -2262,7 +2262,7 @@ a.planChange {
     font-size:1em;
     text-align: center;
     text-transform: uppercase;
-    a { 
+    a {
       color:$green;
       text-decoration: none;
     }
@@ -2498,6 +2498,31 @@ a.planChange {
           }
         }
       }
+    }
+  }
+}
+.resources {
+  list-style:none;
+  margin:0;
+  padding:0;
+  li {
+    background:#ececec;
+    padding:1em;
+    h3 {
+      margin-top:0;
+    }
+  }
+}
+.tenancies {
+  a {
+    background:$green;
+    padding:.25em;
+    color:white;
+    transition:.1s;
+    text-decoration:none;
+    &:hover {
+      background:darken($green, 10%);
+      transition:.1s;
     }
   }
 }
