@@ -218,21 +218,14 @@ class RentalController extends Controller {
             return redirect()->route('list', ['slug' => $rental->location->slug])->with('flash:success', 'That property is not currently active.');
         }
 
+        $otherRentals = $this->rentalRepository->otherRentals($rental->user, $rental);
+
         if(Auth::check()) {
             $favourites = $userRepository->getFavouriteRentalIdsForUser(Auth::user());
             $likes = $userRepository->getPhotoLikesForUser(Auth::user());
         } else {
             $favourites = [];
             $likes = [];
-        }
-
-        if(Session::has('location')) {
-            $location = session('location');
-            $city = getCity($location);
-            $province = getProvince($location);
-        } else {
-            $city = null;
-            $province = null;
         }
 
         $search = $this->rentalRepository->uuids($rental->location->id, session('type'), session('availability'), session('beds'), session('price'), session('sort'));
@@ -247,14 +240,18 @@ class RentalController extends Controller {
             $next = null;
         }
 
+        $searchResultsBtn = true;
+
         event(new RentalViewed($rental->id));
 
-        return view('rental.show', compact('rental', 'favourites', 'likes', 'previous', 'next'));
+        return view('rental.show', compact('rental', 'otherRentals', 'favourites', 'likes', 'previous', 'next', 'searchResultsBtn'));
 	}
 
     public function showPreview($id, UserRepository $userRepository)
     {
-        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $id);
+        $rental = $this->rentalRepository->findByUUID($id);
+
+        $otherRentals = $this->rentalRepository->otherRentals($rental->user, $rental);
 
         if(Auth::check()) {
             $favourites = $userRepository->getFavouriteRentalIdsForUser(Auth::user());
@@ -267,7 +264,9 @@ class RentalController extends Controller {
         $previous = null;
         $next = null;
 
-        return view('rental.preview', compact('rental', 'favourites', 'likes', 'previous', 'next'));
+        $searchResultsBtn = false;
+
+        return view('rental.show', compact('rental', 'otherRentals', 'favourites', 'likes', 'previous', 'next', 'searchResultsBtn'));
     }
 
 	/**

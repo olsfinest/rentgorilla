@@ -377,4 +377,9 @@ class EloquentRentalRepository implements RentalRepository
                 ->get();
         }
     }
+
+    public function otherRentals(User $user, Rental $rental)
+    {
+        return $user->rentals()->where('id', '!=', $rental->id)->where('active', 1)->get();
+    }
 }

@@ -82,6 +82,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasOne('RentGorilla\Profile');
     }
 
+    public function getProfileItem($item)
+    {
+        if ( ! $this->relationLoaded('profile')) {
+            $this->load('profile');
+        }
+
+        $profile = $this->getRelation('profile');
+
+        if( is_null($profile)) return null;
+
+        return $profile->{$item};
+    }
+
 	public function favourites()
 	{
 		return $this->belongsToMany('RentGorilla\Rental', 'favourites')->withTimestamps();

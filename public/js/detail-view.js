@@ -72,9 +72,9 @@ $('#phone-btn').on('click', function(e) {
             }
         });
     }
-})
+});
 
-$('#email-manager-btn').on('click', function(e) {
+$('.email-manager-btn').on('click', function(e) {
     $('.modalLogin').dialog({
         resizable: 'false',
         dialogClass: 'modalLogin',
@@ -84,7 +84,7 @@ $('#email-manager-btn').on('click', function(e) {
         top: '0',
         left: '0'
     });
-})
+});
 
 $('#email-manager-form').submit(function( event ) {
     event.preventDefault();

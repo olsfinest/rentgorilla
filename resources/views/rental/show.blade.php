@@ -34,17 +34,17 @@
     <input placeholder="" type="submit" name="submit" value="Send" tabindex="8">
     {!! Form::close() !!}
 </section>
-
 <section class="listing_nav">
     <section class="main">
-        <a class="back" href="{{ route('list') }}">&laquo; Back to Search Results</a>
+        @if($searchResultsBtn)
+            <a class="back" href="{{ route('list', [$rental->location->slug]) }}">&laquo; Back to Search Results</a>
+        @endif
         @if($next)
             <a class="forward" href="{{ route('rental.show', [$next]) }}">Next &raquo;</a>
         @endif
         @if($previous)
             <a class="forward" href="{{ route('rental.show', [$previous]) }}"> &laquo; Previous</a>
         @endif
-
     </section>
 </section>
 <section class="main">
@@ -197,7 +197,7 @@
 
                 <ul class="listing_contact">
                     <li><a id="phone-btn">Show Phone Number</a></li>
-                    <li><a id="email-manager-btn">Email Property Manager</a></li>
+                    <li><a class="email-manager-btn">Email Property Manager</a></li>
                 </ul>
                 @if( ! is_null($rental->video))
                 <h3><a href="#">Video</a></h3>
@@ -245,28 +245,31 @@
                             <tr>
                                 <td><i class="fa fa-user"></i></td>
                                 <td>
-                                    Gerry Doucet
+                                    {{ $rental->user->getFullName() }}
                                 </td>
                             </tr>
-                            <tr>
-                                <td><i class="fa fa-globe"></i></td>
-                                <td><a href="http://xoff.ca/">http://xoff.ca</a></td>
-                            </tr>
+                            @if($website = $rental->user->getProfileItem('website'))
+                                <tr>
+                                    <td><i class="fa fa-globe"></i></td>
+                                    <td><a href="{{ $website }}" target="_blank">{{ $website }}</a></td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td><i class="fa fa-envelope"></i></td>
-                                <td><a href="mailto:gerry@xoff.ca">Email this property manager</a></td>
+                                <td><a class="email-manager-btn">Email this property manager</a></td>
                             </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <i class="fa fa-list"></i> Other rentals
-                                    <ul>
-                                        <li><a href="#">123 My Street, Antigonish</a></li>
-                                        <li><a href="#">3 Any Avenue, Halifax</a></li>
-                                        <li><a href="#">42 Bridget Boulevard, Sydney</a></li>
-                                        <li><a href="#">314159 Yonge Street, Toronto</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
+                            @if(count($otherRentals))
+                                <tr>
+                                    <td colspan="2">
+                                        <i class="fa fa-list"></i> Other rentals
+                                        <ul>
+                                            @foreach($otherRentals as $otherRental)
+                                                <li><a href="{{ route('rental.show', [$otherRental->uuid]) }}">{{ $otherRental->getAddress() }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </section>
@@ -282,9 +285,9 @@
     <script src="/js/cycle.js"></script>
     <script language="JavaScript">
         var rental_id = "{{ $rental->uuid }}";
-        var hasPhotos = {{ $hasPhotos ? 'true' : 'false' }}
+        var hasPhotos = {{ $hasPhotos ? 'true' : 'false' }};
     </script>
-    <script src="/js/detail-view.js"></script>
+    <script src="/js/detail-view.js?v=2"></script>
     <script language="JavaScript">
         var initialPosition = new google.maps.LatLng({{ $rental->lat . ', ' . $rental->lng  }});
         var panorama;
