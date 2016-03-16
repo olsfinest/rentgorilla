@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $loc->city . ' Apartments & Houses for Rent on RentGorilla.ca')
+
 @section('content')
         @include('partials.header')
         <section class="filter">
