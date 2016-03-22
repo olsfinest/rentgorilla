@@ -27,11 +27,6 @@ function getCityAndProvince($location)
     return $city . ', ' .  $province;
 }
 
-function getNoPhoto($size)
-{
-    return "/img/no-photo/{$size}-no-photo-icon.jpg";
-}
-
 function  sort_users_by($column, $body)
 {
     $direction = (Input::get('direction') == 'asc') ? 'desc' : 'asc';

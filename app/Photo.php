@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use File;
+
 class Photo extends Model {
 
     public $timestamps = true;
@@ -76,6 +78,19 @@ class Photo extends Model {
                 unlink($file);
             }
         }
+    }
+
+    public static function getNoPhotos($size)
+    {
+        $dirListing = File::files(public_path() . "/img/gorillas/{$size}");
+
+        if(empty($dirListing)) return collect([]);
+
+        $files = array_map(function($item){
+            return str_replace(public_path(), '', $item);
+        }, $dirListing);
+
+        return collect($files);
     }
 
 }

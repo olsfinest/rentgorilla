@@ -2,6 +2,7 @@
 
 use Auth;
 use RentGorilla\Events\SearchWasInitiated;
+use RentGorilla\Photo;
 use RentGorilla\Repositories\LocationRepository;
 use RentGorilla\Repositories\UserRepository;
 use Session;
@@ -178,10 +179,12 @@ class AppController extends Controller {
 			$favourites = [];
 		}
 
+        $noPhotos = Photo::getNoPhotos('small');
+
         if($paginate) {
-            $html = view('app.rental-list-hits-paginated')->with('loc', $location)->with('showLandingPage', $showLandingPage)->with('rentals', $rentals['results'])->with('favourites', $favourites)->render();
+            $html = view('app.rental-list-hits-paginated')->with('noPhotos', $noPhotos)->with('loc', $location)->with('showLandingPage', $showLandingPage)->with('rentals', $rentals['results'])->with('favourites', $favourites)->render();
         } else {
-            $html = view('app.rental-list-hits')->with('loc', $location)->with('showLandingPage', $showLandingPage)->with('rentals', $rentals['results'])->with('favourites', $favourites)->with('total', $rentals['count'])->render();
+            $html = view('app.rental-list-hits')->with('noPhotos', $noPhotos)->with('loc', $location)->with('showLandingPage', $showLandingPage)->with('rentals', $rentals['results'])->with('favourites', $favourites)->with('total', $rentals['count'])->render();
         }
 
 		return response()->json(['rentals' => $html,
@@ -234,7 +237,9 @@ class AppController extends Controller {
 
         $rentals = $this->rentalRepository->getRentalsByIds($ids);
 
-        return view('app.rental-map-hits', compact('rentals'));
+        $noPhotos = Photo::getNoPhotos('small');
+
+        return view('app.rental-map-hits', compact('noPhotos', 'rentals'));
     }
 
     public function getLocations()

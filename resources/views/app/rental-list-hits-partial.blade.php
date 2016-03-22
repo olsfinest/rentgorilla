@@ -11,7 +11,9 @@
                     <img width="237" height="158" src="{{ $photo->getSize('small') }}" alt="{{ $rental->street_address }}">
                 @endforeach
             @else
-                <img src="{{ getNoPhoto('small') }}" alt="Sorry, no image available">
+                @foreach($noPhotos->shuffle() as $noPhoto)
+                    <img width="237" height="158" src="{{ $noPhoto }}" alt="Sorry, no image available">
+                @endforeach
             @endif
         </div>
         <span class="progress"></span>

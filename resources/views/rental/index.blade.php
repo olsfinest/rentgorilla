@@ -65,7 +65,9 @@
                                     <img src="{{ $photo->getSize('small') }}" alt="">
                                 @endforeach
                             @else
-                                <img src="{{ getNoPhoto('small') }}" alt="">
+                                @foreach($noPhotos->shuffle() as $noPhoto)
+                                    <img src="{{ $noPhoto }}" alt="">
+                                @endforeach
                             @endif
                                 <span class="photos-title">
                                 Edit Photos [{{ $rental->photos->count() }}]

@@ -20,6 +20,7 @@ use RentGorilla\Http\Requests\PromoteRentalRequest;
 use RentGorilla\Http\Requests\RentalPhoneRequest;
 use RentGorilla\Http\Requests\ToggleRentalActivationRequest;
 use RentGorilla\Promotions\PromotionManager;
+use RentGorilla\Rental;
 use RentGorilla\Repositories\PhotoRepository;
 use RentGorilla\Repositories\RewardRepository;
 use RentGorilla\Repositories\UserRepository;
@@ -30,6 +31,7 @@ use Config;
 use Image;
 use Subscription;
 use Log;
+use DB;
 
 class RentalController extends Controller {
 
@@ -187,7 +189,9 @@ class RentalController extends Controller {
 
         $availablePromotions = $this->rentalRepository->getAvailablePromotionSlotsForUser(Auth::user());
 
-        return view('rental.index', compact('rentals', 'rewards', 'plan', 'activeRentalCount', 'availablePromotions'));
+        $noPhotos = Photo::getNoPhotos('small');
+
+        return view('rental.index', compact('noPhotos', 'rentals', 'rewards', 'plan', 'activeRentalCount', 'availablePromotions'));
 	}
 
 
@@ -212,7 +216,7 @@ class RentalController extends Controller {
 
 	public function show($id, UserRepository $userRepository)
 	{
-        $rental = $this->rentalRepository->findByUUID($id);
+        $rental = Rental::with('user.profile')->where(DB::raw('BINARY `uuid`'), $id)->firstOrFail();
 
         if( ! $rental->isActive()) {
             return redirect()->route('list', ['slug' => $rental->location->slug])->with('flash:success', 'That property is not currently active.');
@@ -242,14 +246,16 @@ class RentalController extends Controller {
 
         $searchResultsBtn = true;
 
+        $noPhotos = Photo::getNoPhotos('medium');
+
         event(new RentalViewed($rental->id));
 
-        return view('rental.show', compact('rental', 'otherRentals', 'favourites', 'likes', 'previous', 'next', 'searchResultsBtn'));
+        return view('rental.show', compact('noPhotos', 'rental', 'otherRentals', 'favourites', 'likes', 'previous', 'next', 'searchResultsBtn'));
 	}
 
     public function showPreview($id, UserRepository $userRepository)
     {
-        $rental = $this->rentalRepository->findByUUID($id);
+        $rental = Rental::with('user.profile')->where(DB::raw('BINARY `uuid`'), $id)->firstOrFail();
 
         $otherRentals = $this->rentalRepository->otherRentals($rental->user, $rental);
 
@@ -266,7 +272,9 @@ class RentalController extends Controller {
 
         $searchResultsBtn = false;
 
-        return view('rental.show', compact('rental', 'otherRentals', 'favourites', 'likes', 'previous', 'next', 'searchResultsBtn'));
+        $noPhotos = Photo::getNoPhotos('medium');
+
+        return view('rental.show', compact('noPhotos', 'rental', 'otherRentals', 'favourites', 'likes', 'previous', 'next', 'searchResultsBtn'));
     }
 
 	/**

@@ -72,7 +72,9 @@
                             <img id="{{ $photo->id }}" class="{{ in_array($photo->id, $likes) ? 'liked' : '' }}" src="{{ $photo->getSize('medium') }}">
                         @endforeach
                     @else
-                        <img src="{{ getNoPhoto('medium') }}">
+                        @foreach($noPhotos->shuffle() as $noPhoto)
+                            <img onclick="window.location.href='https://gorillafund.org/donate'" src="{{ $noPhoto }}">
+                        @endforeach
                     @endif
                     <h3>{{ $rental->beds }} Bedroom / {{ (float) $rental->baths }} Bathroom {{ Config::get('rentals.type.' . $rental->type) }}</h3>
                     <span id="favourite" class="favourite fa {{ in_array($rental->id, $favourites) ? 'fa-heart' : 'fa-heart-o' }}">{{ $rental->favouritedBy()->count() }}</span>
@@ -220,19 +222,22 @@
                 @endif
 
                 @if( ! is_null($rental->square_footage))
-                <h3>Property Size</h3>
+                    <h3>Property Size</h3>
 
-                <ul class="justified">
-                    <li><a href="#">{{ $rental->square_footage }} SqFt</a></li>
-                    <li><a href="#">${{ $rental->pricePerSquareFoot() }} / SqFt</a></li>
-                </ul>
-
+                    <ul class="justified">
+                        <li><a href="#">{{ $rental->square_footage }} SqFt</a></li>
+                        <li><a href="#">${{ $rental->pricePerSquareFoot() }} / SqFt</a></li>
+                    </ul>
                 @endif
 
-                <h3>Description</h3>
-                <p>
-                    {!! nl2br(e($rental->description)) !!}
-                </p>
+                @if( ! is_null($rental->description))
+                    <h3>Description</h3>
+                    <p>
+                        {!! nl2br(e($rental->description)) !!}
+                    </p>
+                @else
+                    <br>
+                @endif
 
                 <section class="pmp">
                     <table>
@@ -246,44 +251,44 @@
                                     {{ $rental->user->getFullName() }}
                                 </td>
                             </tr>
-                            @if($website = $rental->user->getProfileItem('website'))
+                            @if($website = $rental->user->profile->website)
                                 <tr>
                                     <td><i class="fa fa-globe"></i></td>
                                     <td><a href="{{ $website }}" target="_blank">{{ $website }}</a></td>
                                 </tr>
                             @endif
-                            <!--
-                              <tr>
-                                <td><i class="fa fa-envelope"></i></td>
-                                <td><a class="email-manager-btn">Email this property manager</a></td>
-                              </tr>
-                            -->
-                            <tr>
-                              <td>
-                                <i class="fa fa-mobile"></i>
-                              </td>
-                              <td>
-                                Accepts text messages
-                              </td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
+                            @if($rental->user->profile->accepts_texts)
+                                <tr>
+                                  <td>
+                                    <i class="fa fa-mobile"></i>
+                                  </td>
+                                  <td>
+                                    Accepts text messages
+                                  </td>
+                                </tr>
+                            @endif
+                            </thead>
+                            <tbody>
+                            @if($photo = $rental->user->profile->photo)
+                             <tr>
                               <td>
                                 <i class="fa fa-picture-o"></i>
                               </td>
                               <td>
-                                <img src="/img/uploads/placeholders/mine/05.jpg">
+                                <img style="width: 40px" width="40" height="40" src="/img/profiles/{{ $photo }}">
                               </td>
                             </tr>
-                            <tr>
+                            @endif
+                            @if($bio = $rental->user->profile->bio)
+                             <tr>
                               <td>
                                 <i class="fa fa-file-text"></i>
                               </td>
                               <td>
-                                Assumenda suscipit molestiae ut quia enim rerum corporis. Placeat rerum aut aut maiores. Est commodi tempora qui eius corrupti quod in.
+                                  {!! nl2br(e($bio)) !!}
                               </td>
                             </tr>
+                            @endif
                             @if(count($otherRentals))
                                 <tr>
                                     <td colspan="2">

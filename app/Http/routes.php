@@ -127,13 +127,11 @@ $router->post('like', 'LikesController@toggleLike');
 $router->post('landing-page/set-cookie', 'AppController@setLandingPageCookie');
 $router->post('landing-page/delete-cookie', 'AppController@deleteLandingPageCookie');
 
+/*
 $router->get('testing', function() {
-
-  $repo = app( 'RentGorilla\Repositories\EloquentRentalRepository');
-
-    return $repo->getAvailablePromotionSlots();
+    dd(collect([]));
 });
-
+*/
 
 
 $router->get('rental/{rental}/photos', ['as' => 'rental.photos.index', 'uses' => 'RentalController@showPhotos']);
