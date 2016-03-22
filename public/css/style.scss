@@ -2450,6 +2450,11 @@ a.planChange {
       }
     }
     tr {
+      &:first-child {
+        td {
+          border-top:1px solid lightgrey;
+        }
+      }
       th {
         border-bottom:none;
         text-align:left;
@@ -2464,8 +2469,12 @@ a.planChange {
         font-size:.9em;
         padding:.5em;
         vertical-align: top;
+        position:relative;
         img {
-          float:right;
+          display:block;
+          max-width:100%;
+          width:100%;
+          height:auto;
         }
         &:first-child {
           width:2%;

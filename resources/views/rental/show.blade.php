@@ -192,7 +192,7 @@
         <aside class="listing_sidebar">
             <section class="listing_rent">
                 <h1>${{ $rental->price }} per month</h1>
-                
+
                 <h3><a href="#">Contact Now</a></h3>
 
                 <ul class="listing_contact">
@@ -233,15 +233,13 @@
                 <p>
                     {!! nl2br(e($rental->description)) !!}
                 </p>
-                
+
                 <section class="pmp">
                     <table>
                         <thead>
                             <tr>
                                 <th colspan="2">Property Manager Profile <span class="toggle"><i class="fa fa-minus"></i></span></th>
                             </tr>
-                        </thead>
-                        <tbody>
                             <tr>
                                 <td><i class="fa fa-user"></i></td>
                                 <td>
@@ -254,9 +252,37 @@
                                     <td><a href="{{ $website }}" target="_blank">{{ $website }}</a></td>
                                 </tr>
                             @endif
-                            <tr>
+                            <!--
+                              <tr>
                                 <td><i class="fa fa-envelope"></i></td>
                                 <td><a class="email-manager-btn">Email this property manager</a></td>
+                              </tr>
+                            -->
+                            <tr>
+                              <td>
+                                <i class="fa fa-mobile"></i>
+                              </td>
+                              <td>
+                                Accepts text messages
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <i class="fa fa-picture-o"></i>
+                              </td>
+                              <td>
+                                <img src="/img/uploads/placeholders/mine/05.jpg">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <i class="fa fa-file-text"></i>
+                              </td>
+                              <td>
+                                Assumenda suscipit molestiae ut quia enim rerum corporis. Placeat rerum aut aut maiores. Est commodi tempora qui eius corrupti quod in.
+                              </td>
                             </tr>
                             @if(count($otherRentals))
                                 <tr>

@@ -2647,6 +2647,8 @@ a.planChange {
   width: 100%; }
   .pmp table thead:hover {
     cursor: pointer; }
+  .pmp table tr:first-child td {
+    border-top: 1px solid lightgrey; }
   .pmp table tr th {
     border-bottom: none;
     text-align: left; }
@@ -2657,9 +2659,13 @@ a.planChange {
   .pmp table tr td {
     font-size: .9em;
     padding: .5em;
-    vertical-align: top; }
+    vertical-align: top;
+    position: relative; }
     .pmp table tr td img {
-      float: right; }
+      display: block;
+      max-width: 100%;
+      width: 100%;
+      height: auto; }
     .pmp table tr td:first-child {
       width: 2%;
       font-weight: bold; }
