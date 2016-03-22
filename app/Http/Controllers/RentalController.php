@@ -216,7 +216,7 @@ class RentalController extends Controller {
 
 	public function show($id, UserRepository $userRepository)
 	{
-        $rental = Rental::with('user.profile')->where(DB::raw('BINARY `uuid`'), $id)->firstOrFail();
+        $rental = Rental::with('user')->where(DB::raw('BINARY `uuid`'), $id)->firstOrFail();
 
         if( ! $rental->isActive()) {
             return redirect()->route('list', ['slug' => $rental->location->slug])->with('flash:success', 'That property is not currently active.');
@@ -255,7 +255,7 @@ class RentalController extends Controller {
 
     public function showPreview($id, UserRepository $userRepository)
     {
-        $rental = Rental::with('user.profile')->where(DB::raw('BINARY `uuid`'), $id)->firstOrFail();
+        $rental = Rental::with('user')->where(DB::raw('BINARY `uuid`'), $id)->firstOrFail();
 
         $otherRentals = $this->rentalRepository->otherRentals($rental->user, $rental);
 

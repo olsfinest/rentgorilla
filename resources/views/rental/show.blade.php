@@ -251,13 +251,13 @@
                                     {{ $rental->user->getFullName() }}
                                 </td>
                             </tr>
-                            @if($website = $rental->user->profile->website)
+                            @if($website = $rental->user->getProfileItem('website'))
                                 <tr>
                                     <td><i class="fa fa-globe"></i></td>
                                     <td><a href="{{ $website }}" target="_blank">{{ $website }}</a></td>
                                 </tr>
                             @endif
-                            @if($rental->user->profile->accepts_texts)
+                            @if($rental->user->getProfileItem('accepts_texts'))
                                 <tr>
                                   <td>
                                     <i class="fa fa-mobile"></i>
@@ -269,7 +269,7 @@
                             @endif
                             </thead>
                             <tbody>
-                            @if($photo = $rental->user->profile->photo)
+                            @if($photo = $rental->user->getProfileItem('photo'))
                              <tr>
                               <td>
                                 <i class="fa fa-picture-o"></i>
@@ -279,7 +279,7 @@
                               </td>
                             </tr>
                             @endif
-                            @if($bio = $rental->user->profile->bio)
+                            @if($bio = $rental->user->getProfileItem('bio'))
                              <tr>
                               <td>
                                 <i class="fa fa-file-text"></i>
