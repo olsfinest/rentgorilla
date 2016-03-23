@@ -1,24 +1,24 @@
-@import url(http://fonts.googleapis.com/css?family=Khula:400,800);
+@import url(https://fonts.googleapis.com/css?family=Khula:400,800);
 form {
-  border: none; 
+  border: none;
   fieldset {
-    border: 1px solid silver; 
+    border: 1px solid silver;
     background:white;
     margin-bottom:1em;
     legend {
       padding: .5em;
       font-size: 1em;
       font-weight: 800;
-      border: 1px solid silver; 
+      border: 1px solid silver;
     }
   }
   label {
     display: block;
     clear: both;
     margin-bottom: 1em;
-    font-weight: bold; 
+    font-weight: bold;
     &:last-of-type {
-      margin-bottom: 0; 
+      margin-bottom: 0;
     }
     &:only-child {
       margin-bottom:1em!important;
@@ -37,7 +37,7 @@ form {
     form label.half input {
       max-width: 100%; }
   form .half.left {
-    float: left; 
+    float: left;
     clear:left;
   }
   form .half.right {
