@@ -37,7 +37,7 @@
 <section class="listing_nav">
     <section class="main">
         @if($searchResultsBtn)
-            <a class="back" href="{{ route('list', [$rental->location->slug]) }}">&laquo; Back to Search Results</a>
+            <a class="back" href="{{ URL::previous() }}">&laquo; Back to Search Results</a>
         @endif
         @if($next)
             <a class="forward" href="{{ route('rental.show', [$next]) }}">Next &raquo;</a>
@@ -73,8 +73,11 @@
                         @endforeach
                     @else
                         @foreach($noPhotos->shuffle() as $noPhoto)
-                            <img onclick="window.location.href='https://gorillafund.org/donate'" src="{{ $noPhoto }}">
+                            <img src="{{ $noPhoto }}" usemap="#Map">
                         @endforeach
+                            <map name="Map" id="Map">
+                                <area target="_blank" shape="rect" coords="400,330,600,385" href="https://gorillafund.org/donate" alt="Donate" />
+                            </map>
                     @endif
                     <h3>{{ $rental->beds }} Bedroom / {{ (float) $rental->baths }} Bathroom {{ Config::get('rentals.type.' . $rental->type) }}</h3>
                     <span id="favourite" class="favourite fa {{ in_array($rental->id, $favourites) ? 'fa-heart' : 'fa-heart-o' }}">{{ $rental->favouritedBy()->count() }}</span>
@@ -245,6 +248,12 @@
                             <tr>
                                 <th colspan="2">Property Manager Profile <span class="toggle"><i class="fa fa-minus"></i></span></th>
                             </tr>
+                            @if($company = $rental->user->getProfileItem('company'))
+                                <tr>
+                                    <td><i class="fa fa-suitcase"></i></td>
+                                    <td>{{ $company }}</td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td><i class="fa fa-user"></i></td>
                                 <td>

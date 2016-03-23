@@ -14,10 +14,9 @@ class ModifyProfileCommand extends Command
     public $last_name;
     public $company;
     public $accepts_texts;
-    public $alt_phone;
 
 
-    function __construct($user_id, $primary_phone, $website, $bio, $photo, $first_name, $last_name, $company, $alt_phone, $accepts_texts = null)
+    function __construct($user_id, $primary_phone, $website, $bio, $photo, $first_name, $last_name, $company, $accepts_texts = null)
     {
         $this->user_id = $user_id;
         $this->primary_phone = $primary_phone;
@@ -28,6 +27,5 @@ class ModifyProfileCommand extends Command
         $this->last_name = $last_name;
         $this->company = $company;
         $this->accepts_texts = $accepts_texts;
-        $this->alt_phone = $alt_phone;
     }
 }

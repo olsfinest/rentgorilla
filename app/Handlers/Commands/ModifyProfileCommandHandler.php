@@ -44,7 +44,6 @@ class ModifyProfileCommandHandler
         $profile->website = nullIfEmpty($command->website);
         $profile->bio = nullIfEmpty($command->bio);
         $profile->company = nullIfEmpty($command->company);
-        $profile->alt_phone = nullIfEmpty($command->alt_phone);
 
         if(is_null($command->accepts_texts)) {
             $profile->accepts_texts = 0;

@@ -82,9 +82,6 @@
                 <label class="half left">Phone:
                     {!! Form::text('primary_phone', null, ['placeholder'=> '902-555-5555']) !!}
                 </label>
-                <label class="half right">Alternate Phone:
-                    {!! Form::text('alt_phone', null, ['placeholder'=> '902-555-5555']) !!}
-                </label>
                 <label for="accepts_texts" class="">Phone Accepts Text Messages:
                     <span>
                         {!! Form::radio('accepts_texts', 1) !!} Yes {!! Form::radio('accepts_texts', 0) !!} No

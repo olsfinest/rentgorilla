@@ -29,6 +29,7 @@ class ModifyProfileRequest extends Request
             'last_name' => 'required',
             'company' => 'string',
             'accepts_texts' => 'boolean',
+            'bio' => 'max:500'
         ];
     }
 }
