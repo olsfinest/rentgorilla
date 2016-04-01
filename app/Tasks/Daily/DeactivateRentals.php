@@ -36,8 +36,8 @@ class DeactivateRentals {
             ->select('id')
             ->where('confirmed', 1)
             ->where(function ($query){
-                $query->whereRaw('DATEDIFF(trial_ends_at, NOW()) = 0');
-                $query->orWhereRaw('DATEDIFF(subscription_ends_at, NOW()) = 0');
+                $query->whereRaw('DATEDIFF(trial_ends_at, NOW()) = -1');
+                $query->orWhereRaw('DATEDIFF(subscription_ends_at, NOW()) = -1');
             })->orWhere(function ($query){
                 $query->whereRaw('DATEDIFF(DATE_ADD(created_at, INTERVAL 1 YEAR), NOW()) = 0');
                 $query->where('stripe_active', 0);

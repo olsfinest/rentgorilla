@@ -233,7 +233,7 @@ class UserMailer extends Mailer {
             'credit' => $credit
         ];
 
-        $subject = 'RentGorilla.ca :: Plan Expired';
+        $subject = 'RentGorilla.ca :: Points Redeemed';
 
         return $this->sendTo($user, $subject, $view, $data);
     }
