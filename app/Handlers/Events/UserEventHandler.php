@@ -32,7 +32,7 @@ class UserEventHandler {
         Log::info('User has confirmed their email address', ['id' => $event->user->id]);
         $this->userMailer->sendWelcome($event->user);
 
-        if(app()->environment() !== 'local') {
+        if(app()->environment() === 'production') {
             $this->mailingList->addUserToList($event->user);
         }
     }

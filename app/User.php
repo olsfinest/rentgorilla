@@ -161,6 +161,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->is_admin === 1;
     }
 
+    public function isSuper()
+    {
+        return $this->is_super === 1;
+    }
+
+    public function isUnconfirmed()
+    {
+        return $this->confirmed === 0;
+    }
+
     public function isOnFreePlan()
     {
 

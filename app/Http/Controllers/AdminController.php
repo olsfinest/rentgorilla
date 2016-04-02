@@ -62,12 +62,14 @@ class AdminController extends Controller {
 
         $user = $this->dispatchFrom(AdminNewUserCommand::class, $request);
 
+        $is_admin = $user->is_admin ? ' admin' : '';
+
         if($request->get('login')) {
             Auth::loginUsingId($user->id);
-            return redirect()->route('rental.index')->with('flash:success', 'You are now logged in as the new user.');
+            return redirect()->route('rental.index')->with('flash:success', "You are now logged in as the new{$is_admin} user.");
         }
 
-        return redirect()->back()->with('flash:success', 'New user created!');
+        return redirect()->back()->with('flash:success', "New{$is_admin} user created!");
     }
 
     public function searchUsers()
@@ -89,10 +91,18 @@ class AdminController extends Controller {
 
         $user = $this->userRepository->find($request->user_id);
 
-        Auth::loginUsingId($user->id);
+        // One may only take over someones account if they are a super admin,
+        // or if the user has not used their credit card
 
-        return redirect()->route('rental.index')->with('flash:success', 'You are now logged in as ' . $user->email);
+        if(Auth::user()->isSuper() || ( ! $user->readyForBilling() )) {
 
+            Auth::loginUsingId($user->id);
+
+            return redirect()->route('rental.index')->with('flash:success', 'You are now logged in as ' . $user->email);
+
+        }
+
+        return redirect()->back()->with('flash:success', $user->email . ' has already confirmed their account.');
     }
 
     public function sendActivation(SendActivationRequest $request)

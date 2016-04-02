@@ -6,6 +6,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use RentGorilla\Repositories\UserRepository;
 use RentGorilla\User;
 use Log;
+use Auth;
 
 class AdminNewUserCommandHandler {
 
@@ -36,7 +37,15 @@ class AdminNewUserCommandHandler {
         $user->password = bcrypt(str_random(10));
         $user->confirmed = 0;
         $user->confirmation = str_random(40);
-        $user->is_admin = is_null($command->is_admin) ? 0 : 1;
+
+        //only super admins can create admins
+        if((! is_null($command->is_admin)) && Auth::user()->isSuper())
+        {
+            $user->is_admin = 1;
+        } else {
+            $user->is_admin = 0;
+        }
+
         $user->provider = 'email';
         $this->repository->save($user);
 

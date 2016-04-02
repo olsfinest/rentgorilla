@@ -17,9 +17,11 @@
         <label for="">Email
             {!! Form::text('email') !!}
         </label>
+        @if(Auth::user()->isSuper())
         <label for="">New User is an Administrator
             {!! Form::checkbox('is_admin') !!}
         </label>
+        @endif
         {!! Form::submit('Create New User', ['name' => 'no-login']) !!}
         {!! Form::submit('Create New User and Login', ['name' => 'login']) !!}
         {!! Form::close() !!}
