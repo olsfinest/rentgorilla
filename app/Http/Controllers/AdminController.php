@@ -92,9 +92,9 @@ class AdminController extends Controller {
         $user = $this->userRepository->find($request->user_id);
 
         // One may only take over someones account if they are a super admin,
-        // or if the user has not used their credit card
+        // or if the user is not a super admin and the user has not used their credit card
 
-        if(Auth::user()->isSuper() || ( ! $user->readyForBilling() )) {
+        if(Auth::user()->isSuper() || ( ! $user->isSuper() &&  ! $user->readyForBilling() )) {
 
             Auth::loginUsingId($user->id);
 
@@ -102,7 +102,7 @@ class AdminController extends Controller {
 
         }
 
-        return redirect()->back()->with('flash:success', $user->email . ' has already confirmed their account.');
+        return redirect()->back()->with('flash:success', 'Cannot log in as ' . $user->email . '. Permission denied.');
     }
 
     public function sendActivation(SendActivationRequest $request)
