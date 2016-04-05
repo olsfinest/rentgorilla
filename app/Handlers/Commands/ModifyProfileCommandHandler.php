@@ -1,11 +1,11 @@
 <?php namespace RentGorilla\Handlers\Commands;
 
-use RentGorilla\Commands\ModifyProfileCommand;
-use Illuminate\Queue\InteractsWithQueue;
-use RentGorilla\Profile;
-use RentGorilla\Repositories\ProfileRepository;
-use RentGorilla\Repositories\UserRepository;
 use Image;
+use RentGorilla\Profile;
+use Illuminate\Queue\InteractsWithQueue;
+use RentGorilla\Repositories\UserRepository;
+use RentGorilla\Commands\ModifyProfileCommand;
+use RentGorilla\Repositories\ProfileRepository;
 
 class ModifyProfileCommandHandler
 {
@@ -60,20 +60,23 @@ class ModifyProfileCommandHandler
             $extension = $command->photo->guessClientExtension();
             $filename = $randomString . ".{$extension}";
 
-            $upload_success = $image->fit(Profile::PHOTO_SIDE, Profile::PHOTO_SIDE)
-                ->save($destinationPath . $filename);
+            $upload_success = $image->resize(Profile::PHOTO_LARGE_MAX_WIDTH, null, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                        $constraint->upsize();
+                                    })->save($destinationPath . 'large' . $filename)
+                                    ->fit(Profile::PHOTO_SIDE, Profile::PHOTO_SIDE)
+                                    ->save($destinationPath . 'small' . $filename);
 
             if ($upload_success) {
 
-                // delete old profile pic, if any
+                // delete old profile pics, if any
                 if ( ! is_null($profile->photo)) {
-                    $profile->deletePhoto();
+                    $profile->deletePhotos();
                 }
 
                 $profile->photo = $filename;
             }
         }
-
 
         return $this->profileRepository->save($profile);
     }

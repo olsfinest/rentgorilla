@@ -1,25 +1,24 @@
 <?php namespace RentGorilla\Http\Controllers;
 
 use Auth;
-use RentGorilla\Billing\StripeBiller;
+use RentGorilla\Billing\Biller;
+use RentGorilla\Plans\Subscription;
+use RentGorilla\Http\Requests\SupportRequest;
 use RentGorilla\Commands\ModifyProfileCommand;
 use RentGorilla\Commands\ModifySettingsCommand;
 use RentGorilla\Commands\SupportRequestCommand;
 use RentGorilla\Http\Requests\ModifyProfileRequest;
 use RentGorilla\Http\Requests\ModifySettingsRequest;
-use RentGorilla\Http\Requests\SupportRequest;
-use RentGorilla\Plans\Subscription;
-
 
 class SettingsController extends Controller {
 
 
     /**
-     * @var StripeBiller
+     * @var Biller
      */
     protected $biller;
 
-    public function __construct(StripeBiller $biller)
+    public function __construct(Biller $biller)
     {
         $this->middleware('auth');
         $this->biller = $biller;
@@ -61,9 +60,9 @@ class SettingsController extends Controller {
                 'vendor' => 'RentGorilla.ca',
                 'product' => 'RentGorilla.ca',
              ]);
-        } else {
-            return abort(404);
         }
+
+        return abort(404);
     }
 
 	public function showUpdateCard()

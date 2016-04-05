@@ -10,7 +10,7 @@
         <p>Use this form to search for a user by email. Submitting the form will log you into that account.</p>
         @include('errors.error-list')
         {!! Form::open() !!}
-         <select name="user_id" id="user_id" style=""></select>
+         <select name="user_id" class="user_id" style=""></select>
         {!! Form::submit('Become') !!}
         {!! Form::close() !!}
 
@@ -21,6 +21,16 @@
         {!! Form::open() !!}
         <select name="user_id" id="address" style=""></select>
         {!! Form::submit('Become') !!}
+        {!! Form::close() !!}
+
+        <hr>
+
+        <h1>Delete User By Email</h1>
+        <p>Use this form to delete a user by email.</p>
+        @include('errors.error-list')
+        {!! Form::open(['route' => 'admin.user.deleteUserByEmail']) !!}
+        <select name="user_id" class="user_id" style=""></select>
+        {!! Form::submit('Delete') !!}
         {!! Form::close() !!}
 
         <hr>
@@ -88,7 +98,7 @@
     });
 
 
-    $('#user_id').select2({
+    $('.user_id').select2({
         minimumInputLength: 3,
         placeholder: 'Email',
         ajax: {

@@ -93,6 +93,7 @@ class RentalController extends Controller {
         return redirect()->route('rental.index')->with('flash:success', 'Your promotion has been cancelled');
     }
 
+
     public function promoteRental(PromoteRentalRequest $request)
     {
 
@@ -113,6 +114,12 @@ class RentalController extends Controller {
                 ]);
 
                 Auth::user()->setStripeId($customer->id);
+                if($customer->default_source) {
+                    $last4 = $customer->sources->retrieve($customer->default_source)->last4;
+                } else {
+                    $last4 = null;
+                }
+                Auth::user()->setLastFourCardDigits($last4);
                 Auth::user()->save();
             }
 

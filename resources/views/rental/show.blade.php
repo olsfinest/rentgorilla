@@ -38,6 +38,8 @@
     <section class="main">
         @if($searchResultsBtn)
             <a class="back" href="{{ URL::previous() }}">&laquo; Back to Search Results</a>
+        @else
+            <a class="back" href="{{ route('rental.index') }}">&laquo; Back to Dashboard</a>
         @endif
         @if($next)
             <a class="forward" href="{{ route('rental.show', [$next]) }}">Next &raquo;</a>
@@ -278,13 +280,13 @@
                             @endif
                             </thead>
                             <tbody>
-                            @if($photo = $rental->user->getProfileItem('photo'))
+                            @if($profilePhoto = $rental->user->getProfilePhoto('large'))
                              <tr>
                               <td>
                                 <i class="fa fa-picture-o"></i>
                               </td>
                               <td>
-                                <img style="width: 40px" width="40" height="40" src="/img/profiles/{{ $photo }}">
+                                <img src="{{ $profilePhoto }}">
                               </td>
                             </tr>
                             @endif

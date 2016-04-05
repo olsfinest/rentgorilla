@@ -95,7 +95,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $profile->{$item};
     }
 
-	public function favourites()
+    public function getProfilePhoto($size)
+    {
+        if ( ! $this->relationLoaded('profile')) {
+            $this->load('profile');
+        }
+
+        $profile = $this->getRelation('profile');
+
+        if( is_null($profile)) return null;
+
+        return $profile->getPhoto($size);
+    }
+
+    public function favourites()
 	{
 		return $this->belongsToMany('RentGorilla\Rental', 'favourites')->withTimestamps();
 	}
@@ -247,6 +260,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function deleteProfilePhotos()
+    {
+        if($this->profile) {
+            $this->profile->deletePhotos();
         }
     }
 }

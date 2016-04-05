@@ -9,28 +9,50 @@ class Profile extends Model
 
     const PHOTO_PATH = '/img/profiles/';
     const PHOTO_SIDE = 40;
+    const PHOTO_LARGE_MAX_WIDTH = 300;
 
     public function user()
     {
         return $this->belongsTo('RentGorilla\User');
     }
 
-    public function getPhoto()
+    public function getSizes()
     {
-        if(is_null($this->photo))
-        {
-            return false;
-        } else {
-            return self::PHOTO_PATH . $this->photo;
-        }
+        return ['small', 'large'];
     }
 
-    public function deletePhoto()
+    public function getPhoto($size)
     {
-        if(is_null($this->photo)){
+        if(! in_array($size, $this->getSizes())) {
             return false;
-        } else {
-            return unlink(public_path() . self::PHOTO_PATH . $this->photo);
         }
+
+        if(is_null($this->photo)) {
+            return false;
+        }
+
+        $path = self::PHOTO_PATH . $size . $this->photo;
+
+        if (file_exists(public_path() . $path)) {
+            return $path;
+        }
+
+        return false;
+    }
+
+    public function deletePhotos()
+    {
+        if (is_null($this->photo)) {
+            return false;
+        }
+
+        foreach ($this->getSizes() as $size) {
+            $file = public_path() . self::PHOTO_PATH . $size . $this->photo;
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
+
+        return true;
     }
 }

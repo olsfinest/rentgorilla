@@ -1,7 +1,9 @@
 <?php namespace RentGorilla\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Stripe\Stripe;
+use RentGorilla\Billing\Biller;
+use RentGorilla\Billing\StripeBiller;
+use Illuminate\Support\ServiceProvider;
 
 class StripeServiceProvider extends ServiceProvider {
 
@@ -12,7 +14,7 @@ class StripeServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$api_key = env('STRIPE_SECRET_KEY');
+		$api_key = config('services.stripe.secret');
 		Stripe::setApiKey($api_key);
 	}
 
@@ -23,7 +25,6 @@ class StripeServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app->singleton(Biller::class, StripeBiller::class);
 	}
-
 }

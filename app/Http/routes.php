@@ -38,7 +38,7 @@ $router->get('admin/search-users', ['as' => 'admin.searchUsers', 'uses' => 'Admi
 $router->post('admin/search-users', ['as' => 'searchUsers', 'uses' => 'AdminController@loginAsUser']);
 $router->get('admin/send-activation', ['as' => 'admin.sendActivation', 'uses' => 'AdminController@showSendActivation']);
 $router->post('admin/send-activation', ['as' => 'sendActivation', 'uses' => 'AdminController@sendActivation']);
-
+$router->post('admin/delete-user-by-email', ['as' => 'admin.user.deleteUserByEmail', 'uses' => 'AdminController@deleteUserByEmail']);
 $router->get('admin/user/{id}/delete', ['as' => 'admin.user.confirmDelete', 'uses' => 'AdminController@showDeleteUser']);
 $router->delete('admin/user/{id}', ['as' => 'admin.user.destroy', 'uses' => 'AdminController@destroyUser']);
 

@@ -1,22 +1,21 @@
 <?php namespace RentGorilla\Http\Controllers;
 
-use RentGorilla\Commands\AdminNewUserCommand;
-use RentGorilla\Commands\SendActivationCommand;
-use RentGorilla\Events\UserHasBeenDeleted;
-use RentGorilla\Http\Requests;
-use RentGorilla\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-use RentGorilla\Http\Requests\AdminNewUserRequest;
 use Auth;
-use RentGorilla\Http\Requests\LoginAsUserRequest;
-use RentGorilla\Http\Requests\SendActivationRequest;
-use Subscription;
-use RentGorilla\Repositories\PhotoRepository;
-use RentGorilla\Repositories\RentalRepository;
-use RentGorilla\Repositories\UserRepository;
 use Input;
+use Subscription;
 use RentGorilla\User;
+use Illuminate\Http\Request;
+use RentGorilla\Http\Requests;
+use RentGorilla\Commands\DeleteUserCommand;
+use RentGorilla\Http\Controllers\Controller;
+use RentGorilla\Repositories\UserRepository;
+use RentGorilla\Commands\AdminNewUserCommand;
+use RentGorilla\Repositories\RentalRepository;
+use RentGorilla\Commands\SendActivationCommand;
+use RentGorilla\Http\Requests\DeleteUserRequest;
+use RentGorilla\Http\Requests\LoginAsUserRequest;
+use RentGorilla\Http\Requests\AdminNewUserRequest;
+use RentGorilla\Http\Requests\SendActivationRequest;
 
 class AdminController extends Controller {
 
@@ -59,7 +58,6 @@ class AdminController extends Controller {
 
     public function newUser(AdminNewUserRequest $request)
     {
-
         $user = $this->dispatchFrom(AdminNewUserCommand::class, $request);
 
         $is_admin = $user->is_admin ? ' admin' : '';
@@ -88,18 +86,14 @@ class AdminController extends Controller {
 
     public function loginAsUser(LoginAsUserRequest $request)
     {
-
         $user = $this->userRepository->find($request->user_id);
 
         // One may only take over someones account if they are a super admin,
         // or if the user is not a super admin and the user has not used their credit card
 
         if(Auth::user()->isSuper() || ( ! $user->isSuper() &&  ! $user->readyForBilling() )) {
-
             Auth::loginUsingId($user->id);
-
             return redirect()->route('rental.index')->with('flash:success', 'You are now logged in as ' . $user->email);
-
         }
 
         return redirect()->back()->with('flash:success', 'Cannot log in as ' . $user->email . '. Permission denied.');
@@ -112,6 +106,13 @@ class AdminController extends Controller {
        return redirect()->back()->with('flash:success', 'Activation email sent');
     }
 
+    public function deleteUserByEmail(DeleteUserRequest $request)
+    {
+        $user = $this->userRepository->find($request->user_id);
+
+        return redirect()->route('admin.user.confirmDelete', $user->id);
+    }
+
     public function showDeleteUser($id)
     {
         $user = $this->userRepository->find($id);
@@ -119,21 +120,11 @@ class AdminController extends Controller {
         return view('admin.delete-user', compact('user'));
     }
 
-    public function destroyUser($id, PhotoRepository $photoRepository)
+    public function destroyUser($id)
     {
-
-        $user = $this->userRepository->find($id);
-
-        foreach($user->photos as $photo) {
-            $photo->deleteAllSizes();
-        }
-
-        event(new UserHasBeenDeleted($user));
-
-        $this->userRepository->delete($id);
+        $this->dispatch(new DeleteUserCommand($id));
 
         return redirect()->route('admin.searchUsers')->with('flash:success', 'User deleted.');
-
     }
 
     public function revenue()

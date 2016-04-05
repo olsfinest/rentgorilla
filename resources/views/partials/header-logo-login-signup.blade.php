@@ -13,8 +13,8 @@
                 </div>
             @else
                 <div class="avatar">
-                    @if( ! is_null(Auth::user()->profile) && ! is_null(Auth::user()->profile->photo))
-                        <img src="/img/profiles/{{ Auth::user()->profile->photo}}" alt="">
+                    @if($profilePhoto = Auth::user()->getProfilePhoto('small'))
+                        <img src="{{ $profilePhoto }}" alt="">
                     @else
                         <img src="/img/user.jpg" alt="">
                     @endif

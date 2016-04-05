@@ -46,8 +46,8 @@
                 </p>
             </span>
             <span class="settingsContent">
-                @if( ! is_null($profile) && ! is_null($profile->photo))
-                    <img class="settingsPhoto" width="100" height="100" src="{{ $profile->getPhoto() }}">
+                @if($profilePhoto = Auth::user()->getProfilePhoto('small'))
+                    <img class="settingsPhoto" width="100" height="100" src="{{ $profilePhoto }}">
                 @endif
                 {!! Form::file('photo') !!}
                 <p>

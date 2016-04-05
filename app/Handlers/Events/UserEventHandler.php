@@ -39,7 +39,9 @@ class UserEventHandler {
 
     public function onUserHasBeenDeleted(UserHasBeenDeleted $event)
     {
-        $this->mailingList->removeUserFromList($event->user);
+        if(app()->environment() === 'production') {
+            $this->mailingList->removeUserFromList($event->user);
+        }
     }
 
     public function subscribe($events)
