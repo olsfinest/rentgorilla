@@ -3,7 +3,7 @@
 use RentGorilla\Http\Requests\Request;
 use Auth;
 
-class DeleteUserRequest extends Request {
+class ModifyUserRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.

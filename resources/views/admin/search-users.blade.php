@@ -13,8 +13,10 @@
          <select name="user_id" class="user_id" style=""></select>
         {!! Form::submit('Become') !!}
         {!! Form::close() !!}
+        <br>
 
         <hr>
+
         <h1>Search By Address</h1>
         <p>Use this form to search for a user by property address. Submitting the form will log you into that account.</p>
         @include('errors.error-list')
@@ -22,16 +24,18 @@
         <select name="user_id" id="address" style=""></select>
         {!! Form::submit('Become') !!}
         {!! Form::close() !!}
+        <br>
 
         <hr>
 
-        <h1>Delete User By Email</h1>
-        <p>Use this form to delete a user by email.</p>
+        <h1>Edit / Delete User By Email</h1>
+        <p>Use this form to edit or delete a user by email.</p>
         @include('errors.error-list')
-        {!! Form::open(['route' => 'admin.user.deleteUserByEmail']) !!}
+        {!! Form::open(['route' => 'admin.user.editUserByEmail']) !!}
         <select name="user_id" class="user_id" style=""></select>
-        {!! Form::submit('Delete') !!}
+        {!! Form::submit('Edit / Delete') !!}
         {!! Form::close() !!}
+        <br>
 
         <hr>
 
@@ -63,7 +67,7 @@
                         {!! Form::submit('Become') !!}
                         {!! Form::close() !!}
                     </td>
-                    <td><a class="button" href="{{ route('admin.user.confirmDelete', $user->id) }}">Delete</a></td>
+                    <td><a class="button" href="{{ route('admin.user.edit', $user->id) }}">Edit</a></td>
                 </tr>
             @endforeach
             </tbody>

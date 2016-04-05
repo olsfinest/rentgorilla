@@ -6,13 +6,15 @@ use Subscription;
 use RentGorilla\User;
 use Illuminate\Http\Request;
 use RentGorilla\Http\Requests;
+use RentGorilla\Commands\EditUserCommand;
 use RentGorilla\Commands\DeleteUserCommand;
 use RentGorilla\Http\Controllers\Controller;
 use RentGorilla\Repositories\UserRepository;
 use RentGorilla\Commands\AdminNewUserCommand;
+use RentGorilla\Http\Requests\EditUserRequest;
 use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Commands\SendActivationCommand;
-use RentGorilla\Http\Requests\DeleteUserRequest;
+use RentGorilla\Http\Requests\ModifyUserRequest;
 use RentGorilla\Http\Requests\LoginAsUserRequest;
 use RentGorilla\Http\Requests\AdminNewUserRequest;
 use RentGorilla\Http\Requests\SendActivationRequest;
@@ -106,11 +108,11 @@ class AdminController extends Controller {
        return redirect()->back()->with('flash:success', 'Activation email sent');
     }
 
-    public function deleteUserByEmail(DeleteUserRequest $request)
+    public function editUserByEmail(ModifyUserRequest $request)
     {
         $user = $this->userRepository->find($request->user_id);
 
-        return redirect()->route('admin.user.confirmDelete', $user->id);
+        return redirect()->route('admin.user.edit', $user->id);
     }
 
     public function showDeleteUser($id)
@@ -118,6 +120,24 @@ class AdminController extends Controller {
         $user = $this->userRepository->find($id);
 
         return view('admin.delete-user', compact('user'));
+    }
+
+    public function showEditUser($id)
+    {
+        $user = $this->userRepository->find($id);
+
+        $rentals = $this->rentalRepository->getRentalsForUser($user);
+
+        $active = $this->rentalRepository->getActiveRentalCountForUser($user);
+
+        return view('admin.edit-user', compact('user', 'rentals', 'active'));
+    }
+
+    public function updateUser(EditUserRequest $request, $id)
+    {
+        $this->dispatchFrom(EditUserCommand::class, $request, ['id' => $id]);
+
+        return redirect()->back()->with('flash:success', 'User updated.');
     }
 
     public function destroyUser($id)

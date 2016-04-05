@@ -32,4 +32,14 @@ class MailChimpMailingList implements MailingList
     {
         return $this->mailchimp->patch('lists/' . self::LIST_ID . '/members/'. md5($user->email), ['status' => 'unsubscribed']);
     }
+
+    public function updateUser($old_email, User $user)
+    {
+        return $this->mailchimp->patch('lists/' . self::LIST_ID . '/members/'. md5($old_email), ['email_address' => $user->email,
+            'status' => 'subscribed',
+            'merge_fields' => [
+                'FNAME' => $user->first_name ? $user->first_name : '',
+                'LNAME' => $user->last_name ? $user->last_name : ''
+            ]]);
+    }
 }

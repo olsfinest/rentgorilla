@@ -1,10 +1,12 @@
 <?php namespace RentGorilla\Handlers\Events;
 
-use RentGorilla\Events\UserHasBeenDeleted;
-use RentGorilla\Events\UserHasConfirmed;
-use RentGorilla\Events\UserHasRegistered;
-use RentGorilla\Mailers\UserMailer;
 use Log;
+use RentGorilla\Mailers\UserMailer;
+use RentGorilla\Events\UserInfoChanged;
+use RentGorilla\Events\UserHasConfirmed;
+use RentGorilla\Events\UserEmailChanged;
+use RentGorilla\Events\UserHasRegistered;
+use RentGorilla\Events\UserHasBeenDeleted;
 use RentGorilla\MailingList\MailChimpMailingList;
 
 class UserEventHandler {
@@ -44,11 +46,19 @@ class UserEventHandler {
         }
     }
 
+    public function onUserInfoChanged(UserInfoChanged $event)
+    {
+        if(app()->environment() === 'production') {
+            $this->mailingList->updateUser($event->old_email, $event->user);
+        }
+    }
+
     public function subscribe($events)
     {
         $events->listen(UserHasRegistered::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserHasRegistered');
         $events->listen(UserHasConfirmed::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserHasConfirmed');
         $events->listen(UserHasBeenDeleted::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserHasBeenDeleted');
+        $events->listen(UserInfoChanged::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserInfoChanged');
     }
 
 }

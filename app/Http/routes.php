@@ -38,8 +38,10 @@ $router->get('admin/search-users', ['as' => 'admin.searchUsers', 'uses' => 'Admi
 $router->post('admin/search-users', ['as' => 'searchUsers', 'uses' => 'AdminController@loginAsUser']);
 $router->get('admin/send-activation', ['as' => 'admin.sendActivation', 'uses' => 'AdminController@showSendActivation']);
 $router->post('admin/send-activation', ['as' => 'sendActivation', 'uses' => 'AdminController@sendActivation']);
-$router->post('admin/delete-user-by-email', ['as' => 'admin.user.deleteUserByEmail', 'uses' => 'AdminController@deleteUserByEmail']);
+$router->post('admin/edit-user-by-email', ['as' => 'admin.user.editUserByEmail', 'uses' => 'AdminController@editUserByEmail']);
 $router->get('admin/user/{id}/delete', ['as' => 'admin.user.confirmDelete', 'uses' => 'AdminController@showDeleteUser']);
+$router->get('admin/user/{id}/edit', ['as' => 'admin.user.edit', 'uses' => 'AdminController@showEditUser']);
+$router->patch('admin/user/{id}', ['as' => 'admin.user.update', 'uses' => 'AdminController@updateUser']);
 $router->delete('admin/user/{id}', ['as' => 'admin.user.destroy', 'uses' => 'AdminController@destroyUser']);
 
 /** Account settings */
