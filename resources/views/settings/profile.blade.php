@@ -46,8 +46,8 @@
                 </p>
             </span>
             <span class="settingsContent">
-                @if($profilePhoto = Auth::user()->getProfilePhoto('small'))
-                    <img class="settingsPhoto" width="100" height="100" src="{{ $profilePhoto }}">
+                @if($profilePhoto = Auth::user()->getProfilePhoto('large'))
+                    <img class="settingsPhoto" src="{{ $profilePhoto }}">
                 @endif
                 {!! Form::file('photo') !!}
                 <p>
