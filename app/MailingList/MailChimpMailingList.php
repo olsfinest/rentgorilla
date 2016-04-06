@@ -1,7 +1,8 @@
 <?php namespace RentGorilla\MailingList;
 
-use Mailchimp\Mailchimp;
+use Log;
 use RentGorilla\User;
+use Mailchimp\Mailchimp;
 
 class MailChimpMailingList implements MailingList
 {
@@ -20,26 +21,50 @@ class MailChimpMailingList implements MailingList
 
     public function addUserToList(User $user)
     {
-        return $this->mailchimp->post('lists/' . self::LIST_ID . '/members', ['email_address' => $user->email,
-            'status' => 'subscribed',
-            'merge_fields' => [
-                'FNAME' => $user->first_name,
-                'LNAME' => $user->last_name
-            ]]);
+        try {
+            $response = $this->mailchimp->post('lists/' . self::LIST_ID . '/members', [
+                'email_address' => $user->email,
+                'status' => 'subscribed',
+                'merge_fields' => [
+                    'FNAME' => $user->first_name,
+                    'LNAME' => $user->last_name
+                ]
+            ]);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $response = null;
+        }
+
+        return $response;
     }
 
     public function removeUserFromList(User $user)
     {
-        return $this->mailchimp->patch('lists/' . self::LIST_ID . '/members/'. md5($user->email), ['status' => 'unsubscribed']);
+        try {
+            $response = $this->mailchimp->patch('lists/' . self::LIST_ID . '/members/' . md5($user->email),
+                ['status' => 'unsubscribed']);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $response = null;
+        }
+
+        return $response;
     }
 
     public function updateUser($old_email, User $user)
     {
-        return $this->mailchimp->patch('lists/' . self::LIST_ID . '/members/'. md5($old_email), ['email_address' => $user->email,
+        try {
+            $response = $this->mailchimp->patch('lists/' . self::LIST_ID . '/members/'. md5($old_email), ['email_address' => $user->email,
             'status' => 'subscribed',
             'merge_fields' => [
                 'FNAME' => $user->first_name ? $user->first_name : '',
                 'LNAME' => $user->last_name ? $user->last_name : ''
             ]]);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $response = null;
+        }
+
+        return $response;
     }
 }

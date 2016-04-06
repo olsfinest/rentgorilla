@@ -4,7 +4,6 @@ use Log;
 use RentGorilla\Mailers\UserMailer;
 use RentGorilla\Events\UserInfoChanged;
 use RentGorilla\Events\UserHasConfirmed;
-use RentGorilla\Events\UserEmailChanged;
 use RentGorilla\Events\UserHasRegistered;
 use RentGorilla\Events\UserHasBeenDeleted;
 use RentGorilla\MailingList\MailChimpMailingList;
@@ -12,9 +11,6 @@ use RentGorilla\MailingList\MailChimpMailingList;
 class UserEventHandler {
 
     protected $userMailer;
-    /**
-     * @var MailingList
-     */
     protected $mailingList;
 
     function __construct(UserMailer $userMailer, MailChimpMailingList $mailingList)
