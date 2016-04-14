@@ -78,7 +78,7 @@
                             <img src="{{ $noPhoto }}" usemap="#Map">
                         @endforeach
                             <map name="Map" id="Map">
-                                <area target="_blank" shape="rect" coords="400,330,600,385" href="https://gorillafund.org/donate" alt="Donate" />
+                                <area target="_blank" shape="rect" coords="400,330,600,385" href="https://gorillafund.org/donate/rentgorilla" alt="Donate" />
                             </map>
                     @endif
                     <h3>{{ $rental->beds }} Bedroom / {{ (float) $rental->baths }} Bathroom {{ Config::get('rentals.type.' . $rental->type) }}</h3>
