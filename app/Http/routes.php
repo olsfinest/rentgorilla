@@ -31,7 +31,7 @@ $router->post('reconfirm', ['as' => 'resend.confirmation', 'uses' => 'Registrati
 
 
 /** Admin */
-
+$router->post('admin/revert', ['as' => 'admin.revert', 'uses' => 'AdminController@revert']);
 $router->get('admin/create-new-user', ['as' => 'admin.createNewUser', 'uses' => 'AdminController@showCreateNewUser']);
 $router->post('admin/create-new-user', ['as' => 'admin.newUser', 'uses' => 'AdminController@newUser']);
 $router->get('admin/search-users', ['as' => 'admin.searchUsers', 'uses' => 'AdminController@showSearchUsers']);

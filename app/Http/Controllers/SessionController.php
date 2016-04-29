@@ -89,6 +89,10 @@ class SessionController extends Controller {
     {
         $this->auth->logout();
 
+        if(session()->has('revert')) {
+            session()->forget('revert');
+        }
+
         return redirect('/');
     }
 

@@ -33,7 +33,8 @@ class AdminController extends Controller {
 
     function __construct(UserRepository $userRepository, RentalRepository $rentalRepository)
     {
-        $this->middleware('admin');
+        $this->middleware('admin', ['except' => 'revert']);
+        $this->middleware('auth', ['only' => 'revert']);
         $this->userRepository = $userRepository;
         $this->rentalRepository = $rentalRepository;
     }
@@ -94,6 +95,7 @@ class AdminController extends Controller {
         // or if the user is not a super admin and the user has not used their credit card
 
         if(Auth::user()->isSuper() || ( ! $user->isSuper() &&  ! $user->readyForBilling() )) {
+            session(['revert' => Auth::id()]);
             Auth::loginUsingId($user->id);
             return redirect()->route('rental.index')->with('flash:success', 'You are now logged in as ' . $user->email);
         }
@@ -181,5 +183,16 @@ class AdminController extends Controller {
         $revenue['total_yearly_recurring'] = ($revenue['monthly_recurring'] * 12) + $revenue['yearly_recurring'];
 
         return view('admin.revenue', compact('revenue'));
+    }
+
+    public function revert(Request $request)
+    {
+        if($request->session()->has('revert')) {
+            Auth::loginUsingId($request->session()->get('revert'));
+            $request->session()->forget('revert');
+            return redirect()->route('admin.searchUsers')->with('flash:success', 'You are now logged in as ' . Auth::user()->email);
+        }
+
+        return redirect()->route('home');
     }
 }

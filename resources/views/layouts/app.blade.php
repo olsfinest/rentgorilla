@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 		<link rel="stylesheet" type="text/css" href="/css/typography.css">
 		<link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.css">
-		<link rel="stylesheet" type="text/css" href="/css/style.css?v=1">
+		<link rel="stylesheet" type="text/css" href="/css/style.css?v=2">
         @yield('head')
 	</head>
 	<body>
