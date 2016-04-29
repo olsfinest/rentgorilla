@@ -89,6 +89,11 @@ table.users tr:nth-child(even) {
 table.users tr:nth-child(odd) {
   background-color: #ececec; }
 
+#revert_form {
+  float: right;
+  margin-left: 15px;
+  margin-top: 13px; }
+
 table tr:first-child td {
   border-top: none; }
 
