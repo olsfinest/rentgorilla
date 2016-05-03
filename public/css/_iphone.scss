@@ -36,6 +36,7 @@ header {
     width: 60px;
   }
   .user_actions {
+    width:70%;
     button {
       display: inline-block;
       width: 45%;
@@ -71,7 +72,20 @@ header {
   .content {
     h1 {
       line-height:1.2;
+      font-size:2em;
       margin-bottom:.5em;
+    }
+  }
+}
+.promofree, .zerorisk, .simple {
+  .content.full {
+    h1 {
+      font-size:3em;
+      margin-bottom:.5em;
+    }
+    p {
+      font-size:1em;
+      letter-spacing:0px;
     }
   }
 }
@@ -157,12 +171,12 @@ article.property {
       width:33.33333%;
       border-left:none;
       font-size:2.5em!important;
-      &:nth-child(2), 
-      &:nth-child(3), 
-      &:nth-child(5), 
+      &:nth-child(2),
+      &:nth-child(3),
+      &:nth-child(5),
       &:nth-child(6) {
         border-left:1px solid darken($brown, 10%);
-      } 
+      }
       span {
         font-size:.2em!important;
       }
@@ -181,7 +195,7 @@ footer {
             width:100%;
             > ul {
               li {
-                
+
               }
             }
           }
