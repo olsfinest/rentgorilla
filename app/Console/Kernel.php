@@ -31,8 +31,7 @@ class Kernel extends ConsoleKernel {
 	protected function schedule(Schedule $schedule)
 	{
 
-        $schedule->command('rg:award-achievements')
-            ->dailyAt('00:00');
+       // $schedule->command('rg:award-achievements')->dailyAt('00:00');
 
         $schedule->command('rg:clear-promotions-history')
             ->dailyAt('00:05');
@@ -42,9 +41,6 @@ class Kernel extends ConsoleKernel {
 
         $schedule->command('rg:process-promotion-queue')
             ->dailyAt('01:00');
-
-        $schedule->command('rg:award-achievements')
-            ->dailyAt('02:00');
 
         $schedule->command('auth:clear-resets')
             ->dailyAt('02:30');
