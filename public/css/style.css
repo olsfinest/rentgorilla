@@ -308,7 +308,7 @@ header .home {
   position: relative;
   top: 2px;
   text-decoration: none;
-  background: url(../img/logo_no_eyes.png); }
+  background: url(../img/logo.png); }
   header .home small {
     text-decoration: none; }
 
@@ -1181,7 +1181,7 @@ ul#items {
   transition: .1s; }
 
 span.eyes {
-  display: block;
+  display: none;
   width: 15px;
   height: 4px;
   position: absolute;
