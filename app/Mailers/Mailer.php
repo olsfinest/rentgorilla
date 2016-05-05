@@ -23,7 +23,7 @@ abstract class Mailer {
 
         return \Mail::queue($view, $data, function($message) use ($user, $subject, $email, $name)
         {
-            $message->to($user->email, $user->getFullName())->subject($subject)->from($email, $name)->replyTo($email, $name)->sender(config('mail.from.address'), config('mail.from.name'))->returnPath(config('mail.from.address'));
+            $message->to($user->email, $user->getFullName())->subject($subject)->from(config('mail.from.address'), config('mail.from.name'))->replyTo($email, $name);
        });
 
     }
