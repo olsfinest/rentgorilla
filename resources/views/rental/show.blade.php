@@ -3,6 +3,7 @@
 @section('head')
     <link rel="stylesheet" href="/css/login.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/form.css" media="screen" title="no title" charset="utf-8">
+    @include('rental.twitter-summary-large-image')
 @endsection
 
 @section('content')
