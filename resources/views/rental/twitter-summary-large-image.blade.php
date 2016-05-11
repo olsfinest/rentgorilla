@@ -19,4 +19,5 @@
 <meta property="og:image:secure_url" content="{{ $largeImage }}" />
 <meta property="og:image:width" content="{{ \RentGorilla\Photo::LARGE_WIDTH }}" />
 <meta property="og:image:height" content="{{ \RentGorilla\Photo::LARGE_HEIGHT }}" />
+<meta property="og:fb:app_id" content="{{ Config::get('services.facebook.client_id') }}" />
 @endif

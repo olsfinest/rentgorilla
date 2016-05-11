@@ -151,6 +151,7 @@ class AppController extends Controller {
         }
 
         $page = (int) Input::get('page', 1);
+        session(['page' => $page]);
 
         $paginate = (boolean) Input::get('paginate');
 
