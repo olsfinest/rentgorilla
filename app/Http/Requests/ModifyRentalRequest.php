@@ -46,7 +46,8 @@ class ModifyRentalRequest extends Request {
             'lease' => 'required|integer',
             'video' => 'url',
             'postal_code' => 'max:7',
-            'active' => 'boolean'
+            'active' => 'boolean',
+            'parking' => 'in:' . implode(',', array_keys(Config::get('rentals.parking'))),
         ];
 
         if($this->request->get('feature_list')) {
