@@ -1,4 +1,19 @@
+$darkbrown:#333333;
+$green:#74B164;
+$brown:#7A694B;
+$darkgray:#4A4A4A;
 @import url(https://fonts.googleapis.com/css?family=Khula:400,800);
+.requiredNote {
+  font-size:.8em;
+  padding:1em;
+  display:block;
+  background:#ececec;
+  color:$darkgray;
+  margin-bottom:1em;
+  strong {
+    color:crimson;
+  }
+}
 form {
   border: none;
   fieldset {
@@ -25,6 +40,13 @@ form {
     }
     i.fa {
       font-size:1.5em;
+    }
+  }
+  label.required {
+    &:before {
+      content:'* ';
+      color:crimson;
+      font-weight:bold;
     }
   }
 }

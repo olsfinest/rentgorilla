@@ -1,4 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Khula:400,800);
+.requiredNote {
+  font-size: .8em;
+  padding: 1em;
+  display: block;
+  background: #ececec;
+  color: #4A4A4A;
+  margin-bottom: 1em; }
+  .requiredNote strong {
+    color: crimson; }
+
 form {
   border: none; }
   form fieldset {
@@ -21,6 +31,10 @@ form {
       margin-bottom: 1em !important; }
     form label i.fa {
       font-size: 1.5em; }
+  form label.required:before {
+    content: '* ';
+    color: crimson;
+    font-weight: bold; }
 
 form label span {
   font-weight: normal; }
