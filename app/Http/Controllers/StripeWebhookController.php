@@ -1,5 +1,6 @@
 <?php namespace RentGorilla\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use Laravel\Cashier\WebhookController;
 use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
