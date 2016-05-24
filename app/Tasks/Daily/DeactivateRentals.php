@@ -1,10 +1,10 @@
 <?php namespace RentGorilla\Tasks\Daily;
 
-use DB;
-use RentGorilla\Mailers\UserMailer;
 use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Repositories\UserRepository;
+use RentGorilla\Mailers\UserMailer;
 use Log;
+use DB;
 
 class DeactivateRentals {
 
@@ -50,27 +50,32 @@ class DeactivateRentals {
 
                $user = $this->userRepository->find($id);
 
-               $hasActiveRentals = $this->rentalRepository->getActiveRentalCountForUser($user) > 0;
+               $this->deactivateRentalsForUser($user);
 
-               if ($user->joinedLessThanOneYearAgo()) {
-
-                    if($hasActiveRentals) {
-                        $this->rentalRepository->downgradePlanCapacityForUser($user, 1);
-                        Log::info('User\'s active rentals downgraded to free plan after trial or subscription ended.', ['user_id' => $user->id]);
-                    }
-
-                   $this->mailer->sendDowngradedToFreePlan($user);
-
-               } else {
-
-                   if($hasActiveRentals) {
-                       DB::table('rentals')->where('user_id', $id)->update('active', 0);
-                       Log::info('User\'s active rentals deactivated after trial or subscription ended.', ['user_id' => $user->id]);
-                   }
-
-                   $this->mailer->sendRentalsDeactivated($user);
-               }
            }
        }
+    }
+
+    public function deactivateRentalsForUser($user) {
+        $hasActiveRentals = $this->rentalRepository->getActiveRentalCountForUser($user) > 0;
+
+        if ($user->joinedLessThanOneYearAgo()) {
+
+            if($hasActiveRentals) {
+                $this->rentalRepository->downgradePlanCapacityForUser($user, 1);
+                Log::info('User\'s active rentals downgraded to free plan after trial or subscription ended.', ['user_id' => $user->id]);
+            }
+
+            $this->mailer->sendDowngradedToFreePlan($user);
+
+        } else {
+
+            if($hasActiveRentals) {
+                DB::table('rentals')->where('user_id', $user->id)->update('active', 0);
+                Log::info('User\'s active rentals deactivated after trial or subscription ended.', ['user_id' => $user->id]);
+            }
+
+            $this->mailer->sendRentalsDeactivated($user);
+        }
     }
 }

@@ -1,12 +1,11 @@
 <?php namespace RentGorilla\Http\Controllers;
 
 use Symfony\Component\HttpFoundation\Response;
-use Laravel\Cashier\WebhookController;
-use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
+use Laravel\Cashier\WebhookController;
 use RentGorilla\Mailers\UserMailer;
+use RentGorilla\Http\Requests;
+use Illuminate\Http\Request;
 use Log;
 
 class StripeWebhookController extends WebhookController {
@@ -19,7 +18,6 @@ class StripeWebhookController extends WebhookController {
 
     function __construct(UserMailer $userMailer)
     {
-
         $this->userMailer = $userMailer;
     }
 
@@ -29,7 +27,7 @@ class StripeWebhookController extends WebhookController {
 
         if ($billable && $billable->subscribed()) {
 
-            $billable->subscription()->cancel();
+            $billable->subscription()->cancelNow();
 
             $this->userMailer->sendFailedSubscriptionPayment($billable);
 

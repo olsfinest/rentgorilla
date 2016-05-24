@@ -1,22 +1,25 @@
 <?php namespace RentGorilla\Handlers\Events;
 
-use Log;
-use RentGorilla\Mailers\UserMailer;
-use RentGorilla\Events\UserInfoChanged;
-use RentGorilla\Events\UserHasConfirmed;
-use RentGorilla\Events\UserHasRegistered;
-use RentGorilla\Events\UserHasBeenDeleted;
 use RentGorilla\MailingList\MailChimpMailingList;
+use RentGorilla\Events\UserHasBeenDeleted;
+use RentGorilla\Events\UserHasRegistered;
+use RentGorilla\Events\UserHasConfirmed;
+use RentGorilla\Events\UserInfoChanged;
+use RentGorilla\Mailers\UserMailer;
+use RentGorilla\Billing\Biller;
+use Log;
 
 class UserEventHandler {
 
     protected $userMailer;
     protected $mailingList;
+    protected $biller;
 
-    function __construct(UserMailer $userMailer, MailChimpMailingList $mailingList)
+    function __construct(UserMailer $userMailer, MailChimpMailingList $mailingList, Biller $biller)
     {
         $this->userMailer = $userMailer;
         $this->mailingList = $mailingList;
+        $this->biller = $biller;
     }
 
     public function onUserHasRegistered(UserHasRegistered $event)
@@ -39,6 +42,7 @@ class UserEventHandler {
     {
         if(app()->environment() === 'production') {
             $this->mailingList->removeUserFromList($event->user);
+            $this->biller->deleteAccount($event->user);
         }
     }
 
@@ -46,6 +50,7 @@ class UserEventHandler {
     {
         if(app()->environment() === 'production') {
             $this->mailingList->updateUser($event->old_email, $event->user);
+            $this->biller->updateEmail($event->user);
         }
     }
 
@@ -56,5 +61,4 @@ class UserEventHandler {
         $events->listen(UserHasBeenDeleted::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserHasBeenDeleted');
         $events->listen(UserInfoChanged::class, 'RentGorilla\Handlers\Events\UserEventHandler@onUserInfoChanged');
     }
-
 }

@@ -1,26 +1,20 @@
 <?php namespace RentGorilla\Handlers\Commands;
 
-use RentGorilla\Billing\Biller;
-use Illuminate\Queue\InteractsWithQueue;
-use RentGorilla\Events\UserHasBeenDeleted;
-use RentGorilla\Commands\DeleteUserCommand;
 use RentGorilla\Repositories\UserRepository;
+use RentGorilla\Commands\DeleteUserCommand;
+use RentGorilla\Events\UserHasBeenDeleted;
+use Illuminate\Queue\InteractsWithQueue;
 
 class DeleteUserCommandHandler
 {
-    /**
-     * @var Biller
-     */
-    protected $biller;
     /**
      * @var UserRepository
      */
     protected $userRepository;
 
-    public function __construct(UserRepository $userRepository, Biller $biller)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->biller = $biller;
     }
 
     /**
@@ -44,11 +38,6 @@ class DeleteUserCommandHandler
         //delete their rental property photos
         foreach($user->photos as $photo) {
             $photo->deleteAllSizes();
-        }
-
-        //delete their stripe info
-        if($user->readyForBilling()) {
-            $this->biller->deleteAccount($user->getStripeId());
         }
 
         event(new UserHasBeenDeleted($user));
