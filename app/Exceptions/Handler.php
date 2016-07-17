@@ -1,5 +1,6 @@
 <?php namespace RentGorilla\Exceptions;
 
+use Log;
 use App;
 use Redirect;
 use Exception;
@@ -18,6 +19,7 @@ class Handler extends ExceptionHandler {
 	protected $dontReport = [
 		HttpException::class,
 		ModelNotFoundException::class,
+        TokenMismatchException::class
 	];
 
 	/**
@@ -45,13 +47,14 @@ class Handler extends ExceptionHandler {
 
         if ($e instanceof TokenMismatchException)
         {
+            Log::error('Token Mismatch Exception', ['url' => $request->fullUrl(), 'ip' => $request->ip(), 'request' => $request->all()]);
+
             if($request->ajax()) {
                 return response()->json(['message' => 'Your session has expired. Please reload page and try again.'], 403);
             } else {
-                return redirect()->route('home')->with('Your session has expired.');
+                return redirect()->route('home')->with('flash:success', 'Your session has expired.');
             }
         }
-
 
         if ($e instanceof ModelNotFoundException)
         {

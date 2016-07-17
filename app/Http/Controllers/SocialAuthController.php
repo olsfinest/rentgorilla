@@ -47,44 +47,11 @@ class SocialAuthController extends Controller
 
         $socialite = Socialite::driver($provider)->user();
 
-        $user = User::where('email', $socialite->getEmail())->first();
-
-        // there is an existing account, but you may still get authenticated by other providers if the account email matches
-        // we also take the opportunity to update the users details
+        $user = User::where(['email' => $socialite->getEmail(), 'provider' => 'email'] )->first();
 
         if ($user) {
-
-            switch ($user->provider) {
-
-                case 'email':
-
-                    return $this->logInUserAndRedirect($user, 'You have been logged in. You had previously registered via Email.');
-
-                case 'facebook':
-
-                    if($provider === 'facebook') {
-
-                        $user = $this->updateSocialUser($user, $socialite->user['first_name'], $socialite->user['last_name'], $socialite->getEmail(), $socialite->getAvatar());
-                    }
-
-                    $this->logInUserAndRedirect($user, 'You have been logged in via Facebook');
-
-                case 'google':
-
-                    if($provider === 'google') {
-
-                        $user = $this->updateSocialUser($user,$socialite->user['name']['givenName'], $socialite->user['name']['familyName'], $socialite->getEmail(), $socialite->getAvatar());
-
-                    }
-
-                    return $this->logInUserAndRedirect($user, 'You have been logged in via Google');
-
-            }
+            return redirect()->route('login')->with('flash:success', 'You had previously registered via Email. Please log in.');
         }
-
-        // email wasn't in the system. They could have an existing social account though.
-        // we have to test both facebook and google as they are both numerical ids.
-        // Extremely rare that they would have the same id! But hey, we'll test it anyway!
 
         $user = User::where(['provider_id' => $socialite->getId(), 'provider' => 'facebook'])->first();
 
