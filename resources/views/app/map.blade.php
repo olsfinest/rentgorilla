@@ -20,7 +20,7 @@
         <!--Maps-->
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
         <script type="text/javascript" src="/js/infobox.js"></script>
-        <script type="text/javascript" src="/js/markerclusterer.js"></script>
+        <script type="text/javascript" src="/js/markerclusterer.js?v=1"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
         <script>
            @if($loc->zoom)
