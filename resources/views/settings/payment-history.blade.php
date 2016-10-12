@@ -2,7 +2,7 @@
 @section('content')
     <section class="content full admin">
         @if(Auth::user()->readyForBilling())
-            <h1>Current Account Balance: ${{ Auth::user()->subscription()->getStripeCustomer()->account_balance }}</h1>
+            <h1>Current Account Balance: ${{ number_format(Auth::user()->subscription()->getStripeCustomer()->account_balance / 100, 2) }}</h1>
                 <div>
                     <h1 class="heading-top setting-heading">Upcoming Invoice</h1>
                     @if($upcomingInvoice)
