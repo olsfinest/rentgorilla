@@ -119,7 +119,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function joinedLessThanOneYearAgo()
     {
-        return Carbon::today()->subYear()->lt($this->created_at);
+        return Carbon::now()->subYear()->lt($this->created_at);
     }
 
     public function getFreePlanExpiryDate()
@@ -238,9 +238,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     //caches Stripe's subscription current period end locally
-    public function getCurrentPeriodEnd() {
+    public function getCurrentPeriodEnd()
+    {
+        //cancelled
+        if(! is_null($this->getSubscriptionEndDate())) {
+            return $this->getSubscriptionEndDate();
+        }
 
-        if($this->stripeIsActive() && ( is_null($this->current_period_end) || Carbon::now()->gt($this->current_period_end))) {
+        //active
+        if($this->stripeIsActive() && is_null($this->current_period_end)) {
             $currentPeriodEnd = $this->subscription()->getSubscriptionEndDate();
             $this->current_period_end = $currentPeriodEnd;
             $this->save();

@@ -1,22 +1,21 @@
 <?php namespace RentGorilla\Http\Controllers;
 
+use RentGorilla\Http\Requests\ResumeSubscriptionRequest;
+use RentGorilla\Http\Requests\CancelSubscriptionRequest;
+use RentGorilla\Http\Requests\SubscriptionRequest;
+use RentGorilla\Http\Requests\ApplyCouponRequest;
+use RentGorilla\Http\Requests\ChangePlanRequest;
+use RentGorilla\Http\Requests\UpdateCardRequest;
+use RentGorilla\Repositories\RentalRepository;
+use RentGorilla\Http\Controllers\Controller;
+use RentGorilla\Mailers\UserMailer;
 use Illuminate\Support\MessageBag;
 use RentGorilla\Http\Requests;
-use RentGorilla\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use RentGorilla\Plans\Plan;
+use Subscription;
 use Input;
 use Auth;
-use RentGorilla\Http\Requests\ApplyCouponRequest;
-use RentGorilla\Http\Requests\CancelSubscriptionRequest;
-use RentGorilla\Http\Requests\ChangePlanRequest;
-use RentGorilla\Http\Requests\ResumeSubscriptionRequest;
-use RentGorilla\Http\Requests\SubscriptionRequest;
-use RentGorilla\Http\Requests\UpdateCardRequest;
-use RentGorilla\Mailers\UserMailer;
-use RentGorilla\Plans\Plan;
-use RentGorilla\Repositories\RentalRepository;
-use Subscription;
 use Log;
 
 class SubscriptionController extends Controller {
@@ -200,6 +199,8 @@ class SubscriptionController extends Controller {
             return redirect()->back()->withErrors($messages);
         }
 
+        $this->clearCurrentPeriodEnd();
+
         if($isDowngrade) {
 
             $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser(Auth::user());
@@ -229,6 +230,8 @@ class SubscriptionController extends Controller {
         try {
 
             Auth::user()->subscription(Auth::user()->getStripePlan())->resume(null);
+
+            $this->clearCurrentPeriodEnd();
 
             $this->mailer->sendSubscriptionResumed(Auth::user());
 
@@ -284,4 +287,9 @@ class SubscriptionController extends Controller {
         return redirect()->route('changePlan')->with('flash:success', 'Your subscription has been cancelled.');
     }
 
+    private function clearCurrentPeriodEnd()
+    {
+        Auth::user()->current_period_end = null;
+        Auth::user()->save();
+    }
 }

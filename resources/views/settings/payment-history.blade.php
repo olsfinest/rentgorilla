@@ -1,14 +1,12 @@
 @extends('layouts.admin')
 @section('content')
     <section class="content full admin">
-    <h1>Payment History</h1>
-
-
-                @if(Auth::user()->readyForBilling())
-
-                        <h1 class="heading-top setting-heading">Next Invoice</h1>
-                @if($upcomingInvoice)
-                <table class="table table-bordered table-section">
+        @if(Auth::user()->readyForBilling())
+            <h1>Current Account Balance: ${{ Auth::user()->subscription()->getStripeCustomer()->account_balance }}</h1>
+                <div>
+                    <h1 class="heading-top setting-heading">Upcoming Invoice</h1>
+                    @if($upcomingInvoice)
+                        <table class="table table-bordered table-section">
                             <thead class="accent">
                                 <tr>
                                     <th>Date</th>
@@ -23,12 +21,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                @else
-                    <p>No upcoming invoices.</p>
-
-                @endif
-
+                    @else
+                        <p>No upcoming invoices.</p>
+                    @endif
+                </div>
                 <div>
                     <h1 class="heading-top setting-heading">Past Invoices</h1>
                     @if(count($invoices))
