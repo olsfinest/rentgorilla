@@ -246,7 +246,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
 
         //active
-        if($this->stripeIsActive() && is_null($this->current_period_end)) {
+        if($this->stripeIsActive() && ( is_null($this->current_period_end) || Carbon::now()->gt($this->current_period_end)) )  {
             $currentPeriodEnd = $this->subscription()->getSubscriptionEndDate();
             $this->current_period_end = $currentPeriodEnd;
             $this->save();
