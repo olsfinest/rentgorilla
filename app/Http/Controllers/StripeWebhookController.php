@@ -6,6 +6,7 @@ use Laravel\Cashier\WebhookController;
 use RentGorilla\Mailers\UserMailer;
 use RentGorilla\Http\Requests;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Log;
 
 class StripeWebhookController extends WebhookController {
@@ -25,13 +26,16 @@ class StripeWebhookController extends WebhookController {
     {
         $billable = $this->getBillable($payload['data']['object']['customer']);
 
-        if ($billable && $billable->subscribed()) {
+        if ($billable) {
 
             $billable->subscription()->cancelNow();
 
+            $billable->setSubscriptionEndDate(Carbon::now());
+            $billable->deactivateStripe()->saveBillableInstance();
+
             $this->userMailer->sendFailedSubscriptionPayment($billable);
 
-            Log::info('Subscription payment failed and subscription was cancelled', ['user_id' => $billable->id]);
+            Log::info('Stripe webhook: customer subscription deleted', ['user_id' => $billable->id]);
         }
 
         return new Response('Webhook Handled', 200);
