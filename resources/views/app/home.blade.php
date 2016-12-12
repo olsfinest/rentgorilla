@@ -35,7 +35,7 @@
     <section class="content full">
         <h1>Zero Risk</h1>
         <p>
-            Don't take our word for it. Try our rental technology out for yourself, for free. Property managers list their first property for free, for one year.
+            Don't take our word for it. Try our rental technology out for yourself, for free. Property managers list their first property for free, for {{ config('plans.freeForXDays') }} days.
         </p>
         <div class="cf"></div>
     </section>

@@ -7,6 +7,7 @@ class Plan {
     protected $maximumListings;
     protected $totalYearlyCost;
     protected $interval;
+    protected $isLegacy;
 
     public function setPlanName($planName)
     {
@@ -109,4 +110,19 @@ class Plan {
         }
     }
 
+    /**
+     * @return boolean
+     */
+    public function isLegacy()
+    {
+        return $this->isLegacy;
+    }
+
+    /**
+     * @param boolean $isLegacy
+     */
+    public function setIsLegacy($isLegacy)
+    {
+        $this->isLegacy = $isLegacy;
+    }
 }

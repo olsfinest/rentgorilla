@@ -1,6 +1,5 @@
 <?php namespace RentGorilla\Mailers;
 
-use Subscription;
 use RentGorilla\Rental;
 use RentGorilla\User;
 
@@ -15,7 +14,6 @@ class UserMailer extends Mailer {
         $subject = 'Welcome to RentGorilla.ca, ' . $user->first_name . '!';
 
         return $this->sendTo($user, $subject, $view, $data);
-
     }
 
     public function sendSubscriptionCancelled(User $user)
@@ -23,7 +21,7 @@ class UserMailer extends Mailer {
         $view = 'emails.user.cancel';
         $data = [
             'name' => $user->first_name,
-            'planName' => Subscription::plan($user->getStripePlan())->planName(),
+            'planName' => $user->plan()->planName(),
             'subscriptionEndsAt' => $user->getSubscriptionEndDate()->format('F jS, Y'),
             'daysFromNow' => $user->getSubscriptionEndDate()->diffForHumans()
         ];
@@ -31,12 +29,11 @@ class UserMailer extends Mailer {
         $subject = 'RentGorilla.ca :: Subscription cancelled';
 
         return $this->sendTo($user, $subject, $view, $data);
-
     }
 
     public function sendSubscriptionBegun(User $user, $isDowngrade = false)
     {
-        $plan = Subscription::plan($user->getStripePlan());
+        $plan = $user->plan();
 
         $view = 'emails.user.subscription-begun';
         $data = [
@@ -50,12 +47,11 @@ class UserMailer extends Mailer {
         $subject = 'RentGorilla.ca :: Subscription begun';
 
         return $this->sendTo($user, $subject, $view, $data);
-
     }
 
     public function sendSubscriptionResumed(User $user)
     {
-        $plan = Subscription::plan($user->getStripePlan());
+        $plan = $user->plan();
 
         $view = 'emails.user.subscription-resumed';
 
@@ -69,12 +65,11 @@ class UserMailer extends Mailer {
         $subject = 'RentGorilla.ca :: Subscription resumed';
 
         return $this->sendTo($user, $subject, $view, $data);
-
     }
 
     public function sendSubscriptionChanged(User $user, $isDowngrade = false)
     {
-        $plan = Subscription::plan($user->getStripePlan());
+        $plan = $user->plan();
 
         $view = 'emails.user.subscription-changed';
 
@@ -89,13 +84,11 @@ class UserMailer extends Mailer {
         $subject = 'RentGorilla.ca :: Subscription changed';
 
         return $this->sendTo($user, $subject, $view, $data);
-
     }
 
 
     public function sendConfirmation(User $user)
     {
-
         $view = 'emails.user.confirm';
         $data = [
             'name' => $user->first_name,
@@ -104,7 +97,6 @@ class UserMailer extends Mailer {
         $subject = 'RentGorilla.ca :: Please confirm your registration';
 
         return $this->sendTo($user, $subject, $view, $data);
-
     }
 
     public function sendPromotionStart(User $user, Rental $rental)
@@ -215,6 +207,8 @@ class UserMailer extends Mailer {
 
         $data = [
             'name' => $user->first_name,
+            'isGrandfathered' => $user->isGrandfathered(),
+            'daysRemaining' => $user->getFreePlanExpiryDate()->diffInDays()
         ];
 
         $subject = 'RentGorilla.ca :: Plan Expired';

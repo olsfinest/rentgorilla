@@ -1,12 +1,12 @@
 <?php namespace RentGorilla\Repositories;
 
-use Config;
-use DB;
-use Carbon\Carbon;
 use RentGorilla\Promotion;
 use RentGorilla\Rental;
 use RentGorilla\User;
+use Carbon\Carbon;
+use Config;
 use Log;
+use DB;
 
 class EloquentRentalRepository implements RentalRepository
 {
@@ -212,7 +212,6 @@ class EloquentRentalRepository implements RentalRepository
     {
         return $user->rentals()->update(['active' => 0]);
     }
-
 
     public function getPromotedRentals(User $user)
     {

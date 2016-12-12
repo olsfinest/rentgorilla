@@ -1,9 +1,8 @@
 <?php namespace RentGorilla\Handlers\Commands;
 
 use RentGorilla\Commands\ToggleRentalActivationCommand;
-use Illuminate\Queue\InteractsWithQueue;
-use Subscription;
 use RentGorilla\Repositories\RentalRepository;
+use Subscription;
 use Log;
 
 class ToggleRentalActivationCommandHandler
@@ -24,29 +23,22 @@ class ToggleRentalActivationCommandHandler
      * Handle the command.
      *
      * @param  ToggleRentalActivationCommand  $command
-     * @return void
+     * @return mixed
      */
     public function handle(ToggleRentalActivationCommand $command)
     {
         $rental = $this->rentalRepository->findByUUID($command->rental_id);
 
         if($rental->isActive()) {
-
             $this->rentalRepository->deactivate($rental);
-
             return false;
-
-        } else {
-
-
-            if($rental->user->canActivateRental())
-            {
-                $this->rentalRepository->activate($rental);
-                return true;
-            }
-
-            return self::SUBSCRIPTION_NEEDED;
-
         }
+
+        if($rental->user->canActivateRental()) {
+            $this->rentalRepository->activate($rental);
+            return true;
+        }
+
+        return self::SUBSCRIPTION_NEEDED;
     }
 }

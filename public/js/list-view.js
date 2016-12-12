@@ -3,6 +3,7 @@ function getPage(url) {
     return (page === null) ? 1 : page;
 }
 
+
 function getParameterByName (url, name)
 {
     name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -15,18 +16,13 @@ function getParameterByName (url, name)
         return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-var	serialize = function(obj) {
-    var str = [];
-    for(var p in obj)
-        if (obj.hasOwnProperty(p)) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        }
-    return str.join("&");
-}
-
 function addURLSearchParams(params) {
     if (history.replaceState) {
-        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + serialize(params);
+        var filtered = params.filter(function (el) {
+            return el.name !== "_token" && el.name !== "location" && el.value;
+        });
+        var query = $.param(filtered);
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + query;
         window.history.replaceState({path:newurl},'',newurl);
     }
 }
@@ -147,11 +143,11 @@ function loadRentals(paginate, page) {
     var url = '/rentals';
 
     var data = $('#search').serializeArray();
+    var searchFormArray = $('#search').serializeArray();
     data.push({name: 'page', value: page});
     data.push({name: 'paginate', value: paginate});
-    data.push({name: 'sort', value: $("#sort-widget").val()});
-
-    console.log(data);
+ //   data.push({name: 'sort', value: $("#sort-widget").val()});
+  //  searchFormArray.sort = $("#sort-widget").val();
 
     $.get(url, data, function(data){
 
@@ -165,6 +161,7 @@ function loadRentals(paginate, page) {
 
         $(".sort").selectmenu({
             change: function( event, ui ) {
+               $("#sortField").val($(this).val());
                loadRentals();
         }});
 
@@ -172,9 +169,8 @@ function loadRentals(paginate, page) {
         currentPage = data.page;
         totalPages = data.totalPages;
 
-        if(count > 0) {
-            addURLSearchParams({page: currentPage});
-        }
+        searchFormArray.push({name:'page', value: currentPage});
+        addURLSearchParams(searchFormArray);
 
         $('.favourite').on('click', function(){
             if(isLoggedIn()) {

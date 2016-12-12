@@ -1,13 +1,13 @@
 <?php namespace RentGorilla;
 
-use Carbon\Carbon;
-use Laravel\Cashier\Billable;
-use Laravel\Cashier\Contracts\Billable as BillableContract;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Laravel\Cashier\Contracts\Billable as BillableContract;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Authenticatable;
+use Laravel\Cashier\Billable;
+use Carbon\Carbon;
 use Subscription;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, BillableContract {
@@ -122,9 +122,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return Carbon::now()->subYear()->lt($this->created_at);
     }
 
+    public function joinedLessThanXDaysAgo()
+    {
+        return Carbon::now()->subDays(config('plans.freeForXDays'))->lt($this->created_at);
+    }
+
     public function getFreePlanExpiryDate()
     {
-        return $this->created_at->addYear();
+        if($this->isGrandfathered()) {
+            return $this->created_at->addYear();
+        }
+
+        return $this->created_at->addDays(config('plans.freeForXDays'));
     }
 
     public function getPointsMonetaryValue()
@@ -142,33 +151,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return floor($this->points / self::POINT_REDEMPTION_THRESHOLD) * self::POINT_REDEMPTION_THRESHOLD;
     }
 
-    public function getPlanLink($plan_id)
-    {
-
-        $isCurrentPlan = $this->isCurrentPlan($plan_id);
-
-        $plan = Subscription::plan($plan_id);
-
-        $isMonthly = $plan->isMonthly();
-
-        if ($this->stripeIsActive()) {
-            if ($isCurrentPlan) {
-                return $this->getLink('CANCEL', $plan_id, $isMonthly);
-            }
-        }
-
-        if($isCurrentPlan && $this->cancelled() && $this->onGracePeriod()) {
-            return $this->getLink('RESUME', $plan_id, $isMonthly);
-        }
-
-        if ( ! $this->stripeIsActive() && ! $this->onGracePeriod()) {
-            return $this->getLink('SIGN UP', $plan_id, $isMonthly);
-        } else {
-            return $this->getLink('SWAP', $plan_id, $isMonthly);
-        }
-
-    }
-
     public function isAdmin()
     {
         return $this->is_admin === 1;
@@ -184,11 +166,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->confirmed === 0;
     }
 
+    public function isGrandfathered()
+    {
+        return $this->is_grandfathered === 1;
+    }
+
     public function isOnFreePlan()
     {
+        return $this->isEligibleForFreePlan() && ! $this->subscribed();
+    }
 
-        return $this->joinedLessThanOneYearAgo() && ! $this->subscribed();
+    public function isEligibleForFreePlan()
+    {
+        if($this->isGrandfathered()) {
+            return $this->joinedLessThanOneYearAgo();
+        }
 
+        return $this->joinedLessThanXDaysAgo();
     }
 
     public function isCurrentPlan($plan_id)
@@ -201,42 +195,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->subscribed() && ($this->isCurrentPlan($plans[0]) || $this->isCurrentPlan($plans[1]));
     }
 
-    public function getLink($action, $plan_id, $isMonthly)
-    {
-
-        switch ($action) {
-            case 'CANCEL':
-                if($isMonthly) {
-                    return sprintf('<a class="monthly cancel" href="%s">%s</a>', route('cancelSubscription'), $action);
-                } else {
-                    return sprintf('<a class="yearly cancel" href="%s">%s</a>', route('cancelSubscription'), $action);
-                }
-            break;
-            case 'SWAP':
-                if($isMonthly) {
-                    return sprintf('<a class="monthly" href="%s">%s</a>', route('swapSubscription', $plan_id), $action);
-                } else {
-                    return sprintf('<a class="yearly" href="%s">%s</a>', route('swapSubscription', $plan_id), $action);
-                }
-                break;
-            case 'RESUME':
-                if($isMonthly) {
-                    return sprintf('<a class="monthly" href="%s">%s</a>', route('resumeSubscription'), $action);
-                } else {
-                    return sprintf('<a class="yearly" href="%s">%s</a>', route('resumeSubscription'), $action);
-                }
-                break;
-            case 'SIGN UP':
-                if($isMonthly) {
-                    return sprintf('<a class="monthly" href="%s">%s</a>', route('showSubscribe', $plan_id), $action);
-                } else {
-                    return sprintf('<a class="yearly" href="%s">%s</a>', route('showSubscribe', $plan_id), $action);
-                }
-                break;
-
-        }
-    }
-
     //caches Stripe's subscription current period end locally
     public function getCurrentPeriodEnd()
     {
@@ -246,7 +204,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
 
         //active
-        if($this->stripeIsActive() && ( is_null($this->current_period_end) || Carbon::now()->gt($this->current_period_end)) )  {
+        if($this->stripeIsActive() && ( is_null($this->current_period_end) || (! is_null($this->current_period_end) && Carbon::now()->gt($this->current_period_end))))  {
             $currentPeriodEnd = $this->subscription()->getSubscriptionEndDate();
             $this->current_period_end = $currentPeriodEnd;
             $this->save();
@@ -260,13 +218,24 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $rentalRepository = app()->make('RentGorilla\Repositories\RentalRepository');
 
-        if ($this->onTrial() || ($rentalRepository->getActiveRentalCountForUser($this) === 0 && $this->joinedLessThanOneYearAgo())) {
+        $activeRentalCountForUser = $rentalRepository->getActiveRentalCountForUser($this);
+
+        // members on trial can activate unlimited properties
+        if ($this->onTrial()) {
             return true;
-        } else if (($this->stripeIsActive() || $this->onGracePeriod()) && (Subscription::plan($this->getStripePlan())->unlimited() || $rentalRepository->getActiveRentalCountForUser($this) < Subscription::plan($this->getStripePlan())->maximumListings())) {
-            return true;
-        } else {
-            return false;
         }
+
+        // only eligible for one property on free plan
+        if ($activeRentalCountForUser === 0 && $this->isEligibleForFreePlan()) {
+            return true;
+        }
+
+        // activate properties up to the plan's capacity for active subscribers
+        if ($this->subscribed() && ($this->plan()->unlimited() || $activeRentalCountForUser < $this->plan()->maximumListings())) {
+            return true;
+        }
+
+        return false;
     }
 
     public function deleteProfilePhotos()
@@ -274,5 +243,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         if($this->profile) {
             $this->profile->deletePhotos();
         }
+    }
+
+    public function plan()
+    {
+        return Subscription::plan($this->getStripePlan());
     }
 }

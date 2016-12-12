@@ -9,10 +9,8 @@ use RentGorilla\Http\Requests\UpdateCardRequest;
 use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Http\Controllers\Controller;
 use RentGorilla\Mailers\UserMailer;
-use Illuminate\Support\MessageBag;
 use RentGorilla\Http\Requests;
 use Illuminate\Http\Request;
-use RentGorilla\Plans\Plan;
 use Subscription;
 use Input;
 use Auth;
@@ -35,40 +33,51 @@ class SubscriptionController extends Controller {
 
     public function showChangePlan()
     {
-        return view('settings.change-plan');
+        $plans = Subscription::fetchPlansForSelect()->all();
+        $plan = Auth::user()->plan();
+
+        return view('settings.change-plan', compact('plans', 'plan'));
+    }
+
+    public function changePlan(Request $request)
+    {
+        if($request->has('plan_id') && ! Subscription::plan($request->plan_id)) {
+            app()->abort(404);
+        }
+        if($request->subscribe) {
+            return redirect()->route('showSubscribe', $request->plan_id);
+        }
+        if($request->cancel) {
+            return redirect()->route('cancelSubscription');
+        }
+        if($request->swap) {
+            return redirect()->route('swapSubscription', $request->plan_id);
+        }
+        if($request->resume) {
+            return redirect()->route('resumeSubscription');
+        }
     }
 
     public function showSwapSubscription($plan_id)
     {
-        $plan = Subscription::plan(Auth::user()->getStripePlan());
+        $plan = Auth::user()->plan();
         $newPlan = Subscription::plan($plan_id);
 
         if( ! $plan || ! $newPlan) {
             app()->abort(404);
         }
 
-        $isDowngrade = $this->isDowngrade($plan, $newPlan);
+        if($plan->id() === $newPlan->id()) {
+            return redirect()->route('changePlan')->with('flash:warning', 'You can\'t swap to the same plan');
+        }
+
+        $isDowngrade = Subscription::isDowngrade($plan, $newPlan);
 
         return view('settings.swap-plan', compact('plan', 'newPlan', 'isDowngrade'));
     }
 
-    private function isDowngrade(Plan $oldPlan, Plan $newPlan)
-    {
-        if($newPlan->unlimited() || $oldPlan->unlimited()) {
-            if($newPlan->unlimited()) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return $newPlan->maximumListings() < $oldPlan->maximumListings();
-        }
-
-    }
-
     public function showSubscribe($plan_id)
     {
-        // make sure it is a valid plan
         $plan = Subscription::plan($plan_id);
 
         if( ! $plan ) {
@@ -90,7 +99,7 @@ class SubscriptionController extends Controller {
 
     public function showResumeSubscription()
     {
-        $plan = Subscription::plan(Auth::user()->getStripePlan())->planName();
+        $plan = Auth::user()->plan();
 
         return view('settings.resume-subscription', compact('plan'));
     }
@@ -102,6 +111,10 @@ class SubscriptionController extends Controller {
 
         if( ! $plan) {
             app()->abort(404);
+        }
+
+        if($plan->isLegacy()) {
+            return redirect()->route('changePlan')->with('flash:error', 'That plan is no longer supported');
         }
 
         try {
@@ -128,9 +141,7 @@ class SubscriptionController extends Controller {
             }
 
         } catch (\Exception $e) {
-            $messages = new MessageBag();
-            $messages->add('Stripe Error', $e->getMessage());
-            return redirect()->back()->withErrors($messages);
+            return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
         }
 
         $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser(Auth::user());
@@ -151,10 +162,9 @@ class SubscriptionController extends Controller {
 
         if($isDowngrade && ! empty($difference)) {
             return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $plan->maximumListings());
-        } else {
-            return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun!');
         }
 
+        return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun!');
     }
 
     public function applyCoupon(ApplyCouponRequest $request)
@@ -164,42 +174,42 @@ class SubscriptionController extends Controller {
             Auth::user()->applyCoupon($request->coupon_code);
 
         } catch (\Exception $e) {
-            $messages = new MessageBag();
-            $messages->add('Stripe Error', $e->getMessage());
-            return redirect()->back()->withErrors($messages);
+            return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
         }
 
         Log::info('Coupon applied', ['user_id' => Auth::id(), 'coupon_code' => $request->coupon_code ]);
 
         return redirect()->back()->with('flash:success', 'Your coupon has been applied!');
-
     }
 
     public function swapSubscription($plan_id, ChangePlanRequest $request)
     {
-
-        $plan = Subscription::plan(Auth::user()->getStripePlan());
+        $plan = Auth::user()->plan();
         $newPlan = Subscription::plan($plan_id);
 
         //plans exist and you cannot swap to the same plan
-        if( ! $plan || ! $newPlan || Auth::user()->getStripePlan() === $plan_id) {
+        if( ! $plan || ! $newPlan) {
             app()->abort(404);
         }
 
-        $isDowngrade = $this->isDowngrade($plan, $newPlan);
+        if($plan->id() === $newPlan->id()) {
+            return redirect()->route('changePlan')->with('flash:warning', 'You can\'t swap to the same plan');
+        }
+
+        if($newPlan->isLegacy()) {
+            return redirect()->route('changePlan')->with('flash:error', 'That plan is no longer supported');
+        }
+
 
         try {
 
             Auth::user()->subscription($plan_id)->swap();
 
-
         } catch (\Exception $e) {
-            $messages = new MessageBag();
-            $messages->add('Stripe Error', $e->getMessage());
-            return redirect()->back()->withErrors($messages);
+            return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
         }
 
-        $this->clearCurrentPeriodEnd();
+        $isDowngrade = Subscription::isDowngrade($plan, $newPlan);
 
         if($isDowngrade) {
 
@@ -214,32 +224,36 @@ class SubscriptionController extends Controller {
         }
 
         $this->mailer->sendSubscriptionChanged(Auth::user(), $isDowngrade);
+        $this->clearCurrentPeriodEnd();
 
         Log::info('Subscription swapped', ['user_id' => Auth::id(), 'new_plan' => $newPlan->id(), 'old_plan' =>  $plan->id()]);
 
         if($isDowngrade && ! empty($difference)) {
             return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription plan has been changed! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $newPlan->maximumListings());
-        } else {
-            return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has been changed!');
         }
 
+        return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has been changed!');
     }
 
     public function resumeSubscription(ResumeSubscriptionRequest $request)
     {
+         $plan = Auth::user()->plan();
+
+         if($plan->isLegacy()) {
+             return redirect()->route('changePlan')->with('flash:error', 'That plan is no longer supported');
+         }
+
         try {
 
             Auth::user()->subscription(Auth::user()->getStripePlan())->resume(null);
 
-            $this->clearCurrentPeriodEnd();
-
-            $this->mailer->sendSubscriptionResumed(Auth::user());
-
         } catch (\Exception $e) {
-            $messages = new MessageBag();
-            $messages->add('Stripe Error', $e->getMessage());
-            return redirect()->back()->withErrors($messages);
+            return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
         }
+
+        $this->clearCurrentPeriodEnd();
+
+        $this->mailer->sendSubscriptionResumed(Auth::user());
 
         Log::info('Subscription resumed', ['user_id' => Auth::id(), 'plan' => Auth::user()->getStripePlan()]);
 
@@ -254,10 +268,7 @@ class SubscriptionController extends Controller {
             Auth::user()->updateCard($request->stripe_token);
 
         } catch (\Exception $e) {
-
-            $messages = new MessageBag();
-            $messages->add('Stripe Error', $e->getMessage());
-            return redirect()->back()->withErrors($messages);
+            return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
         }
 
         Log::info('Credit card updated', ['user_id' => Auth::id()]);
@@ -268,19 +279,17 @@ class SubscriptionController extends Controller {
 
     public function cancelSubscription(CancelSubscriptionRequest $request)
     {
-
         try {
 
             Auth::user()->subscription()->cancel();
 
         } catch (\Exception $e) {
-
-            $messages = new MessageBag();
-            $messages->add('Stripe Error', $e->getMessage());
-            return redirect()->back()->withErrors($messages);
+            return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
         }
 
-        $this->mailer->sendSubscriptionCancelled(Auth::user());
+        $this->clearCurrentPeriodEnd();
+
+     //   $this->mailer->sendSubscriptionCancelled(Auth::user());
 
         Log::info('Subscription cancelled', ['user_id' => Auth::id(), 'plan' => Auth::user()->getStripePlan()]);
 

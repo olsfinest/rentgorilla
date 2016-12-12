@@ -14,7 +14,7 @@
             {!! Form::text('city', $rental->cityOnly, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Antigonish']) !!}
         </label>
         <label for="province" class="required half left">Province
-            {!! Form::select('province', Config::get('rentals.provinces'), null, ['id' => 'province', 'class' => 'form-control']) !!}
+            {!! Form::select('province', Config::get('rentals.provinces'), null, ['autocomplete' => 'off', 'id' => 'province', 'class' => 'form-control']) !!}
         </label>
         <label for="postal_code" class="half right">Postal Code
             {!! Form::text('postal_code', $rental->postal_code, ['id' => 'postal_code', 'class' => 'form-control', 'placeholder' => 'B2G 2L2']) !!}
@@ -23,7 +23,7 @@
     <fieldset>
         <legend><i class="fa fa-list-alt"></i> Property Details</legend>
         <label for="type" class="required half left">Type
-            {!! Form::select('type', Config::get('rentals.type'), null, ['class' => 'form-control']) !!}
+            {!! Form::select('type', Config::get('rentals.type'), null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
         </label>
         <label for="beds" class="required half right">Bedrooms
             {!! Form::text('beds', null, ['class' => 'form-control', 'placeholder' => '4']) !!}
@@ -41,13 +41,13 @@
             {!! Form::text('deposit', null, ['class' => 'form-control', 'placeholder' => '300']) !!}
         </label>
         <label for="laundry" class="required half left">Laundry
-            {!! Form::select('laundry', Config::get('rentals.laundry'), null, ['class' => 'form-control']) !!}
+            {!! Form::select('laundry', Config::get('rentals.laundry'), null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
         </label>
         <label for="pets" class="required half right">Pets
-            {!! Form::select('pets', Config::get('rentals.pets'), null, ['class' => 'form-control']) !!}
+            {!! Form::select('pets', Config::get('rentals.pets'), null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
         </label>
         <label for="parking" class="half left">Parking
-            {!! Form::select('parking', Config::get('rentals.parking'), null, ['class' => 'form-control']) !!}
+            {!! Form::select('parking', Config::get('rentals.parking'), null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
         </label>
         <label for="disability_access" class="required half right">Disability Access
             <span class="labelSpan">
@@ -73,10 +73,10 @@
         {!! Form::text('square_footage', null, ['class' => 'form-control', 'placeholder' => '1000']) !!}
     </label>
     <label for="features" class="">Features</label>
-        {!! Form::select('feature_list[]', \RentGorilla\Feature::orderBy('name')->lists('name', 'id')->all(), null, ['id' => 'features', 'class' => 'form-control', 'multiple']) !!}
+        {!! Form::select('feature_list[]', \RentGorilla\Feature::orderBy('name')->lists('name', 'id')->all(), null, ['autocomplete' => 'off', 'id' => 'features', 'class' => 'form-control', 'multiple']) !!}
 
     <label for="appliances" class="">Appliances</label>
-        {!! Form::select('appliance_list[]', \RentGorilla\Appliance::orderBy('name')->lists('name', 'id')->all(), null, ['id' => 'appliances', 'class' => 'form-control', 'multiple']) !!}
+        {!! Form::select('appliance_list[]', \RentGorilla\Appliance::orderBy('name')->lists('name', 'id')->all(), null, ['autocomplete' => 'off', 'id' => 'appliances', 'class' => 'form-control', 'multiple']) !!}
     </fieldset>
     <fieldset>
         <legend><i class="fa fa-fire"></i> Heating</legend>
@@ -86,7 +86,7 @@
             </span>
         </label>
         <label for="heats" class="">Heating</label>
-            {!! Form::select('heat_list[]', \RentGorilla\Heat::orderBy('name')->lists('name', 'id')->all(), null, ['id' => 'heats', 'class' => 'form-control', 'multiple']) !!}
+            {!! Form::select('heat_list[]', \RentGorilla\Heat::orderBy('name')->lists('name', 'id')->all(), null, ['autocomplete' => 'off', 'id' => 'heats', 'class' => 'form-control', 'multiple']) !!}
     </fieldset>
     <fieldset>
         <legend><i class="fa fa-question-circle"></i> Vitals</legend>

@@ -1,35 +1,33 @@
 <?php namespace RentGorilla\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\MessageBag;
-use Input;
-use Auth;
-use RentGorilla\Commands\CreateRentalCommand;
-use RentGorilla\Commands\EditRentalCommand;
-use RentGorilla\Commands\EmailManagerCommand;
-use RentGorilla\Commands\ToggleRentalActivationCommand;
-use RentGorilla\Events\RentalViewed;
 use RentGorilla\Handlers\Commands\ToggleRentalActivationCommandHandler;
-use RentGorilla\Http\Requests;
-use RentGorilla\Http\Controllers\Controller;
-use RentGorilla\Http\Requests\CheckCanActivateRentalRequest;
+use RentGorilla\Http\Requests\ToggleRentalActivationRequest;
+use RentGorilla\Commands\ToggleRentalActivationCommand;
+use RentGorilla\Http\Requests\PromoteRentalRequest;
 use RentGorilla\Http\Requests\EmailManagerRequest;
 use RentGorilla\Http\Requests\ModifyRentalRequest;
-use RentGorilla\Http\Requests\PromoteRentalRequest;
 use RentGorilla\Http\Requests\RentalPhoneRequest;
-use RentGorilla\Http\Requests\ToggleRentalActivationRequest;
-use RentGorilla\Promotions\PromotionManager;
-use RentGorilla\Rental;
-use RentGorilla\Repositories\PhotoRepository;
-use RentGorilla\Repositories\RewardRepository;
-use RentGorilla\Repositories\UserRepository;
-use Validator;
-use RentGorilla\Photo;
 use RentGorilla\Repositories\RentalRepository;
-use Config;
-use Image;
+use RentGorilla\Repositories\RewardRepository;
+use RentGorilla\Commands\EmailManagerCommand;
+use RentGorilla\Commands\CreateRentalCommand;
+use RentGorilla\Repositories\PhotoRepository;
+use RentGorilla\Http\Controllers\Controller;
+use RentGorilla\Promotions\PromotionManager;
+use RentGorilla\Repositories\UserRepository;
+use RentGorilla\Commands\EditRentalCommand;
+use Illuminate\Support\Facades\Session;
+use RentGorilla\Events\RentalViewed;
+use RentGorilla\Http\Requests;
+use Illuminate\Http\Request;
+use RentGorilla\Rental;
+use RentGorilla\Photo;
 use Subscription;
+use Validator;
+use Config;
+use Input;
+use Auth;
+use Image;
 use Log;
 use DB;
 
@@ -58,7 +56,6 @@ class RentalController extends Controller {
         $this->photoRepository = $photoRepository;
         $this->rewardRepository = $rewardRepository;
     }
-
 
     public function showPromotions($rental_id)
     {
@@ -127,18 +124,14 @@ class RentalController extends Controller {
                 if (Auth::user()->charge(Config::get('promotion.price'), ['description' => 'Promotion for ' . $rental->street_address])) {
                     $this->promotionManager->promoteRental($rental);
                 } else {
-                    $messages = new MessageBag();
-                    $messages->add('Stripe Error', 'There was a problem charging your card.');
-                    return redirect()->back()->withErrors($messages);
+                    return redirect()->back()->withErrors(['Stripe Error' => 'There was a problem charging your card.']);
                 }
             } else {
                 $this->promotionManager->promoteRental($rental);
             }
         } catch (\Exception $e) {
 
-            $messages = new MessageBag();
-            $messages->add('Stripe Error', $e->getMessage());
-            return redirect()->back()->withErrors($messages);
+            return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
 
         }
 

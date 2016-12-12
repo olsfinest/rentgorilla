@@ -13,9 +13,6 @@ Route::controllers([
 $router->get('logout', ['as' => 'logout', 'uses' => 'SessionController@logout']);
 $router->get('login', ['as' => 'login', 'uses' => 'SessionController@showLogin']);
 $router->post('login', ['as' => 'login', 'uses' => 'SessionController@login']);
-
-
-
 $router->get('terms', ['as' => 'terms', 'uses' => 'AppController@showTerms']);
 
 /** Social Authentication */
@@ -28,7 +25,6 @@ $router->get('login/{provider}/callback', 'SocialAuthController@handleProviderCa
 $router->post('register', ['as' => 'register', 'uses' => 'RegistrationController@register']);
 $router->get('register/confirm/{token}', 'RegistrationController@confirm');
 $router->post('reconfirm', ['as' => 'resend.confirmation', 'uses' => 'RegistrationController@resendConfirmation']);
-
 
 /** Admin */
 $router->post('admin/revert', ['as' => 'admin.revert', 'uses' => 'AdminController@revert']);
@@ -106,7 +102,6 @@ $router->get('admin/features/{features}/delete', ['as' => 'admin.features.delete
 $router->get('admin/heats/{heats}/delete', ['as' => 'admin.heats.delete', 'uses' => 'HeatsController@delete']);
 $router->get('admin/appliances/{appliances}/delete', ['as' => 'admin.appliances.delete', 'uses' => 'AppliancesController@delete']);
 
-
 /** Application  */
 $router->get('list/{slug?}', ['as' => 'list', 'uses' => 'AppController@showList']);
 $router->get('map/{slug?}', ['as' => 'map', 'uses' =>'AppController@showMap']);
@@ -131,10 +126,9 @@ $router->post('landing-page/delete-cookie', 'AppController@deleteLandingPageCook
 
 /*
 $router->get('testing', function() {
-    dd(collect([]));
+
 });
 */
-
 
 $router->get('rental/{rental}/photos', ['as' => 'rental.photos.index', 'uses' => 'RentalController@showPhotos']);
 $router->post('rental/{rental}/photos', ['as' => 'rental.photos.store', 'uses' => 'RentalController@addPhoto']);
@@ -153,12 +147,9 @@ $router->get('preview/{id}', ['as' => 'rental.preview', 'uses' => 'RentalControl
 
 $router->delete('photo/{id}', ['as' => 'photos.delete', 'uses' => 'RentalController@deletePhoto']);
 
-
-
 $router->post('favourite', 'FavouritesController@toggleFavourite');
 $router->get('favourites', ['as' => 'favourites', 'uses' => 'FavouritesController@showFavourites']);
 
 # Stripe webhook
 $router->post('stripe/webhook', 'StripeWebhookController@handleWebhook');
 $router->get('/{city?}', 'AppController@getCity');
-

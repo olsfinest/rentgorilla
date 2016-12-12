@@ -46,6 +46,16 @@ class PlanService {
         return $this->repository->fetchPlansForSelect();
     }
 
+    public function isDowngrade(Plan $oldPlan, Plan $newPlan)
+    {
+        if($newPlan->unlimited() || $oldPlan->unlimited()) {
+            if($newPlan->unlimited()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
 
-
+        return $newPlan->maximumListings() < $oldPlan->maximumListings();
+    }
 }

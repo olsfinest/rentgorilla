@@ -1,6 +1,7 @@
 <?php namespace RentGorilla\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use RentGorilla\Repositories\LaravelConfigPlanRepository;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -30,9 +31,9 @@ class AppServiceProvider extends ServiceProvider {
 			'RentGorilla\Services\Registrar'
 		);
 
-        $this->app->bind(
-            'RentGorilla\Repositories\PlanRepository',
-            'RentGorilla\Repositories\LaravelConfigPlanRepository'
+        $this->app->bind('RentGorilla\Repositories\PlanRepository', function($app) {
+                return new LaravelConfigPlanRepository(config('plans.plans'));
+            }
         );
 
 		$this->app->bind(

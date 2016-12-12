@@ -15,7 +15,7 @@
         </label>
 
         <label for="province">Province
-            {!! Form::select('province', Config::get('rentals.provinces'), 'NS', ['id' => 'province']) !!}
+            {!! Form::select('province', Config::get('rentals.provinces'), 'NS', ['id' => 'province', 'autocomplete' => 'off']) !!}
         </label>
 
         <label id="zoom">Map Zoom Level

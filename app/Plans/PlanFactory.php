@@ -11,6 +11,7 @@ class PlanFactory {
             $plan->setMaximumListings($planData['maximumListings']);
             $plan->setTotalYearlyCost($planData['totalYearlyCost']);
             $plan->setInterval($planData['interval']);
+            $plan->setIsLegacy($planData['isLegacy']);
 
             return $plan;
     }

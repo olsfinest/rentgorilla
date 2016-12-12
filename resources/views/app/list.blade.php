@@ -34,5 +34,5 @@
             <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
 			<!-- Custom JavaScript -->
 			<!-- <script type="text/javascript" src="/js/min/custom.min.js"></script> -->
-			<script type="text/javascript" src="/js/list-view.js?v=7"></script>
+			<script type="text/javascript" src="/js/list-view.js?v=8"></script>
 @endsection

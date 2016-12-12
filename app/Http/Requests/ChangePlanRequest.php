@@ -12,7 +12,7 @@ class ChangePlanRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return Auth::check() && ($this->user()->stripeIsActive() || $this->user()->onGracePeriod());
+		return Auth::check() && $this->user()->stripeIsActive();
 	}
 
 	/**

@@ -5,19 +5,29 @@
 @stop
 @section('content')
     <section class="content full admin pricing">
-        <h1>RentGorilla Subscription Pricing</h1>
-        <p>
-        </p>
-
+        @if(Auth::user()->isOnFreePlan())
+            <div class="toast">
+                <span class="fa fa-close"></span>
+                <h1><i class="fa fa-info-circle"></i> Free Plan</h1>
+                <p>
+                    <strong>Lucky you! You're on a Free Plan with RentGorilla.</strong><br/>
+                    During your free plan period ({{  Auth::user()->getFreePlanExpiryDate()->diffInDays() }} days remaining) you can list a property on us!
+                    <br/>
+                </p>
+                <p>
+                    Thanks for listing with RentGorilla!
+                </p>
+            </div>
+        @endif
         @if(Auth::user()->onTrial())
             <div class="toast">
                 <span class="fa fa-close"></span>
                 <h1><i class="fa fa-info-circle"></i> Free Trial</h1>
                 <p>
-                    <strong>Lucky you! You're on a free trial with RentGorilla.</strong><br/>
+                    <strong>Lucky you! You're on a Free Trial with RentGorilla.</strong><br/>
                     During your trial period ({{  Auth::user()->getTrialEndDate()->diffInDays() }} days remaining) you can list an unlimited number of properties with us.
                     <br/>
-                    However, once your trial ends, and you are within a year of joining the site, your account will be limited to 1 listing.
+                    However, once your trial ends, you may still be eligible for the Free Plan.
                 </p>
                 <p>Please note that when you purchase a subscription that subscription will begin immediately and your free trial period will end.</p>
                 <p>
@@ -25,97 +35,100 @@
                 </p>
             </div>
         @endif
-        <ul id="plans">
-            <li>
-                <h2>Free Year</h2>
-                <span class="quantity"><strong>1</strong> Property</span>
-                <span class="price">$0.00</span>
-                <span class="terms">Free for 1 property</span>
-                @if(Auth::user()->isOnFreePlan())
-                    <span class="currentPlan">This is your current plan</span>
-                @endif
-            </li>
-            <li class="focus">
-                <h2>Personal Plan <small>Most Popular</small></h2>
-                <span class="quantity"><strong>2-5</strong> Properties</span>
-                <span class="price">$8.00</span>
-                <span class="terms">Billed annually or $10 month-to-month</span>
-                {!! Auth::user()->getPlanLink('Personal_Monthly') !!}
-                {!! Auth::user()->getPlanLink('Personal_Yearly') !!}
-                @if(Auth::user()->isOnActivePlans(['Personal_Monthly', 'Personal_Yearly']))
-                    <span class="currentPlan">This is your current plan</span>
-                @endif
+        @if(Auth::user()->cancelled() && Auth::user()->onGracePeriod())
+            <div class="toast">
+                <span class="fa fa-close"></span>
+                <h1><i class="fa fa-info-circle"></i> Cancelled Subscription</h1>
+                <p>
+                    <strong>You have cancelled your plan {{ $plan->planName() }}</strong><br/>
+                    You still can list up to {{ $plan->maximumListings() }} {{ str_plural('property', $plan->maximumListings()) }} with us until {{ Auth::user()->getCurrentPeriodEnd()->format('F jS, Y') }} ({{ $days = Auth::user()->subscription_ends_at->diffInDays() }} {{ str_plural('day', $days) }} from now).
+                    <br/>
+                </p>
+                <p>Note that you can resume this subscription free of charge during this period.
+                <p>
+                    Thanks for listing with RentGorilla!
+                </p>
+            </div>
+            <br>
+        @endif
+        @if(Auth::user()->stripeIsActive())
+            <div class="toast">
+                <span class="fa fa-close"></span>
+                <h1><i class="fa fa-check-circle-o"></i> Subscribed to {{ $plan->planName() }}</h1>
+                <p>
+                    <strong>Yay! You have an active subscription!</strong><br/>
+                    You can list up to {{ $plan->maximumListings() }} {{ str_plural('property', $plan->maximumListings()) }} with us.
+                    <br/>
+                </p>
+                <p>
+                    Thanks for listing with RentGorilla!
+                </p>
+            </div>
+            <br>
+        @endif
+        <h1>RentGorilla Subscriptions</h1>
+        <p>With RentGorilla, you can activate as many properties as your subscription plan allows. When you subscribe to a plan, your credit card will be automatically billed on a monthly basis. You may change plans or cancel at any time.</p>
+        <br>
+        @if(! Auth::user()->stripeIsActive())
 
-            </li>
-            <li>
-                <h2>Professional Plan</h2>
-                <span class="quantity"><strong>6-10</strong> Properties</span>
-                <span class="price">$16.00</span>
-                <span class="terms">Billed annually or $20 month-to-month</span>
-                {!! Auth::user()->getPlanLink('Professional_Monthly') !!}
-                {!! Auth::user()->getPlanLink('Professional_Yearly') !!}
-                @if(Auth::user()->isOnActivePlans(['Professional_Monthly', 'Professional_Yearly']))
-                    <span class="currentPlan">This is your current plan</span>
-                @endif
-            </li>
-            <li>
-                <h2>Business Plan</h2>
-                <span class="quantity"><strong>11+</strong> Properties</span>
-                <span class="price">$24.00</span>
-                <span class="terms">Billed annually or $30 month-to-month</span>
-                {!! Auth::user()->getPlanLink('Business_Monthly') !!}
-                {!! Auth::user()->getPlanLink('Business_Yearly') !!}
-                @if(Auth::user()->isOnActivePlans(['Business_Monthly', 'Business_Yearly']))
-                    <span class="currentPlan">This is your current plan</span>
-                @endif
-            </li>
-            <div class="cf"></div>
-        </ul>
+            {!! Form::open() !!}
+                <fieldset>
+                    <legend>Start a New Subscription</legend>
+                    <label class="required half right">Choose a plan:
+                        {!! Form::select('plan_id', $plans, $plan ? $plan->id() : null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
+                    </label>
+                    {!! Form::submit('Select', ['name' => 'subscribe', 'class' => 'button']) !!}
+                </fieldset>
+            {!! Form::close() !!}
+            <br>
+        @endif
+
+        @if(Auth::user()->stripeIsActive())
+            {!! Form::open() !!}
+                <fieldset>
+                    <legend>Swap to a Different Plan</legend>
+                    <label class="required half right">Select a new plan:
+                        {!! Form::select('plan_id', $plans, $plan ? $plan->id() : null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
+                    </label>
+                    {!! Form::submit('Swap', ['name' => 'swap', 'class' => 'button']) !!}
+                    <p>Please note: you may swap to a different plan without first cancelling your current plan.</p>
+                </fieldset>
+            {!! Form::close() !!}
+            <br>
+        @endif
+
+        @if(Auth::user()->stripeIsActive())
+            {!! Form::open() !!}
+                <fieldset>
+                    <legend>Cancel Your Subscription</legend>
+                    <label class="required half right">Current plan:
+                        <strong>{{ $plan->planName() }}</strong>
+                    </label>
+                    {!! Form::submit('Cancel', ['name' => 'cancel', 'class' => 'button']) !!}
+                </fieldset>
+            {!! Form::close() !!}
+            <br>
+        @endif
+
+        @if(Auth::user()->cancelled() && Auth::user()->onGracePeriod() && ! $plan->isLegacy())
+            {!! Form::open() !!}
+                <fieldset>
+                    <legend>Resume Your Subscription</legend>
+                    <label class="required half right">Current plan:
+                        <strong>{{ $plan->planName() }}</strong>
+                    </label>
+                    {!! Form::submit('Resume', ['name' => 'resume', 'class' => 'button']) !!}
+                </fieldset>
+            {!! Form::close() !!}
+            <br>
+        @endif
+
+        <br>
+        <br>
+
+        @include('settings.partials.faq')
     </section>
-    <section class="content full pricing">
-        <img alt="Achievements Badge" src="/img/achievements_large.png" alt="" class="align-left">
-        <div class="achievements_container">
-            <h2><a name="points"></a>Earn Credit With RentGorilla Achievements</h2>
-            <p>
-                Earn credit towards your plan with RentGorilla achievements. Each achievement earns you points that you can {!! link_to_route('redeem.show', 'redeem') !!}
-            </p>
-            <p>
-                Some achievements are even awarded monthly!
-            </p>
-            <table class="achievements_overview">
-                <tr>
-                    <td>
-                        <ul id="achievements_tabs">
-                        @foreach(Config::get('rewards') as $reward => $rewardProps)
-                            <li><a href="#{{ $reward }}">{{ $rewardProps['name'] }}</a></li>
-                        @endforeach
-                        </ul>
-                    </td>
-                    <td>
-                    @foreach(Config::get('rewards') as $reward => $rewardProps)
-                        <div id="{{ $reward }}" class="achievement">
-                            <h1>{{ $rewardProps['name'] }} - {{ $rewardProps['points'] . ($rewardProps['monthly'] ? ' points/month' : ' points') }}</h1>
-                            <img src="/img/achievements_badge_small.png" alt="">
-                            <p>
-                                {{ $rewardProps['description'] }}
-                            </p>
-                            <span class="cf"></span>
-                        </div>
-                    @endforeach
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="cf"></div>
-    </section>
-@endsection
-@section('footer')
-    <script>
-        jQuery(document).ready(function($){
-            $('.fa-question-circle').tooltip({
-                position: { my: "bottom", at: "left center" }
-            });
-            $('.achievements_overview').tabs();
-        });
-    </script>
+
+    @include('settings.partials.achievements')
+
 @endsection

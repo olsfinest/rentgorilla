@@ -1,25 +1,32 @@
 <?php namespace RentGorilla\Http\Controllers;
 
 use Symfony\Component\HttpFoundation\Response;
-use RentGorilla\Http\Controllers\Controller;
 use Laravel\Cashier\WebhookController;
+use RentGorilla\Rental\RentalService;
 use RentGorilla\Mailers\UserMailer;
-use RentGorilla\Http\Requests;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Log;
 
 class StripeWebhookController extends WebhookController {
 
-
     /**
      * @var UserMailer
      */
-    private $userMailer;
+    protected $userMailer;
+    /**
+     * @var RentalService
+     */
+    protected $rentalService;
 
-    function __construct(UserMailer $userMailer)
+    /**
+     * StripeWebhookController constructor.
+     * @param UserMailer $userMailer
+     * @param RentalService $rentalService
+     */
+    function __construct(UserMailer $userMailer, RentalService $rentalService)
     {
         $this->userMailer = $userMailer;
+        $this->rentalService = $rentalService;
     }
 
     protected function handleCustomerSubscriptionDeleted(array $payload)
@@ -28,17 +35,19 @@ class StripeWebhookController extends WebhookController {
 
         if ($billable) {
 
-            $billable->subscription()->cancelNow();
+            // deactivate plan locally if it is still active
+            // this might be necessary if the subscription is cancelled from Stripe's end due to non-payment or cancelling via Stripe's UI
+            if($billable->stripeIsActive()) {
+                $billable->setSubscriptionEndDate(Carbon::now());
+                $billable->deactivateStripe()->saveBillableInstance();
+            }
 
-            $billable->setSubscriptionEndDate(Carbon::now());
-            $billable->deactivateStripe()->saveBillableInstance();
-
-            $this->userMailer->sendFailedSubscriptionPayment($billable);
+            // deactivate rentals with the possibility of eligibility for free rental
+            $this->rentalService->deactivateRentalsForUser($billable);
 
             Log::info('Stripe webhook: customer subscription deleted', ['user_id' => $billable->id]);
         }
 
         return new Response('Webhook Handled', 200);
     }
-
 }

@@ -6,53 +6,43 @@ use RentGorilla\Plans\PlanFactory;
 class LaravelConfigPlanRepository implements PlanRepository
 {
     protected $plans;
+    protected $plansCollection;
 
-    private function loadPlans()
+    /**
+     * LaravelConfigPlanRepository constructor.
+     * @param $plans
+     */
+    public function __construct($plans)
     {
-        if(is_null($this->plans)) {
-            $this->plans = Config::get('plans');
-        }
+        $this->plans = collect($plans);
+        $this->fetchAllPlans();
     }
 
     public function fetchAllPlans()
     {
-        $this->loadPlans();
-
-        if(empty($this->plans)) return null;
-
-        $plans = [];
-
-        foreach ($this->plans as $key => $value) {
-            $plans[] = PlanFactory::build($key, $value);
-        }
-
-        return $plans;
+        $this->plansCollection = $this->plans->map(function($value, $key) {
+            return PlanFactory::build($key, $value);
+        });
     }
 
     public function fetchPlansForSelect()
     {
-        $plans = $this->fetchAllPlans();
+        $plans = $this->fetchPlansByLegacy(false);
 
-        $plans = static::numericSort($plans);
+        $plans = $plans->sortBy(function ($plan){
+            return $plan->totalYearlyCost();
+        });
 
-        if($plans) {
-
-            $select = [];
-
-            foreach ($plans as $plan) {
-                $select[$plan->id()] = $plan->getNameAndPrice();
-            }
-
-            return $select;
-
-        } else {
-            return null;
-        }
+        return $plans->keyBy(function ($plan) {
+            return $plan->id();
+        })->map(function ($plan) {
+            return $plan->getNameAndPrice();
+        });
     }
 
     public function fetchPlanById($planId)
     {
-        $planData = Config::get('plans.' . $planId);
+        $planData = Config::get('plans.plans.' . $planId);
 
         if( ! $planData) return null;
 
@@ -61,26 +51,15 @@ class LaravelConfigPlanRepository implements PlanRepository
 
     public function fetchPlansByInterval($interval)
     {
-        $plans = $this->fetchAllPlans();
-
-        if($plans) {
-            return array_filter($plans, function($obj) use ($interval) {
-                return $obj->interval() == $interval;
-            });
-        }
-    }
-
-    public static function numericSort(array $plans)
-    {
-        usort($plans, function($a, $b)
-        {
-            if ($a->totalYearlyCost() == $b->totalYearlyCost()) {
-                return 0;
-            }
-            return ($a->totalYearlyCost() < $b->totalYearlyCost()) ? -1 : 1;
+        return $this->plansCollection->filter(function ($plan) use ($interval) {
+            return $plan->interval() === $interval;
         });
-
-        return $plans;
     }
 
+    public function fetchPlansByLegacy($isLegacy)
+    {
+        return $this->plansCollection->filter(function ($plan) use ($isLegacy) {
+            return $plan->isLegacy() === $isLegacy;
+        });
+    }
 }

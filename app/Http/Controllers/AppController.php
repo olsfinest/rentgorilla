@@ -1,20 +1,19 @@
 <?php namespace RentGorilla\Http\Controllers;
 
-use Auth;
-use RentGorilla\Events\SearchWasInitiated;
-use RentGorilla\Photo;
 use RentGorilla\Repositories\LocationRepository;
-use RentGorilla\Repositories\UserRepository;
-use Session;
-use Input;
-use RentGorilla\Http\Requests;
-use RentGorilla\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
 use RentGorilla\Repositories\RentalRepository;
-use Log;
-use Cookie;
+use RentGorilla\Http\Controllers\Controller;
+use RentGorilla\Repositories\UserRepository;
+use RentGorilla\Events\SearchWasInitiated;
+use RentGorilla\Http\Requests;
+use Illuminate\Http\Request;
+use RentGorilla\Photo;
 use Response;
+use Session;
+use Cookie;
+use Input;
+use Auth;
+use Log;
 
 class AppController extends Controller {
 
@@ -208,7 +207,7 @@ class AppController extends Controller {
         Session::forget('price');
         Session::forget('sort');
 
-        return redirect()->back();
+        return redirect()->route('list', session('location'));
     }
 
     public function getMarkers()

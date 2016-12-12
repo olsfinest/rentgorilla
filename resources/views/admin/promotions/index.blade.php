@@ -10,7 +10,7 @@
         {!! Form::open(['method' => 'POST', 'route' => 'admin.free-promotions.location']) !!}
 
            <label>Location:
-            {!! Form::select('location', $locations->lists('city', 'slug'), $locationSlug) !!}
+            {!! Form::select('location', $locations->lists('city', 'slug'), $locationSlug, ['autocomplete' => 'off']) !!}
            </label>
 
             {!! Form::submit('Go') !!}
