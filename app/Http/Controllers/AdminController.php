@@ -162,7 +162,7 @@ class AdminController extends Controller {
         $revenue['monthly_recurring'] = 0;
         $revenue['yearly_recurring'] = 0;
 
-        $plans = config('plans');
+        $plans = config('plans.plans');
         //remove free plan
         unset($plans['Free']);
 

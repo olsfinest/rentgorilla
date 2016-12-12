@@ -289,7 +289,7 @@ class SubscriptionController extends Controller {
 
         $this->clearCurrentPeriodEnd();
 
-     //   $this->mailer->sendSubscriptionCancelled(Auth::user());
+        $this->mailer->sendSubscriptionCancelled(Auth::user());
 
         Log::info('Subscription cancelled', ['user_id' => Auth::id(), 'plan' => Auth::user()->getStripePlan()]);
 
