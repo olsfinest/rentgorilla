@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 @section('head')
-    <link rel="stylesheet" href="/css/pricing.css">
+    <link rel="stylesheet" href="/css/pricing.css?v=1">
 @stop
 @section('content')
     <section class="content full admin pricing">
