@@ -2,7 +2,7 @@
 
 @section('body')
     <p>Your subscription to <strong>{{ $planName }}</strong> has been changed.</p>
-    <p>Under this plan, you may have <strong>{{ $maxListings }}</strong> active listings at any given time.</p>
+    <p>Under this plan, you may have <strong>{{ $maxListings }}</strong> active {{ str_plural('listing', $maxListings) }} at any given time.</p>
     @if($interval)
         <p>Your credit card will automatically be billed every <strong>{{ $interval }}</strong>.</p>
     @endif

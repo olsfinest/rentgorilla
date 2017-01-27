@@ -1,4 +1,4 @@
-<p>Again, we can't thank you enough for your support of our business. We currently have a team of three people (James, Matt & Curran) and your contributions help power the work we do.</p>
+<p>Again, we can't thank you enough for your support of our business. We currently have a small team of people and your contributions help power the work we do.</p>
 <p>For folks that make a purchase we like to send along the following pro tips to maximize the value of your listings on our website:</p>
 <ol>
     <li><strong>Set Your Initial Thumbnail.</strong> A picture is worth a million words, and a great photo can be worth even more! You can adjust which photo is your first one by dragging it to the left most position in the 'Edit Photos' section of each listing. This is important because it is the photo folks see when reviewing your property in the list results against all others. Also consider higher resolution photos, shots with good lighting and even some staging to help folks imagine what it would be like for them to live there. If you have a great backyard or deck put that in there. We can take your photos for $75+hst, reply to this email if you need more details.</li>
@@ -7,4 +7,4 @@
     <li><strong>Update Your Availability.</strong> If you rent your property, rather then de-activate the listing consider adjust the availability to a year or two into the future. Experiment with a higher rent and if you don't find any takers bring your price back down as your available date gets closer.</li>
 </ol>
 <p>If you ever have an idea for us that might make the website better we would love to hear it. Until then good luck with your property renting endeavours.</p>
-<p>- James, Matt & Curran | Founders Of RentGorilla.ca</p>
+<p>- The RentGorilla.ca team</p>

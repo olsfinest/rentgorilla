@@ -11,6 +11,7 @@ use RentGorilla\Http\Controllers\Controller;
 use RentGorilla\Mailers\UserMailer;
 use RentGorilla\Http\Requests;
 use Illuminate\Http\Request;
+use Stripe\Coupon;
 use Subscription;
 use Input;
 use Auth;
@@ -106,6 +107,7 @@ class SubscriptionController extends Controller {
 
     public function subscribe($plan_id, SubscriptionRequest $request)
     {
+
         // make sure it is a valid plan
         $plan = Subscription::plan($plan_id);
 
@@ -117,25 +119,35 @@ class SubscriptionController extends Controller {
             return redirect()->route('changePlan')->with('flash:error', 'That plan is no longer supported');
         }
 
+        $hasCouponCode = $request->has('coupon_code');
+
+        if($hasCouponCode) {
+            try {
+                $coupon = Coupon::retrieve($request->input('coupon_code'));
+            } catch (\Exception $e) {
+                return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
+            }
+        }
+
         try {
 
             if(Auth::user()->readyForBilling()) {
 
                 $customer = Auth::user()->subscription()->getStripeCustomer();
 
-                if ($request->coupon_code) {
-                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->withCoupon($request->coupon_code)->create(null, [], $customer);
+                if ($hasCouponCode) {
+                    $this->subscribeExistingUserWithCoupon($plan_id, $request->input('coupon_code'), $customer);
                 } else {
                     Auth::user()->setTrialEndDate(null)->subscription($plan_id)->create(null, [], $customer);
                 }
 
             } else {
 
-                if ($request->coupon_code) {
-                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->withCoupon($request->coupon_code)->create($request->stripe_token, [
+                if ($hasCouponCode) {
+                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->withCoupon($request->input('coupon_code'))->create($request->input('stripe_token'), [
                         'email' => Auth::user()->email]);
                 } else {
-                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->create($request->stripe_token, [
+                    Auth::user()->setTrialEndDate(null)->subscription($plan_id)->create($request->input('stripe_token'), [
                         'email' => Auth::user()->email]);
                 }
             }
@@ -160,11 +172,13 @@ class SubscriptionController extends Controller {
 
         Log::info('Subscription begun', ['user_id' => Auth::id(), 'plan' => $plan_id]);
 
+        $thanks = $hasCouponCode ? 'Thank you! Your subscription has begun and we\'ve applied your coupon!' : 'Thank you! Your subscription has begun!';
+
         if($isDowngrade && ! empty($difference)) {
-            return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $plan->maximumListings());
+            return redirect()->route('changePlan')->with('flash:success', $thanks . '  We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $plan->maximumListings());
         }
 
-        return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has begun!');
+        return redirect()->route('changePlan')->with('flash:success', $thanks);
     }
 
     public function applyCoupon(ApplyCouponRequest $request)
@@ -300,5 +314,32 @@ class SubscriptionController extends Controller {
     {
         Auth::user()->current_period_end = null;
         Auth::user()->save();
+    }
+
+    private function subscribeExistingUserWithCoupon($plan_id, $coupon, $customer)
+    {
+        Auth::user()->setStripeSubscription(
+            $customer->updateSubscription($this->buildPayload($plan_id, $coupon))->id
+        );
+
+        $customer = Auth::user()->subscription()->getStripeCustomer($customer->id);
+
+        Auth::user()->setTrialEndDate(null);
+
+        Auth::user()->subscription()->updateLocalStripeData($customer, $plan_id);
+    }
+
+    private function buildPayload($plan_id, $coupon)
+    {
+        $payload = [
+            'plan' => $plan_id, 'prorate' => true,
+            'quantity' => 1, 'coupon' => $coupon
+        ];
+
+        if ($taxPercent = Auth::user()->getTaxPercent()) {
+            $payload['tax_percent'] = $taxPercent;
+        }
+
+        return $payload;
     }
 }
