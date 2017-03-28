@@ -77,6 +77,8 @@ class SocialAuthController extends Controller
 
         if($provider === 'facebook') {
 
+            \Log::info($socialite);
+
             $user = $this->createSocialUser('facebook', $socialite->getId(), $socialite->user['first_name'], $socialite->user['last_name'], $socialite->getEmail(), $socialite->getAvatar());
 
             return $this->logInUserAndRedirect($user, 'Success! You now have a new account via Facebook!');
