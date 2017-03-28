@@ -30,6 +30,12 @@ class SocialAuthController extends Controller
             return app()->abort(404);
         }
 
+        if($provider === 'facebook') {
+            return Socialite::driver('facebook')->fields([
+                'first_name', 'last_name', 'email'
+            ])->scopes(['email'])->redirect();
+        }
+
         return Socialite::driver($provider)->redirect();
     }
 
@@ -45,7 +51,15 @@ class SocialAuthController extends Controller
             return app()->abort(404);
         }
 
-        $socialite = Socialite::driver($provider)->user();
+        if($provider === 'facebook') {
+            $socialite = Socialite::driver('facebook')->fields([
+                'first_name',
+                'last_name',
+                'email',
+            ])->user();
+        } else {
+            $socialite = Socialite::driver($provider)->user();
+        }
 
         $user = User::where(['email' => $socialite->getEmail(), 'provider' => 'email'] )->first();
 
@@ -56,9 +70,7 @@ class SocialAuthController extends Controller
         $user = User::where(['provider_id' => $socialite->getId(), 'provider' => 'facebook'])->first();
 
         if($user) {
-
             $user = $this->updateSocialUser($user, $socialite->user['first_name'], $socialite->user['last_name'], $socialite->getEmail(), $socialite->getAvatar());
-
             return $this->logInUserAndRedirect($user, 'You have been logged in via Facebook');
 
         }
@@ -76,9 +88,6 @@ class SocialAuthController extends Controller
         // no social account found, I'm going to need you to go ahead and create a new social user, that'd be great
 
         if($provider === 'facebook') {
-
-            \Log::info($socialite->getId());
-            \Log::info($socialite->name);
 
             $user = $this->createSocialUser('facebook', $socialite->getId(), $socialite->user['first_name'], $socialite->user['last_name'], $socialite->getEmail(), $socialite->getAvatar());
 
