@@ -77,7 +77,8 @@ class SocialAuthController extends Controller
 
         if($provider === 'facebook') {
 
-            \Log::info($socialite);
+            \Log::info($socialite->getId());
+            \Log::info($socialite->name);
 
             $user = $this->createSocialUser('facebook', $socialite->getId(), $socialite->user['first_name'], $socialite->user['last_name'], $socialite->getEmail(), $socialite->getAvatar());
 
