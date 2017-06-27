@@ -14,7 +14,8 @@
         "cohensive/embed": "5.0.0",
         "pda/pheanstalk": "~3.0",
 	 	"pacely/mailchimp-apiv3": "dev-master",
-		"backup-manager/laravel": "^1.1"
+		"backup-manager/laravel": "^1.1",
+		"league/flysystem-aws-s3-v3": "^1.0"
 
 	},
 	"require-dev": {
