@@ -12,7 +12,6 @@
         "torann/hashids": "2.0.*@dev",
 		"intervention/image": "~2.1",
         "cohensive/embed": "5.0.0",
-        "guzzlehttp/guzzle": "~5.3|~6.0",
         "pda/pheanstalk": "~3.0",
 		"backup-manager/laravel": "~1.0",
 	 	"pacely/mailchimp-apiv3": "dev-master"
