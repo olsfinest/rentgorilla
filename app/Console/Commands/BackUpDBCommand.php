@@ -30,6 +30,6 @@ class BackUpDBCommand extends Command
 
         $filename = $date . '.sql';
 
-        $this->call('db:backup', ['--database' => 'mysql', '--destination' => 'dropbox', '--destinationPath' => $filename, '--compression' => 'gzip']);
+        $this->call('db:backup', ['--database' => 'mysql', '--destination' => 's3', '--destinationPath' => $filename, '--compression' => 'gzip']);
     }
 }

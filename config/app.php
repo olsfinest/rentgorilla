@@ -155,6 +155,7 @@ return [
         'RentGorilla\Providers\RouteServiceProvider',
 
         'Illuminate\Broadcasting\BroadcastServiceProvider',
+        'BackupManager\Laravel\Laravel5ServiceProvider',
 
         'Laravel\Socialite\SocialiteServiceProvider',
 
