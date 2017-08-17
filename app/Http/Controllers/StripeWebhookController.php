@@ -24,8 +24,6 @@ class StripeWebhookController extends WebhookController {
 
     protected function handleCustomerSubscriptionDeleted(array $payload)
     {
-
-       /*
         $billable = $this->getBillable($payload['data']['object']['customer']);
 
         if ($billable) {
@@ -44,8 +42,6 @@ class StripeWebhookController extends WebhookController {
 
             Log::info('Stripe webhook: customer subscription deleted', ['user_id' => $billable->id]);
         }
-
-       */
 
         return new Response('Webhook Handled', 200);
     }
