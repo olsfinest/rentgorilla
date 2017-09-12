@@ -60,9 +60,12 @@ class PromotionManager {
                            $this->mailer->sendPromotionChargeFailed($user, $queued);
                            //TODO::send email to admin that the charge failed?
                        }
-                    }
+                   } else {
+                       $this->rentalRepository->promoteRental($queued);
+                       $this->mailer->sendPromotionStart($user, $queued);
+                       Log::info('Queued promotion started', ['rental_id' => $queued->id]);
+                   }
                }
-
 
                $this->rentalRepository->unpromoteRental($rental);
                $this->mailer->sendPromotionEnded($this->getUser($rental), $rental);
