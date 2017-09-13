@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel {
         'RentGorilla\Console\Commands\MigrateRAUsersCommand',
         'RentGorilla\Console\Commands\CreateNewUserCommand',
         'RentGorilla\Console\Commands\BackUpDBCommand',
+        'RentGorilla\Console\Commands\PromoteQueuedRental',
 	];
 
 	/**

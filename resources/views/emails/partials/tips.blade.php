@@ -1,5 +1,5 @@
 <p>Again, we can't thank you enough for your support of our business. We currently have a small team of people and your contributions help power the work we do.</p>
-<p>For folks that make a purchase we like to send along the following pro tips to maximize the value of your listings on our website:</p>
+<p>We'd like to send along the following pro tips to maximize the value of your listings on our website:</p>
 <ol>
     <li><strong>Set Your Initial Thumbnail.</strong> A picture is worth a million words, and a great photo can be worth even more! You can adjust which photo is your first one by dragging it to the left most position in the 'Edit Photos' section of each listing. This is important because it is the photo folks see when reviewing your property in the list results against all others. Also consider higher resolution photos, shots with good lighting and even some staging to help folks imagine what it would be like for them to live there. If you have a great backyard or deck put that in there. We can take your photos for $75+hst, reply to this email if you need more details.</li>
     <li><strong>Add Top Features.</strong> We have a section for each listing to highlight their top features, at a glance these let your prospective renters see what makes your property awesome.</li>
