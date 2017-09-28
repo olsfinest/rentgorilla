@@ -7,19 +7,17 @@
 <section class="main gorilla">
     <section class="content full">
         <h1>find your way home&hellip;</h1>
-        <form>
-            <label>
-                <ul class='searchMode'>
-                    <li class='selected listMode' title="Show search results in a list">
-                        <span class="fa fa-bars"></span>
-                    </li>
-                    <li class='mapMode' title='Show search results on a map'>
-                        <span class="fa fa-map-o"></span>
-                    </li>
-                </ul>
-                <select name="location" id="location" style="width: 100%"></select>
-            </label>
-        </form>
+        <label>
+            <select name="location" id="location" style="width: 100%">
+                @foreach($locations as $location)
+                    <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount  }} Listings)</option>
+                @endforeach
+            </select>
+        </label>
+        <div style="text-align: center; margin-top: 10px;">
+            <button id="listing-search" class="button">Listing Search</button>
+            <button id="map-search" class="button">Map Search</button>
+        </div>
     </section>
 </section>
 <section class="main promofree">
@@ -55,46 +53,15 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
     <script language="JavaScript" type="text/javascript">
         $('#location').select2({
-            placeholder: 'Please enter a city',
-            minimumInputLength: 1,
-            ajax: {
-                url: '/location-list',
-                dataType: 'json',
-                data: function (term, page) {
-                    return {
-                        location: term
-                    };
-                },
-                processResults: function (data, page) {
-                    return {results: data};
-                }
-            }
+            minimumResultsForSearch: Infinity
         });
 
-        $('#location').on("change", function(e) {
-
-            var mapMode = $('.searchMode li.selected').hasClass('mapMode');
-
-            var page;
-
-            if(mapMode) {
-                page = '/map/';
-            } else {
-                page = '/list/';
-            }
-
-            window.location.href = page + $(this).val();
-
+        $('#listing-search').on("click", function(e) {
+            window.location.href = '/list/' + $('#location').val();
         });
 
-        $(function(){
-            $('.searchMode li').click(function(){
-                $('.searchMode li').removeClass('selected');
-                $(this).addClass('selected');
-            });
-        });
-        $(window).load(function(){
-            $('body').addClass('home');
+        $('#map-search').on("click", function(e) {
+            window.location.href = '/map/' + $('#location').val();
         });
     </script>
 @endsection

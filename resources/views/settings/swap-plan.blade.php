@@ -4,12 +4,13 @@
 @stop
 @section('content')
     <section class="content full admin">
-        <h1>Swap Plan</h1>
+        <h2>Please Confirm Your Order</h2>
+        <h1>1. Swap Plans</h1>
         @if(Auth::user()->stripeIsActive())
             <p>You are currently subscribed to the <strong>{{ $plan->planName() }}</strong> plan until {{ Auth::user()->getCurrentPeriodEnd()->format('F jS, Y') }}.</p>
             <p>Would you like to swap it for the <strong>{{ $newPlan->planName() }}</strong> plan?</p>
-
-            <h1>Plan comparison</h1>
+            <br><hr><br>
+            <h1>2. Plan comparison</h1>
             <table>
                 <thead>
                     <tr>
@@ -22,6 +23,9 @@
                 </tbody>
             </table>
             <p>* price does not include 15% tax</p>
+        <br><hr><br>
+            <h1>3. Payment</h1>
+            <p>Use existing Credit Card (ending in {{ Auth::user()->last_four }}) <a href="/admin/subscription/update">Use another card</a> </p>
             @if($isDowngrade)
                 <p>Please note any active listings that exceed your new plan's capacity will be deactivated based on the date you last edited the listing(s).</p>
             @endif
@@ -29,7 +33,7 @@
                 @include('errors.error-list')
 
                 {!! Form::open(['route' => ['subscription.swapSubscription', $newPlan->id()]]) !!}
-                {!! Form::submit('Swap Plan to ' . $newPlan->planName()) !!}
+                <button type="submit" class="button">{{ 'Swap Plan to ' . $newPlan->planName() . ' - Pay Now' }}</button>
                 {!! Form::close() !!}
             </p>
         @else

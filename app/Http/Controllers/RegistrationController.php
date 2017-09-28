@@ -26,10 +26,11 @@ class RegistrationController extends Controller {
 
     public function confirm($token)
     {
-
         $user = $this->dispatch(new ConfirmEmailCommand($token));
 
-        return redirect('/login')->with('flash:success', 'Thank you, your account has been confirmed! Please Log in.');
+        Auth::login($user);
+
+        return redirect()->route('rental.index', ['verified' => 1])->with('flash:success', 'Thank you, your account has been verified!');
     }
 
     public function resendConfirmation(ResendConfirmationRequest $request)

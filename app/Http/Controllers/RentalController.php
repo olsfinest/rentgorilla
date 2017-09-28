@@ -173,11 +173,12 @@ class RentalController extends Controller {
     }
 
     /**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+	public function index(Request $request)
 	{
 		$rentals = $this->rentalRepository->getRentalsForUser(Auth::user());
 
@@ -191,7 +192,9 @@ class RentalController extends Controller {
 
         $noPhotos = Photo::getNoPhotos('small');
 
-        return view('rental.index', compact('noPhotos', 'rentals', 'rewards', 'plan', 'activeRentalCount', 'availablePromotions'));
+        $verified = $request->get('verified', false);
+
+        return view('rental.index', compact('noPhotos', 'rentals', 'rewards', 'plan', 'activeRentalCount', 'availablePromotions', 'verified'));
 	}
 
 

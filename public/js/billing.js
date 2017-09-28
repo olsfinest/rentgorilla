@@ -16,10 +16,8 @@
 
         sendToken: function(event) {
             event.preventDefault();
-            Stripe.createToken(this.form, $.proxy(this.stripeResponseHandler, this));
             this.submitButton.html('One Moment').prop('disabled', true);
-
-
+            Stripe.createToken(this.form, $.proxy(this.stripeResponseHandler, this));
         },
 
         stripeResponseHandler: function(status, response) {
@@ -28,8 +26,6 @@
                 $('.payment-errors').show().text(response.error.message);
                 return this.submitButton.prop('disabled', false).html(this.submitButtonText);
             }
-
-            this.submitButton.html(this.submitButtonText);
 
             $('<input>', {
                 type: 'hidden',
@@ -43,7 +39,7 @@
         }
 
 
-    }
+    };
 
 
     StripeBilling.init();

@@ -9,7 +9,7 @@
     <section class="main">
         <article class="content full">
 
-                <h2>Reset Password</h2>
+                <h2>Set New Password</h2>
                 @if (session('status'))
                     <div class="alert alert-success">
                         {{ session('status') }}

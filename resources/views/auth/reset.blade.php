@@ -8,7 +8,7 @@
     <section class="main">
         <article class="content full">
 
-            <h2>Reset Password</h2>
+            <h2>Set New Password</h2>
 
             @if (count($errors) > 0)
             <div class="alert alert-danger">
@@ -35,7 +35,7 @@
                         <input type="password" class="form-control" name="password_confirmation">
                 </label>
                 <button type="submit" class="button">
-                        Reset Password
+                        Set New Password
                 </button>
             </form>
         </article>

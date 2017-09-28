@@ -41,10 +41,6 @@
                 <li><a href="/admin/support"><i class="fa fa-question-circle"></i> Help</a></li>
                 <li><a href="/">RentGorilla</a></li>
                 <li><a href="/terms">Terms</a></li>
-                <li class="right"><select name="" id="">
-                    <option value="" selected>English</option>
-                    <option value="">French</option>
-                </select></li>
             </ul>
         </section>
     </section>

@@ -1,5 +1,6 @@
 <?php namespace RentGorilla\Http\Controllers;
 
+use RentGorilla\Location;
 use RentGorilla\Repositories\LocationRepository;
 use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Http\Controllers\Controller;
@@ -31,7 +32,14 @@ class AppController extends Controller {
 
     public function showHome()
     {
-        return view('app.home');
+        $locations = Location::leftJoin('rentals', 'rentals.location_id', '=', 'locations.id')
+            ->selectRaw('locations.*, count(*) as rentalsCount')
+            ->where('rentals.active', 1)
+            ->orderBy('locations.city')
+            ->groupBy('locations.id')
+            ->get();
+
+        return view('app.home', compact('locations'));
     }
 
     public function showTerms()
