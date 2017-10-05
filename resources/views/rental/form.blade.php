@@ -73,10 +73,28 @@
         {!! Form::text('square_footage', null, ['class' => 'form-control', 'placeholder' => '1000']) !!}
     </label>
     <label for="features" class="">Features</label>
-        {!! Form::select('feature_list[]', \RentGorilla\Feature::orderBy('name')->lists('name', 'id')->all(), null, ['autocomplete' => 'off', 'id' => 'features', 'class' => 'form-control', 'multiple']) !!}
-
+     <table>
+        @foreach(array_chunk(\RentGorilla\Feature::orderBy('name')->get()->all(), 2) as $column)
+            <tr>
+                @foreach($column as $feature)
+                    <td><input type="checkbox" name="feature_list[]" value="{{ $feature->id }}"
+                                {{ in_array($feature->id, $rental->features->pluck('id')->all()) ? 'checked' : '' }}> {{ ucwords($feature->name) }}</td>
+                @endforeach
+            </tr>
+        @endforeach
+    </table>
+    <br>
     <label for="appliances" class="">Appliances</label>
-        {!! Form::select('appliance_list[]', \RentGorilla\Appliance::orderBy('name')->lists('name', 'id')->all(), null, ['autocomplete' => 'off', 'id' => 'appliances', 'class' => 'form-control', 'multiple']) !!}
+    <table>
+        @foreach(array_chunk(\RentGorilla\Appliance::orderBy('name')->get()->all(), 2) as $column)
+            <tr>
+                @foreach($column as $appliance)
+                    <td><input type="checkbox" name="appliance_list[]" value="{{ $appliance->id }}"
+                                {{ in_array($appliance->id, $rental->appliances->pluck('id')->all()) ? 'checked' : '' }}> {{ ucwords($appliance->name) }}</td>
+                @endforeach
+            </tr>
+        @endforeach
+    </table>
     </fieldset>
     <fieldset>
         <legend><i class="fa fa-fire"></i> Heating</legend>
@@ -86,7 +104,16 @@
             </span>
         </label>
         <label for="heats" class="">Heating</label>
-            {!! Form::select('heat_list[]', \RentGorilla\Heat::orderBy('name')->lists('name', 'id')->all(), null, ['autocomplete' => 'off', 'id' => 'heats', 'class' => 'form-control', 'multiple']) !!}
+        <table>
+            @foreach(array_chunk(\RentGorilla\Heat::orderBy('name')->get()->all(), 2) as $column)
+                <tr>
+                    @foreach($column as $heat)
+                        <td><input type="checkbox" name="heat_list[]" value="{{ $heat->id }}"
+                                    {{ in_array($heat->id, $rental->heat->pluck('id')->all()) ? 'checked' : '' }}> {{ ucwords($heat->name) }}</td>
+                    @endforeach
+                </tr>
+            @endforeach
+        </table>
     </fieldset>
     <fieldset>
         <legend><i class="fa fa-question-circle"></i> Vitals</legend>
@@ -102,7 +129,6 @@
     </label>
     {!! Form::submit($submitButtonText) !!}
 @section('footer')
-    <script src="/js/select2.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script src="/js/modify-rental.js"></script>
+    <script src="/js/modify-rental.js?v=1"></script>
 @endsection

@@ -1,8 +1,5 @@
 
 
-$('#features').select2();
-$('#heats').select2();
-$('#appliances').select2();
 $('#available').datepicker();
 
 $('#modify_rental_form').submit(function(event) {
