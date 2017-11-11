@@ -146,6 +146,16 @@
 					</tr>
 				@endif
 
+				<tr>
+					<td>&nbsp;</td>
+					<td style="text-align: right;"><strong>Subtotal</strong></td>
+					<td>${{ number_format($invoice->total() / 1.15, 2) }}</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td style="text-align: right;"><strong>Tax (15%)</strong></td>
+					<td>${{ number_format($invoice->total() - ($invoice->total() / 1.15), 2) }}</td>
+				</tr>
 				<!-- Display The Final Total -->
 				<tr style="border-top:2px solid #000;">
 					<td>&nbsp;</td>
