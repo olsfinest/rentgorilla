@@ -1,6 +1,8 @@
 <?php namespace RentGorilla\Http\Controllers;
 
+use RentGorilla\Commands\ModifyRentalAvailabilityCommand;
 use RentGorilla\Handlers\Commands\ToggleRentalActivationCommandHandler;
+use RentGorilla\Http\Requests\RentalAvailabilityRequest;
 use RentGorilla\Http\Requests\ToggleRentalActivationRequest;
 use RentGorilla\Commands\ToggleRentalActivationCommand;
 use RentGorilla\Http\Requests\PromoteRentalRequest;
@@ -479,4 +481,17 @@ class RentalController extends Controller {
 
     }
 
+    public function editAvailability($rental)
+    {
+        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $rental);
+
+        return view('rental.availability', compact('rental'));
+    }
+
+    public function updateAvailability(RentalAvailabilityRequest $request, $rental)
+    {
+        $availabilityModified = $this->dispatch(new ModifyRentalAvailabilityCommand($request, $rental));
+
+        return redirect()->route('rental.index')->with('flash:success', $availabilityModified ? 'Your date of availability has been updated!' : 'Your listing has been deactivated!');
+    }
 }

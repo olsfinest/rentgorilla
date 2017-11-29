@@ -259,6 +259,22 @@ class UserMailer extends Mailer {
         return $this->sendTo($user, $subject, $view, $data);
     }
 
+    public function sendAvailabilityReminder(User $user, $rental_id, $address, $signature)
+    {
+        $view = 'emails.user.availability';
+
+        $data = [
+            'name' => $user->first_name,
+            'rental_id' => $rental_id,
+            'signature' => $signature,
+            'address' => $address
+        ];
+
+        $subject = sprintf('RentGorilla.ca :: Please Update Availability For %s', $address);
+
+        return $this->sendTo($user, $subject, $view, $data);
+    }
+
     public function sendReportToAllUsers()
     {
         $view = 'emails.user.property-report';

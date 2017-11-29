@@ -122,12 +122,10 @@ $router->post('like', 'LikesController@toggleLike');
 $router->post('landing-page/set-cookie', 'AppController@setLandingPageCookie');
 $router->post('landing-page/delete-cookie', 'AppController@deleteLandingPageCookie');
 
-/*
-$router->get('testing', function() {
+$router->get('modify-availability/{rental}/{signature}', ['as' => 'signed.availability', 'uses' => 'Auth\SignedController@modifyAvailability']);
 
-});
-*/
-
+$router->get('rental/{rental}/availability', ['as' => 'rental.availability.edit', 'uses' => 'RentalController@editAvailability']);
+$router->patch('rental/{rental}/availability', ['as' => 'rental.availability.update', 'uses' => 'RentalController@updateAvailability']);
 $router->get('rental/{rental}/photos', ['as' => 'rental.photos.index', 'uses' => 'RentalController@showPhotos']);
 $router->post('rental/{rental}/photos', ['as' => 'rental.photos.store', 'uses' => 'RentalController@addPhoto']);
 $router->post('activate', ['as' => 'rental.activate', 'uses' => 'RentalController@toggleActivate']);

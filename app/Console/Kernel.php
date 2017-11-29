@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel {
         'RentGorilla\Console\Commands\CreateNewUserCommand',
         'RentGorilla\Console\Commands\BackUpDBCommand',
         'RentGorilla\Console\Commands\PromoteQueuedRental',
+        'RentGorilla\Console\Commands\AvailabilityDateReminder',
 	];
 
 	/**
@@ -31,8 +32,11 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
+        $schedule->command('rg:availability-reminder')
+            ->dailyAt('19:00');
 
-        $schedule->command('rg:award-achievements')->dailyAt('00:00');
+        $schedule->command('rg:award-achievements')
+            ->dailyAt('00:00');
 
         $schedule->command('rg:clear-promotions-history')
             ->dailyAt('00:05');
@@ -48,7 +52,5 @@ class Kernel extends ConsoleKernel {
 
         $schedule->command('rg:backup-db')
             ->dailyAt('03:00');
-
     }
-
 }
