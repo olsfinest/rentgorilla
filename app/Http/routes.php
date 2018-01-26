@@ -2,6 +2,14 @@
 
 $router->get('/', ['as' => 'home', 'uses' => 'AppController@showHome']);
 
+/** Dynamic Sitemaps */
+
+$router->get('sitemap', 'SitemapController@index');
+$router->get('sitemap/pages', 'SitemapController@pages');
+$router->get('sitemap/{location}', 'SitemapController@show');
+
+/** Password resets */
+
 Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);

@@ -35,6 +35,7 @@ class Rental extends Model {
 
     protected $dates = ['available_at', 'promotion_ends_at', 'queued_at', 'activated_at', 'edited_at'];
 
+    protected $touches = ['location'];
 
     public function location()
     {
