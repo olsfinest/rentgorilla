@@ -89,11 +89,14 @@ class SessionController extends Controller {
     {
         $this->auth->logout();
 
-        if(session()->has('revert')) {
-            session()->forget('revert');
+        $sessionKeys = ['revert', 'admin', 'super'];
+
+        foreach ($sessionKeys as $key) {
+            if (session()->has($key)) {
+                session()->forget($key);
+            }
         }
 
         return redirect('/');
     }
-
 }

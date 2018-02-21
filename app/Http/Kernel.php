@@ -29,6 +29,8 @@ class Kernel extends HttpKernel {
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'RentGorilla\Http\Middleware\RedirectIfAuthenticated',
         'admin' => 'RentGorilla\Http\Middleware\Admin',
+        'super' => 'RentGorilla\Http\Middleware\Super',
+        'sensitive' => 'RentGorilla\Http\Middleware\Sensitive'
 	];
 
 }

@@ -27,16 +27,18 @@ class Super {
      */
     public function handle($request, Closure $next)
     {
-        if ( ! $this->auth->check() || ! $this->auth->user()->isSuper())
+        if ( ! $this->auth->check() )
         {
             if ($request->ajax())
             {
                 return response('Unauthorized.', 401);
             }
-            else
-            {
-                return redirect('/');
-            }
+
+            return redirect('/login');
+        }
+
+        if( ! $this->auth->user()->isSuper()) {
+            return redirect()->route('rental.index')->with('flash:success', 'Sorry, you do not have permission to access that resource.');
         }
 
         return $next($request);

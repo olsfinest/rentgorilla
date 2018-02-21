@@ -21,7 +21,6 @@ use RentGorilla\Http\Requests\SendActivationRequest;
 
 class AdminController extends Controller {
 
-
     /**
      * @var UserRepository
      */
@@ -33,7 +32,8 @@ class AdminController extends Controller {
 
     function __construct(UserRepository $userRepository, RentalRepository $rentalRepository)
     {
-        $this->middleware('admin', ['except' => 'revert']);
+        $this->middleware('super', ['only' => 'revenue']);
+        $this->middleware('admin', ['except' => ['revert', 'revenue']]);
         $this->middleware('auth', ['only' => 'revert']);
         $this->userRepository = $userRepository;
         $this->rentalRepository = $rentalRepository;
@@ -89,13 +89,27 @@ class AdminController extends Controller {
 
     public function loginAsUser(LoginAsUserRequest $request)
     {
+        if($request->session()->has('revert')) {
+            return redirect()->back()->with('flash:success', 'Please revert back to your account before logging in as a different user');
+        }
+
+        if((int) Auth::id() === (int) $request->user_id) {
+            return redirect()->back()->with('flash:success', 'Cannot log in as same user.');
+        }
+
         $user = $this->userRepository->find($request->user_id);
 
-        // One may only take over someones account if they are a super admin,
-        // or if the user is not a super admin and the user has not used their credit card
+        // One may only log into someones account if they are a super admin,
+        // or if they are an admin they may not log into a super admin's account
 
-        if(Auth::user()->isSuper() || ( ! $user->isSuper() &&  ! $user->readyForBilling() )) {
+        if(Auth::user()->isSuper() || (Auth::user()->isAdmin() && ! $user->isSuper())) {
             session(['revert' => Auth::id()]);
+            if(Auth::user()->isSuper()) {
+                session(['super' => true]);
+            }
+            if(Auth::user()->isAdmin()) {
+                session(['admin' => true]);
+            }
             Auth::loginUsingId($user->id);
             return redirect()->route('rental.index')->with('flash:success', 'You are now logged in as ' . $user->email);
         }
@@ -189,7 +203,15 @@ class AdminController extends Controller {
     {
         if($request->session()->has('revert')) {
             Auth::loginUsingId($request->session()->get('revert'));
-            $request->session()->forget('revert');
+
+            $sessionKeys = ['revert', 'admin', 'super'];
+
+            foreach ($sessionKeys as $key) {
+                if (session()->has($key)) {
+                    session()->forget($key);
+                }
+            }
+
             return redirect()->route('admin.searchUsers')->with('flash:success', 'You are now logged in as ' . Auth::user()->email);
         }
 

@@ -26,6 +26,7 @@ class AchievementsController extends Controller {
     function __construct(UserRepository $userRepository, UserMailer $mailer)
     {
         $this->middleware('auth');
+        $this->middleware('sensitive');
         $this->userRepository = $userRepository;
         $this->mailer = $mailer;
     }

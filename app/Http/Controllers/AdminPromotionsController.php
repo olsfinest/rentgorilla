@@ -28,7 +28,7 @@ class AdminPromotionsController extends Controller
 
     public function __construct(LocationRepository $locationRepository, RentalRepository $rentalRepository, PromotionManager $promotionManager)
     {
-        $this->middleware('admin');
+        $this->middleware('super');
         $this->promotionManager = $promotionManager;
         $this->locationRepository = $locationRepository;
         $this->rentalRepository = $rentalRepository;

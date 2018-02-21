@@ -53,6 +53,7 @@ class RentalController extends Controller {
     function __construct(RentalRepository $rentalRepository, PromotionManager $promotionManager, PhotoRepository $photoRepository, RewardRepository $rewardRepository)
     {
         $this->middleware('auth', ['except' => ['show', 'showPhone', 'sendManagerMail']]);
+        $this->middleware('sensitive', ['only' => ['showPromotions', 'showCancelPromotion', 'promoteRental', 'cancelPromotion', 'promoteRentalWithPoints']]);
         $this->rentalRepository = $rentalRepository;
         $this->promotionManager = $promotionManager;
         $this->photoRepository = $photoRepository;

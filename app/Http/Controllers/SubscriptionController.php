@@ -28,6 +28,7 @@ class SubscriptionController extends Controller {
     function __construct(RentalRepository $rentalRepository, UserMailer $mailer)
     {
         $this->middleware('auth');
+        $this->middleware('sensitive');
         $this->rentalRepository = $rentalRepository;
         $this->mailer = $mailer;
     }

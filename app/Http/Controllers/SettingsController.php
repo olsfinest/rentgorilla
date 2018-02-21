@@ -21,6 +21,7 @@ class SettingsController extends Controller {
     public function __construct(Biller $biller)
     {
         $this->middleware('auth');
+        $this->middleware('sensitive', ['only' => ['showPaymentHistory', 'downloadInvoice', 'showUpdateCard']]);
         $this->biller = $biller;
     }
 
