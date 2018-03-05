@@ -225,13 +225,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             return true;
         }
 
-        // only eligible for one property on free plan
-        if ($activeRentalCountForUser === 0 && $this->isEligibleForFreePlan()) {
+        // activate properties up to the plan's capacity for active subscribers
+        if ($this->subscribed() && ($this->plan()->unlimited() || $activeRentalCountForUser < $this->plan()->maximumListings())) {
             return true;
         }
 
-        // activate properties up to the plan's capacity for active subscribers
-        if ($this->subscribed() && ($this->plan()->unlimited() || $activeRentalCountForUser < $this->plan()->maximumListings())) {
+        // only eligible for one property on free plan
+        if ($activeRentalCountForUser === 0 && $this->isEligibleForFreePlan()) {
             return true;
         }
 

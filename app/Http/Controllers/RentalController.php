@@ -3,6 +3,7 @@
 use RentGorilla\Commands\ModifyRentalAvailabilityCommand;
 use RentGorilla\Handlers\Commands\ToggleRentalActivationCommandHandler;
 use RentGorilla\Http\Requests\RentalAvailabilityRequest;
+use RentGorilla\Http\Requests\RotatePhotoRequest;
 use RentGorilla\Http\Requests\ToggleRentalActivationRequest;
 use RentGorilla\Commands\ToggleRentalActivationCommand;
 use RentGorilla\Http\Requests\PromoteRentalRequest;
@@ -24,6 +25,7 @@ use RentGorilla\Http\Requests;
 use Illuminate\Http\Request;
 use RentGorilla\Rental;
 use RentGorilla\Photo;
+use RentGorilla\Services\Photo\Rotater;
 use Subscription;
 use Validator;
 use Config;
@@ -341,12 +343,29 @@ class RentalController extends Controller {
         return view('rental.delete', compact('rental'));
     }
 
-
     public function showPhotos($id)
     {
         $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $id);
 
         return view('rental.photos', compact('rental'));
+    }
+
+    public function editPhoto($id)
+    {
+        $photo = $this->photoRepository->findPhotoForUser(Auth::user(), $id);
+
+        return view('rental.edit-photos', compact('photo'));
+    }
+
+    public function rotatePhoto($id, RotatePhotoRequest $request, Rotater $rotater)
+    {
+        $photo = $this->photoRepository->findPhotoForUser(Auth::user(), $id);
+
+        $rotater->rotate($photo, $request->orientation);
+
+        return redirect()->route('photos.edit', $photo->name)
+            ->withInput()
+            ->with('flash:success', sprintf('Your photo has been rotated %s degrees', $request->orientation));
     }
 
     public function addPhoto($id, Request $request)

@@ -57,11 +57,11 @@ class Photo extends Model {
             } else if( $size == 'medium' && file_exists( public_path() . self::IMAGE_PATH . 'placeholders/mine/' . $this->name)) {
                 return self::IMAGE_PATH . 'placeholders/mine/' . $this->name;
             } elseif(file_exists(public_path() . self::IMAGE_PATH . $size . $this->name)) {
-                return self::IMAGE_PATH . $size . $this->name;
+                return self::IMAGE_PATH . $size . $this->name . '?' . filemtime($this->getPublicPath($size));
             }
         } else {
             if (file_exists(public_path() . self::IMAGE_PATH . $size . $this->name)) {
-                return self::IMAGE_PATH . $size . $this->name;
+                return self::IMAGE_PATH . $size . $this->name . '?' . filemtime($this->getPublicPath($size));
             } else {
                 return 'defaults';
             }
@@ -73,11 +73,16 @@ class Photo extends Model {
         $sizes = ['small', 'medium', 'large'];
 
         foreach($sizes as $size) {
-            $file = public_path() . self::IMAGE_PATH . $size . $this->name;
+            $file = $this->getPublicPath($size);
             if(file_exists($file)) {
                 unlink($file);
             }
         }
+    }
+
+    public function getPublicPath($size)
+    {
+        return public_path() . self::IMAGE_PATH . $size . $this->name;
     }
 
     public static function getNoPhotos($size)

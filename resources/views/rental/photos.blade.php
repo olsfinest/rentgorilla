@@ -15,9 +15,12 @@
     <ul id="items">
         @foreach($rental->photos as $photo)
             <li data-id="{{ $photo->name }}"><img src="{{ $photo->getSize('small') }}">
-                {!! Form::open(['method' => 'DELETE', 'route' => ['photos.delete', $photo->name]]) !!}
-                {!! Form::submit('Delete', ['class' => 'button']) !!}
-                {!! Form::close() !!}
+                <div>
+                    {!! Form::open(['method' => 'DELETE', 'style' => 'float:left', 'route' => ['photos.delete', $photo->name]]) !!}
+                    {!! Form::submit('Delete', ['class' => 'button']) !!}
+                    {!! Form::close() !!}
+                    <a style="float: right; margin-top: 0.5em;" href="{{ route('photos.edit', $photo->name) }}" class="">Rotate</a>
+                </div>
             </li>
         @endforeach
     </ul>

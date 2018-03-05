@@ -150,6 +150,8 @@ $router->resource('rental', 'RentalController');
 $router->get('preview/{id}', ['as' => 'rental.preview', 'uses' => 'RentalController@showPreview']);
 
 $router->delete('photo/{id}', ['as' => 'photos.delete', 'uses' => 'RentalController@deletePhoto']);
+$router->get('photo/{id}', ['as' => 'photos.edit', 'uses' => 'RentalController@editPhoto']);
+$router->patch('photo/{id}', ['as' => 'photos.rotate', 'uses' => 'RentalController@rotatePhoto']);
 
 $router->post('favourite', 'FavouritesController@toggleFavourite');
 $router->get('favourites', ['as' => 'favourites', 'uses' => 'FavouritesController@showFavourites']);
