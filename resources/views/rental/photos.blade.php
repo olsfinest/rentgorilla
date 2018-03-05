@@ -8,6 +8,7 @@
         <h1>Photos for {{ $rental->street_address }}</h1>
         <p>You may drag and drop photos in the box below, or simply click within the box to choose photos to upload.</p>
         {!! Form::open(['route' => ['rental.photos.store', $rental->uuid], 'class' => 'dropzone', 'id' => 'myAwesomeDropzone']) !!}
+        <div class="dz-message" data-dz-message><span>Click Here or Drag &amp; Drop Photos to Upload</span></div>
 {!! Form::close() !!}
 @if($photoCount = $rental->photos()->count())
             <h1>Drag and drop photos to reorder</h1>
