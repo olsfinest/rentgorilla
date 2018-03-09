@@ -65,7 +65,7 @@ $('#phone-btn').on('click', function(e) {
             url: '/rental/phone',
             data: {rental_id: rental_id, _token: getToken()},
             success: function (data, textStatus, jqXHR) {
-                button.html(data.phone);
+                button.html(data.phone).attr('href','tel:'+data.phone);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(errorThrown);
