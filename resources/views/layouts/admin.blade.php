@@ -15,7 +15,7 @@
     <!-- <link rel="stylesheet" type="text/css" href="/css/jqui.css"> -->
     <link rel="stylesheet" type="text/css" href="/css/typography.css">
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css?v=2">
+    <link rel="stylesheet" type="text/css" href="/css/style.css?v=3">
     <link rel="stylesheet" type="text/css" href="/css/integrate.css">
     @yield('head')
 </head>

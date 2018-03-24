@@ -330,7 +330,7 @@
         var rental_id = "{{ $rental->uuid }}";
         var hasPhotos = {{ $hasPhotos ? 'true' : 'false' }};
     </script>
-    <script src="/js/detail-view.js?v=2"></script>
+    <script src="/js/detail-view.js?v=3"></script>
     <script language="JavaScript">
         var initialPosition = new google.maps.LatLng({{ $rental->lat . ', ' . $rental->lng  }});
         var panorama;
