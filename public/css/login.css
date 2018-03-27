@@ -51,11 +51,10 @@
     padding: 1em;
     box-shadow: 0 0 10px black;
     background: #333333;
-    position: absolute;
-    left: 50%;
-    width: 600px;
-    margin-left: -300px;
-    top: 20%; }
+    position: relative;
+    max-width: 600px;
+	margin:0 auto;
+    margin-top: 14vh; }
     .modalLogin form input[type="email"], .modalLogin form input[type="text"], .modalLogin form input[type="email"], .modalLogin form textarea {
       font-family: "open_sans_regular", sans-serif; }
       .modalLogin form input[type="email"]:focus, .modalLogin form input[type="text"]:focus, .modalLogin form input[type="email"]:focus, .modalLogin form textarea:focus {
