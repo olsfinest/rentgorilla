@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <link rel="stylesheet" href="/css/login.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/login.css?v=1" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/form.css" media="screen" title="no title" charset="utf-8">
     @include('rental.twitter-summary-large-image')
 @endsection
@@ -330,7 +330,7 @@
         var rental_id = "{{ $rental->uuid }}";
         var hasPhotos = {{ $hasPhotos ? 'true' : 'false' }};
     </script>
-    <script src="/js/detail-view.js?v=3"></script>
+    <script src="/js/detail-view.js?v=4"></script>
     <script language="JavaScript">
         var initialPosition = new google.maps.LatLng({{ $rental->lat . ', ' . $rental->lng  }});
         var panorama;

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <link rel="stylesheet" href="/css/login.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/css/login.css?v=1" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/form.css" media="screen" title="no title" charset="utf-8">
 @endsection
 
