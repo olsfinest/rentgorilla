@@ -55,22 +55,30 @@ $('#like').on('click', function() {
 
 
 $('#phone-btn').on('click', function(e) {
-    var button = $(this);
-    if (button.hasClass('disabled')) {
-        return false;
-    } else {
-        button.addClass('disabled');
-        $.ajax({
-            type: 'POST',
-            url: '/rental/phone',
-            data: {rental_id: rental_id, _token: getToken()},
-            success: function (data, textStatus, jqXHR) {
-                button.html(data.phone).attr('href','tel:'+data.phone);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });
+    var btn = $(this);
+    if (!btn.hasClass('opened')) {
+
+        //button.addClass('disabled');
+		if (!btn.hasClass('disabled')) {
+			$.ajax({
+				type: 'POST',
+				url: '/rental/phone',
+				data: {rental_id: rental_id, _token: getToken()},
+				success: function (data, textStatus, jqXHR) {
+					if(data.phone != "No phone number provided"){
+						btn.html(data.phone).attr('href','tel:'+data.phone);
+						btn.addClass('opened');
+					}else{
+						btn.html(data.phone);
+						btn.addClass('disabled');
+					}
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					alert(errorThrown);
+					alert("Error Here");
+				}
+			});
+		}
     }
 });
 
