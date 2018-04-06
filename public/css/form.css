@@ -118,5 +118,7 @@ form input[type="button"]:hover {
 #modify_rental_form .select2-container--default .select2-selection--multiple {
   background: #efefef;
   border-radius: 0px; }
+  
+#modify_rental_form input::placeholder {color:#888}
 
 /*# sourceMappingURL=form.css.map */
