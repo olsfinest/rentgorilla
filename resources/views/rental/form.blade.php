@@ -8,16 +8,16 @@
             {!! Form::text('available', null, ['id' => 'available', 'class' => 'form-control', 'readonly', 'placeholder' => 'MM/DD/YYYY']) !!}
         </label>
         <label for="street_address" class="required half left">Street Address <i title="Feel free to use street abbreviations and specify apartment or unit numbers." class="fa fa-info-circle"></i>
-             {!! Form::text('street_address', null, ['class' => 'form-control', 'id' => 'street_address', 'placeholder' => '123 Main Street']) !!}
+             {!! Form::text('street_address', null, ['class' => 'form-control', 'id' => 'street_address', 'placeholder' => 'E.g., 123 Main Street']) !!}
         </label>
         <label for="city" class="required half right">City
-            {!! Form::text('city', $rental->cityOnly, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'Antigonish']) !!}
+            {!! Form::text('city', $rental->cityOnly, ['class' => 'form-control', 'id' => 'city', 'placeholder' => 'E.g., Antigonish']) !!}
         </label>
         <label for="province" class="required half left">Province
             {!! Form::select('province', Config::get('rentals.provinces'), null, ['autocomplete' => 'off', 'id' => 'province', 'class' => 'form-control']) !!}
         </label>
         <label for="postal_code" class="half right">Postal Code
-            {!! Form::text('postal_code', $rental->postal_code, ['id' => 'postal_code', 'class' => 'form-control', 'placeholder' => 'B2G 2L2']) !!}
+            {!! Form::text('postal_code', $rental->postal_code, ['id' => 'postal_code', 'class' => 'form-control', 'placeholder' => 'E.g., B2G 2L2']) !!}
         </label>
     </fieldset>
     <fieldset>
@@ -26,19 +26,19 @@
             {!! Form::select('type', Config::get('rentals.type'), null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
         </label>
         <label for="beds" class="required half right">Bedrooms
-            {!! Form::text('beds', null, ['class' => 'form-control', 'placeholder' => '4']) !!}
+            {!! Form::text('beds', null, ['class' => 'form-control', 'placeholder' => 'E.g., 4']) !!}
         </label>
         <label for="baths" class="required half left">Bathrooms <i class="fa fa-info-circle" title="Indicating a half bathroom means a sink and a toilet but no bath or shower"></i>
-            {!! Form::text('baths', null, ['class' => 'form-control', 'placeholder' => '2.5']) !!}
+            {!! Form::text('baths', null, ['class' => 'form-control', 'placeholder' => 'E.g., 2.5']) !!}
         </label>
         <label for="price" class="required half right">Monthly Rent <i class="fa fa-info-circle" title="This value should reflect the total unit cost. Please note in your description if the price is per room."></i>
-            {!! Form::text('price', null, ['class' => 'form-control', 'placeholder' => '500']) !!}
+            {!! Form::text('price', null, ['class' => 'form-control', 'placeholder' => 'E.g., 500']) !!}
         </label>
         <label for="lease" class="required half left">Lease (months)
-            {!! Form::text('lease', null, ['class' => 'form-control', 'placeholder' => '12']) !!}
+            {!! Form::text('lease', null, ['class' => 'form-control', 'placeholder' => 'E.g., 12']) !!}
         </label>
         <label for="deposit" class="required half right">Deposit
-            {!! Form::text('deposit', null, ['class' => 'form-control', 'placeholder' => '300']) !!}
+            {!! Form::text('deposit', null, ['class' => 'form-control', 'placeholder' => 'E.g., 300']) !!}
         </label>
         <label for="laundry" class="required half left">Laundry
             {!! Form::select('laundry', Config::get('rentals.laundry'), null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
@@ -70,7 +70,7 @@
         </span>
     </label>
     <label for="square_footage" class="half right">Square Footage
-        {!! Form::text('square_footage', null, ['class' => 'form-control', 'placeholder' => '1000']) !!}
+        {!! Form::text('square_footage', null, ['class' => 'form-control', 'placeholder' => 'E.g., 1000']) !!}
     </label>
     <label for="features" class="">Features</label>
      <table>
