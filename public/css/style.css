@@ -1524,7 +1524,7 @@ footer {
   .content.full {
     width: 90%;
     margin: 0 auto; }
-
+  .login_only 
   .content.full .listing_details {
     float: none;
     width: 100%;
@@ -2523,7 +2523,6 @@ a.planChange {
     top: 0px;
     right: 10px; }
   .localeNew .showButton {
-    height: 22px;
     color: #74B164;
     transition: .1s; }
     .localeNew .showButton:hover {
