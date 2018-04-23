@@ -148,6 +148,8 @@ pre {
       transition: .1s; }
     #signupmodal form input.firstpass, #login form input.firstpass {
       border-right: 1px solid #74b164; }
+#signupmodal #signup_form,#login_form {padding:0 15px;}
+#signupmodal #signup_form #signup_email,#login_form #login_email {border:1px solid #74b164;margin-bottom:1em;}
 
 #signupmodal form input[type="text"]:focus, #signupmodal form input[type="password"]:focus, #signupmodal form input[type="email"]:focus, #login form input[type="text"]:focus, #login form input[type="password"]:focus, #login form input[type="email"]:focus {
   background: #efefef;
@@ -155,8 +157,7 @@ pre {
 
 #signupmodal form input[type="text"], #signupmodal form input[type="password"], #login form input[type="text"], #login form input[type="password"] {
   width: 100%;
-  border-top: 1px solid #74b164;
-  border-bottom: 1px solid #74b164;
+  border: 1px solid #74b164;
   float: left;
   margin-bottom: 1em; }
 
