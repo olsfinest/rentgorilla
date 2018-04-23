@@ -121,4 +121,6 @@ form input[type="button"]:hover {
   
 #modify_rental_form input::placeholder {color:#888}
 
+form fieldset legend {background-color:#74B164;color:#FFF;border-color:transparent;}
+
 /*# sourceMappingURL=form.css.map */
