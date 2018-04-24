@@ -2,7 +2,7 @@
 @section('head')
     <script src="/js/dropzone.js" xmlns="http://www.w3.org/1999/html"></script>
     <link rel="stylesheet" href="/css/dropzone.css">
-    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/form.css?v=2">
 @stop
 @section('content')
     <section class="content full admin">

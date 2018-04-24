@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('head')
-    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/form.css?v=2">
 @stop
 @section('content')
     <section class="content full admin">

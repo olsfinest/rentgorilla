@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('head')
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/form.css?v=1">
+    <link rel="stylesheet" href="/css/form.css?v=2">
 @stop
 @section('content')
     <section class="content full admin">

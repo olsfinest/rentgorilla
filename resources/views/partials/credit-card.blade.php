@@ -1,5 +1,5 @@
 <label for="cc-number" class="">Credit Card Number:
-    <input type="text" id="cc-number" class="" data-stripe="number" placeholder="{{ is_null(Auth::user()->getLastFourCardDigits()) ? '' : '**** **** **** ' . Auth::user()->getLastFourCardDigits() }}" required>
+    <input type="text" id="cc-number" class="" data-stripe="number" required>
 </label>
 
 <label class="half left">Expiration Month:
