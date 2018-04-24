@@ -2726,6 +2726,6 @@ a.planChange {
   .tenancies a:hover {
     background: #5b964c;
     transition: .1s; }
-
+.billing-note {padding:20px;border:solid 1px silver;background-color:#ECECEC}
 
 /*# sourceMappingURL=style.css.map */

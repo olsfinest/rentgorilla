@@ -22,7 +22,8 @@
 
         {!! Form::close() !!}
                 @else
-            <p>You have no credit card on file.</p>
+            <p>You have no credit card on file.</p><br/>
+			<p class="billing-note">Visit our <a href="plan">Subscription</a> page, choose the plan to fit your needs and you will be prompted for a credt card after you select your subscription.</p>
                 @endif
 </section>
 @stop
