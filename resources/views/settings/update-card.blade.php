@@ -10,7 +10,7 @@
     <section class="content full admin">
         <h1>Adjust Billing To Credit Card</h1>
         <p>To change a plan or cease billing please edit your <a href="{{ route('changePlan') }}">Subscription</a></p>
-
+        <br>
         <h1>Current Credit Card On File</h1>
         @if(Auth::user()->readyForBilling() && ! is_null(Auth::user()->last_four))
             <p>**** **** **** {{ Auth::user()->last_four }}</p>
