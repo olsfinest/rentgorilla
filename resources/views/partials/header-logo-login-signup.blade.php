@@ -9,7 +9,7 @@
         @if( ! Auth::check())
             <div class="user_actions">
                 <button class="login">Login</button>
-                <button class="sign_up">Sign up</button>
+                <button class="sign_up">Sign Up</button>
             </div>
         @else
             @if(Session::has('revert'))
