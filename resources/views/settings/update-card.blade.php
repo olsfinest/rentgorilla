@@ -8,13 +8,16 @@
 
 @section('content')
     <section class="content full admin">
-        <h1>Adjust Billing To Credit Card</h1>
-        <p>To change a plan or cease billing please edit your <a href="{{ route('changePlan') }}">Subscription</a></p>
-        <br>
-        <h1>Current Credit Card On File</h1>
+
         @if(Auth::user()->readyForBilling() && ! is_null(Auth::user()->last_four))
+			<h1>Adjust Billing To Credit Card</h1>
+			<p>To change a plan or cease billing please edit your <a href="{{ route('changePlan') }}">Subscription</a></p>
+			<br>
+			<h1>Current Credit Card On File</h1>
+		
             <p>**** **** **** {{ Auth::user()->last_four }}</p>
         @else
+			<h1>Current Credit Card On File</h1>
             <p>You have no credit card on file.</p><br/>
             <p class="billing-note">Visit our <a href="{{ route('changePlan') }}">Subscription</a> page, choose the plan to fit your needs and you will be prompted for a credit card after you select your subscription.</p>
         @endif
