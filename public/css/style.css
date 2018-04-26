@@ -170,7 +170,9 @@ pre {
 #signupmodal form input[type="submit"], #login form input[type="submit"] {
   padding: 0 .75em;
   line-height: 1em;
-  background: #74b164;
+  background-color: #74b164;
+  background-image:none;
+  border:0;
   color: white;
   text-align: center;
   width: 164px;
@@ -178,6 +180,8 @@ pre {
   margin: 1em auto;
   display: block;
   border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
   transition: .1s; }
 
 #signupmodal form input[type="submit"]:hover, #login form input[type="submit"]:hover {
@@ -196,7 +200,7 @@ pre {
   height: auto !important;
   position: relative;
   border: none !important;
-  overflow: visible; }
+  overflow: visible;margin-left:5%;margin-right:5%;}
   .ui-dialog.noTitle .ui-selectmenu-button {
     display: block;
     width: 100% !important;
@@ -283,6 +287,8 @@ pre {
   color: #74b164;
   margin: 0;
   font-size: .8em; }
+  
+.ui-dialog .social-login {margin-bottom:20px;}
 
 .ui-widget-overlay {
   opacity: 0.5 !important;
@@ -1931,7 +1937,7 @@ footer {
   .ui-dialog.noTitle {
     width: 100%;
     height: 100%;
-    max-width: 100%;
+    max-width: 90%;
     max-height: 100%;
     left: 0;
     top: 0; }

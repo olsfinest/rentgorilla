@@ -1,8 +1,7 @@
 @include('partials.header-logo-login-signup')
 <section id="signupmodal">
-    <h1>Move on up.</h1>
+    <h1>Sign Up</h1>
     <h2>It's really easy.</h2>
-    <img src="/img/escalator.png" alt="Escalator" width="42" height="34">
     <div id="signup_errors"></div><br>
     {!! Form::open(['route' => 'register', 'id' => 'signup_form']) !!}
         <input type="text" id="signup_first_name" name="first_name" placeholder="First Name" class="">
@@ -15,7 +14,7 @@
     <p><a href="/terms">Terms</a> |
         <a class="login" href="#" title="Login with your RentGorilla account">Login</a>
     </p>
-    <div>
+    <div class="social-login">
         <a style="color: white;" class="facebook no-margin" href="/login/facebook"><i class="fa fa-facebook"></i> Sign up with Facebook</a>
         <a style="color: white;" class="google" href="/login/google"><i class="fa fa-google"></i> Sign up with Google</a>
     </div>
@@ -30,7 +29,7 @@
         <input type="submit" value="Login">
     {!! Form::close() !!}
     <p><a href="/password/email">Forgot password</a> or <a class="sign_up" href="#">Sign up</a></p><br>
-    <div>
+    <div class="social-login">
         <a style="color: white;" class="facebook no-margin" href="/login/facebook"><i class="fa fa-facebook"></i> Login with Facebook</a>
         <a style="color: white;" class="google" href="/login/google"><i class="fa fa-google"></i> Login with Google</a>
     </div>
