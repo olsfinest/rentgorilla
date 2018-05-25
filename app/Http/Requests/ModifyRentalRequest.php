@@ -74,4 +74,11 @@ class ModifyRentalRequest extends Request {
         return $rules;
 	}
 
+	public function messages()
+    {
+        return [
+          'price.integer' => 'Please round up rent values to whole numbers, ie. 500, as opposed to 500.25',
+          'deposit.integer' => 'Please round up deposit values to whole numbers, ie. 500, as opposed to 500.25'
+        ];
+    }
 }

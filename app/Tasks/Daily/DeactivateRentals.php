@@ -40,7 +40,6 @@ class DeactivateRentals {
         $expiredUserIds = DB::table('users')
             ->select('id')
             ->where('confirmed', 1)
-            ->where('stripe_active', 0)
             ->where(function ($query) use ($days) {
                 $query->where(function ($query) {
                     $query->whereNotNull('trial_ends_at');
@@ -58,7 +57,7 @@ class DeactivateRentals {
         if(count($expiredUserIds)) {
            foreach($expiredUserIds as $id) {
                $user = $this->userRepository->find($id);
-               $this->rentalService->deactivateRentalsNow($user);
+               $this->rentalService->deactivateTrialNow($user);
            }
        }
     }

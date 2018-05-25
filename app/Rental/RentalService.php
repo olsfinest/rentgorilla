@@ -2,6 +2,7 @@
 
 use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Mailers\UserMailer;
+use RentGorilla\Plans\Plan;
 use RentGorilla\User;
 use Log;
 
@@ -64,12 +65,75 @@ class RentalService
      */
     public function deactivateRentalsNow(User $user)
     {
-        if($this->userHasActiveRentals($user)) {
-            $this->rentalRepository->deactivateAllForUser($user);
-            Log::info('User\'s active rentals deactivated after trial or subscription ended.', ['user_id' => $user->id]);
+        $this->rentalRepository->deactivateAllForUser($user);
+        Log::info('User\'s active rentals deactivated after subscription ended.', ['user_id' => $user->id]);
+        $this->mailer->sendRentalsDeactivated($user);
+    }
+
+    /**
+     * Deactivate all a given users rentals.
+     *
+     * @param User $user
+     */
+    public function deactivateTrialNow(User $user)
+    {
+        $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser($user);
+
+        if($activeRentalCount) {
+            if(! $user->subscribed()) {
+                $this->rentalRepository->deactivateAllForUser($user);
+            }
+            if($user->subscribed() && $this->usingFreeRental($user, $activeRentalCount)) {
+                $this->rentalRepository->downgradePlanCapacityForUser($user, $user->plan()->maximumListings());
+            }
         }
 
-        $this->mailer->sendRentalsDeactivated($user);
+        $this->mailer->sendFreeTrialOver($user);
+        Log::info('User\'s free trial ended.', ['user_id' => $user->id]);
+    }
+
+    public function enforceActiveRentalsCountOnSubscribe(User $user, Plan $plan)
+    {
+        $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser($user);
+
+        $isDowngrade = false;
+        $difference = 0;
+
+        if($activeRentalCount) {
+            if( ! $plan->unlimited() && $activeRentalCount > $plan->maximumListings()) {
+                $difference = $activeRentalCount - $plan->maximumListings();
+                $isDowngrade = true;
+                if($user->isEligibleForFreePlan()) {
+                    $this->rentalRepository->downgradePlanCapacityForUser($user, $plan->maximumListings() + 1);
+                } else {
+                    $this->rentalRepository->downgradePlanCapacityForUser($user, $plan->maximumListings());
+                }
+            }
+        }
+
+        return [$isDowngrade, $difference];
+    }
+
+    public function enforceActiveRentalsCountOnSwap(User $user, Plan $newPlan, $isDowngrade = false)
+    {
+        $difference = 0;
+        if($isDowngrade) {
+
+            $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser($user);
+
+            if($activeRentalCount) {
+                if( ! $newPlan->unlimited() && ($activeRentalCount > $newPlan->maximumListings())) {
+                    $difference = $activeRentalCount - $newPlan->maximumListings();
+                    if($user->isEligibleForFreePlan()) {
+                        $this->rentalRepository->downgradePlanCapacityForUser($user, $newPlan->maximumListings() + 1);
+                    } else {
+                        $this->rentalRepository->downgradePlanCapacityForUser($user, $newPlan->maximumListings());
+                    }
+                }
+            }
+        }
+
+        return [$isDowngrade, $difference];
     }
 
     /**
@@ -81,5 +145,15 @@ class RentalService
     private function userHasActiveRentals(User $user)
     {
         return $this->rentalRepository->getActiveRentalCountForUser($user) > 0;
+    }
+
+    /**
+     * @param User $user
+     * @param $activeRentalCount
+     * @return bool
+     */
+    private function usingFreeRental(User $user, $activeRentalCount)
+    {
+        return $activeRentalCount > $user->plan()->maximumListings();
     }
 }

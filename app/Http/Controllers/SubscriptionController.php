@@ -6,8 +6,8 @@ use RentGorilla\Http\Requests\SubscriptionRequest;
 use RentGorilla\Http\Requests\ApplyCouponRequest;
 use RentGorilla\Http\Requests\ChangePlanRequest;
 use RentGorilla\Http\Requests\UpdateCardRequest;
-use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Http\Controllers\Controller;
+use RentGorilla\Rental\RentalService;
 use RentGorilla\Mailers\UserMailer;
 use RentGorilla\Http\Requests;
 use Illuminate\Http\Request;
@@ -19,18 +19,22 @@ use Log;
 
 class SubscriptionController extends Controller {
 
-    protected $rentalRepository;
     /**
      * @var UserMailer
      */
     protected $mailer;
 
-    function __construct(RentalRepository $rentalRepository, UserMailer $mailer)
+    /**
+     * @var RentalService
+     */
+    protected $rentalService;
+
+    function __construct(UserMailer $mailer, RentalService $rentalService)
     {
         $this->middleware('auth');
         $this->middleware('sensitive');
-        $this->rentalRepository = $rentalRepository;
         $this->mailer = $mailer;
+        $this->rentalService = $rentalService;
     }
 
     public function showChangePlan()
@@ -157,17 +161,7 @@ class SubscriptionController extends Controller {
             return redirect()->back()->withErrors(['Stripe Error' => $e->getMessage()]);
         }
 
-        $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser(Auth::user());
-
-        $isDowngrade = false;
-
-        if($activeRentalCount) {
-            if ( ! $plan->unlimited() && $activeRentalCount > $plan->maximumListings()) {
-                $difference = $activeRentalCount - $plan->maximumListings();
-                $isDowngrade = true;
-                $this->rentalRepository->downgradePlanCapacityForUser(Auth::user(), $plan->maximumListings());
-            }
-        }
+        list($isDowngrade, $difference) = $this->rentalService->enforceActiveRentalsCountOnSubscribe(Auth::user(), $plan);
 
         $this->mailer->sendSubscriptionBegun(Auth::user(), $isDowngrade);
 
@@ -226,17 +220,7 @@ class SubscriptionController extends Controller {
 
         $isDowngrade = Subscription::isDowngrade($plan, $newPlan);
 
-        if($isDowngrade) {
-
-            $activeRentalCount = $this->rentalRepository->getActiveRentalCountForUser(Auth::user());
-
-            if($activeRentalCount) {
-                if ( ! $newPlan->unlimited() && $activeRentalCount > $newPlan->maximumListings()) {
-                    $difference = $activeRentalCount - $newPlan->maximumListings();
-                    $this->rentalRepository->downgradePlanCapacityForUser(Auth::user(), $newPlan->maximumListings());
-                }
-            }
-        }
+        list($isDowngrade, $difference) = $this->rentalService->enforceActiveRentalsCountOnSwap(Auth::user(), $newPlan, $isDowngrade);
 
         $this->mailer->sendSubscriptionChanged(Auth::user(), $isDowngrade);
         $this->clearCurrentPeriodEnd();
@@ -244,7 +228,10 @@ class SubscriptionController extends Controller {
         Log::info('Subscription swapped', ['user_id' => Auth::id(), 'new_plan' => $newPlan->id(), 'old_plan' =>  $plan->id()]);
 
         if($isDowngrade && ! empty($difference)) {
-            return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription plan has been changed! We had to deactivate ' . $difference . ' of your properties as your new plan\'s capacity is ' . $newPlan->maximumListings());
+            return redirect()->route('changePlan')->with('flash:success',
+                sprintf('Thank you! Your subscription plan has been changed! We had to deactivate %s of your properties as your new plan\'s capacity is %s',
+                    $difference,
+                    $newPlan->maximumListings()));
         }
 
         return redirect()->route('changePlan')->with('flash:success', 'Thank you! Your subscription has been changed!');

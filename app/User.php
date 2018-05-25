@@ -136,6 +136,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->created_at->addDays(config('plans.freeForXDays'));
     }
 
+    public function getFreePlanExpiryDays()
+    {
+        return $this->getFreePlanExpiryDate()->diffInDays() + 1;
+    }
+
     public function getPointsMonetaryValue()
     {
         return number_format($this->getPointsReadyToRedeem() / self::POINTS_PER_DOLLAR, 2);
@@ -226,7 +231,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
 
         // activate properties up to the plan's capacity for active subscribers
-        if ($this->subscribed() && ($this->plan()->unlimited() || $activeRentalCountForUser < $this->plan()->maximumListings())) {
+        if ($this->subscribed() && ($this->plan()->unlimited() || ($this->isEligibleForFreePlan() && $activeRentalCountForUser < $this->plan()->maximumListings() + 1 ) || ($activeRentalCountForUser < $this->plan()->maximumListings()))) {
             return true;
         }
 
@@ -245,6 +250,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
     }
 
+    /**
+     * @return \RentGorilla\Plans\Plan
+     */
     public function plan()
     {
         return Subscription::plan($this->getStripePlan());

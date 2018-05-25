@@ -256,8 +256,6 @@ class EloquentRentalRepository implements RentalRepository
         return $rental->user;
     }
 
-
-
     public function queueRental(Rental $rental)
     {
         $rental->queued = 1;
@@ -296,16 +294,15 @@ class EloquentRentalRepository implements RentalRepository
 
     public function downgradePlanCapacityForUser(User $user, $capacity)
     {
+        $activeRentals = $user->rentals()->where('active', 1)->orderBy('edited_at', 'DESC')->lists('id')->toArray();
 
-        Log::info('active rentals downgraded to '. $capacity, ['user_id' => $user->id]);
-
-        // toggle them all off first ...
-        DB::table('rentals')
-            ->where('user_id', $user->id)
-            ->update(['active' => 0]);
-
-        // then activate only up to the new plans capacity
-        return DB::update(DB::raw("UPDATE rentals SET active = 1 WHERE user_id = {$user->id} ORDER BY edited_at DESC LIMIT {$capacity}"));
+        if(count($activeRentals)) {
+            $rentalsToDeactivate = array_slice($activeRentals, $capacity);
+            if(count($rentalsToDeactivate)) {
+                DB::table('rentals')->whereIn('id', $rentalsToDeactivate)->update(['active' => 0]);
+                Log::info('active rentals downgraded to ' . $capacity, ['user_id' => $user->id]);
+            }
+        }
     }
 
     public function updateSearchViews($rentalIds)

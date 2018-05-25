@@ -207,8 +207,7 @@ class UserMailer extends Mailer {
 
         $data = [
             'name' => $user->first_name,
-            'isGrandfathered' => $user->isGrandfathered(),
-            'daysRemaining' => $user->getFreePlanExpiryDate()->diffInDays()
+            'isGrandfathered' => $user->isGrandfathered()
         ];
 
         $subject = 'RentGorilla.ca :: Plan Expired';
@@ -271,6 +270,20 @@ class UserMailer extends Mailer {
         ];
 
         $subject = sprintf('RentGorilla.ca :: Please Update Availability For %s', $address);
+
+        return $this->sendTo($user, $subject, $view, $data);
+    }
+
+    public function sendFreeTrialOver(User $user)
+    {
+        $view = 'emails.user.trial-over';
+
+        $data = [
+            'name' => $user->first_name,
+            'subscribed' => $user->subscribed()
+        ];
+
+        $subject = 'RentGorilla.ca :: Free Trial Expired';
 
         return $this->sendTo($user, $subject, $view, $data);
     }

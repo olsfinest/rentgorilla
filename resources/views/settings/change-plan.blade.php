@@ -11,7 +11,7 @@
                 <h1><i class="fa fa-info-circle"></i> Free Plan</h1>
                 <p>
                     <strong>Lucky you! You're on a Free Plan with RentGorilla.</strong><br/>
-                    During your free plan period ({{  Auth::user()->getFreePlanExpiryDate()->diffInDays() }} days remaining) you can list a property on us!
+                    During your free plan period ({{  Auth::user()->getFreePlanExpiryDays() }} days remaining) you can list a property on us!
                     <br/>
                 </p>
                 <p>

@@ -25,7 +25,7 @@
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if(jqXHR.responseJSON.message) {
-                    showModal(jqXHR.responseJSON.message);
+                    showModal(jqXHR.responseJSON.message, '/admin/subscription/plan', 'Manage Subscription');
                 }
             }
         });

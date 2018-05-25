@@ -285,6 +285,11 @@
                     <a class="property-add" href="{{ route('changePlan') }}"><span class="fa fa-plus"></span> Sign Up</a>
                 </tr>
             @endif
+            @if(Auth::user()->isEligibleForFreePlan())
+                <tr>
+                    <td colspan="2">Free Listing Expires in {{ Auth::user()->getFreePlanExpiryDays() }} {{ str_plural('Day', Auth::user()->getFreePlanExpiryDays()) }}</td>
+                </tr>
+            @endif
             </table>
             </section>
             <!-- achievements / gamification -->
@@ -308,7 +313,7 @@
     </section>
 @stop
 @section('footer')
-<script src="/js/settings-rental-list.js"></script>
+<script src="/js/settings-rental-list.js?v=1"></script>
 <script src="/js/cycle.js"></script>
 <script>
     $('.fa-close').click(function(){
