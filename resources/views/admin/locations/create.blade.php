@@ -32,7 +32,7 @@
 @stop
 
 @section('footer')
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}"></script>
     <script type="text/javascript">
 
         $('#create_location_form').submit(function(event) {

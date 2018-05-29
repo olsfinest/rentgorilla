@@ -324,7 +324,7 @@
 @endsection
 
 @section('footer')
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}"></script>
     <script src="/js/cycle.js"></script>
     <script language="JavaScript">
         var rental_id = "{{ $rental->uuid }}";

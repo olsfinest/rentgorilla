@@ -129,6 +129,6 @@
     </label>
     {!! Form::submit($submitButtonText) !!}
 @section('footer')
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}"></script>
     <script src="/js/modify-rental.js?v=1"></script>
 @endsection
