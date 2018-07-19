@@ -24,6 +24,8 @@ class StripeWebhookController extends WebhookController {
 
     protected function handleCustomerSubscriptionDeleted(array $payload)
     {
+        return new Response('Webhook Handled', 200);
+
         $billable = $this->getBillable($payload['data']['object']['customer']);
 
         if ($billable) {
