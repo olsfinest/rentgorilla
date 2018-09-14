@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('head')
-    <link rel="stylesheet" type="text/css" href="/css/slider.css">
+    <link rel="stylesheet" type="text/css" href="/css/slider.css?v=2">
 @endsection
 @section('content')
     @if($availablePromotionCount = count($availablePromotions))
@@ -63,8 +63,8 @@
                 <h1>{{ $rental->street_address }}<span class="neighborhood">{{ $rental->location->city . ', ' . $rental->location->province }} <a class="button" style="margin-left: 10px; margin-bottom: 0; margin-top: 0;" href="{{ route('rental.preview', $rental->uuid) }}"> Preview</a></span></h1>
                     <nav>
                     <ul>
-                        <li><label class="switch">
-                            <input id="{{ $rental->uuid }}" class="activity" type="checkbox" {{ $rental->isActive() ? 'checked' : ''}}>
+                        <li><span class="slider-text {{ $rental->isActive() ? 'slider-text-active' : 'slider-text-inactive' }}" style="position: relative; bottom: 10px;">{{ $rental->isActive() ? 'ACTIVE' : 'INACTIVE' }}</span> <label class="switch">
+                                <input id="{{ $rental->uuid }}" class="activity" type="checkbox" {{ $rental->isActive() ? 'checked' : ''}}>
                             <span class="slider round"></span>
                             </label>
                         </li>
@@ -320,7 +320,7 @@
     </section>
 @stop
 @section('footer')
-<script src="/js/settings-rental-list.js?v=3"></script>
+<script src="/js/settings-rental-list.js?v=4"></script>
 <script src="/js/cycle.js"></script>
 <script>
     $('.fa-close').click(function(){

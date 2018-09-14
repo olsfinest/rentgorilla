@@ -17,7 +17,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #FF0000;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -55,4 +55,12 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.slider-text-active {
+    color: #74B164;
+}
+
+.slider-text-inactive {
+    color: #FF0000;
 }
