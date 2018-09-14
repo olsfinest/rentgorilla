@@ -170,4 +170,14 @@ class Rental extends Model {
         return $this->free_promotion === 0;
     }
 
+    public function isRoom()
+    {
+        return $this->isType('room');
+    }
+
+    public function isType($type)
+    {
+        return $this->type === $type;
+    }
+
 }

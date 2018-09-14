@@ -106,6 +106,10 @@ class RentalController extends Controller {
            return redirect()->route('rental.index')->with('flash:success', 'Sorry, your property must be active in order to promote it.');
        }
 
+        if($rental->isPromoted()) {
+            return redirect()->route('rental.index')->with('flash:success', 'Sorry, that property is already promoted.');
+        }
+
 
         try {
 
@@ -155,6 +159,10 @@ class RentalController extends Controller {
 
         if( ! $rental->isActive()) {
             return redirect()->route('rental.index')->with('flash:success', 'Sorry, your property must be active in order to promote it.');
+        }
+
+        if($rental->isPromoted()) {
+            return redirect()->route('rental.index')->with('flash:success', 'Sorry, that property is already promoted.');
         }
 
         if(Auth::user()->points < config('promotion.points')) {

@@ -46,6 +46,7 @@ class CreateRentalCommandHandler {
         $rental->baths = $command->baths;
         $rental->beds = $command->beds;
         $rental->price = $command->price;
+        $rental->per_room = $command->per_room ? 1 : 0;
         $rental->deposit = $command->deposit;
         $rental->laundry = $command->laundry;
         $rental->disability_access = $command->disability_access;

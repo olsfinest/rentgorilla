@@ -30,6 +30,7 @@ class ModifyRentalRequest extends Request {
             'type' => 'required|in:' . implode(',', array_keys(Config::get('rentals.type'))),
             'beds' => 'required|integer',
             'price' => 'required|integer',
+            'per_room' => 'boolean',
             'deposit' => 'required|integer',
             'laundry' => 'required|in:' . implode(',', array_keys(Config::get('rentals.laundry'))),
             'disability_access' => 'required|boolean',

@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('head')
+    <link rel="stylesheet" type="text/css" href="/css/slider.css">
+@endsection
 @section('content')
     @if($availablePromotionCount = count($availablePromotions))
     <section class="promotedCta">
@@ -57,13 +60,17 @@
             @if($rentals->count())
             @foreach($rentals as $rental)
                 <article class="property"> <!-- article.property - 1 per listing -->
-                <h1>{{ $rental->street_address }}<span class="neighborhood">{{ $rental->location->city . ', ' . $rental->location->province }}</span></h1>
-                <nav>
+                <h1>{{ $rental->street_address }}<span class="neighborhood">{{ $rental->location->city . ', ' . $rental->location->province }} <a class="button" style="margin-left: 10px; margin-bottom: 0; margin-top: 0;" href="{{ route('rental.preview', $rental->uuid) }}"> Preview</a></span></h1>
+                    <nav>
                     <ul>
-                        <li><a class="preview" href="{{ route('rental.preview', $rental->uuid) }}">Preview</a></li>
-                        <li><a id="{{ $rental->uuid }}" class="activity {!! $rental->isActive() ? 'on' : 'off' !!}">{!! $rental->isActive() ? 'Active' : 'Inactive' !!}</a></li>
+                        <li><label class="switch">
+                            <input id="{{ $rental->uuid }}" class="activity" type="checkbox" {{ $rental->isActive() ? 'checked' : ''}}>
+                            <span class="slider round"></span>
+                            </label>
+                        </li>
                     </ul>
                 </nav>
+
                 <section class="overview">
                     <a href="{{ route('rental.photos.index', $rental->uuid) }}"  class="btn btn-primary">
                         <section class="photos cycle-slideshow">
@@ -84,7 +91,7 @@
                     <table>
                         <tr>
                             <td><span class="fa fa-dollar"></span>Monthly Rent</td>
-                            <td>${{ $rental->price }} per month</td>
+                            <td>${{ $rental->price }} {{ $rental->per_room || $rental->isRoom() ? 'per room' : ''}} per month</td>
                         </tr>
                         <tr>
                             <td><span class="fa fa-calendar"></span>Date Available</td>
@@ -313,7 +320,7 @@
     </section>
 @stop
 @section('footer')
-<script src="/js/settings-rental-list.js?v=1"></script>
+<script src="/js/settings-rental-list.js?v=3"></script>
 <script src="/js/cycle.js"></script>
 <script>
     $('.fa-close').click(function(){

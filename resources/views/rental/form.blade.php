@@ -33,6 +33,7 @@
         </label>
         <label for="price" class="required half right">Monthly Rent <i class="fa fa-info-circle" title="This value should reflect the total unit cost. Please note in your description if the price is per room."></i>
             {!! Form::text('price', null, ['class' => 'form-control', 'placeholder' => 'E.g., 500']) !!}
+            Per Room? {!! Form::checkbox('per_room', 1, null) !!}
         </label>
         <label for="lease" class="required half left">Lease (months)
             {!! Form::text('lease', null, ['class' => 'form-control', 'placeholder' => 'E.g., 12']) !!}

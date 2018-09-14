@@ -199,7 +199,7 @@
         </article>
         <aside class="listing_sidebar">
             <section class="listing_rent">
-                <h1>${{ $rental->price }} per month</h1>
+                <h1>${{ $rental->price }} {{ $rental->per_room || $rental->isRoom() ? 'per room' : '' }} per month</h1>
 
                 <h3><a href="#">Contact Now</a></h3>
 

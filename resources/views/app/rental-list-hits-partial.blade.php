@@ -19,7 +19,7 @@
         <span class="progress"></span>
         <span class="availability">Available: {!! $rental->available_at->format('M jS, Y') !!}</span>
         <ul class="listing_attributes">
-            <li class="price">${!! $rental->price !!}</li>
+            <li class="price">${!! $rental->price !!}{{ $rental->per_room || $rental->isRoom() ? ' per room' : '' }}</li>
             <li class="address">{!! str_limit($rental->street_address, 20) !!}</li>
             <li class="description">{!! ucwords($rental->type) !!} - {!! $rental->beds !!} {!! $rental->beds == 1 ? 'Bed' : 'Beds' !!}</li>
         </ul>

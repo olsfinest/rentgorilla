@@ -15,6 +15,7 @@ class EditRentalCommand extends Command {
     public $baths;
     public $beds;
     public $price;
+    public $per_room;
     public $deposit;
     public $laundry;
     public $disability_access;
@@ -35,7 +36,7 @@ class EditRentalCommand extends Command {
     public $postal_code;
     public $active;
 
-    function __construct($id, $street_address, $city, $county, $province, $type, $pets, $parking, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking, $utilities_included, $heat_included, $furnished, $available, $lat, $lng, $lease, $description, $video, $active = null, $square_footage = null, $feature_list = null, $appliance_list = null, $heat_list = null, $postal_code = null)
+    function __construct($id, $street_address, $city, $county, $province, $type, $pets, $parking, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking, $utilities_included, $heat_included, $furnished, $available, $lat, $lng, $lease, $description, $video, $per_room = null, $active = null, $square_footage = null, $feature_list = null, $appliance_list = null, $heat_list = null, $postal_code = null)
     {
         $this->id = $id;
         $this->street_address = $street_address;
@@ -48,6 +49,7 @@ class EditRentalCommand extends Command {
         $this->baths = $baths;
         $this->beds = $beds;
         $this->price = $price;
+        $this->per_room = $per_room;
         $this->deposit = $deposit;
         $this->laundry = $laundry;
         $this->disability_access = $disability_access;
