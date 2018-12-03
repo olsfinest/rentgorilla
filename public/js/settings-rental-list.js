@@ -21,9 +21,16 @@
                     slider_text.text('INACTIVE');
                     slider_text.removeClass('slider-text-active');
                     slider_text.addClass('slider-text-inactive');
+
+                    if(data.activeRentalCount === 0) {
+                        showModal('Please note that deactivating all of your listings does not prevent future billing.</p><p>To avoid future billing, you may adjust your subscription.',
+                            '/admin/subscription/plan',
+                            'Manage Subscription');
+                    }
                 }
 
                 $('#activeRentalCount').html(data.activeRentalCount);
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if(jqXHR.responseJSON.message) {

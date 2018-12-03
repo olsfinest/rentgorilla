@@ -320,7 +320,7 @@
     </section>
 @stop
 @section('footer')
-<script src="/js/settings-rental-list.js?v=4"></script>
+<script src="/js/settings-rental-list.js?v=5"></script>
 <script src="/js/cycle.js"></script>
 <script>
     $('.fa-close').click(function(){
