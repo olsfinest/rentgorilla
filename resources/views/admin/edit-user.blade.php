@@ -9,6 +9,7 @@
             <img class="settingsPhoto" src="{{ $profilePhoto }}">
         @endif
         <ul>
+            <li>User ID: {{ $user->id }}</li>
             <li>Is an Admin: {{ $user->isAdmin() ? 'Yes' : 'No' }}</li>
             <li>Joined: {{ $user->created_at }} ({{ $user->created_at->diffForHumans() }})</li>
             <li>Confirmed: {{ $user->confirmed ? 'Yes' : 'No' }}</li>
