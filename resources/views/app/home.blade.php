@@ -9,13 +9,13 @@
     <section class="content full">
         <h1>find your way home&hellip;</h1>
         <label>
-            <select name="location" id="location" style="width: 100%;">
+            <select name="location" id="location" style="width: 100%; visibility: hidden;">
                 @foreach($locations as $location)
                     <option {!! $location['rentalsCount'] > 0 ? 'data-area="false"' : 'data-area="true"' !!} value="{{ $location['slug'] }}">{{ $location['city'] }}, {{ $location['province'] }} ({{ $location['rentalsCount'] > 0 ? $location['rentalsCount'] .  ' Listings' : 'Area' }})</option>
                 @endforeach
             </select>
             <br>
-            <select name="area" id="area" style="width: 100%">
+            <select name="area" id="area" style="width: 100%; visibility: hidden;">
             </select>
         </label>
         <div style="text-align: center; margin-top: 10px;">
