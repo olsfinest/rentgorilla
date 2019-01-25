@@ -6,13 +6,16 @@
     <section class="content full admin">
         <h1>Locations and Landing Pages</h1>
         <a href="{{ route('admin.locations.create') }}" class="button">Create a New Location</a>
+        <a href="{{ route('admin.areas.create') }}" class="button">Create a New Area</a>
+        <a href="{{ route('admin.areas.index') }}" class="button">List All Areas</a>
         @if($locations->count())
             <table>
-                <thead><th>Location</th><th>Edit Location</th><th>Landing Page</th><th>Slides</th></thead>
+                <thead><th>Location</th><th>Area</th></th><th>Edit Location</th><th>Landing Page</th><th>Slides</th></thead>
                 <tbody>
                     @foreach($locations as $location)
                         <tr>
                             <td>{{ $location->cityAndProvince() }}</td>
+                            <td>{{ is_null($location->area) ? 'n/a' : $location->area->nameAndProvince() }}</td>
                             <td><a href="{{ route('admin.locations.edit', $location->id) }}" class="button">Edit</a></td>
                             @if(is_null($location->landing_page_id))
                                 <td><a href="{{ route('admin.locations.landing-page.create', $location->id) }}" class="button">Create</a></td>

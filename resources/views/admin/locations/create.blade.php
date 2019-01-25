@@ -6,7 +6,8 @@
     <section class="content full admin">
         <h1>Create a New Location</h1>
         <a href="{{ route('admin.locations.index') }}" class="button">List All Locations</a>
-
+        <br>
+        <br>
         @include('errors.error-list')
         {!! Form::open(['route' => 'admin.locations.store', 'id' => 'create_location_form' ]) !!}
 
@@ -22,7 +23,10 @@
             {!! Form::text('zoom', '12') !!}
         </label>
 
-        <br>
+        <label for="area_id">Area
+            {!! Form::select('area_id', $areas, null, ['id' => 'area_id', 'autocomplete' => 'off']) !!}
+        </label>
+
         <br>
 
         {!! Form::submit('Create Location') !!}

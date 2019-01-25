@@ -96,6 +96,10 @@ class AppServiceProvider extends ServiceProvider {
             'RentGorilla\Repositories\EloquentAppliancesRepository'
         );
 
+        $this->app->bind(
+            'RentGorilla\Repositories\AreasRepository',
+            'RentGorilla\Repositories\EloquentAreasRepository'
+        );
 	}
 
 }

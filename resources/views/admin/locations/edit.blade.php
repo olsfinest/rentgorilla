@@ -15,6 +15,10 @@
             {!! Form::text('zoom', null) !!}
         </label>
 
+        <label for="area_id">Area
+            {!! Form::select('area_id', $areas, null, ['id' => 'area_id', 'autocomplete' => 'off']) !!}
+        </label>
+
         {!! Form::submit('Update') !!}
 
         {!! Form::close() !!}

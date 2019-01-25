@@ -106,7 +106,7 @@ class EloquentLocationRepository implements LocationRepository {
 
     public function getAllPaginated($perPage)
     {
-        return Location::orderBy('city')->paginate($perPage);
+        return Location::with('area')->orderBy('city')->paginate($perPage);
     }
 
     public function fetchById($id)

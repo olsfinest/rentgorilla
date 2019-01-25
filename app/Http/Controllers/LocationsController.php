@@ -7,6 +7,7 @@ use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
 use RentGorilla\Http\Requests\CreateLocationRequest;
 use RentGorilla\Http\Requests\EditLocationRequest;
+use RentGorilla\Repositories\AreasRepository;
 use RentGorilla\Repositories\LocationRepository;
 
 class LocationsController extends Controller
@@ -15,11 +16,16 @@ class LocationsController extends Controller
      * @var LocationRepository
      */
     private $locationRepository;
+    /**
+     * @var AreasRepository
+     */
+    private $areasRepository;
 
 
-    public function __construct(LocationRepository $locationRepository)
+    public function __construct(LocationRepository $locationRepository, AreasRepository $areasRepository)
     {
         $this->locationRepository = $locationRepository;
+        $this->areasRepository = $areasRepository;
         $this->middleware('admin');
     }
 
@@ -43,13 +49,15 @@ class LocationsController extends Controller
      */
     public function create()
     {
-        return view('admin.locations.create');
+        $areas = $this->areasRepository->fetchForSelect();
+
+        return view('admin.locations.create', compact('areas'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request|CreateLocationRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreateLocationRequest $request)
@@ -60,6 +68,8 @@ class LocationsController extends Controller
         $location = $this->locationRepository->fetchById($locationId);
 
         $location->zoom = $request->zoom;
+
+        $location->area_id = $request->area_id === "" ? null : $request->area_id;
 
         $location->save();
 
@@ -88,7 +98,9 @@ class LocationsController extends Controller
     {
         $location = $this->locationRepository->fetchById($id);
 
-        return view('admin.locations.edit', compact('location'));
+        $areas = $this->areasRepository->fetchForSelect();
+
+        return view('admin.locations.edit', compact('location', 'areas'));
     }
 
     /**
@@ -100,9 +112,12 @@ class LocationsController extends Controller
      */
     public function update(EditLocationRequest $request, $id)
     {
+
         $location = $this->locationRepository->fetchById($id);
 
         $location->zoom = $request->zoom;
+
+        $location->area_id = $request->area_id === "" ? null : $request->area_id;
 
         $location->save();
 

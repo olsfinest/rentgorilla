@@ -1,6 +1,6 @@
 <?php namespace RentGorilla\Http\Controllers;
 
-use RentGorilla\Location;
+use RentGorilla\Area;
 use RentGorilla\Repositories\LocationRepository;
 use RentGorilla\Repositories\RentalRepository;
 use RentGorilla\Http\Controllers\Controller;
@@ -8,6 +8,7 @@ use RentGorilla\Repositories\UserRepository;
 use RentGorilla\Events\SearchWasInitiated;
 use RentGorilla\Http\Requests;
 use Illuminate\Http\Request;
+use RentGorilla\Location;
 use RentGorilla\Photo;
 use Response;
 use Session;
@@ -32,14 +33,33 @@ class AppController extends Controller {
 
     public function showHome()
     {
+        $areas = Area::selectRaw('name as city, slug, province, 0 as rentalsCount')
+            ->whereHas('locations.rentals', function ($query) {
+                $query->where('active', 1);
+            })->get()->toArray();
+
         $locations = Location::leftJoin('rentals', 'rentals.location_id', '=', 'locations.id')
-            ->selectRaw('locations.*, count(*) as rentalsCount')
+            ->selectRaw('locations.city, locations.slug, locations.province, count(*) as rentalsCount')
+            ->where('rentals.active', 1)
+            ->orderBy('locations.city')
+            ->groupBy('locations.id')
+            ->get()->toArray();
+
+        $locations = array_merge($areas, $locations);
+
+        return view('app.home', compact('locations'));
+    }
+
+    public function getLocationsForArea($id)
+    {
+        return Location::leftJoin('areas', 'locations.area_id', '=', 'areas.id')
+            ->leftJoin('rentals', 'rentals.location_id', '=', 'locations.id')
+            ->selectRaw('locations.city, locations.slug, locations.province, count(*) as rentalsCount')
+            ->where('areas.slug', $id)
             ->where('rentals.active', 1)
             ->orderBy('locations.city')
             ->groupBy('locations.id')
             ->get();
-
-        return view('app.home', compact('locations'));
     }
 
     public function showTerms()

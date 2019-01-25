@@ -8,6 +8,11 @@ class Location extends Model
 {
     public $guarded = ['id'];
 
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
+
     public function rentals()
     {
         return $this->hasMany('RentGorilla\Rental');

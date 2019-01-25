@@ -99,6 +99,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('locations', 'LocationsController');
 });
 
+$router->get('admin/areas', ['as' => 'admin.areas.index', 'uses' => 'AreasController@index']);
+$router->post('admin/areas', ['as' => 'admin.areas.store', 'uses' => 'AreasController@store']);
+$router->get('admin/areas/create', ['as' => 'admin.areas.create', 'uses' => 'AreasController@create']);
+$router->get('admin/areas/{area}', ['as' => 'admin.areas.show', 'uses' => 'AreasController@show']);
+$router->patch('admin/areas/{area}', ['as' => 'admin.areas.update', 'uses' => 'AreasController@update']);
+$router->delete('admin/areas/{area}', ['as' => 'admin.areas.destroy', 'uses' => 'AreasController@destroy']);
+$router->get('admin/areas/{area}/edit', ['as' => 'admin.areas.edit', 'uses' => 'AreasController@edit']);
+$router->get('admin/areas/{area}/confirm-delete', ['as' => 'admin.areas.confirm-delete', 'uses' => 'AreasController@confirmDelete']);
+
 $router->post('admin/slides/save-photo-order', ['as' => 'slide.photoOrder', 'uses' => 'LandingPageController@savePhotoOrder']);
 $router->get('admin/slides/{slide_id}', ['as' => 'slide.edit', 'uses' => 'LandingPageController@editSlide']);
 $router->get('admin/slides/{slide_id}/delete', ['as' => 'slide.confirm-delete', 'uses' => 'LandingPageController@confirmDeleteSlide']);
@@ -115,6 +124,8 @@ $router->post('clearSearch', ['as' => 'clearSearch', 'uses' => 'AppController@cl
 
 # AJAX
 $router->get('rentals', 'AppController@getRentalList');
+# AJAX
+$router->get('areas/locations/{area}', 'AppController@getLocationsForArea');
 # AJAX
 $router->get('markers', 'AppController@getMarkers');
 # AJAX
