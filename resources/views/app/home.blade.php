@@ -10,15 +10,15 @@
         <h1>find your way home&hellip;</h1>
         <label>
             <select name="location" id="location" style="width: 100%; visibility: hidden;">
+                @foreach($locations as $location)
+                    <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount }})</option>
+                @endforeach
                 @foreach($areas as $area)
                     <optgroup label="{{ $area->name }}, {{ $area->province }} Area">
                         @foreach($area->locations as $location)
                             <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount }})</option>
                         @endforeach
                     </optgroup>
-                @endforeach
-                @foreach($locations as $location)
-                    <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount }})</option>
                 @endforeach
             </select>
         </label>
