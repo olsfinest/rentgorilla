@@ -18,6 +18,26 @@ class Location extends Model
         return $this->hasMany('RentGorilla\Rental');
     }
 
+    public function rentalsCount()
+    {
+        return $this->hasOne('RentGorilla\Rental')
+            ->where('active', 1)
+            ->selectRaw('location_id, count(*) as aggregate')
+            ->groupBy('location_id');
+    }
+
+    public function getRentalsCountAttribute()
+    {
+        // if relation is not loaded already, let's do it first
+        if ( ! array_key_exists('rentalsCount', $this->relations))
+            $this->load('rentalsCount');
+
+        $related = $this->getRelation('rentalsCount');
+
+        // then return the count directly
+        return ($related) ? (int) $related->aggregate : 0;
+    }
+
     public function queuedRentals()
     {
         return $this->rentals()->where(['queued' => 1])->orderBy('queued_at');

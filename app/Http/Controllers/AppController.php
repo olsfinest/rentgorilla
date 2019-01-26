@@ -33,33 +33,20 @@ class AppController extends Controller {
 
     public function showHome()
     {
-        $areas = Area::selectRaw('name as city, slug, province, 0 as rentalsCount')
+        $areas = Area::with('locations', 'locations.rentalsCount')
             ->whereHas('locations.rentals', function ($query) {
                 $query->where('active', 1);
-            })->get()->toArray();
-
-        $locations = Location::leftJoin('rentals', 'rentals.location_id', '=', 'locations.id')
-            ->selectRaw('locations.city, locations.slug, locations.province, count(*) as rentalsCount')
-            ->where('rentals.active', 1)
-            ->orderBy('locations.city')
-            ->groupBy('locations.id')
-            ->get()->toArray();
-
-        $locations = array_merge($areas, $locations);
-
-        return view('app.home', compact('locations'));
-    }
-
-    public function getLocationsForArea($id)
-    {
-        return Location::leftJoin('areas', 'locations.area_id', '=', 'areas.id')
-            ->leftJoin('rentals', 'rentals.location_id', '=', 'locations.id')
-            ->selectRaw('locations.city, locations.slug, locations.province, count(*) as rentalsCount')
-            ->where('areas.slug', $id)
-            ->where('rentals.active', 1)
-            ->orderBy('locations.city')
-            ->groupBy('locations.id')
+            })->orderBy('name')
             ->get();
+
+        $locations = Location::with('rentalsCount')
+            ->whereHas('rentals', function ($query) {
+                $query->where('active', 1);
+            })->whereNull('area_id')
+            ->orderBy('city')
+            ->get();
+
+        return view('app.home', compact('areas', 'locations'));
     }
 
     public function showTerms()

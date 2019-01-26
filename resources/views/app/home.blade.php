@@ -10,12 +10,16 @@
         <h1>find your way home&hellip;</h1>
         <label>
             <select name="location" id="location" style="width: 100%; visibility: hidden;">
-                @foreach($locations as $location)
-                    <option {!! $location['rentalsCount'] > 0 ? 'data-area="false"' : 'data-area="true"' !!} value="{{ $location['slug'] }}">{{ $location['city'] }}, {{ $location['province'] }} ({{ $location['rentalsCount'] > 0 ? $location['rentalsCount'] .  ' Listings' : 'Area' }})</option>
+                @foreach($areas as $area)
+                    <optgroup label="{{ $area->name }}, {{ $area->province }} Area">
+                        @foreach($area->locations as $location)
+                            <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount }})</option>
+                        @endforeach
+                    </optgroup>
                 @endforeach
-            </select>
-            <br>
-            <select name="area" id="area" style="width: 100%; visibility: hidden;">
+                @foreach($locations as $location)
+                    <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount }})</option>
+                @endforeach
             </select>
         </label>
         <div style="text-align: center; margin-top: 10px;">
@@ -62,57 +66,13 @@
             minimumResultsForSearch: Infinity
         });
 
-        var $area = $('#area').select2({
-            minimumResultsForSearch: Infinity
-        });
-
-        $area.next(".select2-container").hide();
-
-        $location.on("select2:select", function (e) {
-            if($location.find(":selected").data("area")) {
-                $area.empty().trigger('change'); //clear all
-                $.ajax({
-                    type: 'GET',
-                    url: '/areas/locations/' + $location.val()
-                }).then(function (data) {
-                    $area.empty().trigger('change'); //clear all
-                    $.each(data, function(index, item) {
-                        // create the option and append to Select2
-                        var option = new Option(item.city + ', ' + item.province + ' (' + item.rentalsCount + ')', item.slug, true, true);
-                        $area.append(option).trigger('change');
-                    });
-
-                    // manually trigger the `select2:select` event
-                    $area.trigger({
-                        type: 'select2:select',
-                        params: {
-                            data: data
-                        }
-                    });
-                });
-
-                $area.next(".select2-container").show();
-            } else {
-                $area.next(".select2-container").hide();
-            }
-        });
-
         $('#listing-search').on("click", function(e) {
-            if($location.find(":selected").data("area")) {
-                window.location.href = '/list/' + $('#area').val();
-            } else {
-                window.location.href = '/list/' + $('#location').val();
-            }
+            window.location.href = '/list/' + $location.val();
         });
 
         $('#map-search').on("click", function(e) {
-            if($location.find(":selected").data("area")) {
-                window.location.href = '/map/' + $('#area').val();
-            } else {
-                window.location.href = '/map/' + $('#location').val();
-            }
+            window.location.href = '/map/' + $location.val();
         });
 
-        $location.trigger('select2:select');
     </script>
 @endsection

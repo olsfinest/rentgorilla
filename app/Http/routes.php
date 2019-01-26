@@ -125,8 +125,6 @@ $router->post('clearSearch', ['as' => 'clearSearch', 'uses' => 'AppController@cl
 # AJAX
 $router->get('rentals', 'AppController@getRentalList');
 # AJAX
-$router->get('areas/locations/{area}', 'AppController@getLocationsForArea');
-# AJAX
 $router->get('markers', 'AppController@getMarkers');
 # AJAX
 $router->get('map-list', 'AppController@getRentalListForMap');
