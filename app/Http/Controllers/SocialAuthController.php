@@ -70,19 +70,19 @@ class SocialAuthController extends Controller
         $user = User::where(['provider_id' => $socialite->getId(), 'provider' => 'facebook'])->first();
 
         if($user) {
-            $user = $this->updateSocialUser($user, $socialite->user['first_name'], $socialite->user['last_name'], $socialite->getEmail(), $socialite->getAvatar());
-            return $this->logInUserAndRedirect($user, 'You have been logged in via Facebook');
 
+            $user = $this->updateSocialUser($user, $socialite->user['first_name'], $socialite->user['last_name'], $socialite->getEmail(), $socialite->getAvatar());
+
+            return $this->logInUserAndRedirect($user, 'You have been logged in via Facebook');
         }
 
         $user = User::where(['provider_id' => $socialite->getId(), 'provider' => 'google'])->first();
 
         if($user) {
 
-            $user = $this->updateSocialUser($user, $socialite->user['name']['givenName'], $socialite->user['name']['familyName'], $socialite->getEmail(), $socialite->getAvatar());
+            $user = $this->updateSocialUser($user, $socialite->user['given_name'], $socialite->user['family_name'], $socialite->getEmail(), $socialite->getAvatar());
 
             return $this->logInUserAndRedirect($user, 'You have been logged in via Google');
-
         }
 
         // no social account found, I'm going to need you to go ahead and create a new social user, that'd be great
@@ -97,7 +97,7 @@ class SocialAuthController extends Controller
 
         if($provider === 'google') {
 
-            $user = $this->createSocialUser('google', $socialite->getId(), $socialite->user['name']['givenName'], $socialite->user['name']['familyName'], $socialite->getEmail(), $socialite->getAvatar());
+            $user = $this->createSocialUser('google', $socialite->getId(), $socialite->user['given_name'], $socialite->user['family_name'], $socialite->getEmail(), $socialite->getAvatar());
 
             return $this->logInUserAndRedirect($user, 'Success! You now have a new account via Google!');
 

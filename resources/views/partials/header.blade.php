@@ -15,8 +15,8 @@
         <a class="login" href="#" title="Login with your RentGorilla account">Login</a>
     </p>
     <div class="social-login">
-        <a style="color: white;" class="facebook no-margin" href="/login/facebook"><i class="fa fa-facebook"></i> Sign up with Facebook</a>
-        <a style="color: white;" class="google" href="/login/google"><i class="fa fa-google"></i> Sign up with Google</a>
+        <a style="color: white;" class="facebook no-margin" href="/login/facebook"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
+        <a href="/login/google"><img src="/img/google/btn_google_signin_light_normal_web.png"/></a>
     </div>
 </section>
 <a class="filter_toggle fa fa-bars"></a>
@@ -30,7 +30,7 @@
     {!! Form::close() !!}
     <p><a href="/password/email">Forgot password</a> or <a class="sign_up" href="#">Sign up</a></p><br>
     <div class="social-login">
-        <a style="color: white;" class="facebook no-margin" href="/login/facebook"><i class="fa fa-facebook"></i> Login with Facebook</a>
-        <a style="color: white;" class="google" href="/login/google"><i class="fa fa-google"></i> Login with Google</a>
+        <a style="color: white;" class="facebook no-margin" href="/login/facebook"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
+        <a href="/login/google"><img src="/img/google/btn_google_signin_light_normal_web.png"/></a>
     </div>
 </section>

@@ -157,7 +157,7 @@ return [
         'Illuminate\Broadcasting\BroadcastServiceProvider',
         'BackupManager\Laravel\Laravel5ServiceProvider',
 
-        'Laravel\Socialite\SocialiteServiceProvider',
+        'RentGorilla\Socialite\SocialiteServiceProvider',
 
 	],
 
