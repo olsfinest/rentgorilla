@@ -92,6 +92,11 @@ class AppServiceProvider extends ServiceProvider {
         );
 
         $this->app->bind(
+            'RentGorilla\Repositories\SafetiesRepository',
+            'RentGorilla\Repositories\EloquentSafetiesRepository'
+        );
+
+        $this->app->bind(
             'RentGorilla\Repositories\HeatsRepository',
             'RentGorilla\Repositories\EloquentHeatsRepository'
         );
