@@ -89,6 +89,7 @@ $router->post('admin/redeem', ['as' => 'redeem.create', 'uses' => 'AchievementsC
 $router->get('admin/revenue', ['as' => 'admin.revenue', 'uses' => 'AdminController@revenue']);
 
 Route::group(['prefix' => 'admin'], function () {
+    Route::resource('services', 'ServicesController');
     Route::resource('features', 'FeaturesController');
     Route::resource('heats', 'HeatsController');
     Route::resource('appliances', 'AppliancesController');
@@ -113,6 +114,7 @@ $router->get('admin/slides/{slide_id}', ['as' => 'slide.edit', 'uses' => 'Landin
 $router->get('admin/slides/{slide_id}/delete', ['as' => 'slide.confirm-delete', 'uses' => 'LandingPageController@confirmDeleteSlide']);
 $router->patch('admin/slides/{slide_id}', ['as' => 'slide.update', 'uses' => 'LandingPageController@updateSlide']);
 
+$router->get('admin/services/{services}/delete', ['as' => 'admin.services.delete', 'uses' => 'ServicesController@delete']);
 $router->get('admin/features/{features}/delete', ['as' => 'admin.features.delete', 'uses' => 'FeaturesController@delete']);
 $router->get('admin/heats/{heats}/delete', ['as' => 'admin.heats.delete', 'uses' => 'HeatsController@delete']);
 $router->get('admin/appliances/{appliances}/delete', ['as' => 'admin.appliances.delete', 'uses' => 'AppliancesController@delete']);

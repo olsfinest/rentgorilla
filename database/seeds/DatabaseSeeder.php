@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
+	    return;
+
         Model::unguard();
 
         $newMinas = Location::create([
