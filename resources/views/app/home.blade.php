@@ -14,9 +14,11 @@
                     <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount }})</option>
                 @endforeach
                 @foreach($areas as $area)
-                    <optgroup label="{{ $area->name }}, {{ $area->province }} Area">
+                    <optgroup label="{{ $area->name }}, {{ $area->province }} Area ({{ collect($area->locations)->sum('rentalsCount') }})">
                         @foreach($area->locations as $location)
-                            <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount }})</option>
+                            @if($location->rentalsCount)
+                                <option value="{{ $location->slug }}">{{ $location->city }}, {{ $location->province }} ({{ $location->rentalsCount }})</option>
+                            @endif
                         @endforeach
                     </optgroup>
                 @endforeach
