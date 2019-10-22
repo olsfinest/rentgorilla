@@ -39,8 +39,15 @@ return ['provinces' => [
     'parking' => [
             'none' => 'No',
             'driveway' => 'Driveway',
-            'underground' => 'Underground',
             'garage' => 'Garage',
-            'street' => 'Street'
+            'indoor_paid' => 'Indoor Paid',
+            'indoor_free' => 'Indoor Free',
+			'indoor_private' => 'Indoor Private',
+			'street_paid' => 'Street Paid',
+			'street_free' => 'Street Free',
+			'street_private' => 'Street Private',
+			'parking_lot_paved' => 'Parking Lot - Paved',
+			'parking_lot_unpaved' => 'Parking Lot - Unpaved',
+			'parking_lot_paid' => 'Parking Lot - Paid',
         ]
     ];

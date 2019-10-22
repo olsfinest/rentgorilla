@@ -40,8 +40,8 @@ class ModifyRentalRequest extends Request {
             'furnished' => 'required|boolean',
             'square_footage' => 'integer',
             'available' => 'required|date_format:m/d/Y',
-			'lat' => 'required|numeric',
-			'lng' => 'required|numeric',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
             'pets' => 'required|in:' . implode(',', array_keys(Config::get('rentals.pets'))),
             'baths' => 'required|numeric',
             'lease' => 'required|integer',
@@ -49,7 +49,6 @@ class ModifyRentalRequest extends Request {
             'postal_code' => 'max:7',
             'active' => 'boolean',
             'parking' => 'in:' . implode(',', array_keys(Config::get('rentals.parking'))),
-			'walkscore' => 'integer',
         ];
 
         if($this->request->get('feature_list')) {

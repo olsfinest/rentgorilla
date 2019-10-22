@@ -1,16 +1,16 @@
 <?php namespace RentGorilla\Handlers\Commands;
 
 use Carbon\Carbon;
-use Hashids;
-use RentGorilla\Commands\CreateRentalCommand;
+use Illuminate\Support\Str;
+use RentGorilla\Commands\EditRentalCommand;
+
 use Illuminate\Queue\InteractsWithQueue;
-use RentGorilla\Rental;
 use RentGorilla\Repositories\LocationRepository;
 use RentGorilla\Repositories\RentalRepository;
 use Log;
-use RentGorilla\Repositories\UserRepository;
 
-class CreateRentalCommandHandler {
+
+class EditRentalCommandHandler {
 
 
     /**
@@ -21,24 +21,20 @@ class CreateRentalCommandHandler {
      * @var LocationRepository
      */
     private $locationRepository;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
 
-    function __construct(RentalRepository $rentalRepository, LocationRepository $locationRepository, UserRepository $userRepository)
+    function __construct(RentalRepository $rentalRepository, LocationRepository $locationRepository)
     {
         $this->rentalRepository = $rentalRepository;
         $this->locationRepository = $locationRepository;
-        $this->userRepository = $userRepository;
     }
 
-    public function handle(CreateRentalCommand $command)
-	{
-		$rental = new Rental();
-        $rental->user_id = $command->user_id;
-        $rental->location_id = $this->locationRepository->getLocation($command->city, $command->county, $command->province);
+    public function handle(EditRentalCommand $command)
+    {
+
+        $rental = $this->rentalRepository->findByUUID($command->id);
+
         $rental->street_address = $command->street_address;
+        $rental->location_id = $this->locationRepository->getLocation($command->city, $command->county, $command->province);
         $rental->postal_code = nullIfEmpty($command->postal_code);
         $rental->type = $command->type;
         $rental->pets = $command->pets;
@@ -56,38 +52,22 @@ class CreateRentalCommandHandler {
         $rental->furnished = $command->furnished;
         $rental->square_footage = nullIfEmpty($command->square_footage);
         $rental->available = $command->available;
-		
-		$rental->lat = $command->lat;
-		$rental->lng = $command->lng;
-   
+        $rental->lat = $command->lat;
+        $rental->lng = $command->lng;
         $rental->lease = $command->lease;
         $rental->description = nullIfEmpty($command->description);
         $rental->video = nullIfEmpty($command->video);
-		
-		
-		$rental->yearofconstruction = $command->yearofconstruction;
-		
-		$rental->yearofrenovation = $command->yearofrenovation;
-		
-		$rental->floors = $command->floors;
-		
-		$rental->apartment = $command->apartment;
-		
-		$rental->occupancy_permit = $command->occupancy_permit;
-		
-		$rental->up_to_code = $command->up_to_code;
-		
-		$rental->walkscore = $command->walkscore;
-	
-		
+
 
         //they want to activate it
         if($command->active) {
-             $user = $this->userRepository->find($command->user_id);
-            // check if they are allowed to activate
-            if($user->canActivateRental()) {
-                $rental->active = 1;
+            //if it wasn't already active, check if they are allowed to activate
+            if( ! $rental->isActive()) {
+                if($rental->user->canActivateRental()) {
+                    $rental->active = 1;
+                }
             }
+            // do nothing since it was already active
         } else {
             //they want to deactivate it
             $rental->active = 0;
@@ -97,9 +77,8 @@ class CreateRentalCommandHandler {
 
         $rental->save();
 
-        //TODO::is there a more efficient way of doing this?
-        $rental->uuid = Hashids::encode($rental->id);
-        $rental->save();
+        $features = is_null($command->feature_list) ? [] : $command->feature_list;
+        $rental->features()->sync($features);
 
         $heats = is_null($command->heat_list) ? [] : $command->heat_list;
         $rental->heat()->sync($heats);
@@ -107,17 +86,11 @@ class CreateRentalCommandHandler {
         $appliances = is_null($command->appliance_list) ? [] : $command->appliance_list;
         $rental->appliances()->sync($appliances);
 
-        $features = is_null($command->feature_list) ? [] : $command->feature_list;
-        $rental->features()->sync($features);
 
-		
-		$features = is_null($command->safety_list) ? [] : $command->safety_list;
-        $rental->safeties()->sync($features);
-		
-        Log::info('New rental created', ['rental_id' => $rental->id]);
+
+
+        Log::info('Rental edited', ['rental_id' => $rental->id]);
 
         return $rental;
-
     }
-
 }

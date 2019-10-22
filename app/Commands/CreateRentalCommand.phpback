@@ -7,7 +7,7 @@ class CreateRentalCommand extends Command {
     public $user_id;
     public $street_address;
     public $city;
-	public $county;
+    public $county;
     public $province;
     public $type;
     public $pets;
@@ -25,8 +25,8 @@ class CreateRentalCommand extends Command {
     public $furnished;
     public $square_footage;
     public $available;
-	public $lat;
-	public $lng;
+    public $lat;
+    public $lng;
     public $lease;
     public $description;
     public $video;
@@ -35,29 +35,13 @@ class CreateRentalCommand extends Command {
     public $heat_list;
     public $postal_code;
     public $active;
-	
-	public $yearofconstruction;
-	public $yearofrenovation;	
-	public $floors;	
-	public $apartment;	
-	
-	public $floori;	
-	
-	public $safety_list;
-	
-	public $occupancy_permit;
-	
-	public $up_to_code;
-	
-	public $walkscore;
-	
 
-    function __construct($user_id, $street_address, $city,  $lat , $lng , $county , $province, $type, $pets, $parking, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking, $utilities_included, $heat_included, $furnished, $available,  $lease, $description, $video, $per_room = null, $active = null, $square_footage = null, $feature_list = null,  $appliance_list = null, $heat_list = null, $safety_list = null ,  $postal_code = null ,  $yearofconstruction , $yearofrenovation , $floors , $apartment , $occupancy_permit , $up_to_code , $walkscore  )
+    function __construct($user_id, $street_address, $city, $county, $province, $type, $pets, $parking, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking, $utilities_included, $heat_included, $furnished, $available, $lat, $lng, $lease, $description, $video, $per_room = null, $active = null, $square_footage = null, $feature_list = null,  $appliance_list = null, $heat_list = null, $postal_code = null)
     {
         $this->user_id = $user_id;
         $this->street_address = $street_address;
         $this->city = $city;
-		$this->county = $county;
+        $this->county = $county;
         $this->province = $province;
         $this->type = $type;
         $this->pets = $pets;
@@ -75,8 +59,8 @@ class CreateRentalCommand extends Command {
         $this->furnished = $furnished;
         $this->square_footage = $square_footage;
         $this->available = $available;
-		$this->lat = $lat;
-		$this->lng = $lng;
+        $this->lat = $lat;
+        $this->lng = $lng;
         $this->lease = $lease;
         $this->description = $description;
         $this->video = $video;
@@ -85,25 +69,6 @@ class CreateRentalCommand extends Command {
         $this->heat_list = $heat_list;
         $this->postal_code = $postal_code;
         $this->active = $active;
-		
-		$this->yearofconstruction = $yearofconstruction;
-		
-		$this->yearofrenovation = $yearofrenovation;
-		
-		$this->floors = $floors;
-		
-		$this->apartment = $apartment;
-		
-		
-		$this->safety_list = $safety_list;
-		
-		$this->occupancy_permit = $occupancy_permit;
-		
-		$this->up_to_code = $up_to_code;
-		
-		$this->walkscore = $walkscore;
-	
-		
     }
 
 
