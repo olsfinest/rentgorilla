@@ -44,6 +44,7 @@
     <script   src="https://code.jquery.com/jquery-1.11.1.min.js"   integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE="   crossorigin="anonymous"></script>
     <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
     <script   src="https://code.jquery.com/jquery-2.1.1.min.js"   integrity="sha256-h0cGsrExGgcZtSZ/fRz4AwV+Nn6Urh/3v3jFRQ0w9dQ="   crossorigin="anonymous"></script>
+	
     <!--jQuery UI-->
     <!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script> -->
     <script   src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"   integrity="sha256-erF9fIMASEVmAWGdOmQi615Bmx0L/vWNixxTNDXS4FQ="   crossorigin="anonymous"></script>
@@ -52,6 +53,24 @@
     <script src="/js/auth.js?v=1"></script>
     <script src="/js/notifications.js"></script>
     <script language="JavaScript" type="text/javascript">
+		jQuery('#submitmodal').click(function(){	
+			$('#modify_rental_form').submit();
+		});
+				
+		jQuery(".button").prop("type", "button");
+				
+		var chk1 = jQuery('#active1');
+		var chk2 = jQuery('#active');
+
+				//check the other box
+		chk1.on('click', function(){
+			if( chk1.is(':checked') ) {
+					chk2.attr('checked', true);
+				  } else {
+					chk2.attr('checked', false);
+				  }
+		});	
+		
         jQuery('.fa-question-circle, .fa-info-circle').tooltip({
             position: { my: "bottom", at: "left center" }
         });
@@ -77,36 +96,6 @@
             }
         });
     </script>
-	
-	<script>
-	
-				jQuery(document).ready(function( $ ) {
-
-				
-				$('#submitmodal').click(function(){	
-					$('#modify_rental_form').submit();
-				});
-				
-				$(".button").prop("type", "button");
-				
-				var chk1 = $('#active1');
-				var chk2 = $('#active');
-
-				//check the other box
-				chk1.on('click', function(){
-				  if( chk1.is(':checked') ) {
-					chk2.attr('checked', true);
-				  } else {
-					chk2.attr('checked', false);
-				  }
-				});
-				
-				
-				
-				});	
-				
-				</script>
-	
     @yield('footer')
 </footer>
 </body>

@@ -273,9 +273,9 @@
 @section('footer')
 
 	
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}"></script>
-   <script src="/js/modify-rental.js?v=1"></script>
+	<script src="/js/modify-rental.js?v=1"></script>
 @endsection
 
 
@@ -300,6 +300,3 @@
         </div>
     </div>
 	
-	
-	
-
