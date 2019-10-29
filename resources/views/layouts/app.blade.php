@@ -41,6 +41,7 @@
             <!--jQuery UI-->
             <!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> -->
 						<script   src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="   crossorigin="anonymous"></script>
+						
             <script src="/js/auth.js?v=1"></script>
             <script src="/js/notifications.js"></script>
             @yield('footer')
@@ -65,6 +66,9 @@
                     }
                 });
             </script>
+			
+				
+			
         </footer>
 	</body>
 </html>

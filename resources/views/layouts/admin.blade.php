@@ -77,6 +77,36 @@
             }
         });
     </script>
+	
+	<script>
+	
+				jQuery(document).ready(function( $ ) {
+
+				
+				$('#submitmodal').click(function(){	
+					$('#modify_rental_form').submit();
+				});
+				
+				$(".button").prop("type", "button");
+				
+				var chk1 = $('#active1');
+				var chk2 = $('#active');
+
+				//check the other box
+				chk1.on('click', function(){
+				  if( chk1.is(':checked') ) {
+					chk2.attr('checked', true);
+				  } else {
+					chk2.attr('checked', false);
+				  }
+				});
+				
+				
+				
+				});	
+				
+				</script>
+	
     @yield('footer')
 </footer>
 </body>

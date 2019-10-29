@@ -274,7 +274,6 @@
 
 	
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}"></script>
    <script src="/js/modify-rental.js?v=1"></script>
 @endsection
@@ -303,31 +302,4 @@
 	
 	
 	
-	<script>
-	
-	jQuery(document).ready(function( $ ) {
 
-	
-	$('#submitmodal').click(function(){	
-		$('#modify_rental_form').submit();
-	});
-	
-	$(".button").prop("type", "button");
-	
-	var chk1 = $('#active1');
-	var chk2 = $('#active');
-
-	//check the other box
-	chk1.on('click', function(){
-	  if( chk1.is(':checked') ) {
-		chk2.attr('checked', true);
-	  } else {
-		chk2.attr('checked', false);
-	  }
-	});
-	
-	
-	
-	});	
-	
-	</script>
