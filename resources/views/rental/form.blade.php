@@ -271,12 +271,14 @@
 		
     {!! Form::submit($submitButtonText , ['data-toggle' => 'modal' , 'data-target' => '#confirm-submit' , 'type' => 'submit' , 'class' => 'button']) !!}
 @section('footer')
+
+	
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}"></script>
    <script src="/js/modify-rental.js?v=1"></script>
 @endsection
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     
     <!-- Modal HTML -->
