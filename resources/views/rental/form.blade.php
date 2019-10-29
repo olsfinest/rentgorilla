@@ -1,4 +1,6 @@
-    <span class="requiredNote"><strong>*</strong> Indicates Required Field</span>
+
+	
+	<span class="requiredNote"><strong>*</strong> Indicates Required Field</span>
 	
 	<fieldset>
         <legend>
@@ -299,4 +301,27 @@
             </div>
         </div>
     </div>
+	
+	<script   src="https://code.jquery.com/jquery-1.11.1.min.js"   integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE="   crossorigin="anonymous"></script>
+	
+	<script>
+	
+	jQuery('#submitmodal').click(function(){	
+			$('#modify_rental_form').submit();
+	});
+				
+	$(".button").prop("type", "button");
+	
+	var chk1 = jQuery('#active1');
+	var chk2 = jQuery('#active');
+
+	chk1.on('click', function(){
+		if( chk1.is(':checked') ) {
+			chk2.attr('checked', true);
+		} else {
+			chk2.attr('checked', false);
+		}
+	});	
+	
+	</script>
 	

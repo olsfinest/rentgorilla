@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	
+	
 	// dom ready functions
 
 	// smooth scrolling to anchors 
