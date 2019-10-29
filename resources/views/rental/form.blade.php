@@ -275,8 +275,8 @@
    <script src="/js/modify-rental.js?v=1"></script>
 @endsection
 
-
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     
     <!-- Modal HTML -->
@@ -299,12 +299,14 @@
         </div>
     </div>
 	
-	<script>
-
-
-	$('#submitmodal').click(function(){
-		 /* when the submit button in the modal is clicked, submit the form */
 	
+	
+	<script>
+	
+	jQuery(document).ready(function( $ ) {
+
+	
+	$('#submitmodal').click(function(){	
 		$('#modify_rental_form').submit();
 	});
 	
@@ -321,6 +323,9 @@
 		chk2.attr('checked', false);
 	  }
 	});
-		
+	
+	
+	
+	});	
 	
 	</script>
