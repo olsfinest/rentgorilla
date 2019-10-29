@@ -8,6 +8,9 @@
         <section class="content full closer">
             <span class="fa fa-close" title="Close this notification"></span>
         </section>
+		
+			
+		
         <section class="content full">
             <?php
             $message = '';

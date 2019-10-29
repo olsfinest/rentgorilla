@@ -94,6 +94,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('features', 'FeaturesController');
     Route::resource('heats', 'HeatsController');
     Route::resource('appliances', 'AppliancesController');
+	Route::resource('utilities', 'UtilitiesController');
     Route::delete('locations/{locations}/landing-page/{landing_page}/slides/{name}', ['as' => 'admin.locations.landing-page.slides.destroy', 'uses' =>'LandingPageController@removeSlide']);;
     Route::get('locations/{locations}/landing-page/{landing_page}/slides', ['as' => 'admin.locations.landing-page.slides', 'uses' =>'LandingPageController@slides']);
     Route::post('locations/{locations}/landing-page/{landing_page}/slides', ['as' => 'admin.locations.landing-page.slides.create', 'uses' =>'LandingPageController@addSlide']);
@@ -119,6 +120,7 @@ $router->get('admin/safeties/{safeties}/delete', ['as' => 'admin.safeties.delete
 $router->get('admin/services/{services}/delete', ['as' => 'admin.services.delete', 'uses' => 'ServicesController@delete']);
 $router->get('admin/features/{features}/delete', ['as' => 'admin.features.delete', 'uses' => 'FeaturesController@delete']);
 $router->get('admin/heats/{heats}/delete', ['as' => 'admin.heats.delete', 'uses' => 'HeatsController@delete']);
+$router->get('admin/utilities/{utilities}/delete', ['as' => 'admin.utilities.delete', 'uses' => 'UtilitiesController@delete']);
 $router->get('admin/appliances/{appliances}/delete', ['as' => 'admin.appliances.delete', 'uses' => 'AppliancesController@delete']);
 
 /** Application  */

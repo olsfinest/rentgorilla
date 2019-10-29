@@ -88,6 +88,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('FeaturesSeeder');
         $this->call('AppliancesSeeder');
         $this->call('HeatsSeeder');
+		$this->call('UtilitiesSeeder');
 
    }
 

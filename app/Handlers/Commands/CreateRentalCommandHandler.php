@@ -51,16 +51,33 @@ class CreateRentalCommandHandler {
         $rental->laundry = $command->laundry;
         $rental->disability_access = $command->disability_access;
         $rental->smoking = $command->smoking;
-        $rental->utilities_included = $command->utilities_included;
-        $rental->heat_included = $command->heat_included;
-        $rental->furnished = $command->furnished;
+    //    $rental->utilities_included = $command->utilities_included;
+    //    $rental->heat_included = $command->heat_included;
+		$rental->furnished = $command->furnished;
         $rental->square_footage = nullIfEmpty($command->square_footage);
         $rental->available = $command->available;
-        $rental->lat = $command->lat;
-        $rental->lng = $command->lng;
+		
+		$rental->lat = $command->lat;
+		$rental->lng = $command->lng;
+   
         $rental->lease = $command->lease;
         $rental->description = nullIfEmpty($command->description);
         $rental->video = nullIfEmpty($command->video);
+		
+		
+		$rental->yearofconstruction = $command->yearofconstruction;
+		
+		$rental->yearofrenovation = $command->yearofrenovation;
+		
+		$rental->floors = $command->floors;
+		
+		$rental->apartment = $command->apartment;
+		
+		$rental->occupancy_permit = $command->occupancy_permit;
+		
+		$rental->up_to_code = $command->up_to_code;
+		
+		
 
         //they want to activate it
         if($command->active) {
@@ -91,6 +108,13 @@ class CreateRentalCommandHandler {
         $features = is_null($command->feature_list) ? [] : $command->feature_list;
         $rental->features()->sync($features);
 
+		
+		$features = is_null($command->safety_list) ? [] : $command->safety_list;
+        $rental->safeties()->sync($features);
+		
+		$features = is_null($command->utility_list) ? [] : $command->utility_list;
+        $rental->utility()->sync($features);
+		
         Log::info('New rental created', ['rental_id' => $rental->id]);
 
         return $rental;

@@ -33,14 +33,25 @@ return ['provinces' => [
             'any' => 'Any',
             'cats_dogs' => 'Cats and dogs',
             'cats' => 'Cats only',
-            'dogs' => 'Dogs only'
+            'dogs' => 'Dogs only',
+			'upon_approval' => 'Upon Approval'
         ],
+		
+	 'floors' => [
+            'none' => 'No',
+            'house' => 'House',
+            'apartment' => 'Apartment',
+            'rooms' => 'Room(s)',
+            'commercial' => 'Commercial'
+        ],	
+
 
     'parking' => [
             'none' => 'No',
             'driveway' => 'Driveway',
-            'underground' => 'Underground',
-            'garage' => 'Garage',
-            'street' => 'Street'
+            'parking_garage' => 'Parking Garage',
+            'private_garage' => 'Private Garage',
+            'steet_public' => 'Street - Public',
+			'permit' => 'Permit',
         ]
     ];

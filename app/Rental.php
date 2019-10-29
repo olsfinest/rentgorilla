@@ -71,10 +71,20 @@ class Rental extends Model {
     {
         return $this->belongsToMany('RentGorilla\Feature')->withTimestamps();
     }
+	
+	public function safeties()
+    {
+        return $this->belongsToMany('RentGorilla\Safety')->withTimestamps();
+    }
 
     public function heat()
     {
         return $this->belongsToMany('RentGorilla\Heat')->withTimestamps();
+    }
+	
+	 public function utility()
+    {
+        return $this->belongsToMany('RentGorilla\Utility')->withTimestamps();
     }
 
     public function appliances()

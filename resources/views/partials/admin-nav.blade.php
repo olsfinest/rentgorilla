@@ -33,6 +33,7 @@
                 <li><a href="{{ route('admin.features.index') }}">Manage Features</a></li>
                 <li><a href="{{ route('admin.heats.index') }}">Manage Heating</a></li>
                 <li><a href="{{ route('admin.appliances.index') }}">Manage Appliances</a></li>
+				<li><a href="{{ route('admin.utilities.index') }}">Manage Utilities</a></li>
                 <li><a href="{{ route('admin.locations.index') }}">Landing Pages</a></li>
                 <li><a href="{{ route('admin.free-promotions.index') }}">Promotions</a></li>
                 <li><a href="{{ route('admin.revenue') }}">Subscription Revenue</a></li>

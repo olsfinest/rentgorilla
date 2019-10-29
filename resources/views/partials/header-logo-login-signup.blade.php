@@ -1,3 +1,17 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script>
+			$(document).ready(function(){
+				$('a').each(function(){
+					this.href = this.href.replace('homestead.test', 'fcd232cd.ngrok.io');
+				});
+				
+					$('#modify_rental_form').each(function(){
+					this.action = this.action.replace('homestead.test', 'fcd232cd.ngrok.io');
+				});
+				
+				
+			});
+			</script>
 <header>
     <section class="main">
         <a title="RentGorilla... move on up." class="home" href="/">RentGorilla
