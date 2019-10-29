@@ -19,7 +19,7 @@ class Rental extends Model {
 
     protected $guarded = ['id'];
     /**
-     * The database table used by the model.
+     * The database table used by the model. ewqe
      *
      * @var string
      */
@@ -40,7 +40,7 @@ class Rental extends Model {
     public function location()
     {
         return $this->belongsTo('RentGorilla\Location');
-    }
+    }  
 
     public function user()
     {
