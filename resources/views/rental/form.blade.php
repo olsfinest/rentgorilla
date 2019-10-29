@@ -91,12 +91,12 @@
         </label>
         <label for="disability_access" class="half left">Accessibility Access
             <span class="labelSpan">
-            {!! Form::radio('disability_access', 1) !!} Yes {!! Form::radio('disability_access', 0) !!} No
+            {!! Form::radio('disability_access', 1) !!} Yes {!! Form::radio('disability_access', 0 , true) !!} No
             </span>
         </label>
         <label for="smoking" class="half right">Smoking
             <span class="labelSpan">
-            {!! Form::radio('smoking', 1) !!} Yes {!! Form::radio('smoking', 0) !!} No
+            {!! Form::radio('smoking', 1) !!} Yes {!! Form::radio('smoking', 0 , true) !!} No
             </span>
         </label>
 		
@@ -121,7 +121,7 @@
 	
     <label for="furnished" class="half right">Furnished
         <span class="labelSpan">
-        {!! Form::radio('furnished', 0) !!} None {!! Form::radio('furnished', 1) !!} Partially {!! Form::radio('furnished', 3) !!} Fully
+        {!! Form::radio('furnished', 0 , true) !!} None {!! Form::radio('furnished', 1) !!} Partially {!! Form::radio('furnished', 3) !!} Fully
         </span>
     </label>
 	
@@ -152,14 +152,14 @@
 		<br/>
 		<label for="occupancy_permit" class="required half left">Occupancy Permit
             <span class="labelSpan">
-            {!! Form::radio('occupancy_permit', 1) !!} Yes {!! Form::radio('occupancy_permit', 0) !!} No
+            {!! Form::radio('occupancy_permit', 1) !!} Yes {!! Form::radio('occupancy_permit', 0 , true) !!} No
             </span>
         </label>
 		
 		
 		<label for="up_to_code" class="required half right">Up To Code
             <span class="labelSpan">
-            {!! Form::radio('up_to_code', 1) !!} Yes {!! Form::radio('up_to_code', 0) !!} No
+            {!! Form::radio('up_to_code', 1) !!} Yes {!! Form::radio('up_to_code', 0 , true) !!} No
             </span>
         </label>
 		
