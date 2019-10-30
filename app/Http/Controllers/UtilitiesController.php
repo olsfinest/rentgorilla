@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use RentGorilla\Http\Requests;
 use RentGorilla\Http\Controllers\Controller;
-use RentGorilla\Http\Requests\ModifyutilitiesRequest;
+use RentGorilla\Http\Requests\ModifyUtilitiesRequest;
 use RentGorilla\Repositories\UtilitiesRepository;
 
 class UtilitiesController extends Controller
