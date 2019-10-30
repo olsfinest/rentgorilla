@@ -9,7 +9,7 @@ use RentGorilla\Http\Controllers\Controller;
 use RentGorilla\Http\Requests\ModifyutilitiesRequest;
 use RentGorilla\Repositories\UtilitiesRepository;
 
-class utilitiesController extends Controller
+class UtilitiesController extends Controller
 {
 
     /**
