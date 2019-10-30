@@ -48,10 +48,10 @@ class UtilitiesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ModifyutilitiesRequest $request
+     * @param  ModifyUtilitiesRequest $request
      * @return Response
      */
-    public function store(ModifyutilitiesRequest $request)
+    public function store(ModifyUtilitiesRequest $request)
     {
 
         if ($this->utilitiesRepository->nameExists($request->name)) {
