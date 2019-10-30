@@ -15,7 +15,7 @@
             {!! Form::text('lease', null, ['class' => 'form-control', 'placeholder' => 'E.g., 12']) !!}
         </label>
 		
-		<label for="yearofconstruction" class="half left">Year of construction
+		<label for="yearofconstruction" class="half left">Year of Construction
             {!! Form::text('yearofconstruction', null, ['class' => 'form-control', 'placeholder' => 'E.g., 2019']) !!}
         </label>
 		
@@ -37,7 +37,7 @@
         </label>
 		
 		<label for="apartment/suite" class="half right">Apartment/Suite
-            {!! Form::text('apartment', null, ['class' => 'form-control', 'placeholder' => 'E.g., Clary Apartment']) !!}
+            {!! Form::text('apartment', null, ['class' => 'form-control', 'placeholder' => 'E.g., Suite 206, Apartment B etc.']) !!}
         </label>
 		
 		 <label for="city" class="required half left">City
@@ -66,7 +66,7 @@
         </label>
 		
 		<label for="floors" class="half left">Flooring
-              {!! Form::select('floors', Config::get('rentals.type'), null, ['autocomplete' => 'off', 'class' => 'form-control']) !!}
+            {!! Form::text('floors', null, ['class' => 'form-control', 'placeholder' => 'E.g., Carpet, Hardwood, Cushion Floor etc.']) !!}
         </label>
 		
 	
@@ -266,7 +266,7 @@
     </fieldset>
 	
 	
-    <label for="active" class="">Activate Rental
+    <label for="active" class="">Save Rental
       {!! Form::checkbox('active', 1, null, ['id' => 'active']) !!}
     </label>
 	

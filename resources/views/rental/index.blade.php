@@ -63,7 +63,7 @@
             @if($rentals->count())
             @foreach($rentals as $rental)
                 <article class="property"> <!-- article.property - 1 per listing -->
-                <h1>{{ $rental->street_address }}<span class="neighborhood">{{ $rental->location->city . ', ' . $rental->location->province }} <a class="button" style="margin-left: 10px; margin-bottom: 0; margin-top: 0;" href="{{ route('rental.preview', $rental->uuid) }}"> Preview</a></span></h1>
+                <h1>{{ $rental->street_address }} <i>{{ $rental->apartment }}</i><span class="neighborhood">{{ $rental->location->city . ', ' . $rental->location->province   }} <a class="button" style="margin-left: 10px; margin-bottom: 0; margin-top: 0;" href="{{ route('rental.preview', $rental->uuid) }}"> Preview</a></span></h1>
                     <nav>
                     <ul>
                         <li><span class="slider-text {{ $rental->isActive() ? 'slider-text-active' : 'slider-text-inactive' }}" style="position: relative; bottom: 10px;">{{ $rental->isActive() ? 'ACTIVE' : 'INACTIVE' }}</span> <label class="switch">

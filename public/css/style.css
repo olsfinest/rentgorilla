@@ -3314,6 +3314,8 @@ form input[type="button"] { display: inline-block;
 	
 input#active {  display:none; }	
 
+form input[type="button"] {     font-size: 1em; } 
+
 i::-webkit-input-placeholder { opacity: 1; -webkit-transition: opacity .5s; transition: opacity .5s; }  /* Chrome <=56, Safari < 10 */
 :-moz-placeholder { opacity: 1; -moz-transition: opacity .5s; transition: opacity .5s; } /* FF 4-18 */
 ::-moz-placeholder { opacity: 1; -moz-transition: opacity .5s; transition: opacity .5s; } /* FF 19-51 */
