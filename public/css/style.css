@@ -3316,6 +3316,21 @@ input#active {  display:none; }
 
 form input[type="button"] {     font-size: 1em; } 
 
+.listing-edit { background-color: #333333;  position: relative;    width: 100%; }
+.listing-edit p { color:white; }
+.listing-edit p { float:left; }
+.listing-edit .right , .listing-edit .rightlink {  float: right;font-size: 15px; padding: 10px;  margin-right: 10px;  margin-top: 0;  margin-bottom: 15px; }
+.fixed2 { top:0; position:sticky; }
+
+.sticky 	{  -webkit-transition: position 10s;
+  -moz-transition: position 10s;
+  -ms-transition: position 10s;
+  -o-transition: position 10s;
+  transition: position 10s; }
+
+.listing-edit .right {     padding: 10.5px 10px; }
+
+
 i::-webkit-input-placeholder { opacity: 1; -webkit-transition: opacity .5s; transition: opacity .5s; }  /* Chrome <=56, Safari < 10 */
 :-moz-placeholder { opacity: 1; -moz-transition: opacity .5s; transition: opacity .5s; } /* FF 4-18 */
 ::-moz-placeholder { opacity: 1; -moz-transition: opacity .5s; transition: opacity .5s; } /* FF 19-51 */
@@ -3327,9 +3342,6 @@ i::-webkit-input-placeholder { opacity: 1; -webkit-transition: opacity .5s; tran
 *:focus::-moz-placeholder { opacity: 0; } /* FF 19-50 */
 *:focus:-ms-input-placeholder { opacity: 0; } /* IE 10+ */
 *:focus::placeholder { opacity: 0; } /* Modern Browsers *
-
-
-
 
 
 /*# sourceMappingURL=style.css.map */

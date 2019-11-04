@@ -46,8 +46,10 @@ class EditRentalCommand extends Command {
 	
 	public $utility_list;
 	
+	public $service_list;
 	
-    function __construct($id, $street_address, $city, $county, $province, $type, $pets, $parking, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking,  $furnished, $available, $lat, $lng, $lease, $description, $video, $per_room = null, $active = null, $square_footage = null, $feature_list = null, $appliance_list = null, $heat_list = null, $postal_code = null , $yearofconstruction , $yearofrenovation , $floors , $apartment , $safety_list = null , $occupancy_permit , $up_to_code , $utility_list = null)
+	
+    function __construct($id, $street_address, $city, $county, $province,  $service_list = NULL , $type, $pets, $parking, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking,  $furnished, $available, $lat, $lng, $lease, $description, $video, $per_room = null, $active = null, $square_footage = null, $feature_list = null, $appliance_list = null, $heat_list = null, $postal_code = null , $yearofconstruction , $yearofrenovation , $floors , $apartment , $safety_list = null , $occupancy_permit , $up_to_code , $utility_list = null)
     {
         $this->id = $id;
         $this->street_address = $street_address;
@@ -90,6 +92,8 @@ class EditRentalCommand extends Command {
 		$this->up_to_code = $up_to_code;
 		
 		$this->utility_list = $utility_list;
+		
+		$this->service_list = $service_list;
 		
 		
     }

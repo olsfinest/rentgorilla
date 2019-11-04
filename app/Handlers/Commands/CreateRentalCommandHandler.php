@@ -115,6 +115,9 @@ class CreateRentalCommandHandler {
 		$features = is_null($command->utility_list) ? [] : $command->utility_list;
         $rental->utility()->sync($features);
 		
+		$features = is_null($command->service_list) ? [] : $command->service_list;
+        $rental->services()->sync($features);
+		
         Log::info('New rental created', ['rental_id' => $rental->id]);
 
         return $rental;

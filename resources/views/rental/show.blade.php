@@ -144,7 +144,10 @@
                         <i class="fa fa-lightbulb-o"></i>
                         Utilities
                     </td>
-                    <td>{{ $rental->utilities_included ? 'Included' : 'Not included' }}</td>
+                    
+					  <td class="tooltipable" title="{{ $utility = implode(', ', $rental->utility()->lists('name')->all()) }}">{{ str_limit($utility, 17) }}</td>
+					
+					
                 </tr>
                 <tr>
                     <td class="listing_ng_label">
@@ -156,7 +159,8 @@
                         <i class="fa fa-bed"></i>
                         Furnished
                     </td>
-                    <td>{{ $rental->furnished ? 'Yes' : 'No' }}</td>
+                    <td> 
+					{{ $rental->furnished }}  </td>
                 </tr>
                 <tr>
                     <td class="listing_ng_label">
@@ -191,9 +195,9 @@
                     <td>{{ $rental->disability_access ? 'Yes' : 'No' }}</td>
                     <td class="listing_ng_label">
                         <i class="fa fa-question-circle"></i>
-                        Heat Included
+                        Services
                     </td>
-                    <td>{{ $rental->heat_included ? 'Yes' : 'No' }}</td>
+                    <td class="tooltipable" title="{{ $services = implode(', ', $rental->services()->lists('name')->all()) }}">{{ str_limit($services, 17) }}</td>
                 </tr>
             </table>
         </article>

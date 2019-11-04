@@ -71,6 +71,8 @@ class EditRentalCommandHandler {
 		$rental->up_to_code = $command->up_to_code;
 		
 		
+		
+		
 
 
         //they want to activate it
@@ -109,6 +111,8 @@ class EditRentalCommandHandler {
 		$features = is_null($command->utility_list) ? [] : $command->utility_list;
         $rental->utility()->sync($features);
 	
+		$features = is_null($command->service_list) ? [] : $command->service_list;
+        $rental->services()->sync($features);
 		
 
 

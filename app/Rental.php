@@ -91,6 +91,11 @@ class Rental extends Model {
     {
         return $this->belongsToMany('RentGorilla\Appliance')->withTimestamps();
     }
+	
+	 public function services()
+    {
+        return $this->belongsToMany('RentGorilla\Service')->withTimestamps();
+    }
 
     public function getAddress()
     {

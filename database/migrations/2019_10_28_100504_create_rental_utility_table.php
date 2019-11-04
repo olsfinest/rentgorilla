@@ -25,7 +25,7 @@ class CreateRentalUtilityTable extends Migration
 
 		$table->foreign('utility_id')
 		->references('id')
-		->on('safeties')
+		->on('utilities')
 		->onDelete('cascade');
 
 		});

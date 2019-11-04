@@ -14,20 +14,18 @@ $('#modify_rental_form').submit(function(event) {
     var province = $('#province').val();
     var postal_code = $('#postal_code').val();
 
-    if( ! streetAddress) {
-
-        showModal('please provide a street address.');
-
-        return false;
-    }
-    if( ! city) {
-        showModal('Please provide the city.');
-        return false;
-    }
-    if( ! province) {
-        showModal('Please provide the province');
-        return false;
-    }
+   // if( ! streetAddress) {
+   //     showModal('please provide a street address.');
+   //     return false;
+   // }
+   // if( ! city) {
+   //     showModal('Please provide the city.');
+   //     return false;
+   // }
+   // if( ! province) {
+   //     showModal('Please provide the province');
+   //     return false;
+   // }  
 
     var geocoder = new google.maps.Geocoder();
 
@@ -68,21 +66,37 @@ $('#modify_rental_form').submit(function(event) {
             $('#city').val(city_result);
 
             if(city_result != city) {
+				
+		 //	$('<input>', {
+         //      type: 'hidden',
+          //       name: 'utilities_included',
+          //       value: ''
+          //   }).appendTo(rentalForm);	
 
-                showModal('<strong>We are having trouble finding that location.</strong></p>' +
-                    '<p>We have changed the city to <strong>' + city_result + '<strong></p>' +
-                    '<p>How should I format my address to ensure my property address is accepted?</p><ul>' +
-                    '<li>Specify addresses in accordance with the format used by Canada Post</li>' +
-                    '<li>Ensure that the spelling is correct for Street Address and City</li>' +
-                    '<li>Use standard abbreviations, either short or long form. Street = St, Road = Rd. etc.</li>' +
-                    '<li>Do not specify additional address elements such as business names, floor numbers, etc.</li>' +
-                    '<li>Use the street number of a premise in preference to the building name where possible.</li>' +
-                    '<li>Use street number addressing in preference to specifying cross streets where possible.</li>' +
-                    '<li>Do not provide "hints" such as nearby landmarks.</li>' +
-                    '<li>Try your address in <a href="http://googlemaps.com">googlemaps.com</a> and see if it brings you to your property.</li>' +
-                    '<li>If you cannot get your exact position try left clicking on the map at <a href="http://googlemaps.com">googlemaps.com</a> to get the closest possible location.</li></ul><p>');
-                return false;
-            }
+               showModal('<strong>We are having trouble finding that location.</strong></p>' +
+                 '<p>We have changed the city to <strong>' + city_result + '<strong></p>' +
+                 '<p>How should I format my address to ensure my property address is accepted?</p><ul>' +
+                 '<li>Specify addresses in accordance with the format used by Canada Post</li>' +
+                 '<li>Ensure that the spelling is correct for Street Address and City</li>' +
+                 '<li>Use standard abbreviations, either short or long form. Street = St, Road = Rd. etc.</li>' +
+                 '<li>Do not specify additional address elements such as business names, floor numbers, etc.</li>' +
+                 '<li>Use the street number of a premise in preference to the building name where possible.</li>' +
+                 '<li>Use street number addressing in preference to specifying cross streets where possible.</li>' +
+                 '<li>Do not provide "hints" such as nearby landmarks.</li>' +
+                 '<li>Try your address in <a href="http://googlemaps.com">googlemaps.com</a> and see if it brings you to your property.</li>' +
+                 '<li>If you cannot get your exact position try left clicking on the map at <a href="http://googlemaps.com">googlemaps.com</a> to get the closest possible location.</li></ul><p>');
+              return false;
+			
+            } else {
+				
+			$('<input>', {
+                type: 'hidden',
+                name: 'utilities_included',
+                value: 'occupied'
+            }).appendTo(rentalForm);		
+				
+				
+			}
 
 
             var locationResult = results[0].geometry.location;

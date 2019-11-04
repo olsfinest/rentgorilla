@@ -11,7 +11,7 @@
             {!! Form::text('available', null, ['id' => 'available', 'class' => 'form-control',  'placeholder' => 'MM/DD/YYYY']) !!}
         </label>
 
-		<label for="lease" class="required half right">Lease (months)
+		<label for="lease" class="half right">Lease (months)
             {!! Form::text('lease', null, ['class' => 'form-control', 'placeholder' => 'E.g., 12']) !!}
         </label>
 		
@@ -123,7 +123,7 @@
 	
     <label for="furnished" class="half right">Furnished
         <span class="labelSpan">
-        {!! Form::radio('furnished', 0 , true) !!} None {!! Form::radio('furnished', 1) !!} Partially {!! Form::radio('furnished', 3) !!} Fully
+        {!! Form::radio('furnished', 'None' , true) !!} None {!! Form::radio('furnished', 'Partially') !!} Partially {!! Form::radio('furnished', 'Fully') !!} Fully
         </span>
     </label>
 	
@@ -217,8 +217,8 @@
         @foreach(array_chunk(\RentGorilla\Service::orderBy('name')->get()->all(), 2) as $column)
             <tr>
                 @foreach($column as $service)
-                    <td><input type="checkbox" name="appliance_list[]" value="{{ $appliance->id }}"
-                                {{ in_array($service->id, $rental->appliances->pluck('id')->all()) ? 'checked' : '' }}> {{ ucwords($service->name) }}</td>
+                    <td><input type="checkbox" name="service_list[]" value="{{ $service->id }}"
+                                {{ in_array($service->id, $rental->services->pluck('id')->all()) ? 'checked' : '' }}> {{ ucwords($service->name) }}</td>
                 @endforeach
             </tr>
         @endforeach
@@ -302,26 +302,6 @@
         </div>
     </div>
 	
-	<script   src="https://code.jquery.com/jquery-1.11.1.min.js"   integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE="   crossorigin="anonymous"></script>
 	
-	<script>
 	
-	jQuery('#submitmodal').click(function(){	
-			$('#modify_rental_form').submit();
-	});
-				
-	$(".button").prop("type", "button");
-	
-	var chk1 = jQuery('#active1');
-	var chk2 = jQuery('#active');
-
-	chk1.on('click', function(){
-		if( chk1.is(':checked') ) {
-			chk2.attr('checked', true);
-		} else {
-			chk2.attr('checked', false);
-		}
-	});	
-	
-	</script>
 	
