@@ -3,7 +3,7 @@
 return [
 
     'price' => 1150,
-    'max' => 4,
+    'max' => 8,
     'days' => 7,
     'points' => 10000
 ];
