@@ -16,7 +16,7 @@
 	});
 
 	</script>
-<div class="listing-edit sticky" id="listing-edit"><section class="content full"><p><strong>Please Note:</strong> Your Listing Must Be Set To Active To Be Visible To The Public</p><input data-toggle="modal" data-target="#confirm-submit" type="button" class="button right" value="Update"><a href="http://192.168.10.10/rental" class="button rightlink">Cancel</a></section><br style="clear:both;" /></div>
+<div class="listing-edit sticky" id="listing-edit"><section class="content full"><p><strong>Please Note:</strong> Your Listing Must Be Set To Active To Be Visible To The Public</p><input data-toggle="modal" data-target="#confirm-submit" type="button" class="button right" value="Update"><a href="https://rentgorilla.ca/rental" class="button rightlink">Cancel</a></section><br style="clear:both;" /></div>
 
     <section class="content full admin">
         <h1><i class="fa fa-pencil-square"></i> Edit rental</h1>
