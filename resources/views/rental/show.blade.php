@@ -225,6 +225,19 @@
                     </td>
                     <td>{{ $rental->yearofrenovation }}</td>
                 </tr>
+				<tr>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-hand-pointer-o"></i>
+                        <!-- Disability Access -->
+                        Occupancy Permit
+                    </td>
+                    <td>{{ $rental->occupancy_permit  ? 'Yes' : 'No'  }}</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-qrcode"></i>
+                        Up To Code
+                    </td>
+                    <td>{{ $rental->up_to_code   ? 'Yes' : 'No' }}</td>
+                </tr>
             </table>
         </article>
         <aside class="listing_sidebar">
