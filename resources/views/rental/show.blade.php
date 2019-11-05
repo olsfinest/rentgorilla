@@ -54,7 +54,7 @@
     <section class="content full">
         <section class="listing_meta">
 			<span class="listing_neighborhood">
-				<h1>{{ $rental->street_address }}</h1>
+				<h1>{{ $rental->street_address }} <i><small>{{ $rental->apartment }}</small></i></h1>
 				<h2>{{ $rental->location->city . ', ' . Config::get('rentals.provinces.' . $rental->location->province) }}</h2>
 			</span>
 			<span class="listing_availability">
@@ -194,10 +194,36 @@
                     </td>
                     <td>{{ $rental->disability_access ? 'Yes' : 'No' }}</td>
                     <td class="listing_ng_label">
-                        <i class="fa fa-question-circle"></i>
+                        <i class="fa fa-pause-circle"></i>
                         Services
                     </td>
                     <td class="tooltipable" title="{{ $services = implode(', ', $rental->services()->lists('name')->all()) }}">{{ str_limit($services, 17) }}</td>
+                </tr>
+				 <tr>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-share-square-o"></i>
+                        <!-- Disability Access -->
+                        Flooring
+                    </td>
+                    <td>{{ $rental->floors }}</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-hospital-o"></i>
+                        Safety and Security
+                    </td>
+                    <td class="tooltipable" title="{{ $safeties = implode(', ', $rental->safeties()->lists('name')->all()) }}">{{ str_limit($safeties, 17) }}</td>
+                </tr>
+				<tr>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-calendar-o"></i>
+                        <!-- Disability Access -->
+                        Year of Construction
+                    </td>
+                    <td>{{ $rental->yearofconstruction }}</td>
+                    <td class="listing_ng_label">
+                        <i class="fa fa-calendar-o"></i>
+                        Year of Renovation
+                    </td>
+                    <td>{{ $rental->yearofrenovation }}</td>
                 </tr>
             </table>
         </article>
