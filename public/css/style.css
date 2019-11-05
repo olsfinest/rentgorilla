@@ -3328,7 +3328,7 @@ form input[type="button"] {     font-size: 1em; }
   -o-transition: position 10s;
   transition: position 10s; }
 
-.listing-edit .right {     padding: 10.5px 10px; }
+.listing-edit .right {     padding: 11.5px 10px; }
 
 
 i::-webkit-input-placeholder { opacity: 1; -webkit-transition: opacity .5s; transition: opacity .5s; }  /* Chrome <=56, Safari < 10 */
