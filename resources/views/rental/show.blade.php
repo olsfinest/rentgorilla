@@ -96,6 +96,7 @@
                     </ul>
                 </div>
             </section>
+			<h1 class="mobile_price">${{ $rental->price }} {{ $rental->per_room || $rental->isRoom() ? 'per room' : '' }} per month</h1>
             <h3 class="listing_ng_title">Property Details</h3>
             <span id="share" style="width: 150px; float: right;">
                 <i class="fa fa-share-square-o"></i> Share Page
@@ -145,7 +146,7 @@
                         Utilities
                     </td>
                     
-					  <td class="tooltipable" title="{{ $utility = implode(', ', $rental->utility()->lists('name')->all()) }}">{{ str_limit($utility, 17) }}</td>
+					  <td class="tooltipable" title="{{ $utility = implode(', ', $rental->utility()->lists('name')->all()) }}"><span class="desktopshow">{{ str_limit($utility, 17) }}</span><span class="mobileshow">{{ str_limit($utility, 100) }}</span></td>
 					
 					
                 </tr>
@@ -172,7 +173,7 @@
                         <i class="fa fa-television"></i>
                         Appliances
                     </td>
-                    <td class="tooltipable" title="{{ $appliances = implode(', ', $rental->appliances()->lists('name')->all()) }}">{{ str_limit($appliances, 17) }}</td>
+                    <td class="tooltipable" title="{{ $appliances = implode(', ', $rental->appliances()->lists('name')->all()) }}"><span class="desktopshow">{{ str_limit($appliances, 17) }}</span><span class="mobileshow">{{ str_limit($appliances, 100) }}</span></td>
                 </tr>
                 <tr>
                     <td class="listing_ng_label">
@@ -184,7 +185,7 @@
                         <i class="fa fa-fire"></i>
                         Heat Type
                     </td>
-                    <td class="tooltipable" title="{{ $heat = implode(', ', $rental->heat()->lists('name')->all()) }}">{{ str_limit($heat, 17) }}</td>
+                    <td class="tooltipable" title="{{ $heat = implode(', ', $rental->heat()->lists('name')->all()) }}"><span class="desktopshow">{{ str_limit($heat, 17) }}</span><span class="mobileshow">{{ str_limit($heat, 100) }}</span></td>
                 </tr>
                 <tr>
                     <td class="listing_ng_label">
@@ -197,7 +198,7 @@
                         <i class="fa fa-pause-circle"></i>
                         Services
                     </td>
-                    <td class="tooltipable" title="{{ $services = implode(', ', $rental->services()->lists('name')->all()) }}">{{ str_limit($services, 17) }}</td>
+                    <td class="tooltipable" title="{{ $services = implode(', ', $rental->services()->lists('name')->all()) }}"><span class="desktopshow">{{ str_limit($services, 17) }}</span><span class="mobileshow">{{ str_limit($services, 100) }}</span></td>
                 </tr>
 				 <tr>
                     <td class="listing_ng_label">
@@ -210,7 +211,7 @@
                         <i class="fa fa-hospital-o"></i>
                         Safety and Security
                     </td>
-                    <td class="tooltipable" title="{{ $safeties = implode(', ', $rental->safeties()->lists('name')->all()) }}">{{ str_limit($safeties, 17) }}</td>
+                    <td class="tooltipable" title="{{ $safeties = implode(', ', $rental->safeties()->lists('name')->all()) }}"><span class="desktopshow">{{ str_limit($safeties, 17) }}</span><span class="mobileshow">{{ str_limit($safeties, 200) }}</span></td>
                 </tr>
 				<tr>
                     <td class="listing_ng_label">
@@ -242,7 +243,7 @@
         </article>
         <aside class="listing_sidebar">
             <section class="listing_rent">
-                <h1>${{ $rental->price }} {{ $rental->per_room || $rental->isRoom() ? 'per room' : '' }} per month</h1>
+                <h1 class="desktop_price">${{ $rental->price }} {{ $rental->per_room || $rental->isRoom() ? 'per room' : '' }} per month</h1>
 
                 <h3><a href="#">Contact Now</a></h3>
 

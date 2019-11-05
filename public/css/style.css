@@ -3330,6 +3330,64 @@ form input[type="button"] {     font-size: 1em; }
 
 .listing-edit .right {     padding: 11.5px 10px; }
 
+.mobile_price  { display:none; }
+
+.desktop_price { display:block; }
+
+.mobileshow { display:none; } 
+.desktopshow { display:block; }
+
+@media only screen and (max-width: 764px) {
+	
+	.listing_details {
+		max-width: 641px;
+		float: left;
+		width:auto;
+	}
+	
+	.listing_details .listing_overview {
+		padding: 7px;
+		border: 1px solid #dddddd;
+		width: auto;
+	}
+		
+	.listing_details table.listing_ng tr td { 
+		padding: 3px;
+		vertical-align: middle;
+		font-size: .8em;
+		width: 50%;
+		display: block;
+		float: left;
+		min-height: 40px;
+		border-bottom: 0px solid #ccc;	
+		padding-top: 10px;		
+	}	
+	
+	.listing_details table.listing_ng tr td.listing_ng_label {     
+		background: none;
+		width: 50%;
+		display: block;
+		float: left; 
+		vertical-align: middle;
+		border-bottom: 0px solid #ccc;
+		padding-top: 10px;
+	}
+	
+	.main .content h1 { font-size: 12px; }
+	.listing_meta h2 { font-size: 11px; }
+	
+	.listing_details .listing_overview .listing_view_controls ul li { width: 100%; }
+	.listing_details .listing_overview .listing_image h3 { font-size:12px; }
+	
+	.mobile_price { font-size:16px!important; font-weight:bold; text-align:center; display:block; }
+	.mobileshow { display:block; } 
+	.desktop_price , .desktopshow { display:none; }
+	
+	.listing_details table.listing_ng { background: #efefef; }
+}	
+
+
+
 
 i::-webkit-input-placeholder { opacity: 1; -webkit-transition: opacity .5s; transition: opacity .5s; }  /* Chrome <=56, Safari < 10 */
 :-moz-placeholder { opacity: 1; -moz-transition: opacity .5s; transition: opacity .5s; } /* FF 4-18 */
