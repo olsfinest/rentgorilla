@@ -3422,6 +3422,8 @@ float: right;font-size: 15px; padding: 10px;  margin-right: 10px;  margin-top: 0
 	
 	.listing_details .listing_overview .listing_view_controls ul li a { margin-bottom:10px; }
 	
+	.listing-edit .right , .listing-edit .rightlink { padding:10px!important; }
+	
 }	
 
 
