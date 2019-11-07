@@ -160,7 +160,7 @@
                         <li>
                             <span class="count">{{ $rental->phone_click }}</span>
                             <span class="label">
-								Total Phone Calls
+								Total Phone Clicks
 							</span>
                         </li>
                     </ul>
