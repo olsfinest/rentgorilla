@@ -32,7 +32,7 @@
             <i class="fa fa-map"></i> Location Information
         </legend>
        
-        <label for="street_address" class="required half left">Street Address <i title="Feel free to use street abbreviations and specify apartment or unit numbers." class="fa fa-info-circle"></i>
+        <label for="street_address" class="required half left">Street Address <i title="Feel free to use street abbreviations." class="fa fa-info-circle"></i>
              {!! Form::text('street_address', null, ['class' => 'form-control', 'id' => 'street_address', 'placeholder' => 'E.g., 123 Main Street']) !!}
         </label>
 		
@@ -103,7 +103,7 @@
         </label>
 		
 		
-         <label for="utitlies" class="half left">Utilities
+         <label for="utitlies" class="half left">Included Utilities
         <table style="width:100%;">
             @foreach(array_chunk(\RentGorilla\Utility::orderBy('name')->get()->all(), 2) as $column)
                 <tr>
