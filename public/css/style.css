@@ -3319,7 +3319,11 @@ form input[type="button"] {     font-size: 1em; }
 .listing-edit { background-color: #333333;  position: relative;    width: 100%; }
 .listing-edit p { color:white; }
 .listing-edit p { float:left; }
-.listing-edit .right , .listing-edit .rightlink {  float: right;font-size: 15px; padding: 10px;  margin-right: 10px;  margin-top: 0;  margin-bottom: 15px; }
+.listing-edit .right , .listing-edit .rightlink {  
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+float: right;font-size: 15px; padding: 10px;  margin-right: 10px;  margin-top: 0;  margin-bottom: 15px; }
 .fixed2 { top:0; position:sticky; }
 
 .sticky 	{  -webkit-transition: position 10s;
