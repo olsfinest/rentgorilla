@@ -164,6 +164,8 @@
 							</span>
                         </li>
                     </ul>
+					<p class="leftstatistics">Currently displaying statistics since {{ $rental->statisticdate }}.</p>
+					<p class="rightstatistics"><a href="{{ route('rental.reset', $rental->uuid) }}">Reset Statistics For This Property</a></p>
                 </section>
             </article><!-- end individual property -->
             @endforeach

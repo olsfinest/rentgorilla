@@ -11,6 +11,7 @@ use RentGorilla\Http\Requests\EmailManagerRequest;
 use RentGorilla\Http\Requests\ModifyRentalRequest;
 use RentGorilla\Http\Requests\RentalPhoneRequest;
 use RentGorilla\Repositories\RentalRepository;
+use RentGorilla\Repositories\FavouritesRepository;
 use RentGorilla\Repositories\RewardRepository;
 use RentGorilla\Commands\EmailManagerCommand;
 use RentGorilla\Commands\CreateRentalCommand;
@@ -34,6 +35,9 @@ use Auth;
 use Image;
 use Log;
 use DB;
+use RentGorilla\Favourite;
+use RentGorilla\Like;
+
 
 class RentalController extends Controller {
 
@@ -51,8 +55,10 @@ class RentalController extends Controller {
      * @var RewardRepository
      */
     protected $rewardRepository;
+	
+	protected $favouritesRepository;
 
-    function __construct(RentalRepository $rentalRepository, PromotionManager $promotionManager, PhotoRepository $photoRepository, RewardRepository $rewardRepository)
+    function __construct(RentalRepository $rentalRepository, PromotionManager $promotionManager, PhotoRepository $photoRepository, RewardRepository $rewardRepository , FavouritesRepository $favouritesRepository)
     {
         $this->middleware('auth', ['except' => ['show', 'showPhone', 'sendManagerMail']]);
         $this->middleware('sensitive', ['only' => ['showPromotions', 'showCancelPromotion', 'promoteRental', 'cancelPromotion', 'promoteRentalWithPoints']]);
@@ -60,6 +66,7 @@ class RentalController extends Controller {
         $this->promotionManager = $promotionManager;
         $this->photoRepository = $photoRepository;
         $this->rewardRepository = $rewardRepository;
+		$this->favouritesRepository = $favouritesRepository;
     }
 
     public function showPromotions($rental_id)
@@ -309,7 +316,51 @@ class RentalController extends Controller {
 
 	public function update($id, ModifyRentalRequest $request)
 	{
+
         $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $id);
+		
+		$resetsubmit =  $request->get('resetsubmit');
+		
+		$userid =  $request->get('userid');
+		
+		$rentalid =  $request->get('rentalid');
+		
+
+		if($resetsubmit != NULL) {
+			
+			$rental->views = 0;	
+			$rental->search_views = 0;	
+			$rental->email_click = 0;	
+			$rental->phone_click = 0;
+
+			$rental->statisticdate = date('Y-m-d H:i:s');	
+			
+			$rental->save();
+			
+			$favorites = Favourite::where(['user_id' => $userid, 'rental_id' => $rentalid])->first();
+			
+			$countfavorite = count($favorites);
+			
+			if($countfavorite != 0) {
+			
+				$favorites->delete();
+			
+			}
+			
+			$like = Like::where(['user_id' => $userid, 'rental_id' => $rentalid])->first();
+			
+			$countlike = count($like);
+			
+			if($countlike != 0) {
+			
+				$like->delete();
+			
+			}
+			
+
+			return redirect()->route('rental.index')->with('flash:success', 'Your Stats has been reset!');
+			
+		}  else  {
 
         $rental = $this->dispatchFrom(EditRentalCommand::class, $request, [
             'id' => $rental->uuid
@@ -320,6 +371,8 @@ class RentalController extends Controller {
         } else {
             return redirect()->route('rental.index')->with('flash:success', 'Your property has been updated! Remember to activate your property.');
         }
+		
+		}
 
     }
 
@@ -343,6 +396,8 @@ class RentalController extends Controller {
 
         return redirect()->route('rental.index')->with('flash:success', 'Your property has been deleted!');
 	}
+	
+	
 
     public function showDelete($id)
     {
@@ -350,6 +405,21 @@ class RentalController extends Controller {
 
         return view('rental.delete', compact('rental'));
     }
+	
+	 public function showReset($id)
+    {
+        $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $id);
+
+        return view('rental.reset', compact('rental' , $id));
+    }
+	
+	public function updateReset(Request $request, $id) {
+		
+		
+		$rental = Rental::find($id);
+		
+
+	}
 
     public function showPhotos($id)
     {

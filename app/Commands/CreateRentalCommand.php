@@ -50,10 +50,9 @@ class CreateRentalCommand extends Command {
 	public $occupancy_permit;
 	
 	public $up_to_code;
-
 	
 	
-    function __construct($furnished , $user_id, $street_address, $city,  $lat , $lng , $county , $province, $type, $pets, $parking, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking,   $available,  $lease, $description, $video, $service_list = NULL ,  $per_room = null, $active = null, $square_footage = null, $feature_list = null,  $appliance_list = null, $heat_list = null, $safety_list = null , $utility_list = null ,  $postal_code = null ,  $yearofconstruction , $yearofrenovation , $floors , $apartment , $occupancy_permit , $up_to_code )
+    function __construct($furnished , $user_id, $street_address, $city,  $lat , $lng , $county , $province, $type, $pets, $parking, $baths, $beds, $price, $deposit, $laundry, $disability_access, $smoking,   $available,  $lease, $description, $video, $service_list = NULL ,  $per_room = null, $active = null, $square_footage = null, $feature_list = null,  $appliance_list = null, $heat_list = null, $safety_list = null , $utility_list = null ,  $postal_code = null ,  $yearofconstruction , $yearofrenovation , $floors , $apartment , $occupancy_permit , $up_to_code  )
     {
         $this->user_id = $user_id;
         $this->street_address = $street_address;
@@ -105,8 +104,7 @@ class CreateRentalCommand extends Command {
 		
 		$this->service_list = $service_list;
 		
-		
-		
+	
 		
     }
 

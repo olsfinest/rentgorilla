@@ -1665,7 +1665,7 @@ footer {
     margin: .5em; }
 
   .listing_overview {
-    max-width: 90%;
+    max-width: 100%;
     margin: 0 auto 1em auto;
     position: relative; }
 
@@ -3337,6 +3337,13 @@ form input[type="button"] {     font-size: 1em; }
 .mobileshow { display:none; } 
 .desktopshow { display:block; }
 
+
+
+.leftstatistics { float:left; background:#FFFFFF; padding:10px; font-size:12px; margin-top:15px; }
+.rightstatistics { float:right;  background:#333333; padding:10px; font-size:12px; color:white; margin-top:15px; }
+.rightstatistics a { color:white; text-decoration:none; }
+
+
 @media only screen and (max-width: 764px) {
 	
 	.listing_details {
@@ -3360,7 +3367,8 @@ form input[type="button"] {     font-size: 1em; }
 		float: left;
 		min-height: 40px;
 		border-bottom: 0px solid #ccc;	
-		padding-top: 10px;		
+		padding-top: 10px;
+		font-size:12px;
 	}	
 	
 	.listing_details table.listing_ng tr td.listing_ng_label {     
@@ -3371,6 +3379,7 @@ form input[type="button"] {     font-size: 1em; }
 		vertical-align: middle;
 		border-bottom: 0px solid #ccc;
 		padding-top: 10px;
+		font-size:12px;
 	}
 	
 	.main .content h1 { font-size: 12px; }
@@ -3379,14 +3388,36 @@ form input[type="button"] {     font-size: 1em; }
 	.listing_details .listing_overview .listing_view_controls ul li { width: 100%; }
 	.listing_details .listing_overview .listing_image h3 { font-size:12px; }
 	
-	.mobile_price { font-size:16px!important; font-weight:bold; text-align:center; display:block; }
+	.mobile_price { font-size:25px!important; font-weight:bold; text-align:center; display:block; }
 	.mobileshow { display:block; } 
 	.desktop_price , .desktopshow { display:none; }
 	
 	.listing_details table.listing_ng { background: #efefef; }
+	
+	.rightstatistics { 
+		float: none;
+		background: #333333;
+		font-size: 12px;
+		color: white;
+		margin-top: 15px;
+		max-width: 220px;
+		margin: 0 auto 20px auto;
+		padding: 10px; 
+	}
+	
+	.leftstatistics {
+		float: none;
+		background: none;
+		padding: 10px;
+		font-size: 12px;
+		margin-top: 15px;
+		text-align: center;
+	}
+	
+	
+	.listing_details .listing_overview .listing_view_controls ul li a { margin-bottom:10px; }
+	
 }	
-
-
 
 
 i::-webkit-input-placeholder { opacity: 1; -webkit-transition: opacity .5s; transition: opacity .5s; }  /* Chrome <=56, Safari < 10 */

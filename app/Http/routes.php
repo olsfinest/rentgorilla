@@ -158,6 +158,8 @@ $router->post('rental/phone', ['as' => 'rental.phone', 'uses' => 'RentalControll
 $router->post('rental/email-manager', ['as' => 'rental.email', 'uses' => 'RentalController@sendManagerMail']);
 $router->post('rental/show-video', ['as' => 'rental.video.show', 'uses' => 'VideoController@getEmbeddedVideo']);
 $router->get('rental/{id}/delete', ['as' => 'rental.delete', 'uses' => 'RentalController@showDelete']);
+$router->get('rental/{id}/reset', ['as' => 'rental.reset', 'uses' => 'RentalController@showReset']);
+
 $router->post('rental/save-photo-order', ['as' => 'rental.photoOrder', 'uses' => 'RentalController@savePhotoOrder']);
 $router->post('rental/like-video', 'VideoController@toggleLike');
 $router->resource('rental', 'RentalController');

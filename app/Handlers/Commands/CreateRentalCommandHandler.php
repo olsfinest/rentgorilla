@@ -77,6 +77,8 @@ class CreateRentalCommandHandler {
 		
 		$rental->up_to_code = $command->up_to_code;
 		
+		$rental->statisticdate = date('Y-m-d H:i:s');
+		
 		
 
         //they want to activate it
