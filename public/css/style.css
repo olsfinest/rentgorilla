@@ -3320,6 +3320,7 @@ form input[type="button"] {     font-size: 1em; }
 .listing-edit p { color:white; }
 .listing-edit p { float:left; }
 .listing-edit .right , .listing-edit .rightlink {  
+ border-radius: 0;
 -webkit-appearance: none;
 -moz-appearance: none;
 appearance: none;
