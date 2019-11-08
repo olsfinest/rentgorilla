@@ -164,6 +164,8 @@ $router->post('rental/save-photo-order', ['as' => 'rental.photoOrder', 'uses' =>
 $router->post('rental/like-video', 'VideoController@toggleLike');
 $router->resource('rental', 'RentalController');
 
+$router->resource('dashboard', 'RentalController');
+
 $router->get('preview/{id}', ['as' => 'rental.preview', 'uses' => 'RentalController@showPreview']);
 
 $router->delete('photo/{id}', ['as' => 'photos.delete', 'uses' => 'RentalController@deletePhoto']);

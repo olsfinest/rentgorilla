@@ -27,7 +27,7 @@
                 @endif
                 <div class="avatar_actions">
                     <span class="user_name">{{ Auth::user()->getFullName() }} | <a href="/admin/subscription/plan#points">{{ Auth::user()->points }} Points</a></span>
-                    <a href="{{ route('rental.index') }}"><span class="fa fa-dashboard"></span>My Dashboard</a>
+                    <a href="{{ route('dashboard.index') }}"><span class="fa fa-dashboard"></span>My Dashboard</a>
                     <a href="{{ route('profile') }}" class="edit_profile"><span class="fa fa-user"></span>Edit Profile</a>
                     <a href="/logout" class="logout"><span class="fa fa-close"></span>Logout</a>
                 </div>

@@ -358,7 +358,7 @@ class RentalController extends Controller {
 			}
 			
 
-			return redirect()->route('rental.index')->with('flash:success', 'Your Stats has been reset!');
+			return redirect()->route('dashboard.index')->with('flash:success', 'Your Stats has been reset!');
 			
 		}  else  {
 
@@ -367,9 +367,9 @@ class RentalController extends Controller {
         ]);
 
         if($rental->active) {
-            return redirect()->route('rental.index')->with('flash:success', 'Your property has been updated!');
+            return redirect()->route('dashboard.index')->with('flash:success', 'Your property has been updated!');
         } else {
-            return redirect()->route('rental.index')->with('flash:success', 'Your property has been updated! Remember to activate your property.');
+            return redirect()->route('dashboard.index')->with('flash:success', 'Your property has been updated! Remember to activate your property.');
         }
 		
 		}
@@ -394,7 +394,7 @@ class RentalController extends Controller {
 
         $this->rentalRepository->delete($rental);
 
-        return redirect()->route('rental.index')->with('flash:success', 'Your property has been deleted!');
+        return redirect()->route('dashboard.index')->with('flash:success', 'Your property has been deleted!');
 	}
 	
 	
