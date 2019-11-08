@@ -24,7 +24,7 @@
         {!! Form::model($rental, ['method' => 'PATCH', 'route' => ['rental.update', $rental->uuid], 'class' => 'form-horizontal', 'id' => 'modify_rental_form']) !!}
         @include('rental.form', ['submitButtonText' => 'Update'])
         {!! Form::close() !!}
-        <a href="{{ route('rental.index') }}" class="button">Cancel</a>
+        <a href="{{ route('dashboard.index') }}" class="button">Cancel</a>
     </section>
 	
 <script>

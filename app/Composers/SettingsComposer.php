@@ -7,7 +7,7 @@ class SettingsComposer {
     public function compose($view)
     {
         $links = [
-            ['route' => 'rental.index', 'text' => 'My Properties'],
+            ['route' => 'dashboard.index', 'text' => 'My Properties'],
             ['route' => 'promotions', 'text' => 'Promote Properties'],
             ['route' => 'favourites', 'text' => 'My Favourites'],
             ['route' => 'profile', 'text' => 'Profile'],

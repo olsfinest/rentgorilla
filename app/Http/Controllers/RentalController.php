@@ -99,7 +99,7 @@ class RentalController extends Controller {
 
         $this->rentalRepository->unqueueRental($rental);
 
-        return redirect()->route('rental.index')->with('flash:success', 'Your promotion has been cancelled');
+        return redirect()->route('dashboard.index')->with('flash:success', 'Your promotion has been cancelled');
     }
 
 
@@ -110,11 +110,11 @@ class RentalController extends Controller {
 
        if( ! $rental->isActive()) {
 
-           return redirect()->route('rental.index')->with('flash:success', 'Sorry, your property must be active in order to promote it.');
+           return redirect()->route('dashboard.index')->with('flash:success', 'Sorry, your property must be active in order to promote it.');
        }
 
         if($rental->isPromoted()) {
-            return redirect()->route('rental.index')->with('flash:success', 'Sorry, that property is already promoted.');
+            return redirect()->route('dashboard.index')->with('flash:success', 'Sorry, that property is already promoted.');
         }
 
 
@@ -157,7 +157,7 @@ class RentalController extends Controller {
             $message = 'Your promotion has been queued!';
         }
 
-        return redirect()->route('rental.index')->with('flash:success', $message);
+        return redirect()->route('dashboard.index')->with('flash:success', $message);
     }
 
     public function promoteRentalWithPoints($rental_id)
@@ -165,11 +165,11 @@ class RentalController extends Controller {
         $rental = $this->rentalRepository->findRentalForUser(Auth::user(), $rental_id);
 
         if( ! $rental->isActive()) {
-            return redirect()->route('rental.index')->with('flash:success', 'Sorry, your property must be active in order to promote it.');
+            return redirect()->route('dashboard.index')->with('flash:success', 'Sorry, your property must be active in order to promote it.');
         }
 
         if($rental->isPromoted()) {
-            return redirect()->route('rental.index')->with('flash:success', 'Sorry, that property is already promoted.');
+            return redirect()->route('dashboard.index')->with('flash:success', 'Sorry, that property is already promoted.');
         }
 
         if(Auth::user()->points < config('promotion.points')) {
@@ -188,7 +188,7 @@ class RentalController extends Controller {
             $message = 'Your promotion has been queued!';
         }
 
-        return redirect()->route('rental.index')->with('flash:success', $message);
+        return redirect()->route('dashboard.index')->with('flash:success', $message);
 
     }
 
@@ -590,6 +590,6 @@ class RentalController extends Controller {
     {
         $availabilityModified = $this->dispatch(new ModifyRentalAvailabilityCommand($request, $rental));
 
-        return redirect()->route('rental.index')->with('flash:success', $availabilityModified ? 'Your date of availability has been updated!' : 'Your listing has been deactivated!');
+        return redirect()->route('dashboard.index')->with('flash:success', $availabilityModified ? 'Your date of availability has been updated!' : 'Your listing has been deactivated!');
     }
 }

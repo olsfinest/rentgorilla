@@ -110,9 +110,9 @@ class SocialAuthController extends Controller
 
         Auth::login($user, true);
 
-        if($message) return redirect()->route('rental.index')->with('flash:success', $message);
+        if($message) return redirect()->route('dashboard.index')->with('flash:success', $message);
 
-        return redirect()->route('rental.index');
+        return redirect()->route('dashboard.index');
     }
 
     private function updateSocialUser($user, $firstName, $lastName, $email, $avatar)

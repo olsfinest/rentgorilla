@@ -11,6 +11,6 @@
         {!! Form::submit('Rotate', ['class' => 'button']) !!}
         {!! Form::close() !!}
         <br><a href="{{ route('rental.photos.index', $photo->rental->uuid) }}" class="button">Back to Photos</a>
-        <br><a href="{{ route('rental.index') }}" class="button">Back to Dashboard</a>
+        <br><a href="{{ route('dashboard.index') }}" class="button">Back to Dashboard</a>
     </section>
 @endsection

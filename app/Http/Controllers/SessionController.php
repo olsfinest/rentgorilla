@@ -51,7 +51,7 @@ class SessionController extends Controller {
             if($request->ajax()) {
                 return response()->json(['success' => true]);
             } else {
-                return redirect()->route('rental.index');
+                return redirect()->route('dashboard.index');
             }
         }
 

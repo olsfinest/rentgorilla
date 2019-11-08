@@ -30,7 +30,7 @@ class RegistrationController extends Controller {
 
         Auth::login($user);
 
-        return redirect()->route('rental.index', ['verified' => 1])->with('flash:success', 'Thank you, your account has been verified!');
+        return redirect()->route('dashboard.index', ['verified' => 1])->with('flash:success', 'Thank you, your account has been verified!');
     }
 
     public function resendConfirmation(ResendConfirmationRequest $request)

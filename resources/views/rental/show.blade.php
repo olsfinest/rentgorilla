@@ -40,7 +40,7 @@
         @if($searchResultsBtn)
             <a class="back" href="{{ route('list', [$rental->location->slug, 'page' => session('page', 1)]) }}">&laquo; Back to Search Results</a>
         @else
-            <a class="back" href="{{ route('rental.index') }}">&laquo; Back to Dashboard</a>
+            <a class="back" href="{{ route('dashboard.index') }}">&laquo; Back to Dashboard</a>
         @endif
         @if($next)
             <a class="forward" href="{{ route('rental.show', [$next]) }}">Next &raquo;</a>

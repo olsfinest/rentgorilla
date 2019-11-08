@@ -20,7 +20,7 @@ class Sensitive
         }
 
         if ($this->isLoggedInAsAdmin($request)) {
-            return redirect()->route('rental.index')->with('flash:success', 'Sorry, you do not have permission to access that resource.');
+            return redirect()->route('dashboard.index')->with('flash:success', 'Sorry, you do not have permission to access that resource.');
         }
 
         return $next($request);

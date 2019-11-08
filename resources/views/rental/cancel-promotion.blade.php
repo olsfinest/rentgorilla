@@ -19,7 +19,7 @@
 
             {!! Form::close() !!}
 
-        <a class="button" href="{{ route('rental.index') }}">Do not cancel</a>
+        <a class="button" href="{{ route('dashboard.index') }}">Do not cancel</a>
 
     </section>
 @stop

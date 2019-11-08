@@ -28,7 +28,7 @@
     <p>{{ $photoCount }} photo{{ $photoCount == 1 ? '' : 's' }}.</p>
     <a id="saveOrderBtn" class="button">Save Photo Order</a>
 @endif
-    <br><a href="{{ route('rental.index') }}" class="button">Back to Dashboard</a>
+    <br><a href="{{ route('dashboard.index') }}" class="button">Back to Dashboard</a>
     </section>
 @endsection
 @section('footer')

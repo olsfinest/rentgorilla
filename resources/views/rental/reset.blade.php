@@ -20,7 +20,7 @@
         @include('rental.form', ['submitButtonText' => 'Update'])
 		<input  type="submit" class="button buttonupdate" value="Reset">
         {!! Form::close() !!}
-        <a href="{{ route('rental.index') }}" class="button buttonupdate">Cancel</a>
+        <a href="{{ route('dashboard.index') }}" class="button buttonupdate">Cancel</a>
     </section>
 	<style>
 	fieldset , .button { display:none!important; }

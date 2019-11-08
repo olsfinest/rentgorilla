@@ -67,7 +67,7 @@ class AdminController extends Controller {
 
         if($request->get('login')) {
             Auth::loginUsingId($user->id);
-            return redirect()->route('rental.index')->with('flash:success', "You are now logged in as the new{$is_admin} user.");
+            return redirect()->route('dashboard.index')->with('flash:success', "You are now logged in as the new{$is_admin} user.");
         }
 
         return redirect()->back()->with('flash:success', "New{$is_admin} user created!");
@@ -111,7 +111,7 @@ class AdminController extends Controller {
                 session(['admin' => true]);
             }
             Auth::loginUsingId($user->id);
-            return redirect()->route('rental.index')->with('flash:success', 'You are now logged in as ' . $user->email);
+            return redirect()->route('dashboard.index')->with('flash:success', 'You are now logged in as ' . $user->email);
         }
 
         return redirect()->back()->with('flash:success', 'Cannot log in as ' . $user->email . '. Permission denied.');

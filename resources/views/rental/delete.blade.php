@@ -8,7 +8,7 @@
         <p>Are you sure you want to delete this rental? This action cannot be undone.</p>
         {!! Form::open(['method' => 'DELETE', 'route' => ['rental.update', $rental->uuid]]) !!}
         {!! Form::submit('Yes, Delete') !!}
-        <a href="{{ route('rental.index') }}" class="button">Cancel</a>
+        <a href="{{ route('dashboard.index') }}" class="button">Cancel</a>
 
     </section>
 @stop
